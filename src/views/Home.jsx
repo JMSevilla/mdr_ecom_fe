@@ -1,10 +1,14 @@
 import React from 'react'
-
+import ApplicationBar from '../components/Appbar/Appbar'
+import {Container} from '@mui/material'
 
 const Home = () => {
     return (
         <>
-            <h1>Hello world</h1>
+            <ApplicationBar title={'MDR Ecom'} />
+            <Container style={{marginTop: '100px'}}>
+                test
+            </Container>    
         </>
     )
 }

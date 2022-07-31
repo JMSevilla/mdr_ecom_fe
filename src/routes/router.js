@@ -1,3 +1,4 @@
 export const appRouter = { 
-    Homepage : {path : "/"}
+    Homepage : {path : "/"},
+    Signup : {path : "/signup"}
 }

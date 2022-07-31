@@ -1,22 +1,32 @@
 import React from 'react'
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-
+import AppButton from '../Buttons/Button'
+import { useHistory } from 'react-router-dom';
+import { appRouter } from '../../routes/router';
 
 const ApplicationBar = (props) => {
     const { title } = props
+    const history = useHistory()
+    const navigateSignup = () => {
+        history.push(appRouter.Signup.path)
+    }
     return (
         <>
-            <AppBar >
+            <AppBar style={{backgroundColor: '#28292b'}}>
                 <Toolbar>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     {title}
                 </Typography>
-                <Button color="inherit">Login</Button>
+                <AppButton 
+                buttonName={'Sign in'}
+                size={'small'}
+                color={'inherit'} /> / <AppButton 
+                buttonName={'Sign up'}
+                handleClick={() => navigateSignup()}
+                size={'small'}
+                color={'inherit'} />
                 </Toolbar>
             </AppBar>
         </>
