@@ -2,14 +2,15 @@ import React from 'react'
 import {Button} from '@mui/material'
 
 const AppButton = (props) => {
-    const { buttonName, handleclick, variant, size, style } = props
+    const { buttonName, handleClick, variant, size, style, color } = props
     return (
         <>
             <Button
             variant={variant}
             style={style}
-            onClick={handleclick}
+            onClick={handleClick}
             size={size}
+            color={color}
             >{buttonName}</Button>
         </>
     )
