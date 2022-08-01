@@ -10,7 +10,7 @@ const Signup = () => {
         open, setOpen} = useContext(GlobalContext)
     return (
         <>
-            <ApplicationBar title={'MDR Ecom'} />
+            <ApplicationBar title={'Ecommerce'} simplified/>
            <ReplicateOnInit>
             <SignupField 
             activeSteps={activeSteps}

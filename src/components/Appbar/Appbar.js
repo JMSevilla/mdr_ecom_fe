@@ -4,14 +4,14 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import AppButton from "../Buttons/Button";
-import Link from '@mui/material/Link';
+import Link from "@mui/material/Link";
 import logo from "../../assets/images/logo/modernresolve.png";
 import { useHistory } from "react-router-dom";
 import { appRouter } from "../../routes/router";
-import { navbarData } from "../../constants/Header/NavbarData";
+import { navbarData } from "../../core/utils/helper";
 
 const ApplicationBar = (props) => {
-  const { title } = props;
+  const { title, simplified } = props;
   const history = useHistory();
   const navigateSignup = () => {
     history.push(appRouter.Signup.path);
@@ -31,36 +31,73 @@ const ApplicationBar = (props) => {
               gap: ".5rem",
             }}
           >
-            <img
-              src={logo}
-              alt="logo"
-              style={{ width: "50px", height: "50px" }}
-            />
-            <Typography variant="h6" component="div">
-              {title}
-            </Typography>
+            {simplified ? (
+              <>
+                <Link
+                  href="/"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: ".5rem",
+                  }}
+                  color={"inherit"}
+                  underline={"none"}
+                >
+                  <img
+                    src={logo}
+                    alt="logo"
+                    style={{ width: "50px", height: "50px" }}
+                  />
+                  <Typography variant="h6" component="div">
+                    {title}
+                  </Typography>
+                </Link>
+              </>
+            ) : (
+              <>
+                <img
+                  src={logo}
+                  alt="logo"
+                  style={{ width: "50px", height: "50px" }}
+                />
+                <Typography variant="h6" component="div">
+                  {title}
+                </Typography>
+              </>
+            )}
           </Box>
-          <Box style={{display: 'flex', flexGrow: 1, gap: '2rem'}}>
-            {navbarData.map((item, index) => {
-              return (
-                <>
-                  {item.dropdown === false ? (
+          {!simplified ? (
+            <>
+              <Box style={{ display: "flex", flexGrow: 1, gap: "2rem" }}>
+                {navbarData.map((item, index) => {
+                  return (
                     <>
-                      <Link href={item.to} key={index} color={'inherit'} underline={'hover'}>
-                        <Typography variant="h6" component="div">
-                          {item.link}
-                        </Typography>
-                      </Link>
+                      {item.dropdown === false ? (
+                        <>
+                          <Link
+                            href={item.to}
+                            key={index}
+                            color={"inherit"}
+                            underline={"hover"}
+                          >
+                            <Typography variant="h6" component="div">
+                              {item.link}
+                            </Typography>
+                          </Link>
+                        </>
+                      ) : (
+                        <>
+                          {/* dropdown selection here for shop -> category */}
+                        </>
+                      )}
                     </>
-                  ) : (
-                    <>
-                    
-                    </>
-                  )}
-                </>
-              );
-            })}
-          </Box>
+                  );
+                })}
+              </Box>
+            </>
+          ) : (
+            <></>
+          )}
           <AppButton buttonName={"Sign in"} size={"small"} color={"inherit"} />{" "}
           /{" "}
           <AppButton

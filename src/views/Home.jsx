@@ -1,14 +1,15 @@
 import React from 'react'
 import ApplicationBar from '../components/Appbar/Appbar'
-import {Container} from '@mui/material'
+import SystemContainer from '../components/Container/Container'
+import Services from './FrontPage/services/Services'
 
 const Home = () => {
     return (
         <>
             <ApplicationBar title={'Ecommerce'} />
-            <Container style={{marginTop: '100px'}}>
-                test
-            </Container>    
+            <SystemContainer style={{marginTop: '150px'}}>
+                <Services/>
+            </SystemContainer>    
         </>
     )
 }
