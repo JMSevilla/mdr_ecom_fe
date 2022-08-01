@@ -5,7 +5,7 @@ import {Container} from '@mui/material'
 const Home = () => {
     return (
         <>
-            <ApplicationBar title={'MDR Ecom'} />
+            <ApplicationBar title={'Ecommerce'} />
             <Container style={{marginTop: '100px'}}>
                 test
             </Container>    
