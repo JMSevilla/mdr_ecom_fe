@@ -11,14 +11,52 @@ import { appRouter } from "../../routes/router";
 import { navbarData } from "../../constants/Header/NavbarData";
 
 const ApplicationBar = (props) => {
-  const { title } = props;
+  const { title, simplified } = props;
   const history = useHistory();
   const navigateSignup = () => {
     history.push(appRouter.Signup.path);
   };
   return (
     <>
-      <AppBar
+      {simplified ? (<>
+        <AppBar
+        color={"inherit"}
+        style={{ minHeight: "80px", display: "flex", justifyContent: "center" }}
+      >
+        <Toolbar>
+        
+          <Box
+            style={{
+              display: "flex",
+              alignItems: "center",
+              flexGrow: 1,
+              gap: ".5rem",
+            }}
+          >
+            <Link href="/" style={{display: 'flex', alignItems: 'center', gap: '.5rem'}} color={"inherit"} underline={'none'}>
+            <img
+              src={logo}
+              alt="logo"
+              style={{ width: "50px", height: "50px" }}
+            />
+            <Typography variant="h6" component="div">
+              {title}
+            </Typography>
+            </Link>
+          </Box>
+          <AppButton buttonName={"Sign in"} size={"small"} color={"inherit"} />{" "}
+          /{" "}
+          <AppButton
+            buttonName={"Sign up"}
+            handleClick={() => navigateSignup()}
+            size={"small"}
+            color={"inherit"}
+          />
+        </Toolbar>
+      </AppBar>
+      </>):(<>
+      
+        <AppBar
         color={"inherit"}
         style={{ minHeight: "80px", display: "flex", justifyContent: "center" }}
       >
@@ -71,6 +109,8 @@ const ApplicationBar = (props) => {
           />
         </Toolbar>
       </AppBar>
+      </>)}
+      
     </>
   );
 };
