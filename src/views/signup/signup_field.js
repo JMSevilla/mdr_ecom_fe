@@ -21,7 +21,13 @@ const SignupField = (props) => {
             setOpen(false)
         }, 2000)
     }
-    
+    const selectedIAmBusinessOwner = () => {
+        setOpen(true)
+        setTimeout(() => {
+            setSignupCategory('business_owner')
+            setOpen(false)
+        }, 2000)
+    }
     const CustomerSignup = () => {
         return (
             <ApplicationCard
@@ -100,6 +106,7 @@ const SignupField = (props) => {
                         }}
                         variant={'contained'}
                         size={'small'}
+                        handleClick={() => selectedIAmBusinessOwner()}
                         />
                     </CardContent>
                 }
@@ -193,6 +200,27 @@ const SignupField = (props) => {
                                             ]
                                         }
                                     />
+                                    </>
+                                : signupCategory == 'business_owner' ?
+                                    <>
+                                        <SystemTypography 
+                                            isgutter={true}
+                                            text={'Project Details'}
+                                            variant={'h5'}
+                                        />
+                                        <hr/>
+                                        <SystemStepper 
+                                        activeSteps={activeSteps}
+                                        propArray={customerStepper}
+                                        />
+                                        {
+                                            activeSteps == 0 ? 
+                                            <>
+                                            test
+                                            </>
+                                            :
+                                            <></>
+                                        }
                                     </>
                                 : <></>
                             }
