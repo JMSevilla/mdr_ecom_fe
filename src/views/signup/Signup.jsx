@@ -14,7 +14,7 @@ const Signup = () => {
         
     return (
         <>
-            <ApplicationBar title={'Ecommerce'} />
+            <ApplicationBar title={'Ecommerce'} simplified/>
            <ReplicateOnInit children={ 
                 <SignupField 
                 activeSteps={activeSteps}

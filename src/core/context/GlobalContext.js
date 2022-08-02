@@ -46,6 +46,38 @@ const Global = ({children}) => {
         setAllFieldSelected(tempAllFieldSelected)
         console.log(tempAllFieldSelected)
     }
+    const HandleChangeEmailLogin = (event) => {
+        let value = event.currentTarget.value
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const userLoginObj = {
+            email : value,
+            password : tempFieldSelected.fieldSettings.userLoginObj.password,
+        }
+        const fieldSettings = {
+            userLoginObj : userLoginObj
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+        console.log(tempAllFieldSelected)
+    }
+    const HandleChangePasswordLogin = (event) => {
+        let value = event.currentTarget.value
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const userLoginObj = {
+            email : tempFieldSelected.fieldSettings.userLoginObj.email,
+            password : value,
+        }
+        const fieldSettings = {
+            userLoginObj : userLoginObj
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+        console.log(tempAllFieldSelected)
+    }
     return (
         <GlobalContext.Provider
         value={{
@@ -53,7 +85,7 @@ const Global = ({children}) => {
             signupCategory, setSignupCategory, open, setOpen,
             allFieldSelected, setAllFieldSelected,
             selectedIndex, setSelectedIndex, HandleChangeFirstname,
-            HandleChangeLastname
+            HandleChangeLastname, HandleChangeEmailLogin, HandleChangePasswordLogin
         }}
         >{children}</GlobalContext.Provider>
     )

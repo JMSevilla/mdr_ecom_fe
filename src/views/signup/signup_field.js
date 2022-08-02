@@ -240,6 +240,7 @@ const SignupField = (props) => {
                                                                 placeholder='Enter firstname'
                                                                 handleChange={(e) => HandleChangeFirstname(e)}
                                                                 variant='outlined'
+                                                                label={'Firstname'}
                                                                 id={ !fieldSettings.personalInformationObj.firstname ? 'outlined-error-helper-text' : ''}
                                                                 helperText={!fieldSettings.personalInformationObj.firstname ? 'Firstname is required' : ''}
                                                                 />
@@ -249,11 +250,12 @@ const SignupField = (props) => {
                                                                 children : <AppTextField
                                                                 value={fieldSettings.personalInformationObj.lastname}
                                                                 style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
-                                                                placeholder='Enter firstname'
+                                                                placeholder='Enter Lastname'
                                                                 handleChange={(e) => HandleChangeLastname(e)}
                                                                 variant='outlined'
+                                                                label={'Lastname'}
                                                                 id={ !fieldSettings.personalInformationObj.lastname ? 'outlined-error-helper-text' : ''}
-                                                                helperText={!fieldSettings.personalInformationObj.lastname ? 'Firstname is required' : ''}
+                                                                helperText={!fieldSettings.personalInformationObj.lastname ? 'Lastname is required' : ''}
                                                                 />
                                                             }
                                                         ]
