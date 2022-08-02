@@ -3,21 +3,15 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import AppButton from "../Buttons/Button";
 import AppDropdown from "../Dropdown/Dropdown";
+import AppModal from '../../components/Modal/Modal';
 import Link from "@mui/material/Link";
 import logo from "../../assets/images/logo/modernresolve.png";
-import { useHistory } from "react-router-dom";
-import { appRouter } from "../../routes/router";
 import { navbarData, shopButton } from "../../core/utils/helper";
-
+import SystemLogin from "../../views/Login/Login";
 
 const ApplicationBar = (props) => {
   const { title, simplified } = props;
-  const history = useHistory();
-  const navigateSignup = () => {
-    history.push(appRouter.Signup.path);
-  };
   return (
     <>
       <AppBar
@@ -102,14 +96,7 @@ const ApplicationBar = (props) => {
           ) : (
             <></>
           )}
-          <AppButton buttonName={"Sign in"} size={"small"} color={"inherit"} />{" "}
-          /{" "}
-          <AppButton
-            buttonName={"Sign up"}
-            handleClick={() => navigateSignup()}
-            size={"small"}
-            color={"inherit"}
-          />
+          <AppModal buttonName={"SIGN IN"} title={"ACCOUNT LOGIN"} description={<SystemLogin/>} logo/>
         </Toolbar>
       </AppBar>
     </>

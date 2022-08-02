@@ -48,7 +48,7 @@ export default function AppDropdown(props) {
         id="lock-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
+        onClick={handleClose}
         MenuListProps={{
           'aria-labelledby': 'lock-button',
           role: 'listbox',
