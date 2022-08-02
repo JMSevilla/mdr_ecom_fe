@@ -1,5 +1,5 @@
 import React, {cloneElement} from 'react'
-import { Grid } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 
 const SystemGrid = (props) => {
     const { rowSpacing, columnSpacing, GridItems, style } = props
@@ -13,6 +13,7 @@ const SystemGrid = (props) => {
                 GridItems.map((item) => {
                     return (
                         <Grid item xs={6}>
+                            {item.enableTypography ? <Typography gutterBottom>{item.typography}</Typography> : <></>}
                             {cloneElement(item.children)}
                         </Grid>
                     )

@@ -24,6 +24,7 @@ const ApplicationBar = (props) => {
                 size={'small'}
                 color={'inherit'} /> / <AppButton 
                 buttonName={'Sign up'}
+                testid={'onNavigateSignup'}
                 handleClick={() => navigateSignup()}
                 size={'small'}
                 color={'inherit'} />
