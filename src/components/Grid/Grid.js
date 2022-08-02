@@ -1,5 +1,5 @@
 import React, {cloneElement} from 'react'
-import { Grid } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 
 const SystemGrid = (props) => {
     const { rowSpacing, columnSpacing, GridItems, style } = props

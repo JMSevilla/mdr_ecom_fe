@@ -1,26 +1,35 @@
-import React, {useContext} from 'react'
-import SignupField from './signup_field'
+import React, {useContext, useEffect} from 'react'
 import { GlobalContext } from '../../core/context/GlobalContext'
 import ApplicationBar from '../../components/Appbar/Appbar'
 import SystemBackdrop from '../../components/Backdrop/Backdrop'
+import { ReplicateOnInit } from '../../core/context/CloneElement'
+import SignupField from './signup_field'
 
 const Signup = () => {
-    const {ReplicateOnInit, activeSteps, setActiveSteps,
+    const {activeSteps, setActiveSteps,
         signupCategory, setSignupCategory,
-        open, setOpen} = useContext(GlobalContext)
+        open, setOpen, allFieldSelected, setAllFieldSelected,
+        selectedIndex, setSelectedIndex, HandleChangeFirstname,
+        HandleChangeLastname} = useContext(GlobalContext)
+        
     return (
         <>
-            <ApplicationBar title={'Ecommerce'} simplified/>
-           <ReplicateOnInit>
-            <SignupField 
-            activeSteps={activeSteps}
-            setActiveSteps={setActiveSteps}
-            signupCategory={signupCategory}
-            setSignupCategory={setSignupCategory}
-            setOpen={setOpen}
-            />
-            
-           </ReplicateOnInit>
+            <ApplicationBar title={'Ecommerce'} />
+           <ReplicateOnInit children={ 
+                <SignupField 
+                activeSteps={activeSteps}
+                setActiveSteps={setActiveSteps}
+                allFieldSelected={allFieldSelected}
+                setAllFieldSelected={setAllFieldSelected}
+                selectedIndex={selectedIndex}
+                setSelectedIndex={setSelectedIndex(0)}
+                HandleChangeFirstname={HandleChangeFirstname}
+                signupCategory={signupCategory}
+                setSignupCategory={setSignupCategory}
+                setOpen={setOpen}
+                HandleChangeLastname={HandleChangeLastname}
+                />
+           } />
            <SystemBackdrop 
                 open={open}
             />

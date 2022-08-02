@@ -1,19 +1,22 @@
 import React, {useState} from 'react'
-import ApplicationCard from '../../components/Card/Card'
-import { CardContent, CardMedia } from '@mui/material'
 import SystemContainer from '../../components/Container/Container'
+import ApplicationCard from '../../components/Card/Card'
 import SystemStepper from '../../components/Stepper/Stepper'
 import { customerStepper } from '../../core/utils/helper'
 import SystemTypography from '../../components/Typography/Typography'
 import SystemGrid from '../../components/Grid/Grid'
+
+import { CardContent, CardMedia, TextField } from '@mui/material'
+
+
 import MDRClient from '../../assets/mdrclient.png'
 import MDRDev from '../../assets/mdrdev1.png'
 import AppButton from '../../components/Buttons/Button'
-
+import AppTextField from '../../components/TextField/TextField'
 
 const SignupField = (props) => {
-    const {activeSteps, setActiveSteps, signupCategory, setSignupCategory, setOpen} = props
-  
+    const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname } = props
+    const { fieldSettings } = allFieldSelected[0]
     const selectedCustomer = () => {
         setOpen(true)
         setTimeout(() => {
@@ -83,6 +86,7 @@ const SignupField = (props) => {
             />
         )
     }
+    
     const BusinessOwner = () => {
         return (
             <ApplicationCard
@@ -107,6 +111,7 @@ const SignupField = (props) => {
                         variant={'contained'}
                         size={'small'}
                         handleClick={() => selectedIAmBusinessOwner()}
+                        testid={'NavigateBusinessOwner'}
                         />
                     </CardContent>
                 }
@@ -143,92 +148,159 @@ const SignupField = (props) => {
         )
     }
     return (
-        <>
-            <SystemContainer style={{marginTop: '150px'}}>
-                <ApplicationCard
-                    children={
-                        <CardContent>
-                            {
-                                signupCategory == 'pick' ? 
+        <SystemContainer style={{marginTop: '150px'}}>
+            <ApplicationCard
+                children={
+                    <CardContent>
+                        {
+                            signupCategory == 'pick' ? 
+                            <>
+                                <SystemTypography 
+                                isgutter={true}
+                                text={'Select Registration Type'}
+                                variant={'h5'}
+                                />
+                                <hr/>
+                                <SystemGrid 
+                                    rowSpacing={1}
+                                    style={{marginTop: '50px'}}
+                                    columnSpacing={{xs: 1, sm: 2, md: 3}}
+                                    GridItems={
+                                        [
+                                            {
+                                                childrenId: 1,
+                                                children : <CustomerSignup />
+                                            },
+                                            {
+                                                childrenId: 2,
+                                                children : <DeveloperSignup />
+                                            }
+                                        ]
+                                    }
+                                />
+                            </>
+                            : signupCategory == 'survey' ?
                                 <>
                                     <SystemTypography 
-                                    isgutter={true}
-                                    text={'Select Registration Type'}
-                                    variant={'h5'}
+                                        isgutter={true}
+                                        text={'Project Details'}
+                                        variant={'h5'}
                                     />
                                     <hr/>
                                     <SystemGrid 
-                                        rowSpacing={1}
-                                        style={{marginTop: '50px'}}
-                                        columnSpacing={{xs: 1, sm: 2, md: 3}}
-                                        GridItems={
-                                            [
-                                                {
-                                                    childrenId: 1,
-                                                    children : <CustomerSignup />
-                                                },
-                                                {
-                                                    childrenId: 2,
-                                                    children : <DeveloperSignup />
-                                                }
-                                            ]
-                                        }
-                                    />
+                                    rowSpacing={1}
+                                    style={{marginTop: '50px'}}
+                                    columnSpacing={{xs: 1, sm: 2, md: 3}}
+                                    GridItems={
+                                        [
+                                            {
+                                                childrenId: 1,
+                                                children : <BusinessOwner />
+                                            },
+                                            {
+                                                childrenId: 2,
+                                                children : <Student />
+                                            }
+                                        ]
+                                    }
+                                />
                                 </>
-                                : signupCategory == 'survey' ?
-                                    <>
-                                        <SystemTypography 
-                                            isgutter={true}
-                                            text={'Project Details'}
-                                            variant={'h5'}
-                                        />
-                                        <hr/>
-                                        <SystemGrid 
-                                        rowSpacing={1}
-                                        style={{marginTop: '50px'}}
-                                        columnSpacing={{xs: 1, sm: 2, md: 3}}
-                                        GridItems={
-                                            [
-                                                {
-                                                    childrenId: 1,
-                                                    children : <BusinessOwner />
-                                                },
-                                                {
-                                                    childrenId: 2,
-                                                    children : <Student />
-                                                }
-                                            ]
-                                        }
+                            : signupCategory == 'business_owner' ?
+                                <>
+                                    <SystemTypography 
+                                        isgutter={true}
+                                        text={'Business Owner Registration'}
+                                        variant={'h5'}
                                     />
-                                    </>
-                                : signupCategory == 'business_owner' ?
-                                    <>
-                                        <SystemTypography 
-                                            isgutter={true}
-                                            text={'Project Details'}
-                                            variant={'h5'}
-                                        />
-                                        <hr/>
-                                        <SystemStepper 
-                                        activeSteps={activeSteps}
-                                        propArray={customerStepper}
-                                        />
-                                        {
-                                            activeSteps == 0 ? 
-                                            <>
-                                            test
-                                            </>
-                                            :
-                                            <></>
-                                        }
-                                    </>
-                                : <></>
-                            }
-                        </CardContent>
-                    }
-                />
-            </SystemContainer>
-        </>
+                                    <hr/>
+                                    <SystemStepper 
+                                    activeSteps={activeSteps}
+                                    propArray={customerStepper}
+                                    />
+                                    {
+                                        activeSteps == 0 ? 
+                                        <>
+                                            <SystemContainer style={{marginTop: '20px'}}>
+                                            <SystemTypography 
+                                                isgutter={true}
+                                                text={'Personal Information'}
+                                                variant={'h5'}
+                                            />
+                                            <hr />
+                                            <SystemGrid 
+                                                    rowSpacing={1}
+                                                    columnSpacing={{xs: 1, sm: 2, md: 3}}
+                                                    GridItems={
+                                                        [
+                                                            {
+                                                                childrenId: 1,
+                                                                children : <AppTextField
+                                                                value={fieldSettings.personalInformationObj.firstname}
+                                                                style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
+                                                                placeholder='Enter firstname'
+                                                                handleChange={(e) => HandleChangeFirstname(e)}
+                                                                variant='outlined'
+                                                                id={ !fieldSettings.personalInformationObj.firstname ? 'outlined-error-helper-text' : ''}
+                                                                helperText={!fieldSettings.personalInformationObj.firstname ? 'Firstname is required' : ''}
+                                                                />
+                                                            },
+                                                            {
+                                                                childrenId: 2,
+                                                                children : <AppTextField
+                                                                value={fieldSettings.personalInformationObj.lastname}
+                                                                style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
+                                                                placeholder='Enter firstname'
+                                                                handleChange={(e) => HandleChangeLastname(e)}
+                                                                variant='outlined'
+                                                                id={ !fieldSettings.personalInformationObj.lastname ? 'outlined-error-helper-text' : ''}
+                                                                helperText={!fieldSettings.personalInformationObj.lastname ? 'Firstname is required' : ''}
+                                                                />
+                                                            }
+                                                        ]
+                                                    }
+                                            />
+                                            <SystemGrid 
+                                                    rowSpacing={1}
+                                                    columnSpacing={{xs: 1, sm: 2, md: 3}}
+                                                    GridItems={
+                                                        [
+                                                            {
+                                                                childrenId: 1,
+                                                                children :<AppTextField 
+                                                                value={fieldSettings.personalInformationObj.contactnum}
+                                                                style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
+                                                                placeholder={'Enter Contact Number'}
+                                                                variant={'outlined'}
+                                                                label={'Contact Number'}
+                                                            />
+                                                            },
+                                                            {
+                                                                childrenId: 2,
+                                                                children : <AppTextField 
+                                                                value={fieldSettings.personalInformationObj.contactnum}
+                                                                style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
+                                                                placeholder={'Enter Address'}
+                                                                variant={'outlined'}
+                                                                label={'Address'}
+                                                                ismultiLine={true}
+                                                                rows={4}
+                                                            />
+                                                            }
+                                                        ]
+                                                    }
+                                            />
+                                            </SystemContainer>
+                                        </>
+                                        :
+                                        <></>
+                                    }
+                                </>
+                            : <></>
+                        }
+                    </CardContent>
+                }
+            />
+        </SystemContainer>
     )
 }
 

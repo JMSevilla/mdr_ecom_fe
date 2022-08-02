@@ -2,7 +2,7 @@ import React from 'react'
 import {Button} from '@mui/material'
 
 const AppButton = (props) => {
-    const { buttonName, handleClick, variant, size, style, color } = props
+    const { buttonName, handleClick, variant, size, style, color, testid } = props
     return (
         <>
             <Button
@@ -11,6 +11,7 @@ const AppButton = (props) => {
             onClick={handleClick}
             size={size}
             color={color}
+            data-testid={testid}
             >{buttonName}</Button>
         </>
     )
