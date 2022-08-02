@@ -48,10 +48,19 @@ export const navbarData = [
     {
         link: 'Shop',
         to: 'shop',
-        dropdown: false,
+        dropdown: true,
     },
 ];
 
+// dropdown shop button helper //
+
+export const shopButton = [
+    'Category',
+    'Web App',
+    'Desktop App',
+    'Mobile App',
+    'View All'
+]
 /* data helper */
 
 export const customerStepper = [

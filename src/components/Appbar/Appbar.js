@@ -4,11 +4,13 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import AppButton from "../Buttons/Button";
+import AppDropdown from "../Dropdown/Dropdown";
 import Link from "@mui/material/Link";
 import logo from "../../assets/images/logo/modernresolve.png";
 import { useHistory } from "react-router-dom";
 import { appRouter } from "../../routes/router";
-import { navbarData } from "../../core/utils/helper";
+import { navbarData, shopButton } from "../../core/utils/helper";
+
 
 const ApplicationBar = (props) => {
   const { title, simplified } = props;
@@ -68,7 +70,7 @@ const ApplicationBar = (props) => {
           </Box>
           {!simplified ? (
             <>
-              <Box style={{ display: "flex", flexGrow: 1, gap: "2rem" }}>
+              <Box style={{ display: "flex", flexGrow: 1, gap: "2rem", alignItems: 'center'}}>
                 {navbarData.map((item, index) => {
                   return (
                     <>
@@ -87,7 +89,9 @@ const ApplicationBar = (props) => {
                         </>
                       ) : (
                         <>
-                          {/* dropdown selection here for shop -> category */}
+                          <Box style={{display:'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer'}}>
+                          <AppDropdown dropdownTitle={item.link} optionsArray={shopButton}/>
+                          </Box>
                         </>
                       )}
                     </>
