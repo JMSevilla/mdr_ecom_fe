@@ -17,7 +17,7 @@ import NextPrevious from '../../components/NextPrevious/NextPrevious'
 
 const SignupField = (props) => {
     const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
-        HandleChangeAddress, HandleChangeContactNumber } = props
+        HandleChangeAddress, HandleChangeContactNumber, handleNext } = props
     const { fieldSettings } = allFieldSelected[0]
     const selectedCustomer = () => {
         setOpen(true)
@@ -150,7 +150,7 @@ const SignupField = (props) => {
         )
     }
     return (
-        <SystemContainer style={{marginTop: '150px'}}>
+        <SystemContainer style={{marginTop: '150px', marginBottom : '50px'}}>
             <ApplicationCard
                 children={
                     <CardContent>
@@ -307,7 +307,7 @@ const SignupField = (props) => {
                                             activeSteps={activeSteps}
                                             stepperArray={customerStepper}
                                             handleBack={() => setActiveSteps((activeSteps) => activeSteps - 1)}
-                                            // handleNext={}
+                                            handleNext={() => handleNext()}
                                             />
                                             </SystemContainer>
                                         </>

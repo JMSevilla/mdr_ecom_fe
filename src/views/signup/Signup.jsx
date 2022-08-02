@@ -10,7 +10,8 @@ const Signup = () => {
         signupCategory, setSignupCategory,
         open, setOpen, allFieldSelected, setAllFieldSelected,
         selectedIndex, setSelectedIndex, HandleChangeFirstname,
-        HandleChangeLastname,  HandleChangeAddress, HandleChangeContactNumber} = useContext(GlobalContext)
+        HandleChangeLastname,  HandleChangeAddress, HandleChangeContactNumber,
+        handleNext} = useContext(GlobalContext)
         
     return (
         <>
@@ -30,6 +31,7 @@ const Signup = () => {
                 HandleChangeLastname={HandleChangeLastname}
                 HandleChangeAddress={HandleChangeAddress}
                 HandleChangeContactNumber={HandleChangeContactNumber}
+                handleNext={handleNext}
                 />
            } />
            <SystemBackdrop 
