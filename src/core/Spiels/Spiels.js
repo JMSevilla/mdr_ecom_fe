@@ -32,7 +32,7 @@ class Spiels {
             field_name : 'user_login',
             fieldSettings : {
                 userLoginObj : {
-                    username : '',
+                    email : '',
                     password : ''
                 },
                 message : '',
@@ -42,11 +42,11 @@ class Spiels {
                     Home : appRouter.Homepage.path
                 },
                 errorProvider : {
-                    error_username : false,
+                    error_email : false,
                     error_password : false
                 },
                 error_provider_message : {
-                    epm_username : '',
+                    epm_email : '',
                     epm_password : ''
                 }
             }

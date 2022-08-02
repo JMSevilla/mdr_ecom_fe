@@ -253,7 +253,7 @@ const SignupField = (props) => {
                                                                 children : <AppTextField
                                                                 value={fieldSettings.personalInformationObj.lastname}
                                                                 style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
-                                                                placeholder='Enter firstname'
+                                                                placeholder='Enter Lastname'
                                                                 handleChange={(e) => HandleChangeLastname(e)}
                                                                 variant={'outlined'}
                                                                 label={'Lastname'}
