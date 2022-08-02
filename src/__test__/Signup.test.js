@@ -9,9 +9,9 @@ import AppTextField from '../components/TextField/TextField'
 const setup = () => {
     const SignupPage = render(
         <HashRouter>
-            <Global>
-            <Signup />
-            </Global>
+             <Global>
+                <Signup />
+             </Global>
         </HashRouter>
     )
 
@@ -24,7 +24,7 @@ describe('Business Personal Information Firstname', () => {
 
     it('Should be accept user input for firstname', () => {
         const { queryByTestId } = setup()
-        const BusinessFirstnameInput = queryByTestId('InputBusinessFirstname')
+        const BusinessFirstnameInput = queryByTestId('input-business-firstname')
         fireEvent.change(BusinessFirstnameInput, {target : {value : 'Sample'}})
 
         expect(BusinessFirstnameInput).toHaveValue('Sample')

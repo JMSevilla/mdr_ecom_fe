@@ -10,31 +10,41 @@ const Global = ({children}) => {
     const [signupCategory, setSignupCategory] = useState('pick')
     const [open, setOpen] = useState(false)
     
-    const HandleChangeOnInit = (event, type, params, field, fieldIndex) => {
+    const HandleChangeFirstname = (event) => {
         let value = event.currentTarget.value
         const tempAllFieldSelected = [...allFieldSelected]
-        const fieldSelected = {...tempAllFieldSelected[fieldIndex]}
-        const tempFieldSelected = {...field}
-        let personalInformationObj
-        switch(type) {
-            case 'Business' : {
-                for(var key in tempFieldSelected){
-                    if(params == key) {
-                        personalInformationObj = {
-                            [key] : value
-                        }
-                        return personalInformationObj[key]
-                    }
-                }
-                const fieldSettings = {
-                    personalInformationObj : personalInformationObj
-                }
-                // fieldSelected.fieldSettings = fieldSettings
-                // tempAllFieldSelected[fieldIndex] = fieldSelected
-                // setAllFieldSelected(tempAllFieldSelected)
-                console.log(fieldSettings)
-            }
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const personalInformationObj = {
+            firstname : value,
+            lastname : tempFieldSelected.fieldSettings.personalInformationObj.lastname,
+            contactnum : tempFieldSelected.fieldSettings.personalInformationObj.contactnum,
+            address : tempFieldSelected.fieldSettings.personalInformationObj.address
         }
+        const fieldSettings = {
+            personalInformationObj : personalInformationObj
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+        console.log(tempAllFieldSelected)
+    }
+    const HandleChangeLastname = (event) => {
+        let value = event.currentTarget.value
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const personalInformationObj = {
+            firstname : tempFieldSelected.fieldSettings.personalInformationObj.firstname,
+            lastname : value,
+            contactnum : tempFieldSelected.fieldSettings.personalInformationObj.contactnum,
+            address : tempFieldSelected.fieldSettings.personalInformationObj.address
+        }
+        const fieldSettings = {
+            personalInformationObj : personalInformationObj
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+        console.log(tempAllFieldSelected)
     }
     return (
         <GlobalContext.Provider
@@ -42,7 +52,8 @@ const Global = ({children}) => {
             activeSteps, setActiveSteps,
             signupCategory, setSignupCategory, open, setOpen,
             allFieldSelected, setAllFieldSelected,
-            selectedIndex, setSelectedIndex, HandleChangeOnInit
+            selectedIndex, setSelectedIndex, HandleChangeFirstname,
+            HandleChangeLastname
         }}
         >{children}</GlobalContext.Provider>
     )

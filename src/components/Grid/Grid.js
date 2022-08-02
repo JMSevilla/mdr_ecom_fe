@@ -13,7 +13,6 @@ const SystemGrid = (props) => {
                 GridItems.map((item) => {
                     return (
                         <Grid item xs={6}>
-                            {item.enableTypography ? <Typography gutterBottom>{item.typography}</Typography> : <></>}
                             {cloneElement(item.children)}
                         </Grid>
                     )
