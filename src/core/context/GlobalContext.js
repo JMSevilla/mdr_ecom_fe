@@ -190,6 +190,26 @@ const Global = ({children}) => {
         setAllFieldSelected(tempAllFieldSelected)
         console.log(tempAllFieldSelected)
     }
+    const handleNext = () => {
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+
+        const checkErrors = Object.values(
+            tempFieldSelected.fieldSettings.errorProvider
+        ).some(val => val === true)
+
+        const personalCheckInfo = Object.values(
+            tempFieldSelected.fieldSettings.personalInformationObj
+        ).some(val => val === '')
+        
+        if(checkErrors || personalCheckInfo){
+            // Snackbar
+            alert("there's an empty field please try again")
+            return;
+        } else {
+            setActiveSteps((activeSteps) => activeSteps + 1)
+        }
+    }
     return (
         <GlobalContext.Provider
         value={{
@@ -197,7 +217,7 @@ const Global = ({children}) => {
             signupCategory, setSignupCategory, open, setOpen,
             allFieldSelected, setAllFieldSelected,
             selectedIndex, setSelectedIndex, HandleChangeFirstname,
-            HandleChangeLastname,HandleChangeAddress, HandleChangeContactNumber, HandleChangeEmailLogin, HandleChangePasswordLogin
+            HandleChangeLastname,HandleChangeAddress, HandleChangeContactNumber, HandleChangeEmailLogin, HandleChangePasswordLogin, handleNext
         }}
         >{children}</GlobalContext.Provider>
     )
