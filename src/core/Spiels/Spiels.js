@@ -12,6 +12,18 @@ class Spiels {
                     lastname : '',
                     contactnum : '',
                     address : ''
+                },
+                errorProvider : {
+                    error_firstname : false,
+                    error_lastname : false,
+                    error_contactnum : false,
+                    error_address : false
+                },
+                error_provider_message : {
+                    epm_firstname : '',
+                    epm_lastname : '',
+                    epm_contactnum : '',
+                    epm_address : ''
                 }
             }
         },

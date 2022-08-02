@@ -6,16 +6,18 @@ import { customerStepper } from '../../core/utils/helper'
 import SystemTypography from '../../components/Typography/Typography'
 import SystemGrid from '../../components/Grid/Grid'
 
-import { CardContent, CardMedia, TextField } from '@mui/material'
+import { CardContent, CardMedia, Box } from '@mui/material'
 
 
 import MDRClient from '../../assets/mdrclient.png'
 import MDRDev from '../../assets/mdrdev1.png'
 import AppButton from '../../components/Buttons/Button'
 import AppTextField from '../../components/TextField/TextField'
+import NextPrevious from '../../components/NextPrevious/NextPrevious'
 
 const SignupField = (props) => {
-    const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname } = props
+    const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
+        HandleChangeAddress, HandleChangeContactNumber } = props
     const { fieldSettings } = allFieldSelected[0]
     const selectedCustomer = () => {
         setOpen(true)
@@ -239,10 +241,11 @@ const SignupField = (props) => {
                                                                 style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
                                                                 placeholder='Enter firstname'
                                                                 handleChange={(e) => HandleChangeFirstname(e)}
-                                                                variant='outlined'
+                                                                variant={'outlined'}
                                                                 label={'Firstname'}
-                                                                id={ !fieldSettings.personalInformationObj.firstname ? 'outlined-error-helper-text' : ''}
-                                                                helperText={!fieldSettings.personalInformationObj.firstname ? 'Firstname is required' : ''}
+                                                                
+                                                                texthelper={fieldSettings.error_provider_message.epm_firstname}
+                                                                iserror={fieldSettings.errorProvider.error_firstname}
                                                                 />
                                                             },
                                                             {
@@ -252,10 +255,11 @@ const SignupField = (props) => {
                                                                 style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
                                                                 placeholder='Enter Lastname'
                                                                 handleChange={(e) => HandleChangeLastname(e)}
-                                                                variant='outlined'
+                                                                variant={'outlined'}
                                                                 label={'Lastname'}
-                                                                id={ !fieldSettings.personalInformationObj.lastname ? 'outlined-error-helper-text' : ''}
-                                                                helperText={!fieldSettings.personalInformationObj.lastname ? 'Lastname is required' : ''}
+                                                                
+                                                                texthelper={fieldSettings.error_provider_message.epm_lastname}
+                                                                iserror={fieldSettings.errorProvider.error_lastname}
                                                                 />
                                                             }
                                                         ]
@@ -271,25 +275,39 @@ const SignupField = (props) => {
                                                                 children :<AppTextField 
                                                                 value={fieldSettings.personalInformationObj.contactnum}
                                                                 style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
-                                                                placeholder={'Enter Contact Number'}
+                                                                placeholder='Enter Contact Number'
+                                                                handleChange={(e) => HandleChangeContactNumber(e)}
                                                                 variant={'outlined'}
                                                                 label={'Contact Number'}
+                                                                
+                                                                texthelper={fieldSettings.error_provider_message.epm_contactnum}
+                                                                iserror={fieldSettings.errorProvider.error_contactnum}
                                                             />
                                                             },
                                                             {
                                                                 childrenId: 2,
                                                                 children : <AppTextField 
-                                                                value={fieldSettings.personalInformationObj.contactnum}
+                                                                value={fieldSettings.personalInformationObj.address}
                                                                 style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
-                                                                placeholder={'Enter Address'}
+                                                                placeholder='Enter Address'
+                                                                handleChange={(e) => HandleChangeAddress(e)}
                                                                 variant={'outlined'}
                                                                 label={'Address'}
+                                                                
+                                                                texthelper={fieldSettings.error_provider_message.epm_address}
+                                                                iserror={fieldSettings.errorProvider.error_address}
                                                                 ismultiLine={true}
                                                                 rows={4}
                                                             />
                                                             }
                                                         ]
                                                     }
+                                            />
+                                            <NextPrevious 
+                                            activeSteps={activeSteps}
+                                            stepperArray={customerStepper}
+                                            handleBack={() => setActiveSteps((activeSteps) => activeSteps - 1)}
+                                            // handleNext={}
                                             />
                                             </SystemContainer>
                                         </>

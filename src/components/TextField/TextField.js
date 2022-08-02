@@ -3,7 +3,7 @@ import {TextField, Typography} from '@mui/material'
 
 const AppTextField = (props) => {
     const { value, handleChange, placeholder, label, variant, style,
-    ismultiLine, rows, iserror, helpertext, type  } = props
+    ismultiLine, rows, iserror, texthelper, type  } = props
 
     return ( 
         <>
@@ -17,9 +17,9 @@ const AppTextField = (props) => {
             variant={variant}
             multiline={ismultiLine}
             rows={rows}
-            id={ismultiLine ? 'outlined-multiline-static' : iserror ? 'outlined-error-helper-text' : ''}
+            id={iserror ? 'outlined-error-helper-text' : 'outlined-basic'}
             error={iserror}
-            helperText={helpertext}
+            helperText={texthelper}
             ></TextField>
         </>
     )

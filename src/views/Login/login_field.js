@@ -34,8 +34,8 @@ const Login_field = (props) => {
         handleChange={(e) => HandleChangeEmailLogin(e)}
         variant="outlined"
         style={{ width: "400px", marginBottom: "10px" }}
-        id={ !fieldSettings.userLoginObj.email ? 'outlined-error-helper-text' : ''}
-        helperText={!fieldSettings.userLoginObj.email ? 'Email is required' : ''}
+        texthelper={fieldSettings.error_provider_message.epm_email}
+        iserror={fieldSettings.errorProvider.error_email}
       />
       <AppTextField
         type={'password'}
@@ -45,8 +45,8 @@ const Login_field = (props) => {
         handleChange={(e) => HandleChangePasswordLogin(e)}
         variant="outlined"
         style={{ width: "400px", marginBottom: "10px" }}
-        id={ !fieldSettings.userLoginObj.password ? 'outlined-error-helper-text' : ''}
-        helperText={!fieldSettings.userLoginObj.password ? 'Password is required' : ''}
+        texthelper={fieldSettings.error_provider_message.epm_password}
+        iserror={fieldSettings.errorProvider.error_password}
       />
       <Box
         style={{
