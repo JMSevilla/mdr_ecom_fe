@@ -311,8 +311,52 @@ const SignupField = (props) => {
                                             />
                                             </SystemContainer>
                                         </>
-                                        :
-                                        <></>
+                                        : activeSteps == 1 ? 
+                                        <>
+                                            <SystemContainer style={{marginTop: '20px'}}>
+                                            <SystemTypography 
+                                                isgutter={true}
+                                                text={'Project Details'}
+                                                variant={'h5'}
+                                            />
+                                            <hr />
+
+                                            <SystemGrid 
+                                                    rowSpacing={1}
+                                                    columnSpacing={{xs: 1, sm: 2, md: 3}}
+                                                    GridItems={
+                                                        [
+                                                            {
+                                                                childrenId: 1,
+                                                                children : <AppTextField 
+                                                                value={fieldSettings.projectDetailsObj.projectName}
+                                                                style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
+                                                                placeholder='Enter Project Name'
+                                                                // handleChange={(e) => HandleChangeContactNumber(e)}
+                                                                variant={'outlined'}
+                                                                label={'Project Name'}
+                                                                
+                                                                texthelper={fieldSettings.error_provider_message.epm_contactnum}
+                                                                iserror={fieldSettings.errorProvider.error_contactnum}
+                                                            />
+                                                            },
+                                                            {
+                                                                childrenId: 2,
+                                                                children : <p>test 2</p>
+                                                            }
+                                                        ]
+                                                    }
+                                            />
+
+                                            <NextPrevious 
+                                            activeSteps={activeSteps}
+                                            stepperArray={customerStepper}
+                                            handleBack={() => setActiveSteps((activeSteps) => activeSteps - 1)}
+                                            handleNext={() => handleNext()}
+                                            />
+                                            </SystemContainer>
+                                        </>
+                                        : <></>
                                     }
                                 </>
                             : <></>

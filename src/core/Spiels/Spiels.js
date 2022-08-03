@@ -13,6 +13,12 @@ class Spiels {
                     contactnum : '',
                     address : ''
                 },
+                projectDetailsObj : {
+                    projectName : '',
+                    projectCategory : '',
+                    projectType : '',
+                    
+                },
                 errorProvider : {
                     error_firstname : false,
                     error_lastname : false,

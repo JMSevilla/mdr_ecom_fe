@@ -1,14 +1,23 @@
-import React, {createContext, cloneElement, useState} from 'react'
+import React, {createContext, cloneElement, useState, useCallback} from 'react'
 import Spiels from '../Spiels/Spiels'
 
 const GlobalContext = createContext()
 
 const Global = ({children}) => {
-    const [activeSteps, setActiveSteps] = useState(0)
+    const [activeSteps, setActiveSteps] = useState(1)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [signupCategory, setSignupCategory] = useState('pick')
     const [open, setOpen] = useState(false)
+    const [snackbarSettings, setSnacbarSettings] = useState({
+        settings : {
+            open : false,
+            message : '',
+            severity : 'success',
+            autoHideDuration : 3000
+        }
+    })
+
     
     const HandleChangeFirstname = (event) => {
         let value = event.currentTarget.value
@@ -190,6 +199,15 @@ const Global = ({children}) => {
         setAllFieldSelected(tempAllFieldSelected)
         console.log(tempAllFieldSelected)
     }
+    const handleClose = (event, reason) => {
+        if(reason === 'clickAway') {
+            return;
+        }
+        setSnacbarSettings(prevState => ({
+            ...prevState,
+            ...prevState.settings.open = false
+        }))
+    }
     const handleNext = () => {
         const tempAllFieldSelected = [...allFieldSelected]
         const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
@@ -203,8 +221,14 @@ const Global = ({children}) => {
         ).some(val => val === '')
         
         if(checkErrors || personalCheckInfo){
-            // Snackbar
-            alert("there's an empty field please try again")
+            
+            setSnacbarSettings(prevState => ({
+                ...prevState,
+                ...prevState.settings.open = true,
+                ...prevState.settings.message = "There's an empty field, please try again",
+                ...prevState.settings.severity = "error",
+                ...prevState.settings.autoHideDuration = 5000
+            }))
             return;
         } else {
             setActiveSteps((activeSteps) => activeSteps + 1)
@@ -217,7 +241,9 @@ const Global = ({children}) => {
             signupCategory, setSignupCategory, open, setOpen,
             allFieldSelected, setAllFieldSelected,
             selectedIndex, setSelectedIndex, HandleChangeFirstname,
-            HandleChangeLastname,HandleChangeAddress, HandleChangeContactNumber, HandleChangeEmailLogin, HandleChangePasswordLogin, handleNext
+            HandleChangeLastname,HandleChangeAddress, HandleChangeContactNumber,
+            HandleChangeEmailLogin, HandleChangePasswordLogin, handleNext,
+            snackbarSettings, handleClose
         }}
         >{children}</GlobalContext.Provider>
     )
