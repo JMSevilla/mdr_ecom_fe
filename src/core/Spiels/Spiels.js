@@ -6,6 +6,10 @@ class Spiels {
         {
             field_id : 1,
             field_name : 'customer_registration',
+            priceSettings : {
+                max : 250000,
+                min : 25000
+            },
             fieldSettings : {
                 personalInformationObj : {
                     firstname : '',
@@ -17,19 +21,25 @@ class Spiels {
                     projectName : '',
                     projectCategory : '',
                     projectType : '',
-                    
+                    projectPricing : 25000
                 },
                 errorProvider : {
                     error_firstname : false,
                     error_lastname : false,
                     error_contactnum : false,
-                    error_address : false
+                    error_address : false,
+                    error_projectname : false,
+                    error_projectCategory : false,
+                    error_projectType : false
                 },
                 error_provider_message : {
                     epm_firstname : '',
                     epm_lastname : '',
                     epm_contactnum : '',
-                    epm_address : ''
+                    epm_address : '',
+                    epm_projectname : '',
+                    epm_projectcategory : '',
+                    epm_projecttype: ''
                 }
             }
         },

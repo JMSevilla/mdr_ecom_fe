@@ -34,15 +34,28 @@ const Global = ({children}) => {
             error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
             error_contactnum : tempFieldSelected.fieldSettings.errorProvider.error_contactnum,
             error_address : tempFieldSelected.fieldSettings.errorProvider.error_address,
+            error_projectname : tempFieldSelected.fieldSettings.errorProvider.error_projectname,
+            error_projectCategory : tempFieldSelected.fieldSettings.errorProvider.error_projectCategory,
+            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType
+        }
+        const projectDetailsObj = { 
+            projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
+            projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
+            projectType : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
+            projectPricing : tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing
         }
         const error_provider_message = {
             epm_firstname : !value ? 'Kindly provide your firstname' : '',
             epm_lastname : tempFieldSelected.fieldSettings.error_provider_message.epm_lastname,
             epm_contactnum : tempFieldSelected.fieldSettings.error_provider_message.epm_contactnum,
-            epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address
+            epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address,
+            epm_projectname : tempFieldSelected.fieldSettings.error_provider_message.epm_projectname,
+            epm_projectcategory : tempFieldSelected.fieldSettings.error_provider_message.epm_projectcategory,
+            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype
         }
         const fieldSettings = {
             personalInformationObj : personalInformationObj,
+            projectDetailsObj: projectDetailsObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -61,20 +74,33 @@ const Global = ({children}) => {
             contactnum : tempFieldSelected.fieldSettings.personalInformationObj.contactnum,
             address : tempFieldSelected.fieldSettings.personalInformationObj.address
         }
+        const projectDetailsObj = { 
+            projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
+            projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
+            projectType : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
+            projectPricing : tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing
+        }
         const errorProvider = { 
             error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
             error_lastname : !value ? true : false,
             error_contactnum : tempFieldSelected.fieldSettings.errorProvider.error_contactnum,
             error_address : tempFieldSelected.fieldSettings.errorProvider.error_address,
+            error_projectname : tempFieldSelected.fieldSettings.errorProvider.error_projectname,
+            error_projectCategory : tempFieldSelected.fieldSettings.errorProvider.error_projectCategory,
+            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType
         }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
             epm_lastname : !value ? 'Kindly provide your lastname' : '',
             epm_contactnum : tempFieldSelected.fieldSettings.error_provider_message.epm_contactnum,
-            epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address
+            epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address,
+            epm_projectname : tempFieldSelected.fieldSettings.error_provider_message.epm_projectname,
+            epm_projectcategory : tempFieldSelected.fieldSettings.error_provider_message.epm_projectcategory,
+            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype
         }
         const fieldSettings = {
             personalInformationObj : personalInformationObj,
+            projectDetailsObj: projectDetailsObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -98,15 +124,28 @@ const Global = ({children}) => {
             error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
             error_contactnum : !value ? true : false,
             error_address : tempFieldSelected.fieldSettings.errorProvider.error_address,
+            error_projectname : tempFieldSelected.fieldSettings.errorProvider.error_projectname,
+            error_projectCategory : tempFieldSelected.fieldSettings.errorProvider.error_projectCategory,
+            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType
+        }
+        const projectDetailsObj = { 
+            projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
+            projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
+            projectType : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
+            projectPricing : tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing
         }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
             epm_lastname : tempFieldSelected.fieldSettings.error_provider_message.epm_lastname,
             epm_contactnum : !value ? 'Kindly provide your contact number' : '',
-            epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address
+            epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address,
+            epm_projectname : tempFieldSelected.fieldSettings.error_provider_message.epm_projectname,
+            epm_projectcategory : tempFieldSelected.fieldSettings.error_provider_message.epm_projectcategory,
+            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype
         }
         const fieldSettings = {
-            personalInformationObj : personalInformationObj,
+             personalInformationObj : personalInformationObj,
+            projectDetailsObj: projectDetailsObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -125,20 +164,33 @@ const Global = ({children}) => {
             contactnum : tempFieldSelected.fieldSettings.personalInformationObj.contactnum,
             address : value
         }
+        const projectDetailsObj = { 
+            projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
+            projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
+            projectType : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
+            projectPricing : tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing
+        }
         const errorProvider = { 
             error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
             error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
             error_contactnum : tempFieldSelected.fieldSettings.errorProvider.error_contactnum,
             error_address : !value ? true : false,
+            error_projectname : tempFieldSelected.fieldSettings.errorProvider.error_projectname,
+            error_projectCategory : tempFieldSelected.fieldSettings.errorProvider.error_projectCategory,
+            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType
         }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
             epm_lastname : tempFieldSelected.fieldSettings.error_provider_message.epm_lastname,
             epm_contactnum : tempFieldSelected.fieldSettings.error_provider_message.epm_contactnum,
-            epm_address : !value ? 'Kindly provide your address' : ''
+            epm_address : !value ? 'Kindly provide your address' : '',
+            epm_projectname : tempFieldSelected.fieldSettings.error_provider_message.epm_projectname,
+            epm_projectcategory : tempFieldSelected.fieldSettings.error_provider_message.epm_projectcategory,
+            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype
         }
         const fieldSettings = {
             personalInformationObj : personalInformationObj,
+            projectDetailsObj: projectDetailsObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }

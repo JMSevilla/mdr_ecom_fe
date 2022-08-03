@@ -14,11 +14,17 @@ import MDRDev from '../../assets/mdrdev1.png'
 import AppButton from '../../components/Buttons/Button'
 import AppTextField from '../../components/TextField/TextField'
 import NextPrevious from '../../components/NextPrevious/NextPrevious'
+import SystemSelect from '../../components/Select/Select'
+import SystemSlider from '../../components/Slider/Slider'
+
+
+import { projectCategory, projectType } from '../../core/utils/helper'
 
 const SignupField = (props) => {
     const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
-        HandleChangeAddress, HandleChangeContactNumber, handleNext } = props
-    const { fieldSettings } = allFieldSelected[0]
+        HandleChangeAddress, HandleChangeContactNumber, handleNext, HandleProjectName, HandleSelectProjectCategory,
+        HandleSelectProjectType, HandleSliderChange } = props
+    const { fieldSettings, priceSettings } = allFieldSelected[0]
     const selectedCustomer = () => {
         setOpen(true)
         setTimeout(() => {
@@ -149,8 +155,9 @@ const SignupField = (props) => {
             />
         )
     }
+    
     return (
-        <SystemContainer style={{marginTop: '150px', marginBottom : '50px'}}>
+        <SystemContainer max={'xl'} style={{marginTop: '150px', marginBottom : '50px'}}>
             <ApplicationCard
                 children={
                     <CardContent>
@@ -222,7 +229,7 @@ const SignupField = (props) => {
                                     {
                                         activeSteps == 0 ? 
                                         <>
-                                            <SystemContainer style={{marginTop: '20px'}}>
+                                            <SystemContainer max={'xl'} style={{marginTop: '20px'}}>
                                             <SystemTypography 
                                                 isgutter={true}
                                                 text={'Personal Information'}
@@ -313,7 +320,7 @@ const SignupField = (props) => {
                                         </>
                                         : activeSteps == 1 ? 
                                         <>
-                                            <SystemContainer style={{marginTop: '20px'}}>
+                                            <SystemContainer max={'xl'} style={{marginTop: '20px'}}>
                                             <SystemTypography 
                                                 isgutter={true}
                                                 text={'Project Details'}
@@ -332,17 +339,62 @@ const SignupField = (props) => {
                                                                 value={fieldSettings.projectDetailsObj.projectName}
                                                                 style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
                                                                 placeholder='Enter Project Name'
-                                                                // handleChange={(e) => HandleChangeContactNumber(e)}
+                                                                handleChange={(e) => HandleProjectName(e)}
                                                                 variant={'outlined'}
                                                                 label={'Project Name'}
                                                                 
-                                                                texthelper={fieldSettings.error_provider_message.epm_contactnum}
-                                                                iserror={fieldSettings.errorProvider.error_contactnum}
+                                                                texthelper={fieldSettings.error_provider_message.epm_projectname}
+                                                                iserror={fieldSettings.errorProvider.error_projectname}
                                                             />
                                                             },
                                                             {
                                                                 childrenId: 2,
-                                                                children : <p>test 2</p>
+                                                                children : <SystemSelect 
+                                                                value={fieldSettings.projectDetailsObj.projectCategory}
+                                                                selectionArray={projectCategory}
+                                                                selectionLabel={'Select Project Category'}
+                                                                selectionTitle={'Choose Project Category'}
+                                                                placeholder={'Choose Project Category'}
+                                                                style={{marginTop: '10px', marginBottom: '10px'}}
+                                                                handleSelect={(e) => HandleSelectProjectCategory(e)}
+                                                                />
+                                                            }
+                                                        ]
+                                                    }
+                                            />
+
+
+                                            <SystemGrid 
+                                                    rowSpacing={1}
+                                                    columnSpacing={{xs: 1, sm: 2, md: 3}}
+                                                    GridItems={
+                                                        [
+                                                            {
+                                                                childrenId: 1,
+                                                                children : <SystemSelect 
+                                                                value={fieldSettings.projectDetailsObj.projectType}
+                                                                selectionArray={projectType}
+                                                                selectionLabel={'Select Project Type'}
+                                                                selectionTitle={'Choose Project Type'}
+                                                                placeholder={'Choose Project Type'}
+                                                                style={{marginTop: '10px', marginBottom: '10px'}}
+                                                                handleSelect={(e) => HandleSelectProjectType(e)}
+                                                                />
+                                                            },
+                                                            {
+                                                                childrenId: 2,
+                                                                children : <SystemSlider 
+                                                                defaultValue={
+                                                                   fieldSettings.projectDetailsObj.projectPricing
+                                                                }
+                                                                title={'Project Pricing'}
+                                                                max={priceSettings.max}
+                                                                min={priceSettings.min}
+                                                                sliderChange={HandleSliderChange}
+                                                                value={
+                                                                    fieldSettings.projectDetailsObj.projectPricing
+                                                                }
+                                                                />
                                                             }
                                                         ]
                                                     }
