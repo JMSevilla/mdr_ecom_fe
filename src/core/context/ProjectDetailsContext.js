@@ -175,7 +175,7 @@ const ProjectDetailsContext = ({children}) => {
         projectDetailsObj = { 
                 projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
                 projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
-                projectType : value <= 60000 ? "SSP" : value <= 130000 ? "MSP" : value >= 130000 ? "LSP" : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
+                projectType : value <= 60000 ? "SSP" : value >= 90000 && value <= 100000 ? "MSP" : value > 130000 ? "LSP" : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
                 projectPricing : value
         }
         const errorProvider = { 

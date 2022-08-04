@@ -21,7 +21,7 @@ import { Peso } from '../../core/utils/Intl'
 
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
-import { projectCategory, projectType, sampleDraggableArray, destinationArray } from '../../core/utils/helper'
+import { projectCategory, projectType, features, destinationArray } from '../../core/utils/helper'
 
 const SignupField = (props) => {
     const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
@@ -158,23 +158,19 @@ const SignupField = (props) => {
             />
         )
     }
+    
+  
     const handleOnDragEnd = (result) => {
-        // if(!result.destination) return;
-        // const RSI = result.source.index
-        // const RDI = result.destination.index
+        if(!result.destination) return;
+        const RSI = result.source.index
+        const RDI = result.destination.index
 
-        // const newArrangement = [...sampleDraggableArray]
-        // const [removed] = newArrangement.splice(RSI, 1)
-        // newArrangement.splice(RDI, 0, removed)
-
-        // console.log(newArrangement)
-        sampleDraggableArray.forEach(function(elem, index) {
-            sampleDraggableArray.splice(result.destination.index, 1)
-            destinationArray.push(elem)
+        features.forEach(function(elem, index) {
+            let deleted = features.splice(RSI, 1)
+            destinationArray.push(deleted[0])
         })
-        console.log(sampleDraggableArray)
-        console.log(destinationArray)
     }
+
     return (
         <SystemContainer max={'xl'} style={{marginTop: '150px', marginBottom : '50px'}}>
             <ApplicationCard
@@ -450,35 +446,71 @@ const SignupField = (props) => {
                                                                 ref={provided.innerRef}
                                                                 >
                                                                     <CardContent>
-                                                                        {
-                                                                            destinationArray.map((item, index) => (
-                                                                                <div>
-                                                                                    {cloneElement(item.field)}
-                                                                                </div>
-                                                                            ))
+                                                                        <SystemTypography 
+                                                                        isgutter={true}
+                                                                        text={'Drop features here'}
+                                                                        />
+                                                                        <hr />
+                                                                         {
+                                                                                destinationArray.map((item, index) => (
+                                                                                    <div>
+                                                                                        <Card
+                                                                                                    
+                                                                                                    style={{
+                                                                                                        marginTop: '10px', marginBottom: '10px'
+                                                                                                    }}
+                                                                                                    >
+                                                                                                        <CardContent>
+                                                                                                            {cloneElement(item.field)}
+                                                                                                        </CardContent>
+                                                                                                </Card>
+                                                                                    </div>
+                                                                                ))
                                                                         }
+                                                                        {provided.placeholder}
+                                                                        
                                                                     </CardContent>
                                                                 </Card>
                                                             </Grid>
                                                             <Grid item xs={6}>
-                                                              {
-                                                                sampleDraggableArray.map((item, index) => (
-                                                                    <Draggable draggableId={item.field_id.toString()} index={index}>
+                                                              <ApplicationCard 
+                                                                children={
+                                                                    <CardContent>
+                                                                        <SystemTypography 
+                                                                        isgutter={true}
+                                                                        text={'Drag features here'}
+                                                                        />
+                                                                        <hr />
                                                                         {
-                                                                            (provided, snapshot) => (
-                                                                                <div 
-                                                                                ref={provided.innerRef}
-                                                                                {...provided.draggableProps}
-                                                                                {...provided.dragHandleProps}
-                                                                                >
-                                                                                   
-                                                                                    {cloneElement(item.field)}
-                                                                                </div>
-                                                                            )
+                                                                            features.map((item, index) => (
+                                                                                <Draggable key={index} draggableId={item.field_id.toString()} index={index}>
+                                                                                    {
+                                                                                        (provided, snapshot) => (
+                                                                                               <div
+                                                                                               ref={provided.innerRef}
+                                                                                                    {...provided.draggableProps}
+                                                                                                    {...provided.dragHandleProps}
+                                                                                               >
+                                                                                                 <Card
+                                                                                                    
+                                                                                                    style={{
+                                                                                                        marginTop: '10px', marginBottom: '10px'
+                                                                                                    }}
+                                                                                                    >
+                                                                                                        <CardContent>
+                                                                                                            
+                                                                                                            {cloneElement(item.field)}
+                                                                                                        </CardContent>
+                                                                                                </Card>
+                                                                                               </div>
+                                                                                        )
+                                                                                    }
+                                                                                </Draggable>
+                                                                            ))
                                                                         }
-                                                                    </Draggable>
-                                                                ))
-                                                              }
+                                                                    </CardContent>
+                                                                }
+                                                              />
                                                             </Grid>
                                                           </Grid>
                                                         )}

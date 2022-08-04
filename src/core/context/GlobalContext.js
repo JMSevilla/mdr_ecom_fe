@@ -1,10 +1,12 @@
 import React, {createContext, cloneElement, useState, useCallback} from 'react'
 import Spiels from '../Spiels/Spiels'
+import { projectbreakdown } from '../utils/dumpfeatures'
+import { features } from '../utils/helper'
 
 const GlobalContext = createContext()
 
 const Global = ({children}) => {
-    const [activeSteps, setActiveSteps] = useState(2)
+    const [activeSteps, setActiveSteps] = useState(0)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [signupCategory, setSignupCategory] = useState('pick')
@@ -260,34 +262,48 @@ const Global = ({children}) => {
             ...prevState.settings.open = false
         }))
     }
+    const checkProperties = (obj) => {
+        for(var key in obj) {
+            if(obj[key] !== null && obj[key] !== '' ){
+                return false
+            }
+        }
+        return true
+    }
     const handleNext = () => {
         const tempAllFieldSelected = [...allFieldSelected]
         const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
-
-        const checkErrors = Object.values(
-            tempFieldSelected.fieldSettings.errorProvider
-        ).some(val => val === true)
-
-        const personalCheckInfo = Object.values(
-            tempFieldSelected.fieldSettings.personalInformationObj
-        ).some(val => val === '')
-
-        const projectCheckInfo = Object.values(
-            tempFieldSelected.fieldSettings.projectDetailsObj
-        ).some(val => val === '')
-        
-        if(checkErrors || personalCheckInfo || projectCheckInfo){
-            
-            setSnacbarSettings(prevState => ({
-                ...prevState,
-                ...prevState.settings.open = true,
-                ...prevState.settings.message = "There's an empty field, please try again",
-                ...prevState.settings.severity = "error",
-                ...prevState.settings.autoHideDuration = 5000
-            }))
-            return;
-        } else {
-            setActiveSteps((activeSteps) => activeSteps + 1)
+        const tempField = {...tempFieldSelected.fieldSettings}
+        const personalCheckInfo = checkProperties(tempFieldSelected.fieldSettings.personalInformationObj)
+        if(activeSteps === 0) {
+             if(personalCheckInfo){
+                setSnacbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open = true,
+                    ...prevState.settings.message = "There's an empty field, please try again",
+                    ...prevState.settings.severity = "error",
+                    ...prevState.settings.autoHideDuration = 5000
+                }))
+                return;
+            } else {
+setActiveSteps((activeSteps) => activeSteps + 1)
+            }
+        } 
+        else if (activeSteps === 1) {
+               if(tempField.projectDetailsObj.projectName == '' || 
+                    tempField.projectDetailsObj.projectCategory == ''
+                    || tempField.projectDetailsObj.projectType == '') {
+                setSnacbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open = true,
+                    ...prevState.settings.message = "There's an empty field, please try again",
+                    ...prevState.settings.severity = "error",
+                    ...prevState.settings.autoHideDuration = 5000
+                }))
+            } else {
+// setActiveSteps((activeSteps) => activeSteps + 1)
+                // const filtered = 
+            } 
         }
     }
     return (

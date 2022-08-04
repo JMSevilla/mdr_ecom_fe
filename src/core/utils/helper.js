@@ -2,6 +2,7 @@
 import web from '../../assets/images/services/web_development.jpg';
 import mobile from '../../assets/images/services/mobile_app.jpg';
 import desktop from '../../assets/images/services/desktop_app.jpg';
+import { SSP_Feature1 } from '../../components/__dump__/__field_dump';
 
 export const ServicesData = [ 
     {
@@ -118,15 +119,6 @@ export const customerStepper = [
     'Finish'
 ]
 
-export const sampleDraggableArray = [
-    {
-        field_id : 1,
-        field : <h1>Hello world</h1>
-    },
-    {
-        field_id : 2,
-        field : <h1>hello world 2</h1>
-    }
-]
+export const features = []
 
 export const destinationArray = []
