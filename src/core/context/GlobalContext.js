@@ -4,7 +4,7 @@ import Spiels from '../Spiels/Spiels'
 const GlobalContext = createContext()
 
 const Global = ({children}) => {
-    const [activeSteps, setActiveSteps] = useState(1)
+    const [activeSteps, setActiveSteps] = useState(2)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [signupCategory, setSignupCategory] = useState('pick')
@@ -271,8 +271,12 @@ const Global = ({children}) => {
         const personalCheckInfo = Object.values(
             tempFieldSelected.fieldSettings.personalInformationObj
         ).some(val => val === '')
+
+        const projectCheckInfo = Object.values(
+            tempFieldSelected.fieldSettings.projectDetailsObj
+        ).some(val => val === '')
         
-        if(checkErrors || personalCheckInfo){
+        if(checkErrors || personalCheckInfo || projectCheckInfo){
             
             setSnacbarSettings(prevState => ({
                 ...prevState,

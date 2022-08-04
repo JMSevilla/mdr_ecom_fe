@@ -2,14 +2,14 @@ import React from 'react'
 import { Slider, Typography } from '@mui/material'
 
 const SystemSlider = (props) => {
-    const { defaultValue, step, title, max, min, value, sliderChange } = props
+    const { defaultValue, step, title, max, min, value, sliderChange, intlPrice } = props
 
     return (
         <>
-            <Typography gutterBottom>{title}</Typography>
+            <Typography gutterBottom>{title} : {intlPrice}</Typography>
             <Slider defaultValue={defaultValue}
              max={max} min={min}
-              step={step} valueLabelDisplay="auto"
+              step={step} 
               value={value}
               onChange={(e, val) => sliderChange(val)}
               />

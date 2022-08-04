@@ -112,7 +112,21 @@ export const shopButton = [
 export const customerStepper = [
     'Personal Information',
     'Project Details',
+    'Project Features',
     'Credentials',
     'Verification',
     'Finish'
 ]
+
+export const sampleDraggableArray = [
+    {
+        field_id : 1,
+        field : <h1>Hello world</h1>
+    },
+    {
+        field_id : 2,
+        field : <h1>hello world 2</h1>
+    }
+]
+
+export const destinationArray = []

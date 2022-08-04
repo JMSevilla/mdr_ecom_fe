@@ -99,18 +99,35 @@ const ProjectDetailsContext = ({children}) => {
         let value = event.target.value
         const tempAllFieldSelected = [...allFieldSelected]
         const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        let projectDetailsObj
         const personalInformationObj = {
             firstname : tempFieldSelected.fieldSettings.personalInformationObj.firstname,
             lastname : tempFieldSelected.fieldSettings.personalInformationObj.lastname,
             contactnum : tempFieldSelected.fieldSettings.personalInformationObj.contactnum,
             address : tempFieldSelected.fieldSettings.personalInformationObj.address
         }
-        const projectDetailsObj = { 
-            projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
-            projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
-            projectType : value,
-            projectPricing : tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing
-        }
+         if(value === 'SSP'){
+            projectDetailsObj = { 
+                projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
+                projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
+                projectType : value,
+                projectPricing : 60000
+            }
+         } else if(value === 'MSP') {
+            projectDetailsObj = { 
+                projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
+                projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
+                projectType : value,
+                projectPricing : 130000
+            }
+         } else if (value === 'LSP'){
+            projectDetailsObj = { 
+                projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
+                projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
+                projectType : value,
+                projectPricing : 200000
+            }
+         }
         const errorProvider = { 
             error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
             error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
@@ -155,15 +172,12 @@ const ProjectDetailsContext = ({children}) => {
             contactnum : tempFieldSelected.fieldSettings.personalInformationObj.contactnum,
             address : tempFieldSelected.fieldSettings.personalInformationObj.address
         }
-        if(value >= 60000){
-            projectDetailsObj = { 
+        projectDetailsObj = { 
                 projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
                 projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
-                projectType : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
+                projectType : value <= 60000 ? "SSP" : value <= 130000 ? "MSP" : value >= 130000 ? "LSP" : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
                 projectPricing : value
-            }
         }
-         
         const errorProvider = { 
             error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
             error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,

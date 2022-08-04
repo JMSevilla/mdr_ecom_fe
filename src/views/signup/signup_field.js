@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, cloneElement} from 'react'
 import SystemContainer from '../../components/Container/Container'
 import ApplicationCard from '../../components/Card/Card'
 import SystemStepper from '../../components/Stepper/Stepper'
@@ -6,7 +6,7 @@ import { customerStepper } from '../../core/utils/helper'
 import SystemTypography from '../../components/Typography/Typography'
 import SystemGrid from '../../components/Grid/Grid'
 
-import { CardContent, CardMedia, Box } from '@mui/material'
+import { CardContent, CardMedia, Box , Grid, Card} from '@mui/material'
 
 
 import MDRClient from '../../assets/mdrclient.png'
@@ -17,8 +17,11 @@ import NextPrevious from '../../components/NextPrevious/NextPrevious'
 import SystemSelect from '../../components/Select/Select'
 import SystemSlider from '../../components/Slider/Slider'
 
+import { Peso } from '../../core/utils/Intl'
 
-import { projectCategory, projectType } from '../../core/utils/helper'
+import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
+
+import { projectCategory, projectType, sampleDraggableArray, destinationArray } from '../../core/utils/helper'
 
 const SignupField = (props) => {
     const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
@@ -155,7 +158,23 @@ const SignupField = (props) => {
             />
         )
     }
-    
+    const handleOnDragEnd = (result) => {
+        // if(!result.destination) return;
+        // const RSI = result.source.index
+        // const RDI = result.destination.index
+
+        // const newArrangement = [...sampleDraggableArray]
+        // const [removed] = newArrangement.splice(RSI, 1)
+        // newArrangement.splice(RDI, 0, removed)
+
+        // console.log(newArrangement)
+        sampleDraggableArray.forEach(function(elem, index) {
+            sampleDraggableArray.splice(result.destination.index, 1)
+            destinationArray.push(elem)
+        })
+        console.log(sampleDraggableArray)
+        console.log(destinationArray)
+    }
     return (
         <SystemContainer max={'xl'} style={{marginTop: '150px', marginBottom : '50px'}}>
             <ApplicationCard
@@ -394,6 +413,11 @@ const SignupField = (props) => {
                                                                 value={
                                                                     fieldSettings.projectDetailsObj.projectPricing
                                                                 }
+                                                                intlPrice={
+                                                                    Peso.format(
+                                                                        fieldSettings.projectDetailsObj.projectPricing
+                                                                    )
+                                                                }
                                                                 />
                                                             }
                                                         ]
@@ -408,6 +432,59 @@ const SignupField = (props) => {
                                             />
                                             </SystemContainer>
                                         </>
+                                        : activeSteps === 2 ? 
+                                        <SystemContainer max={'xl'} style={{marginTop: '20px'}}>
+                                        <SystemTypography 
+                                            isgutter={true}
+                                            text={'Project Features'}
+                                            variant={'h5'}
+                                        />
+                                        <hr />
+                                            <DragDropContext onDragEnd={handleOnDragEnd}>
+                                                    <Droppable droppableId='droppable'>
+                                                        {(provided, snapshot) => (
+                                                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                                            <Grid item xs={6}>
+                                                                <Card
+                                                                {...provided.droppableProps}
+                                                                ref={provided.innerRef}
+                                                                >
+                                                                    <CardContent>
+                                                                        {
+                                                                            destinationArray.map((item, index) => (
+                                                                                <div>
+                                                                                    {cloneElement(item.field)}
+                                                                                </div>
+                                                                            ))
+                                                                        }
+                                                                    </CardContent>
+                                                                </Card>
+                                                            </Grid>
+                                                            <Grid item xs={6}>
+                                                              {
+                                                                sampleDraggableArray.map((item, index) => (
+                                                                    <Draggable draggableId={item.field_id.toString()} index={index}>
+                                                                        {
+                                                                            (provided, snapshot) => (
+                                                                                <div 
+                                                                                ref={provided.innerRef}
+                                                                                {...provided.draggableProps}
+                                                                                {...provided.dragHandleProps}
+                                                                                >
+                                                                                   
+                                                                                    {cloneElement(item.field)}
+                                                                                </div>
+                                                                            )
+                                                                        }
+                                                                    </Draggable>
+                                                                ))
+                                                              }
+                                                            </Grid>
+                                                          </Grid>
+                                                        )}
+                                                    </Droppable>
+                                            </DragDropContext>       
+                                        </SystemContainer>
                                         : <></>
                                     }
                                 </>

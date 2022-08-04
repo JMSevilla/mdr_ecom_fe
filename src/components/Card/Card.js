@@ -6,11 +6,12 @@ const ApplicationCard = (props) => {
         children,
          style,
          sx,
-        cardmedia
+        cardmedia,
+        ref
         } = props
     return (
         <>
-            <Card sx={sx} style={style}>
+            <Card ref={ref} sx={sx} style={style}>
                 <center>
                 {cardmedia}
                 </center>
