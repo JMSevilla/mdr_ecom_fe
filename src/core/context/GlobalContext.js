@@ -1,12 +1,12 @@
-import React, {createContext, cloneElement, useState, useCallback} from 'react'
+import React, {createContext, cloneElement, useState, useCallback, useEffect} from 'react'
 import Spiels from '../Spiels/Spiels'
 import { projectbreakdown } from '../utils/dumpfeatures'
-import { features } from '../utils/helper'
+import { features, destinationArray } from '../utils/helper'
 
 const GlobalContext = createContext()
 
 const Global = ({children}) => {
-    const [activeSteps, setActiveSteps] = useState(1)
+    const [activeSteps, setActiveSteps] = useState(3)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [signupCategory, setSignupCategory] = useState('pick')
@@ -20,6 +20,23 @@ const Global = ({children}) => {
         }
     })
 
+    const handlePrevious = () => {
+        if(activeSteps === 2) {
+            if(destinationArray.length > 0) {
+                const confirmation = window.confirm("Changes has been made, are you sure you want to back ?")
+                if(confirmation) {
+                     features.length = 0
+                        destinationArray.length = 0
+                        setActiveSteps((activeSteps) => activeSteps - 1)
+                }
+            } else {
+                features.length = 0
+                setActiveSteps((activeSteps) => activeSteps - 1)
+            }
+        }
+    }
+
+    
     
     const HandleChangeFirstname = (event) => {
         let value = event.currentTarget.value
@@ -38,13 +55,25 @@ const Global = ({children}) => {
             error_address : tempFieldSelected.fieldSettings.errorProvider.error_address,
             error_projectname : tempFieldSelected.fieldSettings.errorProvider.error_projectname,
             error_projectCategory : tempFieldSelected.fieldSettings.errorProvider.error_projectCategory,
-            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType
+            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType,
+            error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
+            error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
+            error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
+            error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
         }
         const projectDetailsObj = { 
             projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
             projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
             projectType : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
             projectPricing : tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing
+        }
+        const credentialsObj = {
+            email : tempFieldSelected.fieldSettings.credentialsObj.email,
+            password : tempFieldSelected.fieldSettings.credentialsObj.password,
+            conpass : tempFieldSelected.fieldSettings.credentialsObj.conpass,
+            sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
+            sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
         }
         const error_provider_message = {
             epm_firstname : !value ? 'Kindly provide your firstname' : '',
@@ -53,11 +82,18 @@ const Global = ({children}) => {
             epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address,
             epm_projectname : tempFieldSelected.fieldSettings.error_provider_message.epm_projectname,
             epm_projectcategory : tempFieldSelected.fieldSettings.error_provider_message.epm_projectcategory,
-            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype
+            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype,
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
+            epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
+            epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
+            
         }
         const fieldSettings = {
             personalInformationObj : personalInformationObj,
             projectDetailsObj: projectDetailsObj,
+            credentialsObj: credentialsObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -82,6 +118,13 @@ const Global = ({children}) => {
             projectType : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
             projectPricing : tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing
         }
+        const credentialsObj = {
+            email : tempFieldSelected.fieldSettings.credentialsObj.email,
+            password : tempFieldSelected.fieldSettings.credentialsObj.password,
+            conpass : tempFieldSelected.fieldSettings.credentialsObj.conpass,
+            sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
+            sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
+        }
         const errorProvider = { 
             error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
             error_lastname : !value ? true : false,
@@ -89,7 +132,12 @@ const Global = ({children}) => {
             error_address : tempFieldSelected.fieldSettings.errorProvider.error_address,
             error_projectname : tempFieldSelected.fieldSettings.errorProvider.error_projectname,
             error_projectCategory : tempFieldSelected.fieldSettings.errorProvider.error_projectCategory,
-            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType
+            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType,
+            error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
+            error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
+            error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
+            error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
         }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
@@ -98,11 +146,17 @@ const Global = ({children}) => {
             epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address,
             epm_projectname : tempFieldSelected.fieldSettings.error_provider_message.epm_projectname,
             epm_projectcategory : tempFieldSelected.fieldSettings.error_provider_message.epm_projectcategory,
-            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype
+            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype,
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
+            epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
+            epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
         }
         const fieldSettings = {
             personalInformationObj : personalInformationObj,
             projectDetailsObj: projectDetailsObj,
+            credentialsObj: credentialsObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -128,13 +182,25 @@ const Global = ({children}) => {
             error_address : tempFieldSelected.fieldSettings.errorProvider.error_address,
             error_projectname : tempFieldSelected.fieldSettings.errorProvider.error_projectname,
             error_projectCategory : tempFieldSelected.fieldSettings.errorProvider.error_projectCategory,
-            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType
+            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType,
+            error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
+            error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
+            error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
+            error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
         }
         const projectDetailsObj = { 
             projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
             projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
             projectType : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
             projectPricing : tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing
+        }
+        const credentialsObj = {
+            email : tempFieldSelected.fieldSettings.credentialsObj.email,
+            password : tempFieldSelected.fieldSettings.credentialsObj.password,
+            conpass : tempFieldSelected.fieldSettings.credentialsObj.conpass,
+            sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
+            sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
         }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
@@ -143,11 +209,17 @@ const Global = ({children}) => {
             epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address,
             epm_projectname : tempFieldSelected.fieldSettings.error_provider_message.epm_projectname,
             epm_projectcategory : tempFieldSelected.fieldSettings.error_provider_message.epm_projectcategory,
-            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype
+            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype,
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
+            epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
+            epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
         }
         const fieldSettings = {
-             personalInformationObj : personalInformationObj,
+            personalInformationObj : personalInformationObj,
             projectDetailsObj: projectDetailsObj,
+            credentialsObj: credentialsObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -172,6 +244,13 @@ const Global = ({children}) => {
             projectType : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
             projectPricing : tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing
         }
+        const credentialsObj = {
+            email : tempFieldSelected.fieldSettings.credentialsObj.email,
+            password : tempFieldSelected.fieldSettings.credentialsObj.password,
+            conpass : tempFieldSelected.fieldSettings.credentialsObj.conpass,
+            sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
+            sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
+        }
         const errorProvider = { 
             error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
             error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
@@ -179,7 +258,12 @@ const Global = ({children}) => {
             error_address : !value ? true : false,
             error_projectname : tempFieldSelected.fieldSettings.errorProvider.error_projectname,
             error_projectCategory : tempFieldSelected.fieldSettings.errorProvider.error_projectCategory,
-            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType
+            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType,
+            error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
+            error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
+            error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
+            error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
         }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
@@ -188,11 +272,17 @@ const Global = ({children}) => {
             epm_address : !value ? 'Kindly provide your address' : '',
             epm_projectname : tempFieldSelected.fieldSettings.error_provider_message.epm_projectname,
             epm_projectcategory : tempFieldSelected.fieldSettings.error_provider_message.epm_projectcategory,
-            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype
+            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype,
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
+            epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
+            epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
         }
         const fieldSettings = {
             personalInformationObj : personalInformationObj,
             projectDetailsObj: projectDetailsObj,
+            credentialsObj: credentialsObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -300,31 +390,38 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
                 }))
-            } else {
-// setActiveSteps((activeSteps) => activeSteps + 1)
+            } else { 
                 const sys = [...projectbreakdown]
                 const filtered = sys.filter((item) => item.field_type === tempField.projectDetailsObj.projectType)
-                let combined = []
-                for(var x = 0; x < filtered.length; x++) { 
-                    const joined = filtered[x].joinedSys.find((val) => {
-                        return val == 'POS_INV'
-                    })
-                     combined.push(joined)
-                }
-                for(var i = 0; i < filtered.length; i++){
+                const field_filtered = filtered.filter((val) => {
+                    return val.joinedSys.find(item => item == tempField.projectDetailsObj.projectCategory)
+                })
+                for(var x = 0; x < field_filtered.length; x++) {
                     features.push({
-                        field_id : filtered[i].field_id,
-                        field_name : filtered[i].field_name,
-                        field_type : filtered[i].field_type,
-                        joinedSys : combined.filter(item => item !== undefined),
-                        field : filtered[i].field
+                        field_id : field_filtered[x].field_id,
+                        field_name : field_filtered[x].field_name,
+                        field_type : field_filtered[x].field_type,
+                        joinedSys : field_filtered[x].joinedSys,
+                        field : field_filtered[x].field
                     })
                 }
-                console.log(combined)
-                console.log(features)
+                setActiveSteps((activeSteps) => activeSteps + 1)
             } 
+        } else if(activeSteps === 2) {
+            if(destinationArray.length > 0) {
+                setActiveSteps((activeSteps) => activeSteps + 1)
+            } else {
+                setSnacbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open = true,
+                    ...prevState.settings.message = "Kindly select system features",
+                    ...prevState.settings.severity = "error",
+                    ...prevState.settings.autoHideDuration = 5000
+                }))
+            }
         }
     }
+    
     return (
         <GlobalContext.Provider
         value={{
@@ -334,7 +431,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             selectedIndex, setSelectedIndex, HandleChangeFirstname,
             HandleChangeLastname,HandleChangeAddress, HandleChangeContactNumber,
             HandleChangeEmailLogin, HandleChangePasswordLogin, handleNext,
-            snackbarSettings, handleClose
+            snackbarSettings, handleClose, handlePrevious
         }}
         >{children}</GlobalContext.Provider>
     )

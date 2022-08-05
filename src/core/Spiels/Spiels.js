@@ -23,6 +23,13 @@ class Spiels {
                     projectType : '',
                     projectPricing : 25000
                 },
+                credentialsObj : {
+                    email : '',
+                    password : '',
+                    conpass : '',
+                    sec_question : '',
+                    sec_answer : ''
+                },
                 errorProvider : {
                     error_firstname : false,
                     error_lastname : false,
@@ -30,7 +37,12 @@ class Spiels {
                     error_address : false,
                     error_projectname : false,
                     error_projectCategory : false,
-                    error_projectType : false
+                    error_projectType : false,
+                    error_email : false,
+                    error_password : false,
+                    error_conpass : false,
+                    error_sec_question : false,
+                    error_sec_answer : false
                 },
                 error_provider_message : {
                     epm_firstname : '',
@@ -39,7 +51,12 @@ class Spiels {
                     epm_address : '',
                     epm_projectname : '',
                     epm_projectcategory : '',
-                    epm_projecttype: ''
+                    epm_projecttype: '',
+                    epm_email : '',
+                    epm_password : '',
+                    epm_conpass : '',
+                    epm_sec_question : '',
+                    epm_sec_answer : ''
                 }
             }
         },

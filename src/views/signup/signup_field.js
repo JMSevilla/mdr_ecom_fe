@@ -21,12 +21,12 @@ import { Peso } from '../../core/utils/Intl'
 
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
-import { projectCategory, projectType, features, destinationArray } from '../../core/utils/helper'
+import { projectCategory, projectType, features, destinationArray, security_questions } from '../../core/utils/helper'
 
 const SignupField = (props) => {
     const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
         HandleChangeAddress, HandleChangeContactNumber, handleNext, HandleProjectName, HandleSelectProjectCategory,
-        HandleSelectProjectType, HandleSliderChange } = props
+        HandleSelectProjectType, HandleSliderChange, handlePrevious } = props
     const { fieldSettings, priceSettings } = allFieldSelected[0]
     const selectedCustomer = () => {
         setOpen(true)
@@ -451,9 +451,11 @@ const SignupField = (props) => {
                                                                         text={'Drop features here'}
                                                                         />
                                                                         <hr />
-                                                                         {
+                                                                        <Grid direction="rows" container spacing={2}>
+                                                                                
+                                                                                    {
                                                                                 destinationArray.map((item, index) => (
-                                                                                    <div>
+                                                                                    <Grid item xs={12} sm={4}>
                                                                                         <Card
                                                                                                     
                                                                                                     style={{
@@ -464,9 +466,12 @@ const SignupField = (props) => {
                                                                                                             {cloneElement(item.field)}
                                                                                                         </CardContent>
                                                                                                 </Card>
-                                                                                    </div>
+                                                                                    </Grid>
                                                                                 ))
                                                                         }
+                                                                                
+                                                                        </Grid>
+                                                                         
                                                                         {provided.placeholder}
                                                                         
                                                                     </CardContent>
@@ -481,33 +486,37 @@ const SignupField = (props) => {
                                                                         text={'Drag features here'}
                                                                         />
                                                                         <hr />
-                                                                        {
-                                                                            features.map((item, index) => (
-                                                                                <Draggable key={index} draggableId={item.field_id.toString()} index={index}>
-                                                                                    {
-                                                                                        (provided, snapshot) => (
-                                                                                               <div
-                                                                                               ref={provided.innerRef}
-                                                                                                    {...provided.draggableProps}
-                                                                                                    {...provided.dragHandleProps}
-                                                                                               >
-                                                                                                 <Card
-                                                                                                    
-                                                                                                    style={{
-                                                                                                        marginTop: '10px', marginBottom: '10px'
-                                                                                                    }}
-                                                                                                    >
-                                                                                                        <CardContent>
-                                                                                                            
-                                                                                                            {cloneElement(item.field)}
-                                                                                                        </CardContent>
-                                                                                                </Card>
-                                                                                               </div>
-                                                                                        )
-                                                                                    }
-                                                                                </Draggable>
-                                                                            ))
-                                                                        }
+                                                                        <Grid direction="rows" container spacing={2}>
+                                                                                {
+                                                                                    features.map((item, index) => (
+                                                                                        <Grid item xs={12} sm={4}>
+                                                                                            <Draggable key={index} draggableId={item.field_id.toString()} index={index}>
+                                                                                                {
+                                                                                                    (provided, snapshot) => (
+                                                                                                        <div
+                                                                                                        ref={provided.innerRef}
+                                                                                                                {...provided.draggableProps}
+                                                                                                                {...provided.dragHandleProps}
+                                                                                                        >
+                                                                                                            <Card
+                                                                                                                
+                                                                                                                style={{
+                                                                                                                    marginTop: '10px', marginBottom: '10px'
+                                                                                                                }}
+                                                                                                                >
+                                                                                                                    <CardContent>
+                                                                                                                        
+                                                                                                                        {cloneElement(item.field)}
+                                                                                                                    </CardContent>
+                                                                                                            </Card>
+                                                                                                        </div>
+                                                                                                    )
+                                                                                                }
+                                                                                            </Draggable>
+                                                                                        </Grid>
+                                                                                    ))
+                                                                                }
+                                                                        </Grid>
                                                                     </CardContent>
                                                                 }
                                                               />
@@ -515,9 +524,114 @@ const SignupField = (props) => {
                                                           </Grid>
                                                         )}
                                                     </Droppable>
-                                            </DragDropContext>       
+                                            </DragDropContext>  
+                                            <NextPrevious 
+                                            activeSteps={activeSteps}
+                                            stepperArray={customerStepper}
+                                            handleBack={() => handlePrevious()}
+                                            handleNext={() => handleNext()}
+                                            />     
                                         </SystemContainer>
-                                        : <></>
+                                        : activeSteps === 3 ?
+                                        <SystemContainer max={'xl'} style={{marginTop: '20px'}}>
+                                        <SystemTypography 
+                                            isgutter={true}
+                                            text={'Credentials'}
+                                            variant={'h5'}
+                                        />
+                                        <hr />
+                                         <SystemGrid 
+                                            rowSpacing={1}
+                                            columnSpacing={{xs: 1, sm: 2, md: 3}}
+                                            GridItems={
+                                                        [
+                                                            {
+                                                                childrenId: 1,
+                                                                children : <ApplicationCard 
+                                                                children = {
+                                                                    <CardContent>
+                                                                        <AppTextField 
+                                                                            value={fieldSettings.credentialsObj.email}
+                                                                            style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
+                                                                            placeholder='Enter email'
+                                                                            // handleChange={(e) => HandleProjectName(e)}
+                                                                            variant={'outlined'}
+                                                                            label={'Email'}
+                                                                            type={'email'}
+                                                                            texthelper={fieldSettings.error_provider_message.epm_email}
+                                                                            iserror={fieldSettings.errorProvider.error_email}
+                                                                        />
+                                                                        <AppTextField 
+                                                                            value={fieldSettings.credentialsObj.password}
+                                                                            style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
+                                                                            placeholder='Enter password'
+                                                                            // handleChange={(e) => HandleProjectName(e)}
+                                                                            variant={'outlined'}
+                                                                            label={'Password'}
+                                                                            type={'password'}
+                                                                            texthelper={fieldSettings.error_provider_message.epm_password}
+                                                                            iserror={fieldSettings.errorProvider.error_password}
+                                                                        />
+                                                                        <AppTextField 
+                                                                            value={fieldSettings.credentialsObj.conpass}
+                                                                            style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
+                                                                            placeholder='Confirm your password'
+                                                                            // handleChange={(e) => HandleProjectName(e)}
+                                                                            variant={'outlined'}
+                                                                            label={'Confirm Password'}
+                                                                            type={'password'}
+                                                                            texthelper={fieldSettings.error_provider_message.epm_conpass}
+                                                                            iserror={fieldSettings.errorProvider.error_conpass}
+                                                                        />
+                                                                    </CardContent>
+                                                                }
+                                                                />
+                                                            },
+                                                            {
+                                                                childrenId: 2,
+                                                                children : <ApplicationCard 
+                                                                children = {
+                                                                    <CardContent>
+                                                                        <SystemTypography 
+                                            isgutter={true}
+                                            text={'Security Area'}
+                                            variant={'h6'}
+                                        />
+                                        <hr />
+                                                                        <SystemGrid 
+                                                                            rowSpacing={1}
+                                                                            columnSpacing={{xs: 1, sm: 2, md: 3}}
+                                                                            GridItems={
+                                                                                [
+                                                                                    {
+                                                                                        childrenId: 1,
+                                                                                        children : <SystemSelect 
+                                                                // value={fieldSettings.projectDetailsObj.projectType}
+                                                                selectionArray={security_questions}
+                                                                selectionLabel={'Select Question'}
+                                                                selectionTitle={'Choose Question'}
+                                                                placeholder={'Choose Question'}
+                                                                style={{marginTop: '10px', marginBottom: '10px'}}
+                                                                // handleSelect={(e) => HandleSelectProjectType(e)}
+                                                                />
+                                                                                    },
+                                                                                    {
+                                                                                        childrenId: 1,
+                                                                                        children : <></>
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        />
+                                                                    </CardContent>
+                                                                }
+                                                                />
+                                                            }
+                                                        ]
+                                                    }
+                                         />
+                                        </SystemContainer>
+                                        
+                                        :<></>
                                     }
                                 </>
                             : <></>

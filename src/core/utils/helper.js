@@ -122,3 +122,10 @@ export const customerStepper = [
 export const features = []
 
 export const destinationArray = []
+
+export const security_questions = [
+    {
+        value : 'what is your dogs name ?',
+        label : 'What is your dogs name ?'
+    }
+]
