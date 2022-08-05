@@ -4,7 +4,7 @@ export const projectbreakdown = [
     {
         field_id : 1,
         field_name : 'ssp_login',
-        field_type : 'ssp',
+        field_type : 'SSP',
         joinedSys : [
             'POS_INV',
             'ECOM',
@@ -19,7 +19,7 @@ export const projectbreakdown = [
     {
         field_id : 2,
         field_name : 'ssp_customer_registration',
-        field_type : 'ssp',
+        field_type : 'SSP',
         joinedSys : [
             'ECOM',
             'PSB'
@@ -27,3 +27,4 @@ export const projectbreakdown = [
         field : <SSP_Feature2 />
     }
 ]
+

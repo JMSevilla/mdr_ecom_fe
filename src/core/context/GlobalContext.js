@@ -6,7 +6,7 @@ import { features } from '../utils/helper'
 const GlobalContext = createContext()
 
 const Global = ({children}) => {
-    const [activeSteps, setActiveSteps] = useState(0)
+    const [activeSteps, setActiveSteps] = useState(1)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [signupCategory, setSignupCategory] = useState('pick')
@@ -302,7 +302,26 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                 }))
             } else {
 // setActiveSteps((activeSteps) => activeSteps + 1)
-                // const filtered = 
+                const sys = [...projectbreakdown]
+                const filtered = sys.filter((item) => item.field_type === tempField.projectDetailsObj.projectType)
+                let combined = []
+                for(var x = 0; x < filtered.length; x++) { 
+                    const joined = filtered[x].joinedSys.find((val) => {
+                        return val == 'POS_INV'
+                    })
+                     combined.push(joined)
+                }
+                for(var i = 0; i < filtered.length; i++){
+                    features.push({
+                        field_id : filtered[i].field_id,
+                        field_name : filtered[i].field_name,
+                        field_type : filtered[i].field_type,
+                        joinedSys : combined.filter(item => item !== undefined),
+                        field : filtered[i].field
+                    })
+                }
+                console.log(combined)
+                console.log(features)
             } 
         }
     }
