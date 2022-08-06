@@ -27,7 +27,7 @@ const SignupField = (props) => {
     const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
         HandleChangeAddress, HandleChangeContactNumber, handleNext, HandleProjectName, HandleSelectProjectCategory,
         HandleSelectProjectType, HandleSliderChange, handlePrevious, HandleChangeBOEmailSignup, HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, 
-        HandleChangeBOSecAnswer} = props
+        HandleChangeBOSecAnswer, HandleSelectQuestion} = props
     const { fieldSettings, priceSettings } = allFieldSelected[0]
     const selectedCustomer = () => {
         setOpen(true)
@@ -607,13 +607,13 @@ const SignupField = (props) => {
                                                                                     {
                                                                                         childrenId: 1,
                                                                                         children : <SystemSelect 
-                                                                // value={fieldSettings.credentialsObj.sec_question}
+                                                                value={fieldSettings.credentialsObj.sec_question}
                                                                 selectionArray={security_questions}
                                                                 selectionLabel={'Select Question'}
                                                                 selectionTitle={'Choose Question'}
                                                                 placeholder={'Choose Question'}
                                                                 style={{marginTop: '10px', marginBottom: '10px'}}
-                                                                // handleSelect={(e) => HandleSelectQuestion(e)}
+                                                                handleSelect={(e) => HandleSelectQuestion(e)}
                                                                 />
                                                                                     },
                                                                                     {
@@ -639,6 +639,12 @@ const SignupField = (props) => {
                                                         ]
                                                     }
                                          />
+                                          <NextPrevious 
+                                            activeSteps={activeSteps}
+                                            stepperArray={customerStepper}
+                                            handleBack={() => handlePrevious()}
+                                            handleNext={() => handleNext()}
+                                            />
                                         </SystemContainer>
                                         
                                         :<></>

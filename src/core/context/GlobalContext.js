@@ -2,6 +2,7 @@ import React, {createContext, cloneElement, useState, useCallback, useEffect} fr
 import Spiels from '../Spiels/Spiels'
 import { projectbreakdown } from '../utils/dumpfeatures'
 import { features, destinationArray } from '../utils/helper'
+import FormService from '../service/apiservice'
 
 const GlobalContext = createContext()
 
@@ -352,21 +353,24 @@ const Global = ({children}) => {
             ...prevState.settings.open = false
         }))
     }
-    const checkProperties = (obj) => {
-        for(var key in obj) {
-            if(obj[key] !== null && obj[key] !== '' ){
-                return false
-            }
-        }
-        return true
+    const create_uuid = () =>{
+        var dt = new Date().getTime()
+         var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (dt + Math.random()*16)%16 | 0;
+            dt = Math.floor(dt/16);
+            return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+        });
+        return uuid;
     }
     const handleNext = () => {
         const tempAllFieldSelected = [...allFieldSelected]
         const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
         const tempField = {...tempFieldSelected.fieldSettings}
-        const personalCheckInfo = checkProperties(tempFieldSelected.fieldSettings.personalInformationObj)
         if(activeSteps === 0) {
-             if(personalCheckInfo){
+             if(tempField.personalInformationObj.firstname == ''
+             || tempField.personalInformationObj.lastname == '' ||
+             tempField.personalInformationObj.contactnum == ''
+             || tempField.personalInformationObj.address == ''){
                 setSnacbarSettings(prevState => ({
                     ...prevState,
                     ...prevState.settings.open = true,
@@ -419,6 +423,46 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                     ...prevState.settings.autoHideDuration = 5000
                 }))
             }
+        } else if(activeSteps === 3){
+            if(!tempField.credentialsObj.email || !tempField.credentialsObj.password
+                || !tempField.credentialsObj.conpass || !tempField.credentialsObj.sec_question
+                || !tempField.credentialsObj.sec_answer){
+                    setSnacbarSettings(prevState => ({
+                        ...prevState,
+                        ...prevState.settings.open = true,
+                        ...prevState.settings.message = "There's an empty field, please try again",
+                        ...prevState.settings.severity = "error",
+                        ...prevState.settings.autoHideDuration = 5000
+                    }))
+                } else { 
+                    //function verify existing sent code and email
+                    //else new entry of verification code
+                    const fieldVerified = {
+                        email : tempField.credentialsObj.email,
+                        code : create_uuid()
+                    }
+                    setOpen(true)
+                    FormService.BUSINESS_verification_entry(fieldVerified)
+                    .then(res => {
+                        if(res.data.message == 'success_vc_entry'){
+                            //call api send email
+                            FormService.BUSINESS_send_email(fieldVerified)
+                            .then(resp => {
+                                if(resp.data.message == 'success_sent'){
+                                    setSnacbarSettings(prevState => ({
+                                ...prevState,
+                                ...prevState.settings.open = true,
+                                ...prevState.settings.message = "Successfully Sent Verification Code",
+                                ...prevState.settings.severity = "success",
+                                ...prevState.settings.autoHideDuration = 5000
+                            }))
+                            setOpen(false)
+                            setActiveSteps((activeSteps) => activeSteps + 1)
+                                }
+                            })
+                        }
+                    })
+                }
         }
     }
     const HandleSelectQuestion = (event) => {
@@ -567,7 +611,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType,
             error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
             error_password : !value ? true : false,
-            error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
+            error_conpass : value !== tempFieldSelected.fieldSettings.credentialsObj.conpass ? true : false,
             error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
             error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
         }
@@ -594,7 +638,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype,
             epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
             epm_password : !value ? "Please provide your password" : '',
-            epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
+            epm_conpass :  value !== tempFieldSelected.fieldSettings.credentialsObj.conpass ? 'Password does not match' : '',
             epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
             epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
         }
@@ -630,7 +674,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType,
             error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
             error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
-            error_conpass : !value ? true : false,
+            error_conpass : !value ? true : value !== tempFieldSelected.fieldSettings.credentialsObj.password ? true : false,
             error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
             error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
         }
@@ -657,7 +701,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype,
             epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
             epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
-            epm_conpass : !value ? 'Please confirm your password' : '',
+            epm_conpass : !value ? 'Kindly confirm your password' : value !== tempFieldSelected.fieldSettings.credentialsObj.password ? 'Password does not match' : '',
             epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
             epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
         }
@@ -746,7 +790,8 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             HandleChangeLastname,HandleChangeAddress, HandleChangeContactNumber,
             HandleChangeEmailLogin, HandleChangePasswordLogin, handleNext,
             snackbarSettings, handleClose, handlePrevious, HandleChangeBOEmailSignup, 
-            HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, HandleChangeBOSecAnswer
+            HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, HandleChangeBOSecAnswer,
+            HandleSelectQuestion
         }}
         >{children}</GlobalContext.Provider>
     )
