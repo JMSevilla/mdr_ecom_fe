@@ -26,7 +26,8 @@ import { projectCategory, projectType, features, destinationArray, security_ques
 const SignupField = (props) => {
     const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
         HandleChangeAddress, HandleChangeContactNumber, handleNext, HandleProjectName, HandleSelectProjectCategory,
-        HandleSelectProjectType, HandleSliderChange, handlePrevious } = props
+        HandleSelectProjectType, HandleSliderChange, handlePrevious, HandleChangeBOEmailSignup, HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, 
+        HandleChangeBOSecAnswer} = props
     const { fieldSettings, priceSettings } = allFieldSelected[0]
     const selectedCustomer = () => {
         setOpen(true)
@@ -554,7 +555,7 @@ const SignupField = (props) => {
                                                                             value={fieldSettings.credentialsObj.email}
                                                                             style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
                                                                             placeholder='Enter email'
-                                                                            // handleChange={(e) => HandleProjectName(e)}
+                                                                            handleChange={(e) => HandleChangeBOEmailSignup(e)}
                                                                             variant={'outlined'}
                                                                             label={'Email'}
                                                                             type={'email'}
@@ -565,7 +566,7 @@ const SignupField = (props) => {
                                                                             value={fieldSettings.credentialsObj.password}
                                                                             style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
                                                                             placeholder='Enter password'
-                                                                            // handleChange={(e) => HandleProjectName(e)}
+                                                                            handleChange={(e) => HandleChangeBOPasswordSignup(e)}
                                                                             variant={'outlined'}
                                                                             label={'Password'}
                                                                             type={'password'}
@@ -576,7 +577,7 @@ const SignupField = (props) => {
                                                                             value={fieldSettings.credentialsObj.conpass}
                                                                             style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
                                                                             placeholder='Confirm your password'
-                                                                            // handleChange={(e) => HandleProjectName(e)}
+                                                                            handleChange={(e) => HandleChangeBOConPassSignup(e)}
                                                                             variant={'outlined'}
                                                                             label={'Confirm Password'}
                                                                             type={'password'}
@@ -606,18 +607,27 @@ const SignupField = (props) => {
                                                                                     {
                                                                                         childrenId: 1,
                                                                                         children : <SystemSelect 
-                                                                // value={fieldSettings.projectDetailsObj.projectType}
+                                                                // value={fieldSettings.credentialsObj.sec_question}
                                                                 selectionArray={security_questions}
                                                                 selectionLabel={'Select Question'}
                                                                 selectionTitle={'Choose Question'}
                                                                 placeholder={'Choose Question'}
                                                                 style={{marginTop: '10px', marginBottom: '10px'}}
-                                                                // handleSelect={(e) => HandleSelectProjectType(e)}
+                                                                // handleSelect={(e) => HandleSelectQuestion(e)}
                                                                 />
                                                                                     },
                                                                                     {
                                                                                         childrenId: 1,
-                                                                                        children : <></>
+                                                                                        children :  <AppTextField 
+                                                                                        value={fieldSettings.credentialsObj.sec_answer}
+                                                                                        style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
+                                                                                        placeholder='State your answer'
+                                                                                        handleChange={(e) => HandleChangeBOSecAnswer(e)}
+                                                                                        variant={'outlined'}
+                                                                                        label={'Answer'}
+                                                                                        texthelper={fieldSettings.error_provider_message.epm_sec_answer}
+                                                                                        iserror={fieldSettings.errorProvider.error_sec_answer}
+                                                                                    />
                                                                                     }
                                                                                 ]
                                                                             }

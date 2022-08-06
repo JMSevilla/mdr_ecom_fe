@@ -421,7 +421,321 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             }
         }
     }
-    
+    const HandleSelectQuestion = (event) => {
+        let value = event.target.value
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const personalInformationObj = {
+            firstname : tempFieldSelected.fieldSettings.personalInformationObj.firstname,
+            lastname : tempFieldSelected.fieldSettings.personalInformationObj.lastname,
+            contactnum : tempFieldSelected.fieldSettings.personalInformationObj.contactnum,
+            address : tempFieldSelected.fieldSettings.personalInformationObj.address
+        }
+        const projectDetailsObj = { 
+            projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
+            projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
+            projectType : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
+            projectPricing : tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing
+        }
+        const credentialsObj = {
+            email : tempFieldSelected.fieldSettings.credentialsObj.email,
+            password : tempFieldSelected.fieldSettings.credentialsObj.password,
+            conpass : tempFieldSelected.fieldSettings.credentialsObj.conpass,
+            sec_question : value,
+            sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
+        }
+        const errorProvider = { 
+            error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
+            error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
+            error_contactnum : tempFieldSelected.fieldSettings.errorProvider.error_contactnum,
+            error_address : tempFieldSelected.fieldSettings.errorProvider.error_address,
+            error_projectname :tempFieldSelected.fieldSettings.errorProvider.error_projectname,
+            error_projectCategory : tempFieldSelected.fieldSettings.errorProvider.error_projectCategory,
+            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType,
+            error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
+            error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
+            error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
+            error_sec_question : !value ? true : false,
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
+        }
+        const error_provider_message = {
+            epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
+            epm_lastname : tempFieldSelected.fieldSettings.error_provider_message.epm_lastname,
+            epm_contactnum : tempFieldSelected.fieldSettings.error_provider_message.epm_contactnum,
+            epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address,
+            epm_projectname : tempFieldSelected.fieldSettings.error_provider_message.epm_projectname,
+            epm_projectcategory :  tempFieldSelected.fieldSettings.error_provider_message.epm_projectcategory,
+            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype,
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
+            epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
+            epm_sec_question : !value ? 'Kindly provide your security question' : '',
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
+        }
+        const fieldSettings = {
+            personalInformationObj : personalInformationObj,
+            projectDetailsObj: projectDetailsObj,
+            credentialsObj: credentialsObj,
+            errorProvider : errorProvider,
+            error_provider_message: error_provider_message
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+        console.log(tempAllFieldSelected)
+    }
+    const HandleChangeBOEmailSignup = (event) => {
+        let value = event.currentTarget.value
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const personalInformationObj = {
+            firstname : tempFieldSelected.fieldSettings.personalInformationObj.firstname,
+            lastname : tempFieldSelected.fieldSettings.personalInformationObj.lastname,
+            contactnum : tempFieldSelected.fieldSettings.personalInformationObj.contactnum,
+            address : tempFieldSelected.fieldSettings.personalInformationObj.address
+        }
+        const errorProvider = { 
+            error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
+            error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
+            error_contactnum : tempFieldSelected.fieldSettings.errorProvider.error_contactnum,
+            error_address : tempFieldSelected.fieldSettings.errorProvider.error_address,
+            error_projectname : tempFieldSelected.fieldSettings.errorProvider.error_projectname,
+            error_projectCategory : tempFieldSelected.fieldSettings.errorProvider.error_projectCategory,
+            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType,
+            error_email : !value ? true : false,
+            error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
+            error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
+            error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
+        }
+        const projectDetailsObj = { 
+            projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
+            projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
+            projectType : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
+            projectPricing : tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing
+        }
+        const credentialsObj = {
+            email : value,
+            password : tempFieldSelected.fieldSettings.credentialsObj.password,
+            conpass : tempFieldSelected.fieldSettings.credentialsObj.conpass,
+            sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
+            sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
+        }
+        const error_provider_message = {
+            epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
+            epm_lastname : tempFieldSelected.fieldSettings.error_provider_message.epm_lastname,
+            epm_contactnum : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address,
+            epm_projectname : tempFieldSelected.fieldSettings.error_provider_message.epm_projectname,
+            epm_projectcategory : tempFieldSelected.fieldSettings.error_provider_message.epm_projectcategory,
+            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype,
+            epm_email : !value ? 'Kindly provide a valid email address' : '',
+            epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
+            epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
+            epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
+        }
+        const fieldSettings = {
+            personalInformationObj : personalInformationObj,
+            projectDetailsObj: projectDetailsObj,
+            credentialsObj: credentialsObj,
+            errorProvider : errorProvider,
+            error_provider_message: error_provider_message
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+        console.log(tempAllFieldSelected)
+    }
+    const HandleChangeBOPasswordSignup = (event) => {
+        let value = event.currentTarget.value
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const personalInformationObj = {
+            firstname : tempFieldSelected.fieldSettings.personalInformationObj.firstname,
+            lastname : tempFieldSelected.fieldSettings.personalInformationObj.lastname,
+            contactnum : tempFieldSelected.fieldSettings.personalInformationObj.contactnum,
+            address : tempFieldSelected.fieldSettings.personalInformationObj.address
+        }
+        const errorProvider = { 
+            error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
+            error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
+            error_contactnum : tempFieldSelected.fieldSettings.errorProvider.error_contactnum,
+            error_address : tempFieldSelected.fieldSettings.errorProvider.error_address,
+            error_projectname : tempFieldSelected.fieldSettings.errorProvider.error_projectname,
+            error_projectCategory : tempFieldSelected.fieldSettings.errorProvider.error_projectCategory,
+            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType,
+            error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
+            error_password : !value ? true : false,
+            error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
+            error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
+        }
+        const projectDetailsObj = { 
+            projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
+            projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
+            projectType : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
+            projectPricing : tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing
+        }
+        const credentialsObj = {
+            email : tempFieldSelected.fieldSettings.credentialsObj.email,
+            password : value,
+            conpass : tempFieldSelected.fieldSettings.credentialsObj.conpass,
+            sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
+            sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
+        }
+        const error_provider_message = {
+            epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
+            epm_lastname : tempFieldSelected.fieldSettings.error_provider_message.epm_lastname,
+            epm_contactnum : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address,
+            epm_projectname : tempFieldSelected.fieldSettings.error_provider_message.epm_projectname,
+            epm_projectcategory : tempFieldSelected.fieldSettings.error_provider_message.epm_projectcategory,
+            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype,
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_password : !value ? "Please provide your password" : '',
+            epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
+            epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
+        }
+        const fieldSettings = {
+            personalInformationObj : personalInformationObj,
+            projectDetailsObj: projectDetailsObj,
+            credentialsObj: credentialsObj,
+            errorProvider : errorProvider,
+            error_provider_message: error_provider_message
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+        console.log(tempAllFieldSelected)
+    }
+    const HandleChangeBOConPassSignup = (event) => {
+        let value = event.currentTarget.value
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const personalInformationObj = {
+            firstname : tempFieldSelected.fieldSettings.personalInformationObj.firstname,
+            lastname : tempFieldSelected.fieldSettings.personalInformationObj.lastname,
+            contactnum : tempFieldSelected.fieldSettings.personalInformationObj.contactnum,
+            address : tempFieldSelected.fieldSettings.personalInformationObj.address
+        }
+        const errorProvider = { 
+            error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
+            error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
+            error_contactnum : tempFieldSelected.fieldSettings.errorProvider.error_contactnum,
+            error_address : tempFieldSelected.fieldSettings.errorProvider.error_address,
+            error_projectname : tempFieldSelected.fieldSettings.errorProvider.error_projectname,
+            error_projectCategory : tempFieldSelected.fieldSettings.errorProvider.error_projectCategory,
+            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType,
+            error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
+            error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
+            error_conpass : !value ? true : false,
+            error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
+        }
+        const projectDetailsObj = { 
+            projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
+            projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
+            projectType : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
+            projectPricing : tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing
+        }
+        const credentialsObj = {
+            email : tempFieldSelected.fieldSettings.credentialsObj.email,
+            password : tempFieldSelected.fieldSettings.credentialsObj.password,
+            conpass : value,
+            sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
+            sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
+        }
+        const error_provider_message = {
+            epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
+            epm_lastname : tempFieldSelected.fieldSettings.error_provider_message.epm_lastname,
+            epm_contactnum : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address,
+            epm_projectname : tempFieldSelected.fieldSettings.error_provider_message.epm_projectname,
+            epm_projectcategory : tempFieldSelected.fieldSettings.error_provider_message.epm_projectcategory,
+            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype,
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
+            epm_conpass : !value ? 'Please confirm your password' : '',
+            epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
+        }
+        const fieldSettings = {
+            personalInformationObj : personalInformationObj,
+            projectDetailsObj: projectDetailsObj,
+            credentialsObj: credentialsObj,
+            errorProvider : errorProvider,
+            error_provider_message: error_provider_message
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+        console.log(tempAllFieldSelected)
+    }
+    const HandleChangeBOSecAnswer = (event) => {
+        let value = event.currentTarget.value
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const personalInformationObj = {
+            firstname : tempFieldSelected.fieldSettings.personalInformationObj.firstname,
+            lastname : tempFieldSelected.fieldSettings.personalInformationObj.lastname,
+            contactnum : tempFieldSelected.fieldSettings.personalInformationObj.contactnum,
+            address : tempFieldSelected.fieldSettings.personalInformationObj.address
+        }
+        const errorProvider = { 
+            error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
+            error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
+            error_contactnum : tempFieldSelected.fieldSettings.errorProvider.error_contactnum,
+            error_address : tempFieldSelected.fieldSettings.errorProvider.error_address,
+            error_projectname : tempFieldSelected.fieldSettings.errorProvider.error_projectname,
+            error_projectCategory : tempFieldSelected.fieldSettings.errorProvider.error_projectCategory,
+            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType,
+            error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
+            error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
+            error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
+            error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
+            error_sec_answer : !value ? true : false
+        }
+        const projectDetailsObj = { 
+            projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
+            projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
+            projectType : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
+            projectPricing : tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing
+        }
+        const credentialsObj = {
+            email : tempFieldSelected.fieldSettings.credentialsObj.email,
+            password : tempFieldSelected.fieldSettings.credentialsObj.password,
+            conpass : tempFieldSelected.fieldSettings.credentialsObj.conpass,
+            sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
+            sec_answer : value
+        }
+        const error_provider_message = {
+            epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
+            epm_lastname : tempFieldSelected.fieldSettings.error_provider_message.epm_lastname,
+            epm_contactnum : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address,
+            epm_projectname : tempFieldSelected.fieldSettings.error_provider_message.epm_projectname,
+            epm_projectcategory : tempFieldSelected.fieldSettings.error_provider_message.epm_projectcategory,
+            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype,
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
+            epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
+            epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
+            epm_sec_answer : !value ? 'Please provide a security answer' : '',
+        }
+        const fieldSettings = {
+            personalInformationObj : personalInformationObj,
+            projectDetailsObj: projectDetailsObj,
+            credentialsObj: credentialsObj,
+            errorProvider : errorProvider,
+            error_provider_message: error_provider_message
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+        console.log(tempAllFieldSelected)
+    }
     return (
         <GlobalContext.Provider
         value={{
@@ -431,7 +745,8 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             selectedIndex, setSelectedIndex, HandleChangeFirstname,
             HandleChangeLastname,HandleChangeAddress, HandleChangeContactNumber,
             HandleChangeEmailLogin, HandleChangePasswordLogin, handleNext,
-            snackbarSettings, handleClose, handlePrevious
+            snackbarSettings, handleClose, handlePrevious, HandleChangeBOEmailSignup, 
+            HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, HandleChangeBOSecAnswer
         }}
         >{children}</GlobalContext.Provider>
     )
