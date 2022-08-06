@@ -9,7 +9,7 @@ import { ServicesData } from '../../../core/utils/helper'
 
 const services_field = () => {
     return (
-        <Box style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '4.5rem'}}>
+        <Box id="services" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '4.5rem', height: '100vh'}}>
             <Box style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '.5rem'}}>
             <img src={ServiceOutlineText} alt='service outline'/>
             <SystemTypography variant={'h5'} text={'What We Do?'}/>
@@ -31,10 +31,11 @@ const services_field = () => {
                     }
                     children={
                         <CardContent>
-                            <Box style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                            <Box style={{display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center'}}>
                                 <SystemTypography variant={'h5'} text={item.title} isgutter={true}/>
                                 <SystemTypography variant={'body'} text={item.description} isgutter={true}/>
-                                <AppButton buttonName={'Learn More'} style={{marginTop: '20px'}} size="small"/>
+                                <AppButton buttonName={'Learn More'} variant={'contained'} style={{fontWeight: 500, marginTop: '20px', backgroundColor: 'white', 
+                                color: 'black', padding: '10px 20px'}} size="small"/>
                             </Box>
                         </CardContent>
                     }

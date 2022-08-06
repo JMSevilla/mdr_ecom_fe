@@ -29,7 +29,6 @@ export default function AppDropdown(props) {
       <List
         component="nav"
         aria-label="Device settings"
-        sx={{ bgcolor: 'background.paper' }}
       >
         <ListItem
           button
@@ -51,7 +50,7 @@ export default function AppDropdown(props) {
         onClick={handleClose}
         MenuListProps={{
           'aria-labelledby': 'lock-button',
-          role: 'listbox',
+          role: 'listbox',onMouseLeave: handleClose,
         }}
       >
         {options.map((option, index) => (
