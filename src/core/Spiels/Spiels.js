@@ -30,6 +30,10 @@ class Spiels {
                     sec_question : '',
                     sec_answer : ''
                 },
+                verificationObj : {
+                    verificationcode : '',
+                    vrfycounts : 0
+                },
                 errorProvider : {
                     error_firstname : false,
                     error_lastname : false,
@@ -42,7 +46,8 @@ class Spiels {
                     error_password : false,
                     error_conpass : false,
                     error_sec_question : false,
-                    error_sec_answer : false
+                    error_sec_answer : false,
+                    error_verify : false
                 },
                 error_provider_message : {
                     epm_firstname : '',
@@ -56,7 +61,8 @@ class Spiels {
                     epm_password : '',
                     epm_conpass : '',
                     epm_sec_question : '',
-                    epm_sec_answer : ''
+                    epm_sec_answer : '',
+                    epm_verify : ''
                 }
             }
         },

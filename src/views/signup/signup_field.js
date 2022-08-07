@@ -27,8 +27,8 @@ const SignupField = (props) => {
     const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
         HandleChangeAddress, HandleChangeContactNumber, handleNext, HandleProjectName, HandleSelectProjectCategory,
         HandleSelectProjectType, HandleSliderChange, handlePrevious, HandleChangeBOEmailSignup, HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, 
-        HandleChangeBOSecAnswer, HandleSelectQuestion} = props
-    const { fieldSettings, priceSettings } = allFieldSelected[0]
+        HandleChangeBOSecAnswer, HandleSelectQuestion, HandleVerification} = props
+    const { fieldSettings, priceSettings, verification, setVerification, } = allFieldSelected[0]
     const selectedCustomer = () => {
         setOpen(true)
         setTimeout(() => {
@@ -647,7 +647,33 @@ const SignupField = (props) => {
                                             />
                                         </SystemContainer>
                                         
-                                        :<></>
+                                        : activeSteps === 4 ? 
+                                        <SystemContainer max={'xl'} style={{marginTop: '20px'}}>
+                                        <SystemTypography 
+                                            isgutter={true}
+                                            text={'Verification'}
+                                            variant={'h5'}
+                                        />
+                                        <hr />
+                                        <AppTextField 
+                                            value={fieldSettings.verificationObj.verificationcode}
+                                            style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
+                                            placeholder='Enter verification code'
+                                            handleChange={(e) => HandleVerification(e)}
+                                            variant={'outlined'}
+                                            label={'Verification Code'}
+                                            texthelper={fieldSettings.verificationObj.epm_verify}
+                                            iserror={fieldSettings.verificationObj.error_verify}
+                                        />   
+                                        <NextPrevious 
+                                            activeSteps={activeSteps}
+                                            stepperArray={customerStepper}
+                                            handleBack={() => handlePrevious()}
+                                            handleNext={() => handleNext()}
+                                            hasResend={true}
+                                            />     
+                                        </SystemContainer>
+                                        : <></>
                                     }
                                 </>
                             : <></>
