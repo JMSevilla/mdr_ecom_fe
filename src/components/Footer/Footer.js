@@ -11,8 +11,6 @@ const AppFooter = () => {
   return (
     <Box
       style={{
-        position: "absolute",
-        bottom: 0,
         backgroundColor: "rgb(253,249,255)",
         width: "100%",
         height: "10vh",

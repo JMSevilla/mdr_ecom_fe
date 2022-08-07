@@ -40,7 +40,6 @@ const Global = ({children}) => {
         tempFieldSelected.fieldSettings = fieldSettings
         tempAllFieldSelected[selectedIndex] = tempFieldSelected
         setAllFieldSelected(tempAllFieldSelected)
-        console.log(tempAllFieldSelected)
     }
     const HandleChangeLastname = (event) => {
         let value = event.currentTarget.value
@@ -72,7 +71,6 @@ const Global = ({children}) => {
         tempFieldSelected.fieldSettings = fieldSettings
         tempAllFieldSelected[selectedIndex] = tempFieldSelected
         setAllFieldSelected(tempAllFieldSelected)
-        console.log(tempAllFieldSelected)
     }
     const HandleChangeContactNumber = (event) => {
         let value = event.currentTarget.value
@@ -104,7 +102,6 @@ const Global = ({children}) => {
         tempFieldSelected.fieldSettings = fieldSettings
         tempAllFieldSelected[selectedIndex] = tempFieldSelected
         setAllFieldSelected(tempAllFieldSelected)
-        console.log(tempAllFieldSelected)
     }
     const HandleChangeAddress = (event) => {
         let value = event.currentTarget.value
@@ -136,7 +133,6 @@ const Global = ({children}) => {
         tempFieldSelected.fieldSettings = fieldSettings
         tempAllFieldSelected[selectedIndex] = tempFieldSelected
         setAllFieldSelected(tempAllFieldSelected)
-        console.log(tempAllFieldSelected)
     }
     const HandleChangeEmailLogin = (event) => {
         let value = event.currentTarget.value
@@ -162,7 +158,6 @@ const Global = ({children}) => {
         tempFieldSelected.fieldSettings = fieldSettings
         tempAllFieldSelected[selectedIndex] = tempFieldSelected
         setAllFieldSelected(tempAllFieldSelected)
-        console.log(tempAllFieldSelected)
     }
     const HandleChangePasswordLogin = (event) => {
         let value = event.currentTarget.value
@@ -188,7 +183,6 @@ const Global = ({children}) => {
         tempFieldSelected.fieldSettings = fieldSettings
         tempAllFieldSelected[selectedIndex] = tempFieldSelected
         setAllFieldSelected(tempAllFieldSelected)
-        console.log(tempAllFieldSelected)
     }
     const handleNext = () => {
         const tempAllFieldSelected = [...allFieldSelected]

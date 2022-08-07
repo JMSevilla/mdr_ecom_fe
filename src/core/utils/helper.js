@@ -6,21 +6,38 @@ import desktop from '../../assets/images/services/desktop_app.jpg';
 // social media icons
 import {FiFacebook, FiLinkedin, FiGithub} from 'react-icons/fi';
 
+// import hero banner images 
+import herobanner from '../../assets/images/herobanner/herobanner.jpg';
+import herobanner2 from '../../assets/images/herobanner/herobanner2.jpg';
+import herobanner3 from '../../assets/images/herobanner/herobanner3.jpg';
+
+export const heroBannerData = [
+    {
+        img: herobanner
+    },
+    {
+        img: herobanner2
+    },
+    {
+        img: herobanner3
+    }
+];
+
 export const ServicesData = [ 
     {
         img: web,
         title: 'Web App Development',
-        description: 'lorem ipsum dolor'
+        description: 'description about our website app development'
     },
     {
         img: desktop,
         title: 'Desktop App Development',
-        description: 'lorem ipsum dolor'
+        description: 'description about our desktop app development'
     },
     {
         img: mobile,
         title: 'Mobile App Development',
-        description: 'lorem ipsum dolor'
+        description: 'description about our mobile app development'
     },
 
 ];
