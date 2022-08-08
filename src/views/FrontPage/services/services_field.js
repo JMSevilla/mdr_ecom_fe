@@ -19,7 +19,7 @@ const services_field = () => {
             {ServicesData.map((item, index) => {
                 return (
                     <>
-                        <ApplicationCard key={index}
+                        <ApplicationCard key={index} className='card'
                     cardmedia={
                         <CardMedia 
                             component="img"
@@ -34,8 +34,8 @@ const services_field = () => {
                             <Box style={{display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center'}}>
                                 <SystemTypography variant={'h5'} text={item.title} isgutter={true}/>
                                 <SystemTypography variant={'body'} text={item.description} isgutter={true}/>
-                                <AppButton buttonName={'Learn More'} variant={'contained'} style={{fontWeight: 500, marginTop: '20px', backgroundColor: 'white', 
-                                color: 'black', padding: '10px 20px'}} size="small"/>
+                                <AppButton buttonColor={'button-white'} buttonName={'More Details'} variant={'contained'} style={{fontWeight: 600, marginTop: '20px', 
+                                 padding: '10px 20px', fontFamily: 'Georgia'}} size="small"/>
                             </Box>
                         </CardContent>
                     }

@@ -86,9 +86,9 @@ const ApplicationBar = (props) => {
                     <>
                       {item.dropdown === false ? (
                         <>
-                        <Anchor color={'inherit'} underline={'hover'} style={{cursor: 'pointer'}}>
+                        <Anchor color={'inherit'} underline={'none'} style={{cursor: 'pointer'}} key={index}>
                           <Link to={item.to} activeClass='active' spy={true} smooth={true} duration={500} offset={-70}>
-                            <Typography variant="h6" component="div">
+                            <Typography variant="h6" component="div" className='link'>
                               {item.link}
                             </Typography>
                             </Link>
@@ -109,8 +109,8 @@ const ApplicationBar = (props) => {
           ) : (
             <></>
           )}
-          <AppModal buttonName={"SIGN IN"} title={"ACCOUNT LOGIN"} description={<SystemLogin/>} logo 
-          buttonStyle={{fontSize: '15px', backgroundColor: 'black', color: 'white', padding: '10px 25px', borderRadius: '30px'}}/>
+          <AppModal buttonName={"SIGN IN"} buttonColor={'button-black'} title={"ACCOUNT LOGIN"} description={<SystemLogin/>} 
+          buttonStyle={{fontSize: '15px', padding: '10px 25px', borderRadius: '30px', fontWeight: 600}} logo/>
         </Toolbar>
       </AppBar>
     </>
