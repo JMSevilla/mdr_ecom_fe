@@ -7,7 +7,7 @@ import FormService from '../service/apiservice'
 const GlobalContext = createContext()
 
 const Global = ({children}) => {
-    const [activeSteps, setActiveSteps] = useState(3)
+    const [activeSteps, setActiveSteps] = useState(4)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [signupCategory, setSignupCategory] = useState('pick')
@@ -470,6 +470,10 @@ const Global = ({children}) => {
         const tempAllFieldSelected = [...allFieldSelected]
         const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
         const tempField = {...tempFieldSelected.fieldSettings}
+        const fieldVerified = {
+            email : tempField.credentialsObj.email,
+            code : create_uuid()
+        }
         if(activeSteps === 0) {
              if(tempField.personalInformationObj.firstname == ''
              || tempField.personalInformationObj.lastname == '' ||
@@ -543,10 +547,6 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                 } else { 
                     //function verify existing sent code and email
                     //else new entry of verification code
-                    const fieldVerified = {
-                        email : tempField.credentialsObj.email,
-                        code : create_uuid()
-                    }
                     setOpen(true)
                     FormService.BUSINESS_check_email_verification(tempField.credentialsObj.email)
                         .then(reps => {
@@ -599,6 +599,59 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                             }
                         })
                 }
+        } else if(activeSteps == 4){
+            if(!tempField.verificationObj.verificationcode){
+                setSnacbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open = true,
+                    ...prevState.settings.message = "There's an empty field, please try again",
+                    ...prevState.settings.severity = "error",
+                    ...prevState.settings.autoHideDuration = 5000
+                }))
+            } else {
+                setOpen(true)
+                FormService.BUSINESS_compare_verification(fieldVerified)
+                .then((repository) => {
+                    if(repository.data.message == 'verified_success'){
+                        //insertion
+                        console.log("compared accurate")
+                        // const fieldPersonalWithCredentials = {
+                        //     firstname : tempField.personalInformationObj.firstname,
+                        //     lastname : tempField.personalInformationObj.lastname,
+                        //     contactnumber : tempField.personalInformationObj.contactnum,
+                        //     address : tempField.personalInformationObj.address,
+                        //     email : tempField.credentialsObj.email,
+                        //     password : tempField.credentialsObj.password,
+                        //     sec_question : tempField.credentialsObj.sec_question,
+                        //     sec_answer: tempField.credentialsObj.sec_answer
+                        // }
+                        // FormService.BUSINESS_account_registration(fieldPersonalWithCredentials)
+                        // .then(repo => {
+                        //     console.log(repo.data)
+                        // })
+                    } else if(repository.data.message == 'verification_problem'){
+                        setSnacbarSettings(prevState => ({
+                            ...prevState,
+                            ...prevState.settings.open = true,
+                            ...prevState.settings.message = "Invalid Verification Code",
+                            ...prevState.settings.severity = "error",
+                            ...prevState.settings.autoHideDuration = 5000
+                        }))
+                        setOpen(false)
+                    } else if(repository.data.message == 'invalid_verified'){
+                        setSnacbarSettings(prevState => ({
+                            ...prevState,
+                            ...prevState.settings.open = true,
+                            ...prevState.settings.message = "Technical Error : Updating Code",
+                            ...prevState.settings.severity = "error",
+                            ...prevState.settings.autoHideDuration = 5000
+                        }))
+                        setOpen(false)
+                    } else {
+                        console.log(repository.data)
+                    }
+                })
+            }
         }
     }
     const HandleSelectQuestion = (event) => {

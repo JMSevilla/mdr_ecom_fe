@@ -35,6 +35,20 @@ class FormService {
             `business-update-with-send/${obj.email}/${obj.code}/`
         )
     }
+    BUSINESS_compare_verification(obj){
+        return ApiConfig.connect().get(
+            `compare-verification-code/${obj.email}/${obj.code}`
+        )
+    }
+    BUSINESS_account_registration(obj){
+        return ApiConfig.connect().post(
+            'businessowner/registration',
+            Process.BO_registration(obj)
+        )
+    }
+    BUSINESS_project_creation(obj){
+
+    }
 }
 
 export default new FormService()
