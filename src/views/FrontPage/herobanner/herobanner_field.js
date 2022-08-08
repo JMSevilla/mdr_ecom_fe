@@ -51,24 +51,22 @@ const HeroBannerField = () => {
         </Box>
         <Box style={{ display: "flex", gap: "1.5rem" }}>
           <AppButton
+            buttonColor={'button-white'}
             variant="contained"
             buttonName={"Learn More"}
             style={{
               fontSize: "15px",
               fontWeight: "600",
-              backgroundColor: "white",
-              color: "black",
               padding: "10px 20px",
             }}
           />
           <AppButton
+            buttonColor={'button-black'}
             variant="contained"
             buttonName={"Pricing"}
             style={{
               fontSize: "15px",
               fontWeight: "600",
-              backgroundColor: "black",
-              color: "white",
               padding: "10px 20px",
             }}
           />

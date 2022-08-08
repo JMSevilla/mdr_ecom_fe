@@ -56,8 +56,13 @@ export const navbarData = [
         dropdown: false,
     },
     {
-        link: 'Services',
+        link: 'What We Offer',
         to: 'services',
+        dropdown: false,
+    },
+    {
+        link: 'Testimonials',
+        to: 'testimonials',
         dropdown: false,
     },
     {
@@ -76,15 +81,15 @@ export const navbarData = [
 
 export const socialAccounts = [
     {
-        icon: <FiFacebook />,
+        icon: <FiFacebook className='social-icons'/>,
         link: 'https://facebook.com',
     },
     {
-        icon: <FiLinkedin/>,
+        icon: <FiLinkedin className='social-icons'/>,
         link: 'https://linkedin.com',
     },
     {
-        icon: <FiGithub/>,
+        icon: <FiGithub className='social-icons'/>,
         link: 'https://github.com',
     }
 ];

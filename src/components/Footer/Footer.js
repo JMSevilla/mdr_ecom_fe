@@ -51,10 +51,11 @@ const AppFooter = () => {
           {businessRules.map((item, index) => {
             return (
               <Link
+                className='link'
                 href={item.link}
                 key={index}
                 color={"inherit"}
-                underline={"hover"}
+                underline={"none"}
               >
                 {item.name}
               </Link>
@@ -79,7 +80,7 @@ const AppFooter = () => {
                 key={index}
                 color={"inherit"}
               >
-                {item.icon}
+                  {item.icon}
               </Link>
             );
           })}
