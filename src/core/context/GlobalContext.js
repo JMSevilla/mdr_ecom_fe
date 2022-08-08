@@ -7,7 +7,7 @@ import FormService from '../service/apiservice'
 const GlobalContext = createContext()
 
 const Global = ({children}) => {
-    const [activeSteps, setActiveSteps] = useState(0)
+    const [activeSteps, setActiveSteps] = useState(3)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [signupCategory, setSignupCategory] = useState('pick')
@@ -109,6 +109,8 @@ const Global = ({children}) => {
                 features.length = 0
                 setActiveSteps((activeSteps) => activeSteps - 1)
             }
+        } else {
+            setActiveSteps((activeSteps) => activeSteps - 1)
         }
     }
 
@@ -136,7 +138,8 @@ const Global = ({children}) => {
             error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
             error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
             error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
-            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer,
+            error_verify : tempFieldSelected.fieldSettings.errorProvider.error_verify
         }
         const projectDetailsObj = { 
             projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
@@ -151,6 +154,10 @@ const Global = ({children}) => {
             sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
             sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
         }
+        const verificationObj = {
+            verificationcode : tempFieldSelected.fieldSettings.verificationObj.verificationcode,
+            vrfycounts : tempFieldSelected.fieldSettings.verificationObj.vrfycounts
+        }
         const error_provider_message = {
             epm_firstname : !value ? 'Kindly provide your firstname' : '',
             epm_lastname : tempFieldSelected.fieldSettings.error_provider_message.epm_lastname,
@@ -163,13 +170,14 @@ const Global = ({children}) => {
             epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
             epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
             epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
-            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
-            
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer,
+            epm_verify : tempFieldSelected.fieldSettings.error_provider_message.epm_verify
         }
-        const fieldSettings = {
+         const fieldSettings = {
             personalInformationObj : personalInformationObj,
             projectDetailsObj: projectDetailsObj,
             credentialsObj: credentialsObj,
+            verificationObj : verificationObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -201,6 +209,10 @@ const Global = ({children}) => {
             sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
             sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
         }
+        const verificationObj = {
+            verificationcode : tempFieldSelected.fieldSettings.verificationObj.verificationcode,
+            vrfycounts : tempFieldSelected.fieldSettings.verificationObj.vrfycounts
+        }
         const errorProvider = { 
             error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
             error_lastname : !value ? true : false,
@@ -213,7 +225,8 @@ const Global = ({children}) => {
             error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
             error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
             error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
-            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer,
+            error_verify : tempFieldSelected.fieldSettings.errorProvider.error_verify
         }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
@@ -227,12 +240,14 @@ const Global = ({children}) => {
             epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
             epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
             epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
-            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer,
+            epm_verify : tempFieldSelected.fieldSettings.error_provider_message.epm_verify
         }
         const fieldSettings = {
             personalInformationObj : personalInformationObj,
             projectDetailsObj: projectDetailsObj,
             credentialsObj: credentialsObj,
+            verificationObj : verificationObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -263,7 +278,8 @@ const Global = ({children}) => {
             error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
             error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
             error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
-            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer,
+            error_verify : tempFieldSelected.fieldSettings.errorProvider.error_verify
         }
         const projectDetailsObj = { 
             projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
@@ -278,6 +294,10 @@ const Global = ({children}) => {
             sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
             sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
         }
+        const verificationObj = {
+            verificationcode : tempFieldSelected.fieldSettings.verificationObj.verificationcode,
+            vrfycounts : tempFieldSelected.fieldSettings.verificationObj.vrfycounts
+        }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
             epm_lastname : tempFieldSelected.fieldSettings.error_provider_message.epm_lastname,
@@ -290,12 +310,14 @@ const Global = ({children}) => {
             epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
             epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
             epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
-            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer,
+            epm_verify : tempFieldSelected.fieldSettings.error_provider_message.epm_verify
         }
         const fieldSettings = {
             personalInformationObj : personalInformationObj,
             projectDetailsObj: projectDetailsObj,
             credentialsObj: credentialsObj,
+            verificationObj : verificationObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -327,6 +349,10 @@ const Global = ({children}) => {
             sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
             sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
         }
+        const verificationObj = {
+            verificationcode : tempFieldSelected.fieldSettings.verificationObj.verificationcode,
+            vrfycounts : tempFieldSelected.fieldSettings.verificationObj.vrfycounts
+        }
         const errorProvider = { 
             error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
             error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
@@ -339,7 +365,8 @@ const Global = ({children}) => {
             error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
             error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
             error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
-            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer,
+            error_verify : tempFieldSelected.fieldSettings.errorProvider.error_verify
         }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
@@ -353,12 +380,14 @@ const Global = ({children}) => {
             epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
             epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
             epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
-            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer,
+            epm_verify : tempFieldSelected.fieldSettings.error_provider_message.epm_verify
         }
         const fieldSettings = {
             personalInformationObj : personalInformationObj,
             projectDetailsObj: projectDetailsObj,
             credentialsObj: credentialsObj,
+            verificationObj : verificationObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -486,7 +515,9 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                 }
                 setActiveSteps((activeSteps) => activeSteps + 1)
             } 
-        } else if(activeSteps === 2) {
+            
+        } 
+        else if(activeSteps === 2) {
             if(destinationArray.length > 0) {
                 setActiveSteps((activeSteps) => activeSteps + 1)
             } else {
@@ -517,26 +548,56 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                         code : create_uuid()
                     }
                     setOpen(true)
-                    FormService.BUSINESS_verification_entry(fieldVerified)
-                    .then(res => {
-                        if(res.data.message == 'success_vc_entry'){
-                            //call api send email
-                            FormService.BUSINESS_send_email(fieldVerified)
-                            .then(resp => {
-                                if(resp.data.message == 'success_sent'){
-                                    setSnacbarSettings(prevState => ({
-                                ...prevState,
-                                ...prevState.settings.open = true,
-                                ...prevState.settings.message = "Successfully Sent Verification Code",
-                                ...prevState.settings.severity = "success",
-                                ...prevState.settings.autoHideDuration = 5000
-                            }))
-                            setOpen(false)
-                            setActiveSteps((activeSteps) => activeSteps + 1)
-                                }
-                            })
-                        }
-                    })
+                    FormService.BUSINESS_check_email_verification(tempField.credentialsObj.email)
+                        .then(reps => {
+                            if(reps.data.message == 'exceed_limit'){
+                                setSnacbarSettings(prevState => ({
+                                    ...prevState,
+                                    ...prevState.settings.open = true,
+                                    ...prevState.settings.message = "You've already exceed the limit of resend email",
+                                    ...prevState.settings.severity = "warning",
+                                    ...prevState.settings.autoHideDuration = 5000
+                                }))
+                                setOpen(false)
+                                setActiveSteps((activeSteps) => activeSteps + 1)
+                            } else if (reps.data.message == 'update_another_sent_count'){
+                                FormService.BUSINESS_update_with_send(fieldVerified)
+                                    .then(repo => {
+                                        if(repo.data.message == 'success'){
+                                            setSnacbarSettings(prevState => ({
+                                                ...prevState,
+                                                ...prevState.settings.open = true,
+                                                ...prevState.settings.message = "Verification Sent Successfully",
+                                                ...prevState.settings.severity = "success",
+                                                ...prevState.settings.autoHideDuration = 5000
+                                            }))
+                                            setOpen(false)
+                                            setActiveSteps((activeSteps) => activeSteps + 1)
+                                        }
+                                    })
+                            } else {
+                                FormService.BUSINESS_verification_entry(fieldVerified)
+                                    .then(res => {
+                                        if(res.data.message == 'success_vc_entry'){
+                                            //call api send email
+                                            FormService.BUSINESS_send_email(fieldVerified)
+                                                .then(resp => {
+                                                    if(resp.data.message == 'success_sent'){
+                                                        setSnacbarSettings(prevState => ({
+                                                            ...prevState,
+                                                            ...prevState.settings.open = true,
+                                                            ...prevState.settings.message = "Successfully Sent Verification Code",
+                                                            ...prevState.settings.severity = "success",
+                                                            ...prevState.settings.autoHideDuration = 5000
+                                                        }))
+                                                        setOpen(false)
+                                                        setActiveSteps((activeSteps) => activeSteps + 1)
+                                                    }
+                                                })
+                                        }
+                                    })
+                            }
+                        })
                 }
         }
     }
@@ -563,6 +624,10 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             sec_question : value,
             sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
         }
+        const verificationObj = {
+            verificationcode : tempFieldSelected.fieldSettings.verificationObj.verificationcode,
+            vrfycounts : tempFieldSelected.fieldSettings.verificationObj.vrfycounts
+        }
         const errorProvider = { 
             error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
             error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
@@ -575,7 +640,8 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
             error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
             error_sec_question : !value ? true : false,
-            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer,
+            error_verify : tempFieldSelected.fieldSettings.errorProvider.error_verify
         }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
@@ -589,12 +655,14 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
             epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
             epm_sec_question : !value ? 'Kindly provide your security question' : '',
-            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer,
+            epm_verify : tempFieldSelected.fieldSettings.error_provider_message.epm_verify
         }
         const fieldSettings = {
             personalInformationObj : personalInformationObj,
             projectDetailsObj: projectDetailsObj,
             credentialsObj: credentialsObj,
+            verificationObj : verificationObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -625,7 +693,8 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
             error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
             error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
-            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer,
+            error_verify : tempFieldSelected.fieldSettings.errorProvider.error_verify
         }
         const projectDetailsObj = { 
             projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
@@ -640,6 +709,10 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
             sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
         }
+        const verificationObj = {
+            verificationcode : tempFieldSelected.fieldSettings.verificationObj.verificationcode,
+            vrfycounts : tempFieldSelected.fieldSettings.verificationObj.vrfycounts
+        }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
             epm_lastname : tempFieldSelected.fieldSettings.error_provider_message.epm_lastname,
@@ -652,12 +725,14 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
             epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
             epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
-            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer,
+            epm_verify : tempFieldSelected.fieldSettings.error_provider_message.epm_verify
         }
         const fieldSettings = {
             personalInformationObj : personalInformationObj,
             projectDetailsObj: projectDetailsObj,
             credentialsObj: credentialsObj,
+            verificationObj : verificationObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -688,7 +763,8 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             error_password : !value ? true : false,
             error_conpass : value !== tempFieldSelected.fieldSettings.credentialsObj.conpass ? true : false,
             error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
-            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer,
+            error_verify : tempFieldSelected.fieldSettings.errorProvider.error_verify
         }
         const projectDetailsObj = { 
             projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
@@ -703,6 +779,10 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
             sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
         }
+        const verificationObj = {
+            verificationcode : tempFieldSelected.fieldSettings.verificationObj.verificationcode,
+            vrfycounts : tempFieldSelected.fieldSettings.verificationObj.vrfycounts
+        }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
             epm_lastname : tempFieldSelected.fieldSettings.error_provider_message.epm_lastname,
@@ -715,12 +795,14 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             epm_password : !value ? "Please provide your password" : '',
             epm_conpass :  value !== tempFieldSelected.fieldSettings.credentialsObj.conpass ? 'Password does not match' : '',
             epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
-            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer,
+            epm_verify : tempFieldSelected.fieldSettings.error_provider_message.epm_verify
         }
         const fieldSettings = {
             personalInformationObj : personalInformationObj,
             projectDetailsObj: projectDetailsObj,
             credentialsObj: credentialsObj,
+            verificationObj : verificationObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -751,7 +833,8 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
             error_conpass : !value ? true : value !== tempFieldSelected.fieldSettings.credentialsObj.password ? true : false,
             error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
-            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer,
+            error_verify : tempFieldSelected.fieldSettings.errorProvider.error_verify
         }
         const projectDetailsObj = { 
             projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
@@ -766,6 +849,10 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
             sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
         }
+        const verificationObj = {
+            verificationcode : tempFieldSelected.fieldSettings.verificationObj.verificationcode,
+            vrfycounts : tempFieldSelected.fieldSettings.verificationObj.vrfycounts
+        }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
             epm_lastname : tempFieldSelected.fieldSettings.error_provider_message.epm_lastname,
@@ -778,12 +865,14 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
             epm_conpass : !value ? 'Kindly confirm your password' : value !== tempFieldSelected.fieldSettings.credentialsObj.password ? 'Password does not match' : '',
             epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
-            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer,
+            epm_verify : tempFieldSelected.fieldSettings.error_provider_message.epm_verify
         }
         const fieldSettings = {
             personalInformationObj : personalInformationObj,
             projectDetailsObj: projectDetailsObj,
             credentialsObj: credentialsObj,
+            verificationObj : verificationObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -814,7 +903,8 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
             error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
             error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
-            error_sec_answer : !value ? true : false
+            error_sec_answer : !value ? true : false,
+            error_verify : tempFieldSelected.fieldSettings.errorProvider.error_verify
         }
         const projectDetailsObj = { 
             projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
@@ -829,6 +919,10 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
             sec_answer : value
         }
+        const verificationObj = {
+            verificationcode : tempFieldSelected.fieldSettings.verificationObj.verificationcode,
+            vrfycounts : tempFieldSelected.fieldSettings.verificationObj.vrfycounts
+        }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
             epm_lastname : tempFieldSelected.fieldSettings.error_provider_message.epm_lastname,
@@ -842,11 +936,13 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
             epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
             epm_sec_answer : !value ? 'Please provide a security answer' : '',
+            epm_verify : tempFieldSelected.fieldSettings.error_provider_message.epm_verify
         }
         const fieldSettings = {
             personalInformationObj : personalInformationObj,
             projectDetailsObj: projectDetailsObj,
             credentialsObj: credentialsObj,
+            verificationObj : verificationObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -855,7 +951,35 @@ setActiveSteps((activeSteps) => activeSteps + 1)
         setAllFieldSelected(tempAllFieldSelected)
         console.log(tempAllFieldSelected)
     }
-    
+    const HandleResentEmail = () => {
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        setOpen(true)
+        FormService.BUSINESS_resend_email(
+            tempFieldSelected.fieldSettings.credentialsObj.email,
+            create_uuid()
+        ).then(res => {
+            if(res.data.message == 'success'){
+                setOpen(false)
+                setSnacbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open = true,
+                    ...prevState.settings.message = "Verification Code Sent Successfully",
+                    ...prevState.settings.severity = "success",
+                    ...prevState.settings.autoHideDuration = 5000
+                }))
+            }else{
+                setOpen(false)
+                setSnacbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open = true,
+                    ...prevState.settings.message = "You've exceed the limit of sending verification email",
+                    ...prevState.settings.severity = "error",
+                    ...prevState.settings.autoHideDuration = 5000
+                }))
+            }
+        })
+    }
     return (
         <GlobalContext.Provider
         value={{
@@ -867,7 +991,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             HandleChangeEmailLogin, HandleChangePasswordLogin, handleNext,
             snackbarSettings, handleClose, handlePrevious, HandleChangeBOEmailSignup, 
             HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, HandleChangeBOSecAnswer,
-            HandleSelectQuestion, verification, setVerification, HandleVerification
+            HandleSelectQuestion, verification, setVerification, HandleVerification, HandleResentEmail
         }}
         >{children}</GlobalContext.Provider>
     )

@@ -27,7 +27,7 @@ const SignupField = (props) => {
     const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
         HandleChangeAddress, HandleChangeContactNumber, handleNext, HandleProjectName, HandleSelectProjectCategory,
         HandleSelectProjectType, HandleSliderChange, handlePrevious, HandleChangeBOEmailSignup, HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, 
-        HandleChangeBOSecAnswer, HandleSelectQuestion, HandleVerification} = props
+        HandleChangeBOSecAnswer, HandleSelectQuestion, HandleVerification, HandleResentEmail} = props
     const { fieldSettings, priceSettings, verification, setVerification, } = allFieldSelected[0]
     const selectedCustomer = () => {
         setOpen(true)
@@ -671,6 +671,7 @@ const SignupField = (props) => {
                                             handleBack={() => handlePrevious()}
                                             handleNext={() => handleNext()}
                                             hasResend={true}
+                                            handleResend={() => HandleResentEmail()}
                                             />     
                                         </SystemContainer>
                                         : <></>

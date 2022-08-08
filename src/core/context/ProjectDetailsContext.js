@@ -30,6 +30,10 @@ const ProjectDetailsContext = ({children}) => {
             sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
             sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
         }
+        const verificationObj = {
+            verificationcode : tempFieldSelected.fieldSettings.verificationObj.verificationcode,
+            vrfycounts : tempFieldSelected.fieldSettings.verificationObj.vrfycounts
+        }
         const errorProvider = { 
             error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
             error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
@@ -42,7 +46,8 @@ const ProjectDetailsContext = ({children}) => {
             error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
             error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
             error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
-            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer,
+            error_verify : tempFieldSelected.fieldSettings.errorProvider.error_verify
         }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
@@ -56,12 +61,14 @@ const ProjectDetailsContext = ({children}) => {
             epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
             epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
             epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
-            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer,
+            epm_verify : tempFieldSelected.fieldSettings.error_provider_message.epm_verify
         }
         const fieldSettings = {
             personalInformationObj : personalInformationObj,
             projectDetailsObj: projectDetailsObj,
             credentialsObj: credentialsObj,
+            verificationObj : verificationObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -92,6 +99,10 @@ const ProjectDetailsContext = ({children}) => {
             sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
             sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
         }
+        const verificationObj = {
+            verificationcode : tempFieldSelected.fieldSettings.verificationObj.verificationcode,
+            vrfycounts : tempFieldSelected.fieldSettings.verificationObj.vrfycounts
+        }
         const errorProvider = { 
             error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
             error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
@@ -104,7 +115,8 @@ const ProjectDetailsContext = ({children}) => {
             error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
             error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
             error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
-            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer,
+            error_verify : tempFieldSelected.fieldSettings.errorProvider.error_verify
         }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
@@ -118,12 +130,14 @@ const ProjectDetailsContext = ({children}) => {
             epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
             epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
             epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
-            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer,
+            epm_verify : tempFieldSelected.fieldSettings.error_provider_message.epm_verify
         }
         const fieldSettings = {
             personalInformationObj : personalInformationObj,
             projectDetailsObj: projectDetailsObj,
             credentialsObj: credentialsObj,
+            verificationObj : verificationObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -148,6 +162,10 @@ const ProjectDetailsContext = ({children}) => {
             conpass : tempFieldSelected.fieldSettings.credentialsObj.conpass,
             sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
             sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
+        }
+        const verificationObj = {
+            verificationcode : tempFieldSelected.fieldSettings.verificationObj.verificationcode,
+            vrfycounts : tempFieldSelected.fieldSettings.verificationObj.vrfycounts
         }
          if(value === 'SSP'){
             projectDetailsObj = { 
@@ -183,7 +201,8 @@ const ProjectDetailsContext = ({children}) => {
             error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
             error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
             error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
-            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer,
+            error_verify : tempFieldSelected.fieldSettings.errorProvider.error_verify
         }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
@@ -197,12 +216,14 @@ const ProjectDetailsContext = ({children}) => {
             epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
             epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
             epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
-            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer,
+            epm_verify : tempFieldSelected.fieldSettings.error_provider_message.epm_verify
         }
         const fieldSettings = {
             personalInformationObj : personalInformationObj,
             projectDetailsObj: projectDetailsObj,
             credentialsObj: credentialsObj,
+            verificationObj : verificationObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
@@ -214,11 +235,6 @@ const ProjectDetailsContext = ({children}) => {
         let value = val
         const tempAllFieldSelected = [...allFieldSelected]
         const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
-        let scale = {
-            sm : 'SSP',
-            md : 'MSP',
-            lg : 'LSP'
-        }
         let projectDetailsObj
         const personalInformationObj = {
             firstname : tempFieldSelected.fieldSettings.personalInformationObj.firstname,
@@ -239,6 +255,10 @@ const ProjectDetailsContext = ({children}) => {
             sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
             sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
         }
+        const verificationObj = {
+            verificationcode : tempFieldSelected.fieldSettings.verificationObj.verificationcode,
+            vrfycounts : tempFieldSelected.fieldSettings.verificationObj.vrfycounts
+        }
         const errorProvider = { 
             error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
             error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
@@ -251,7 +271,8 @@ const ProjectDetailsContext = ({children}) => {
             error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
             error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
             error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
-            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer,
+            epm_verify : tempFieldSelected.fieldSettings.error_provider_message.epm_verify
         }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
@@ -265,12 +286,14 @@ const ProjectDetailsContext = ({children}) => {
             epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
             epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
             epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
-            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer,
+            epm_verify : tempFieldSelected.fieldSettings.error_provider_message.epm_verify
         }
         const fieldSettings = {
             personalInformationObj : personalInformationObj,
             projectDetailsObj: projectDetailsObj,
             credentialsObj: credentialsObj,
+            verificationObj : verificationObj,
             errorProvider : errorProvider,
             error_provider_message: error_provider_message
         }
