@@ -2,9 +2,9 @@ import React from 'react'
 import {Button} from '@mui/material'
 
 const AppButton = (props) => {
-    const { buttonName, handleClick, variant, size, style, color, testid, sx, disabled } = props
+    const { buttonName, buttonColor, handleClick, variant, size, style, color, testid, sx, disabled } = props
     return (
-        <>
+        <div className={buttonColor}>
             <Button
             variant={variant}
             style={style}
@@ -15,7 +15,7 @@ const AppButton = (props) => {
             disabled={disabled}
             sx={sx}
             >{buttonName}</Button>
-        </>
+        </div>
     )
 }
 

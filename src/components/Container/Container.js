@@ -1,10 +1,12 @@
 import React from 'react'
 import { Container } from '@mui/material'
 
-const SystemContainer = ({children, style, max}) => {
+
+const SystemContainer = ({children, style, maxWidth}) => {
     
     return (
-        <Container maxWidth={max} style={style}>
+        <Container style={style} maxWidth={maxWidth}>
+
             {children}
         </Container>
     )

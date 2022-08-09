@@ -23,14 +23,16 @@ const style = {
 };
 
 export default function AppModal(props) {
-  const {buttonName, title, description, logo} = props
+  const {buttonName, buttonStyle, buttonColor, title, description, logo} = props
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <div>
-      <Button onClick={handleOpen} color={'inherit'} size={'large'}>{buttonName}</Button>
+      <div className={buttonColor}>
+      <Button onClick={handleOpen}  variant={'contained'} color={'inherit'} size={'large'} style={buttonStyle}>{buttonName}</Button>
+      </div>
       <Modal
         open={open}
         onClose={handleClose}

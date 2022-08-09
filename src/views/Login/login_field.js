@@ -67,9 +67,10 @@ const Login_field = (props) => {
         </Link>
       </Box>
       <AppButton
+        buttonColor={'button-black'}
         buttonName={"Sign In"}
         variant="contained"
-        style={{ marginTop: "10px" }}
+        style={{ margin: "10px 0px", width: '100%', fontWeight: 600}}
       />
       <Box
         style={{
@@ -80,7 +81,7 @@ const Login_field = (props) => {
           marginTop: "5px",
         }}
       >
-        <SystemTypography text={"Not a member ?"} />
+        <SystemTypography text={"Not a member?"} />
         <Link
           color={"primary"}
           underline={"none"}

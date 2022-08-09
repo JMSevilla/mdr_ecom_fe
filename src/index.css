@@ -7,6 +7,43 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* signin button */
+.button-black Button {
+  background-color: black;
+  color: white;
+}
+.button-black:hover Button {
+  background-color: white;
+  color: black;
+}
+.button-white Button {
+  background-color: white;
+  color: black;
+}
+.button-white:hover Button {
+  background-color: black;
+  color: white;
+}
+/* links  */
+.link {
+  transition: all 0.25s ease-out;
+}
+.link:hover {
+  color: red;
+}
+
+/* social icons  */
+.social-icons {
+  transition: all 0.25s ease-out;
+}
+.social-icons:hover {
+  color: red;
+}
+
+/* card */
+.card {
+  display: none;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
