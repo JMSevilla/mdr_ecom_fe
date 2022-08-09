@@ -46,15 +46,23 @@ class FormService {
             Process.BO_registration(obj)
         )
     }
-    BUSINESS_project_creation(obj){
+    BUSINESS_project_creation(
+        projectname,
+        details,
+        features,
+        category,
+        pricing,
+        type,
+        email
+    ){
         var data = new FormData()
-        data.append('projectname', obj.projectName)
-        data.append('projectdetails', "No project details")
-        data.append('projectfeatures', obj.features)
-        data.append('projectcategory', obj.projectCategory)
-        data.append('projectprice', obj.projectPricing)
-        data.append('projecttype', obj.projectType)
-        data.append("email", obj.email)
+        data.append('projectname', projectname)
+        data.append('projectdetails', details)
+        data.append('projectfeatures', JSON.stringify(features))
+        data.append('projectcategory', category)
+        data.append('projectprice', pricing)
+        data.append('projecttype', type)
+        data.append("email", email)
         return ApiConfig.connect().post(
             'project-creation/',
             data

@@ -631,18 +631,27 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                         FormService.BUSINESS_account_registration(fieldPersonalWithCredentials)
                         .then(repo => {
                             if(repo.data.message == 'success_bo_registration'){
-                                const projectField= {
-                                    projectname : tempField.projectDetailsObj.projectName,
-                                    projectfeatures : JSON.stringify(destinationArray),
-                                    projectcategory : tempField.projectDetailsObj.projectCategory,
-                                    projectprice : tempField.projectDetailsObj.projectPricing,
-                                    projecttype : tempField.projectDetailsObj.projectType,
-                                    email : tempField.credentialsObj.email
-                                }
-                                console.log(projectField)
-                                FormService.BUSINESS_project_creation(projectField)
+                                FormService.BUSINESS_project_creation(
+                                    tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
+                                    "no details",
+                                    destinationArray,
+                                    tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
+                                    tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing,
+                                    tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
+                                    tempFieldSelected.fieldSettings.credentialsObj.email
+                                )
                                 .then(projectrepo => {
-                                    console.log(projectrepo.data)
+                                    if(projectrepo.data.message == 'success_project_entry'){
+                                        setSnacbarSettings(prevState => ({
+                                            ...prevState,
+                                            ...prevState.settings.open = true,
+                                            ...prevState.settings.message = "Account Created Successfully",
+                                            ...prevState.settings.severity = "success",
+                                            ...prevState.settings.autoHideDuration = 5000
+                                        }))
+                                        setOpen(false)
+                                        setActiveSteps((activeSteps) => activeSteps + 1)
+                                    }
                                 })
                             }
                         })

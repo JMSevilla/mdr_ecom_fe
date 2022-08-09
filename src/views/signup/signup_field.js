@@ -1,4 +1,4 @@
-import React, {useState, cloneElement} from 'react'
+import React, {useState, cloneElement, useEffect} from 'react'
 import SystemContainer from '../../components/Container/Container'
 import ApplicationCard from '../../components/Card/Card'
 import SystemStepper from '../../components/Stepper/Stepper'
@@ -17,6 +17,8 @@ import NextPrevious from '../../components/NextPrevious/NextPrevious'
 import SystemSelect from '../../components/Select/Select'
 import SystemSlider from '../../components/Slider/Slider'
 
+import axios from 'axios'
+
 import { Peso } from '../../core/utils/Intl'
 
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
@@ -29,6 +31,7 @@ const SignupField = (props) => {
         HandleSelectProjectType, HandleSliderChange, handlePrevious, HandleChangeBOEmailSignup, HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, 
         HandleChangeBOSecAnswer, HandleSelectQuestion, HandleVerification, HandleResentEmail} = props
     const { fieldSettings, priceSettings, verification, setVerification, } = allFieldSelected[0]
+    const [state, setState] = useState([])
     const selectedCustomer = () => {
         setOpen(true)
         setTimeout(() => {
@@ -42,6 +45,17 @@ const SignupField = (props) => {
             setSignupCategory('business_owner')
             setOpen(false)
         }, 2000)
+    }
+    useEffect( () => {
+        testRequest()
+    },[])
+    
+    const testRequest = () => {
+        axios.get('http://localhost:8080/api/getall-projectbyemail/devopsbyte60@gmail.com')
+        .then(res => {
+            console.log(res.data)
+            setState(res.data.data)
+        })
     }
     const CustomerSignup = () => {
         return (
@@ -174,6 +188,7 @@ const SignupField = (props) => {
 
     return (
         <SystemContainer max={'xl'} style={{marginTop: '150px', marginBottom : '50px'}}>
+            
             <ApplicationCard
                 children={
                     <CardContent>
