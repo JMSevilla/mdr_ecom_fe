@@ -9,7 +9,7 @@ class Process {
     BO_registration(obj){
         data.append('firstname', obj.firstname)
         data.append('lastname', obj.lastname)
-        data.append('contactnumber', obj.contactnum)
+        data.append('contactnumber', obj.contactnumber)
         data.append('address', obj.address)
         data.append('email', obj.email)
         data.append('password', obj.password)
@@ -21,10 +21,11 @@ class Process {
     BO_project_creation(obj){
         data.append('projectname', obj.projectName)
         data.append('projectdetails', "No project details")
-        data.append('projectfeatures', "pf")
+        data.append('projectfeatures', obj.features)
+        data.append('projectcategory', obj.projectCategory)
         data.append('projectprice', obj.projectPricing)
         data.append('projecttype', obj.projectType)
-        data.append("email", "test@gmail.com")
+        data.append("email", obj.email)
         return data
     }
 }

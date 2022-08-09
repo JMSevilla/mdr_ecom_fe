@@ -7,7 +7,7 @@ import FormService from '../service/apiservice'
 const GlobalContext = createContext()
 
 const Global = ({children}) => {
-    const [activeSteps, setActiveSteps] = useState(4)
+    const [activeSteps, setActiveSteps] = useState(0)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [signupCategory, setSignupCategory] = useState('pick')
@@ -474,6 +474,10 @@ const Global = ({children}) => {
             email : tempField.credentialsObj.email,
             code : create_uuid()
         }
+        const filteredcompare = {
+            email : tempField.credentialsObj.email,
+            code : tempField.verificationObj.verificationcode
+        }
         if(activeSteps === 0) {
              if(tempField.personalInformationObj.firstname == ''
              || tempField.personalInformationObj.lastname == '' ||
@@ -610,30 +614,43 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                 }))
             } else {
                 setOpen(true)
-                FormService.BUSINESS_compare_verification(fieldVerified)
+                FormService.BUSINESS_compare_verification(filteredcompare)
                 .then((repository) => {
                     if(repository.data.message == 'verified_success'){
                         //insertion
-                        console.log("compared accurate")
-                        // const fieldPersonalWithCredentials = {
-                        //     firstname : tempField.personalInformationObj.firstname,
-                        //     lastname : tempField.personalInformationObj.lastname,
-                        //     contactnumber : tempField.personalInformationObj.contactnum,
-                        //     address : tempField.personalInformationObj.address,
-                        //     email : tempField.credentialsObj.email,
-                        //     password : tempField.credentialsObj.password,
-                        //     sec_question : tempField.credentialsObj.sec_question,
-                        //     sec_answer: tempField.credentialsObj.sec_answer
-                        // }
-                        // FormService.BUSINESS_account_registration(fieldPersonalWithCredentials)
-                        // .then(repo => {
-                        //     console.log(repo.data)
-                        // })
+                        const fieldPersonalWithCredentials = {
+                            firstname : tempField.personalInformationObj.firstname,
+                            lastname : tempField.personalInformationObj.lastname,
+                            contactnumber : tempField.personalInformationObj.contactnum,
+                            address : tempField.personalInformationObj.address,
+                            email : tempField.credentialsObj.email,
+                            password : tempField.credentialsObj.password,
+                            sec_question : tempField.credentialsObj.sec_question,
+                            sec_answer: tempField.credentialsObj.sec_answer
+                        }
+                        FormService.BUSINESS_account_registration(fieldPersonalWithCredentials)
+                        .then(repo => {
+                            if(repo.data.message == 'success_bo_registration'){
+                                const projectField= {
+                                    projectname : tempField.projectDetailsObj.projectName,
+                                    projectfeatures : JSON.stringify(destinationArray),
+                                    projectcategory : tempField.projectDetailsObj.projectCategory,
+                                    projectprice : tempField.projectDetailsObj.projectPricing,
+                                    projecttype : tempField.projectDetailsObj.projectType,
+                                    email : tempField.credentialsObj.email
+                                }
+                                console.log(projectField)
+                                FormService.BUSINESS_project_creation(projectField)
+                                .then(projectrepo => {
+                                    console.log(projectrepo.data)
+                                })
+                            }
+                        })
                     } else if(repository.data.message == 'verification_problem'){
                         setSnacbarSettings(prevState => ({
                             ...prevState,
                             ...prevState.settings.open = true,
-                            ...prevState.settings.message = "Invalid Verification Code",
+                            ...prevState.settings.message = "Problem in verifying your code, please contact administrator",
                             ...prevState.settings.severity = "error",
                             ...prevState.settings.autoHideDuration = 5000
                         }))
@@ -642,7 +659,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                         setSnacbarSettings(prevState => ({
                             ...prevState,
                             ...prevState.settings.open = true,
-                            ...prevState.settings.message = "Technical Error : Updating Code",
+                            ...prevState.settings.message = "Invalid Verification Code",
                             ...prevState.settings.severity = "error",
                             ...prevState.settings.autoHideDuration = 5000
                         }))

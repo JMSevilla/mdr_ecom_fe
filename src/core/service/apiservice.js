@@ -42,12 +42,23 @@ class FormService {
     }
     BUSINESS_account_registration(obj){
         return ApiConfig.connect().post(
-            'businessowner/registration',
+            'businessowner/registration/',
             Process.BO_registration(obj)
         )
     }
     BUSINESS_project_creation(obj){
-
+        var data = new FormData()
+        data.append('projectname', obj.projectName)
+        data.append('projectdetails', "No project details")
+        data.append('projectfeatures', obj.features)
+        data.append('projectcategory', obj.projectCategory)
+        data.append('projectprice', obj.projectPricing)
+        data.append('projecttype', obj.projectType)
+        data.append("email", obj.email)
+        return ApiConfig.connect().post(
+            'project-creation/',
+            data
+        )
     }
 }
 
