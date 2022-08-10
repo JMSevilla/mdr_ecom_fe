@@ -1,26 +1,38 @@
-import React from "react";
+import React, {useState, useEffect }from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import AppButton from "../Buttons/Button";
-import Link from '@mui/material/Link';
+import AppDropdown from "../Dropdown/Dropdown";
+import AppModal from '../../components/Modal/Modal';
+import {Link as Anchor} from "@mui/material";
+import {Link} from 'react-scroll';
 import logo from "../../assets/images/logo/modernresolve.png";
+import { navbarData, shopButton } from "../../core/utils/helper";
+import SystemLogin from "../../views/Login/Login";
 import { useHistory } from "react-router-dom";
 import { appRouter } from "../../routes/router";
-import { navbarData } from "../../constants/Header/NavbarData";
 
 const ApplicationBar = (props) => {
-  const { title } = props;
+  const [bg, setBg] = useState(false);
+
   const history = useHistory();
-  const navigateSignup = () => {
-    history.push(appRouter.Signup.path);
+  const backToHome = () => {
+    history.push(appRouter.Homepage.path);
   };
+
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      return window.scrollY > 50 ? setBg(true) : setBg(false);
+    })
+  },[])
+
+  const { title, simplified } = props;
   return (
     <>
       <AppBar
-        color={"inherit"}
-        style={{ minHeight: "80px", display: "flex", justifyContent: "center" }}
+        color={'inherit'}
+        style={{ minHeight: "80px", display: "flex", justifyContent: "center", backgroundColor: bg ? 'rgb(255,255,255)' : 'transparent'}}
       >
         <Toolbar>
           <Box
@@ -31,44 +43,74 @@ const ApplicationBar = (props) => {
               gap: ".5rem",
             }}
           >
-            <img
-              src={logo}
-              alt="logo"
-              style={{ width: "50px", height: "50px" }}
-            />
-            <Typography variant="h6" component="div">
-              {title}
-            </Typography>
+            {simplified ? (
+              <>
+                <Anchor color={"inherit"} underline={"none"} style={{cursor: 'pointer'}}>
+                <Link onClick={backToHome} activeClass='active' spy={true} smooth={true} duration={500} offset={20}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: ".5rem",
+                  }}
+                
+                >
+                  <img
+                    src={logo}
+                    alt="logo"
+                    style={{ width: "50px", height: "50px" }}
+                  />
+                  <Typography variant="h6" component="div">
+                    {title}
+                  </Typography>
+                  </Link>
+                </Anchor>
+              </>
+            ) : (
+              <>
+                <img
+                  src={logo}
+                  alt="logo"
+                  style={{ width: "50px", height: "50px" }}
+                />
+                <Typography variant="h6" component="div">
+                  {title}
+                </Typography>
+              </>
+            )}
           </Box>
-          <Box style={{display: 'flex', flexGrow: 1, gap: '2rem'}}>
-            {navbarData.map((item, index) => {
-              return (
-                <>
-                  {item.dropdown === false ? (
+          {!simplified ? (
+            <>
+              <Box style={{ display: "flex", flexGrow: 1, gap: "2rem", alignItems: 'center'}}>
+                {navbarData.map((item, index) => {
+                  return (
                     <>
-                      <Link href={item.to} key={index} color={'inherit'} underline={'hover'}>
-                        <Typography variant="h6" component="div">
-                          {item.link}
-                        </Typography>
-                      </Link>
+                      {item.dropdown === false ? (
+                        <>
+                        <Anchor color={'inherit'} underline={'none'} style={{cursor: 'pointer'}} key={index}>
+                          <Link to={item.to} activeClass='active' spy={true} smooth={true} duration={500} offset={-70}>
+                            <Typography variant="h6" component="div" className='link'>
+                              {item.link}
+                            </Typography>
+                            </Link>
+                          </Anchor>
+                        </>
+                      ) : (
+                        <>
+                          <Box style={{display:'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer'}}>
+                          <AppDropdown dropdownTitle={item.link} optionsArray={shopButton}/>
+                          </Box>
+                        </>
+                      )}
                     </>
-                  ) : (
-                    <>
-                    
-                    </>
-                  )}
-                </>
-              );
-            })}
-          </Box>
-          <AppButton buttonName={"Sign in"} size={"small"} color={"inherit"} />{" "}
-          /{" "}
-          <AppButton
-            buttonName={"Sign up"}
-            handleClick={() => navigateSignup()}
-            size={"small"}
-            color={"inherit"}
-          />
+                  );
+                })}
+              </Box>
+            </>
+          ) : (
+            <></>
+          )}
+          <AppModal buttonName={"SIGN IN"} buttonColor={'button-black'} title={"ACCOUNT LOGIN"} description={<SystemLogin/>} 
+          buttonStyle={{fontSize: '15px', padding: '10px 25px', borderRadius: '30px', fontWeight: 600}} logo/>
         </Toolbar>
       </AppBar>
     </>
