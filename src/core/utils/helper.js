@@ -187,3 +187,8 @@ export const security_questions = [
         label : 'What is your dogs name ?'
     }
 ]
+
+// REGEX //
+export const validName = /^[a-zA-Z\s.]*$/;
+export const validContactNumber = /^(09|\+639)\d{9}$/;
+export const validEmailAddress = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
