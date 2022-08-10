@@ -4,6 +4,8 @@ import ApplicationBar from '../../components/Appbar/Appbar'
 import SystemBackdrop from '../../components/Backdrop/Backdrop'
 import { ReplicateOnInit } from '../../core/context/CloneElement'
 import SignupField from './signup_field'
+import CustomizedSnackbars from '../../components/Snackbar/Snackbar'
+import { PROJECT_CONTEXT } from '../../core/context/ProjectDetailsContext'
 
 const Signup = () => {
     const {activeSteps, setActiveSteps,
@@ -11,8 +13,12 @@ const Signup = () => {
         open, setOpen, allFieldSelected, setAllFieldSelected,
         selectedIndex, setSelectedIndex, HandleChangeFirstname,
         HandleChangeLastname,  HandleChangeAddress, HandleChangeContactNumber,
-        handleNext} = useContext(GlobalContext)
-        
+        handleNext, snackbarSettings, handleClose, handlePrevious,HandleChangeBOEmailSignup,
+        HandleChangeBOPasswordSignup,HandleChangeBOConPassSignup, HandleChangeBOSecAnswer , HandleSelectQuestion,
+        HandleVerification, verification, setVerification, HandleResentEmail} = useContext(GlobalContext)
+    
+    const projectcontextvalues = useContext(PROJECT_CONTEXT)
+    const {HandleProjectName, HandleSelectProjectCategory, HandleSelectProjectType, HandleSliderChange} = projectcontextvalues
     return (
         <>
             <ApplicationBar title={'Ecommerce'} simplified/>
@@ -32,10 +38,32 @@ const Signup = () => {
                 HandleChangeAddress={HandleChangeAddress}
                 HandleChangeContactNumber={HandleChangeContactNumber}
                 handleNext={handleNext}
+                snackbarSettings={snackbarSettings}
+                HandleProjectName={HandleProjectName}
+                HandleSelectProjectCategory={HandleSelectProjectCategory}
+                HandleSelectProjectType={HandleSelectProjectType}
+                HandleSliderChange={HandleSliderChange}
+                handlePrevious={handlePrevious}
+                HandleChangeBOEmailSignup={HandleChangeBOEmailSignup}
+                HandleChangeBOPasswordSignup={HandleChangeBOPasswordSignup}
+                HandleChangeBOConPassSignup={HandleChangeBOConPassSignup}
+                HandleChangeBOSecAnswer={HandleChangeBOSecAnswer}
+                HandleSelectQuestion={HandleSelectQuestion}
+                HandleVerification={HandleVerification}
+                setVerification={setVerification}
+                verification={verification}
+                HandleResentEmail={HandleResentEmail}
                 />
            } />
            <SystemBackdrop 
                 open={open}
+            />
+            <CustomizedSnackbars 
+            open={snackbarSettings.settings.open}
+            message={snackbarSettings.settings.message}
+            handleClose={handleClose}
+            severity={snackbarSettings.settings.severity}
+            autoHideDuration={snackbarSettings.settings.autoHideDuration}
             />
         </>
     )

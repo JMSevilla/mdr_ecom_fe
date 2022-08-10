@@ -2,6 +2,7 @@
 import web from '../../assets/images/services/web_development.jpg';
 import mobile from '../../assets/images/services/mobile_app.jpg';
 import desktop from '../../assets/images/services/desktop_app.jpg';
+import { SSP_Feature1 } from '../../components/__dump__/__field_dump';
 
 // social media icons
 import {FiFacebook, FiLinkedin, FiGithub} from 'react-icons/fi';
@@ -41,6 +42,52 @@ export const ServicesData = [
     },
 
 ];
+
+export const projectCategory = [
+    {
+        label : 'Point Of Sales & Inventory System',
+        value : 'POS_INV'
+    },
+    {
+        label : 'ECommerce',
+        value : 'ECOM'
+    },
+    {
+        label : 'Inventory System',
+        value : 'INV'
+    },
+    {
+        label : 'Payroll System',
+        value : 'PYRLL'
+    },
+    {
+        label : 'Dynamic Forms Studio',
+        value : 'DFS'
+    },
+    {
+        label : 'Personal Savings Bank',
+        value : 'PSB'
+    },
+    {
+        label : 'Enrollment System',
+        value : 'ES'
+    }
+]
+
+export const projectType = [
+    {
+        label : 'Small Scale Project',
+        value : 'SSP'
+    },
+    {
+        label : 'Medium Scale Project',
+        value : 'MSP'
+    },
+    {
+        label : 'Large Scale Project',
+        value : 'LSP'
+    }
+]
 
 // navbar data helper //
 
@@ -124,7 +171,19 @@ export const shopButton = [
 export const customerStepper = [
     'Personal Information',
     'Project Details',
+    'Project Features',
     'Credentials',
     'Verification',
     'Finish'
+]
+
+export const features = []
+
+export const destinationArray = []
+
+export const security_questions = [
+    {
+        value : 'what is your dogs name ?',
+        label : 'What is your dogs name ?'
+    }
 ]

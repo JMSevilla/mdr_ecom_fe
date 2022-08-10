@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, cloneElement, useEffect} from 'react'
 import SystemContainer from '../../components/Container/Container'
 import ApplicationCard from '../../components/Card/Card'
 import SystemStepper from '../../components/Stepper/Stepper'
@@ -6,7 +6,7 @@ import { customerStepper } from '../../core/utils/helper'
 import SystemTypography from '../../components/Typography/Typography'
 import SystemGrid from '../../components/Grid/Grid'
 
-import { CardContent, CardMedia, Box } from '@mui/material'
+import { CardContent, CardMedia, Box , Grid, Card} from '@mui/material'
 
 
 import MDRClient from '../../assets/mdrclient.png'
@@ -14,11 +14,24 @@ import MDRDev from '../../assets/mdrdev1.png'
 import AppButton from '../../components/Buttons/Button'
 import AppTextField from '../../components/TextField/TextField'
 import NextPrevious from '../../components/NextPrevious/NextPrevious'
+import SystemSelect from '../../components/Select/Select'
+import SystemSlider from '../../components/Slider/Slider'
+
+import axios from 'axios'
+
+import { Peso } from '../../core/utils/Intl'
+
+import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
+
+import { projectCategory, projectType, features, destinationArray, security_questions } from '../../core/utils/helper'
 
 const SignupField = (props) => {
     const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
-        HandleChangeAddress, HandleChangeContactNumber, handleNext } = props
-    const { fieldSettings } = allFieldSelected[0]
+        HandleChangeAddress, HandleChangeContactNumber, handleNext, HandleProjectName, HandleSelectProjectCategory,
+        HandleSelectProjectType, HandleSliderChange, handlePrevious, HandleChangeBOEmailSignup, HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, 
+        HandleChangeBOSecAnswer, HandleSelectQuestion, HandleVerification, HandleResentEmail} = props
+    const { fieldSettings, priceSettings, verification, setVerification, } = allFieldSelected[0]
+    const [state, setState] = useState([])
     const selectedCustomer = () => {
         setOpen(true)
         setTimeout(() => {
@@ -32,6 +45,17 @@ const SignupField = (props) => {
             setSignupCategory('business_owner')
             setOpen(false)
         }, 2000)
+    }
+    useEffect( () => {
+        testRequest()
+    },[])
+    
+    const testRequest = () => {
+        axios.get('http://localhost:8080/api/getall-projectbyemail/devopsbyte60@gmail.com')
+        .then(res => {
+            console.log(res.data)
+            setState(res.data.data)
+        })
     }
     const CustomerSignup = () => {
         return (
@@ -149,8 +173,22 @@ const SignupField = (props) => {
             />
         )
     }
+    
+  
+    const handleOnDragEnd = (result) => {
+        if(!result.destination) return;
+        const RSI = result.source.index
+        const RDI = result.destination.index
+
+        features.forEach(function(elem, index) {
+            let deleted = features.splice(RSI, 1)
+            destinationArray.push(deleted[0])
+        })
+    }
+
     return (
-        <SystemContainer style={{marginTop: '150px', marginBottom : '50px'}}>
+        <SystemContainer max={'xl'} style={{marginTop: '150px', marginBottom : '50px'}}>
+            
             <ApplicationCard
                 children={
                     <CardContent>
@@ -222,7 +260,7 @@ const SignupField = (props) => {
                                     {
                                         activeSteps == 0 ? 
                                         <>
-                                            <SystemContainer style={{marginTop: '20px'}}>
+                                            <SystemContainer max={'xl'} style={{marginTop: '20px'}}>
                                             <SystemTypography 
                                                 isgutter={true}
                                                 text={'Personal Information'}
@@ -311,8 +349,347 @@ const SignupField = (props) => {
                                             />
                                             </SystemContainer>
                                         </>
-                                        :
-                                        <></>
+                                        : activeSteps == 1 ? 
+                                        <>
+                                            <SystemContainer max={'xl'} style={{marginTop: '20px'}}>
+                                            <SystemTypography 
+                                                isgutter={true}
+                                                text={'Project Details'}
+                                                variant={'h5'}
+                                            />
+                                            <hr />
+
+                                            <SystemGrid 
+                                                    rowSpacing={1}
+                                                    columnSpacing={{xs: 1, sm: 2, md: 3}}
+                                                    GridItems={
+                                                        [
+                                                            {
+                                                                childrenId: 1,
+                                                                children : <AppTextField 
+                                                                value={fieldSettings.projectDetailsObj.projectName}
+                                                                style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
+                                                                placeholder='Enter Project Name'
+                                                                handleChange={(e) => HandleProjectName(e)}
+                                                                variant={'outlined'}
+                                                                label={'Project Name'}
+                                                                
+                                                                texthelper={fieldSettings.error_provider_message.epm_projectname}
+                                                                iserror={fieldSettings.errorProvider.error_projectname}
+                                                            />
+                                                            },
+                                                            {
+                                                                childrenId: 2,
+                                                                children : <SystemSelect 
+                                                                value={fieldSettings.projectDetailsObj.projectCategory}
+                                                                selectionArray={projectCategory}
+                                                                selectionLabel={'Select Project Category'}
+                                                                selectionTitle={'Choose Project Category'}
+                                                                placeholder={'Choose Project Category'}
+                                                                style={{marginTop: '10px', marginBottom: '10px'}}
+                                                                handleSelect={(e) => HandleSelectProjectCategory(e)}
+                                                                />
+                                                            }
+                                                        ]
+                                                    }
+                                            />
+
+
+                                            <SystemGrid 
+                                                    rowSpacing={1}
+                                                    columnSpacing={{xs: 1, sm: 2, md: 3}}
+                                                    GridItems={
+                                                        [
+                                                            {
+                                                                childrenId: 1,
+                                                                children : <SystemSelect 
+                                                                value={fieldSettings.projectDetailsObj.projectType}
+                                                                selectionArray={projectType}
+                                                                selectionLabel={'Select Project Type'}
+                                                                selectionTitle={'Choose Project Type'}
+                                                                placeholder={'Choose Project Type'}
+                                                                style={{marginTop: '10px', marginBottom: '10px'}}
+                                                                handleSelect={(e) => HandleSelectProjectType(e)}
+                                                                />
+                                                            },
+                                                            {
+                                                                childrenId: 2,
+                                                                children : <SystemSlider 
+                                                                defaultValue={
+                                                                   fieldSettings.projectDetailsObj.projectPricing
+                                                                }
+                                                                title={'Project Pricing'}
+                                                                max={priceSettings.max}
+                                                                min={priceSettings.min}
+                                                                sliderChange={HandleSliderChange}
+                                                                value={
+                                                                    fieldSettings.projectDetailsObj.projectPricing
+                                                                }
+                                                                intlPrice={
+                                                                    Peso.format(
+                                                                        fieldSettings.projectDetailsObj.projectPricing
+                                                                    )
+                                                                }
+                                                                />
+                                                            }
+                                                        ]
+                                                    }
+                                            />
+
+                                            <NextPrevious 
+                                            activeSteps={activeSteps}
+                                            stepperArray={customerStepper}
+                                            handleBack={() => setActiveSteps((activeSteps) => activeSteps - 1)}
+                                            handleNext={() => handleNext()}
+                                            />
+                                            </SystemContainer>
+                                        </>
+                                        : activeSteps === 2 ? 
+                                        <SystemContainer max={'xl'} style={{marginTop: '20px'}}>
+                                        <SystemTypography 
+                                            isgutter={true}
+                                            text={'Project Features'}
+                                            variant={'h5'}
+                                        />
+                                        <hr />
+                                            <DragDropContext onDragEnd={handleOnDragEnd}>
+                                                    <Droppable droppableId='droppable'>
+                                                        {(provided, snapshot) => (
+                                                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                                            <Grid item xs={6}>
+                                                                <Card
+                                                                {...provided.droppableProps}
+                                                                ref={provided.innerRef}
+                                                                >
+                                                                    <CardContent>
+                                                                        <SystemTypography 
+                                                                        isgutter={true}
+                                                                        text={'Drop features here'}
+                                                                        />
+                                                                        <hr />
+                                                                        <Grid direction="rows" container spacing={2}>
+                                                                                
+                                                                                    {
+                                                                                destinationArray.map((item, index) => (
+                                                                                    <Grid item xs={12} sm={4}>
+                                                                                        <Card
+                                                                                                    
+                                                                                                    style={{
+                                                                                                        marginTop: '10px', marginBottom: '10px'
+                                                                                                    }}
+                                                                                                    >
+                                                                                                        <CardContent>
+                                                                                                            {cloneElement(item.field)}
+                                                                                                        </CardContent>
+                                                                                                </Card>
+                                                                                    </Grid>
+                                                                                ))
+                                                                        }
+                                                                                
+                                                                        </Grid>
+                                                                         
+                                                                        {provided.placeholder}
+                                                                        
+                                                                    </CardContent>
+                                                                </Card>
+                                                            </Grid>
+                                                            <Grid item xs={6}>
+                                                              <ApplicationCard 
+                                                                children={
+                                                                    <CardContent>
+                                                                        <SystemTypography 
+                                                                        isgutter={true}
+                                                                        text={'Drag features here'}
+                                                                        />
+                                                                        <hr />
+                                                                        <Grid direction="rows" container spacing={2}>
+                                                                                {
+                                                                                    features.map((item, index) => (
+                                                                                        <Grid item xs={12} sm={4}>
+                                                                                            <Draggable key={index} draggableId={item.field_id.toString()} index={index}>
+                                                                                                {
+                                                                                                    (provided, snapshot) => (
+                                                                                                        <div
+                                                                                                        ref={provided.innerRef}
+                                                                                                                {...provided.draggableProps}
+                                                                                                                {...provided.dragHandleProps}
+                                                                                                        >
+                                                                                                            <Card
+                                                                                                                
+                                                                                                                style={{
+                                                                                                                    marginTop: '10px', marginBottom: '10px'
+                                                                                                                }}
+                                                                                                                >
+                                                                                                                    <CardContent>
+                                                                                                                        
+                                                                                                                        {cloneElement(item.field)}
+                                                                                                                    </CardContent>
+                                                                                                            </Card>
+                                                                                                        </div>
+                                                                                                    )
+                                                                                                }
+                                                                                            </Draggable>
+                                                                                        </Grid>
+                                                                                    ))
+                                                                                }
+                                                                        </Grid>
+                                                                    </CardContent>
+                                                                }
+                                                              />
+                                                            </Grid>
+                                                          </Grid>
+                                                        )}
+                                                    </Droppable>
+                                            </DragDropContext>  
+                                            <NextPrevious 
+                                            activeSteps={activeSteps}
+                                            stepperArray={customerStepper}
+                                            handleBack={() => handlePrevious()}
+                                            handleNext={() => handleNext()}
+                                            />     
+                                        </SystemContainer>
+                                        : activeSteps === 3 ?
+                                        <SystemContainer max={'xl'} style={{marginTop: '20px'}}>
+                                        <SystemTypography 
+                                            isgutter={true}
+                                            text={'Credentials'}
+                                            variant={'h5'}
+                                        />
+                                        <hr />
+                                         <SystemGrid 
+                                            rowSpacing={1}
+                                            columnSpacing={{xs: 1, sm: 2, md: 3}}
+                                            GridItems={
+                                                        [
+                                                            {
+                                                                childrenId: 1,
+                                                                children : <ApplicationCard 
+                                                                children = {
+                                                                    <CardContent>
+                                                                        <AppTextField 
+                                                                            value={fieldSettings.credentialsObj.email}
+                                                                            style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
+                                                                            placeholder='Enter email'
+                                                                            handleChange={(e) => HandleChangeBOEmailSignup(e)}
+                                                                            variant={'outlined'}
+                                                                            label={'Email'}
+                                                                            type={'email'}
+                                                                            texthelper={fieldSettings.error_provider_message.epm_email}
+                                                                            iserror={fieldSettings.errorProvider.error_email}
+                                                                        />
+                                                                        <AppTextField 
+                                                                            value={fieldSettings.credentialsObj.password}
+                                                                            style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
+                                                                            placeholder='Enter password'
+                                                                            handleChange={(e) => HandleChangeBOPasswordSignup(e)}
+                                                                            variant={'outlined'}
+                                                                            label={'Password'}
+                                                                            type={'password'}
+                                                                            texthelper={fieldSettings.error_provider_message.epm_password}
+                                                                            iserror={fieldSettings.errorProvider.error_password}
+                                                                        />
+                                                                        <AppTextField 
+                                                                            value={fieldSettings.credentialsObj.conpass}
+                                                                            style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
+                                                                            placeholder='Confirm your password'
+                                                                            handleChange={(e) => HandleChangeBOConPassSignup(e)}
+                                                                            variant={'outlined'}
+                                                                            label={'Confirm Password'}
+                                                                            type={'password'}
+                                                                            texthelper={fieldSettings.error_provider_message.epm_conpass}
+                                                                            iserror={fieldSettings.errorProvider.error_conpass}
+                                                                        />
+                                                                    </CardContent>
+                                                                }
+                                                                />
+                                                            },
+                                                            {
+                                                                childrenId: 2,
+                                                                children : <ApplicationCard 
+                                                                children = {
+                                                                    <CardContent>
+                                                                        <SystemTypography 
+                                            isgutter={true}
+                                            text={'Security Area'}
+                                            variant={'h6'}
+                                        />
+                                        <hr />
+                                                                        <SystemGrid 
+                                                                            rowSpacing={1}
+                                                                            columnSpacing={{xs: 1, sm: 2, md: 3}}
+                                                                            GridItems={
+                                                                                [
+                                                                                    {
+                                                                                        childrenId: 1,
+                                                                                        children : <SystemSelect 
+                                                                value={fieldSettings.credentialsObj.sec_question}
+                                                                selectionArray={security_questions}
+                                                                selectionLabel={'Select Question'}
+                                                                selectionTitle={'Choose Question'}
+                                                                placeholder={'Choose Question'}
+                                                                style={{marginTop: '10px', marginBottom: '10px'}}
+                                                                handleSelect={(e) => HandleSelectQuestion(e)}
+                                                                />
+                                                                                    },
+                                                                                    {
+                                                                                        childrenId: 1,
+                                                                                        children :  <AppTextField 
+                                                                                        value={fieldSettings.credentialsObj.sec_answer}
+                                                                                        style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
+                                                                                        placeholder='State your answer'
+                                                                                        handleChange={(e) => HandleChangeBOSecAnswer(e)}
+                                                                                        variant={'outlined'}
+                                                                                        label={'Answer'}
+                                                                                        texthelper={fieldSettings.error_provider_message.epm_sec_answer}
+                                                                                        iserror={fieldSettings.errorProvider.error_sec_answer}
+                                                                                    />
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        />
+                                                                    </CardContent>
+                                                                }
+                                                                />
+                                                            }
+                                                        ]
+                                                    }
+                                         />
+                                          <NextPrevious 
+                                            activeSteps={activeSteps}
+                                            stepperArray={customerStepper}
+                                            handleBack={() => handlePrevious()}
+                                            handleNext={() => handleNext()}
+                                            />
+                                        </SystemContainer>
+                                        
+                                        : activeSteps === 4 ? 
+                                        <SystemContainer max={'xl'} style={{marginTop: '20px'}}>
+                                        <SystemTypography 
+                                            isgutter={true}
+                                            text={'Verification'}
+                                            variant={'h5'}
+                                        />
+                                        <hr />
+                                        <AppTextField 
+                                            value={fieldSettings.verificationObj.verificationcode}
+                                            style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
+                                            placeholder='Enter verification code'
+                                            handleChange={(e) => HandleVerification(e)}
+                                            variant={'outlined'}
+                                            label={'Verification Code'}
+                                            texthelper={fieldSettings.verificationObj.epm_verify}
+                                            iserror={fieldSettings.verificationObj.error_verify}
+                                        />   
+                                        <NextPrevious 
+                                            activeSteps={activeSteps}
+                                            stepperArray={customerStepper}
+                                            handleBack={() => handlePrevious()}
+                                            handleNext={() => handleNext()}
+                                            hasResend={true}
+                                            handleResend={() => HandleResentEmail()}
+                                            />     
+                                        </SystemContainer>
+                                        : <></>
                                     }
                                 </>
                             : <></>
