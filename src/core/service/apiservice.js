@@ -68,6 +68,16 @@ class FormService {
             data
         )
     }
+    BUSINESS_findAllAccountsByEmail(email) {
+        return ApiConfig.connect().get(
+            baseURLMiddlewareHelper('getall-businessbyemail', email)
+        )
+    }
+    BUSINESS_findAllProjectByEmail(email){
+        return ApiConfig.connect().get(
+            baseURLMiddlewareHelper('getall-projectbyemail', email)
+        )
+    }
 }
 
 export default new FormService()
