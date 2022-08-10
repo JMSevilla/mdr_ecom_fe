@@ -643,8 +643,24 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                                             ...prevState.settings.severity = "success",
                                             ...prevState.settings.autoHideDuration = 5000
                                         }))
-                                        setOpen(false)
-                                        setActiveSteps((activeSteps) => activeSteps + 1)
+                                        FormService.BUSINESS_findAllAccountsByEmail(
+                                            tempFieldSelected.fieldSettings.credentialsObj.email
+                                        ).then((res) => {
+                                            allFieldSelected[selectedIndex].businessFieldArray = res.data
+                                            if (allFieldSelected[selectedIndex].businessFieldArray.length > 0) {
+                                                FormService.BUSINESS_findAllProjectByEmail(
+                                                    tempFieldSelected.fieldSettings.credentialsObj.email
+                                                ).then(resp => {
+                                                    allFieldSelected[selectedIndex].projectFieldArray = resp.data.data
+                                                    if(allFieldSelected[selectedIndex].projectFieldArray.length > 0) {
+                                                        setOpen(false)
+                                                        setActiveSteps((activeSteps) => activeSteps + 1)
+                                                    }
+                                                })
+                                            } else {
+                                                return;
+                                            }
+                                        })
                                     }
                                 })
                             }

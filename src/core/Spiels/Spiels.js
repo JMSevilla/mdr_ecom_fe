@@ -10,6 +10,8 @@ class Spiels {
                 max : 250000,
                 min : 25000
             },
+            businessFieldArray : [],
+            projectFieldArray : [],
             fieldSettings : {
                 personalInformationObj : {
                     firstname : '',

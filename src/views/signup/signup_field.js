@@ -6,8 +6,9 @@ import { customerStepper } from '../../core/utils/helper'
 import SystemTypography from '../../components/Typography/Typography'
 import SystemGrid from '../../components/Grid/Grid'
 
-import { CardContent, CardMedia, Box , Grid, Card} from '@mui/material'
+import { CardContent, CardMedia, Box , Grid, Card, Paper} from '@mui/material'
 
+import { styled } from '@mui/material/styles'
 
 import MDRClient from '../../assets/mdrclient.png'
 import MDRDev from '../../assets/mdrdev1.png'
@@ -17,7 +18,7 @@ import NextPrevious from '../../components/NextPrevious/NextPrevious'
 import SystemSelect from '../../components/Select/Select'
 import SystemSlider from '../../components/Slider/Slider'
 
-import axios from 'axios'
+import FormService from '../../core/service/apiservice'
 
 import { Peso } from '../../core/utils/Intl'
 
@@ -25,13 +26,14 @@ import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
 import { projectCategory, projectType, features, destinationArray, security_questions } from '../../core/utils/helper'
 
+import { projectbreakdown } from '../../core/utils/dumpfeatures'
+
 const SignupField = (props) => {
     const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
         HandleChangeAddress, HandleChangeContactNumber, handleNext, HandleProjectName, HandleSelectProjectCategory,
         HandleSelectProjectType, HandleSliderChange, handlePrevious, HandleChangeBOEmailSignup, HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, 
         HandleChangeBOSecAnswer, HandleSelectQuestion, HandleVerification, HandleResentEmail} = props
-    const { fieldSettings, priceSettings, verification, setVerification, } = allFieldSelected[0]
-    const [state, setState] = useState([])
+    const { fieldSettings, priceSettings } = allFieldSelected[0]
     const selectedCustomer = () => {
         setOpen(true)
         setTimeout(() => {
@@ -46,17 +48,33 @@ const SignupField = (props) => {
             setOpen(false)
         }, 2000)
     }
-    useEffect( () => {
-        testRequest()
-    },[])
-    
-    const testRequest = () => {
-        axios.get('http://localhost:8080/api/getall-projectbyemail/devopsbyte60@gmail.com')
-        .then(res => {
-            console.log(res.data)
-            setState(res.data.data)
-        })
-    }
+    const Item = styled(Paper)(({ theme }) => ({
+        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+        ...theme.typography.body2,
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+      }));
+    //   useEffect(() => {
+    //     fetchAllBOAccounts() 
+    //     fetchAllProject()
+    //   }, [])
+    //   //BO-fetch001
+    // const fetchAllBOAccounts = () => {
+    //     FormService.BUSINESS_findAllAccountsByEmail(
+    //         fieldSettings.credentialsObj.email 
+    //     ).then((res) => {
+    //         fieldSettings.businessFieldArray = res.data
+    //     })
+    // }
+    // //Project-fetch001
+    // const fetchAllProject = () => {
+    //     FormService.BUSINESS_findAllProjectByEmail(
+    //         fieldSettings.credentialsObj.email
+    //     ).then((res) => {
+    //         fieldSettings.projectFieldArray = res.data.data
+    //     })
+    // }
     const CustomerSignup = () => {
         return (
             <ApplicationCard
@@ -689,6 +707,115 @@ const SignupField = (props) => {
                                             handleResend={() => HandleResentEmail()}
                                             />     
                                         </SystemContainer>
+                                        : activeSteps == 5 ?
+                                        <>
+                                        <SystemContainer max={'xl'} style={{marginTop: '20px'}}>
+                                        <SystemTypography 
+                                            isgutter={true}
+                                            text={'Preview'}
+                                            variant={'h5'}
+                                        />
+                                        <hr />
+                                        <SystemGrid 
+                                                                            rowSpacing={1}
+                                                                            columnSpacing={{xs: 1, sm: 2, md: 3}}
+                                                                            GridItems={
+                                                                                [
+                                                                                    {
+                                                                                        childrenId: 1,
+                                                                                        children : <ApplicationCard 
+                                                                                            children={
+                                                                                                <CardContent>
+                                                                                                    <SystemTypography 
+                                                                                                        isgutter={true}
+                                                                                                        text={'Business Owner Account Preview'}
+                                                                                                        variant={'h6'}
+                                                                                                    />
+                                                                                                    <hr />
+                                                                                                    {
+                                                                                                        allFieldSelected[selectedIndex].businessFieldArray && allFieldSelected[selectedIndex].businessFieldArray.map((item) => {
+                                                                                                           return (
+                                                                                                            <>
+                                                                                                                <Item style={{marginBottom: '10px'}}>
+                                                                                                                    <SystemTypography 
+                                                                                                                            isgutter={true}
+                                                                                                                            text={'Firstname :' + ' ' + item.firstname}
+                                                                                                                        /> 
+                                                                                                                </Item>
+                                                                                                                <Item>
+                                                                                                                    <SystemTypography 
+                                                                                                                            isgutter={true}
+                                                                                                                            text={'Lastname :' + ' ' + item.lastname}
+                                                                                                                        /> 
+                                                                                                                </Item>
+                                                                                                            </>
+                                                                                                           )
+                                                                                                        })
+                                                                                                    }
+                                                                                                </CardContent>
+                                                                                            }
+                                                                                        />
+                                                                                    },
+                                                                                    {
+                                                                                        childrenId: 1,
+                                                                                        children :  <ApplicationCard 
+                                                                                        children={
+                                                                                            <CardContent>
+                                                                                                <SystemTypography 
+                                                                                                    isgutter={true}
+                                                                                                    text={'Project Preview'}
+                                                                                                />
+
+                                                                                                    {
+                                                                                                        allFieldSelected[selectedIndex].projectFieldArray && allFieldSelected[selectedIndex].projectFieldArray.map((item) => {
+                                                                                                            let newFeatures = JSON.parse(item.projectfeatures)
+                                                                                                            return (
+                                                                                                                <>
+                                                                                                                <Item style={{marginBottom: '10px'}}>
+                                                                                                                    <SystemTypography 
+                                                                                                                            isgutter={true}
+                                                                                                                            text={'Project Name :' + ' ' + item.projectname}
+                                                                                                                        /> 
+                                                                                                    </Item>
+                                                                                                    <Item style={{marginBottom: '10px'}}>
+                                                                                                                    <SystemTypography 
+                                                                                                                            isgutter={true}
+                                                                                                                            text={'Project Features :'}
+                                                                                                                        /> 
+                                                                                                                        <Grid direction="rows" container spacing={2}>
+                                                                                                                    {
+                                                                                                                        newFeatures.map((component) => {
+                                                                                                                            let filteredFeatures = projectbreakdown.filter((o) => o.field_id === component.field_id)
+                                                                                                                            return (
+                                                                                                                                <>
+                                                                                                                                    {
+                                                                                                                                        filteredFeatures.map((field) => {
+                                                                                                                                            return (
+                                                                                                                                                <Grid item xs={12} sm={4}>
+                                                                                                                                                     {cloneElement(field.field)}
+                                                                                                                                                </Grid>
+                                                                                                                                            )
+                                                                                                                                        })
+                                                                                                                                    }
+                                                                                                                                </>
+                                                                                                                            )
+                                                                                                                        })
+                                                                                                                    }
+                                                                                                                    </Grid>
+                                                                                                    </Item>
+                                                                                                                </>
+                                                                                                            )
+                                                                                                        })
+                                                                                                    }
+                                                                                            </CardContent>
+                                                                                        }
+                                                                                    />
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        />        
+                                        </SystemContainer>
+                                        </>
                                         : <></>
                                     }
                                 </>
