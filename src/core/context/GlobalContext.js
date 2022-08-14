@@ -1,7 +1,7 @@
 import React, {createContext, cloneElement, useState, useCallback, useEffect} from 'react'
 import Spiels from '../Spiels/Spiels'
 import { projectbreakdown } from '../utils/dumpfeatures'
-import { features, destinationArray } from '../utils/helper'
+import { features, destinationArray, validName, validContactNumber, validEmailAddress } from '../utils/helper'
 import FormService from '../service/apiservice'
 
 const GlobalContext = createContext()
@@ -127,7 +127,7 @@ const Global = ({children}) => {
             address : tempFieldSelected.fieldSettings.personalInformationObj.address
         }
         const errorProvider = { 
-            error_firstname : !value ? true : false,
+            error_firstname : !value ? true : !validName.test(value) ? true : false,
             error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
             error_contactnum : tempFieldSelected.fieldSettings.errorProvider.error_contactnum,
             error_address : tempFieldSelected.fieldSettings.errorProvider.error_address,
@@ -159,7 +159,7 @@ const Global = ({children}) => {
             vrfycounts : tempFieldSelected.fieldSettings.verificationObj.vrfycounts
         }
         const error_provider_message = {
-            epm_firstname : !value ? 'Kindly provide your firstname' : '',
+            epm_firstname : !value ? 'Kindly provide your firstname' : !validName.test(value) ? 'Name must not contain any special characters' : '',
             epm_lastname : tempFieldSelected.fieldSettings.error_provider_message.epm_lastname,
             epm_contactnum : tempFieldSelected.fieldSettings.error_provider_message.epm_contactnum,
             epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address,
@@ -214,7 +214,7 @@ const Global = ({children}) => {
         }
         const errorProvider = { 
             error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
-            error_lastname : !value ? true : false,
+            error_lastname : !value ? true :!validName.test(value) ? true : false,
             error_contactnum : tempFieldSelected.fieldSettings.errorProvider.error_contactnum,
             error_address : tempFieldSelected.fieldSettings.errorProvider.error_address,
             error_projectname : tempFieldSelected.fieldSettings.errorProvider.error_projectname,
@@ -229,7 +229,7 @@ const Global = ({children}) => {
         }
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
-            epm_lastname : !value ? 'Kindly provide your lastname' : '',
+            epm_lastname : !value ? 'Kindly provide your lastname' : !validName.test(value) ? 'Name must not contain any special characters' :  '',
             epm_contactnum : tempFieldSelected.fieldSettings.error_provider_message.epm_contactnum,
             epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address,
             epm_projectname : tempFieldSelected.fieldSettings.error_provider_message.epm_projectname,
@@ -267,7 +267,7 @@ const Global = ({children}) => {
         const errorProvider = { 
             error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
             error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
-            error_contactnum : !value ? true : false,
+            error_contactnum : !value ? true : !validContactNumber.test(value) ? true : false,
             error_address : tempFieldSelected.fieldSettings.errorProvider.error_address,
             error_projectname : tempFieldSelected.fieldSettings.errorProvider.error_projectname,
             error_projectCategory : tempFieldSelected.fieldSettings.errorProvider.error_projectCategory,
@@ -299,7 +299,7 @@ const Global = ({children}) => {
         const error_provider_message = {
             epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
             epm_lastname : tempFieldSelected.fieldSettings.error_provider_message.epm_lastname,
-            epm_contactnum : !value ? 'Kindly provide your contact number' : '',
+            epm_contactnum : !value ? 'Kindly provide your contact number' : !validContactNumber.test(value) ? 'This is not a valid contact number' : '',
             epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address,
             epm_projectname : tempFieldSelected.fieldSettings.error_provider_message.epm_projectname,
             epm_projectcategory : tempFieldSelected.fieldSettings.error_provider_message.epm_projectcategory,
@@ -485,7 +485,17 @@ const Global = ({children}) => {
                     ...prevState.settings.autoHideDuration = 5000
                 }))
                 return;
-            } else {
+            } else if (!validName.test(tempField.personalInformationObj.firstname) || 
+            !validName.test(tempField.personalInformationObj.lastname) || !validContactNumber.test(tempField.personalInformationObj.contactnum)){
+                setSnacbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open = true,
+                    ...prevState.settings.message = "Kindly check your inputs before proceeding",
+                    ...prevState.settings.severity = "error",
+                    ...prevState.settings.autoHideDuration = 5000
+                }))
+                return;
+            }else {
 setActiveSteps((activeSteps) => activeSteps + 1)
             }
         } 
@@ -539,6 +549,22 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                         ...prevState,
                         ...prevState.settings.open = true,
                         ...prevState.settings.message = "There's an empty field, please try again",
+                        ...prevState.settings.severity = "error",
+                        ...prevState.settings.autoHideDuration = 5000
+                    }))
+                } else if (tempField.credentialsObj.password !== tempField.credentialsObj.conpass) {
+                    setSnacbarSettings(prevState => ({
+                        ...prevState,
+                        ...prevState.settings.open = true,
+                        ...prevState.settings.message = "Password mismatch please try again",
+                        ...prevState.settings.severity = "error",
+                        ...prevState.settings.autoHideDuration = 5000
+                    }))
+                } else if (!validEmailAddress.test(tempField.credentialsObj.email)) {
+                    setSnacbarSettings(prevState => ({
+                        ...prevState,
+                        ...prevState.settings.open = true,
+                        ...prevState.settings.message = "Invalid email please try again",
                         ...prevState.settings.severity = "error",
                         ...prevState.settings.autoHideDuration = 5000
                     }))
@@ -778,7 +804,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             error_projectname : tempFieldSelected.fieldSettings.errorProvider.error_projectname,
             error_projectCategory : tempFieldSelected.fieldSettings.errorProvider.error_projectCategory,
             error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType,
-            error_email : !value ? true : false,
+            error_email : !value ? true : !validEmailAddress.test(value) ? true : false,
             error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
             error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
             error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
@@ -810,7 +836,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             epm_projectname : tempFieldSelected.fieldSettings.error_provider_message.epm_projectname,
             epm_projectcategory : tempFieldSelected.fieldSettings.error_provider_message.epm_projectcategory,
             epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype,
-            epm_email : !value ? 'Kindly provide a valid email address' : '',
+            epm_email : !value ? 'Kindly provide a valid email address' : !validEmailAddress.test(value) ? 'This is not a valid email address' : '',
             epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
             epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
             epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
