@@ -7,6 +7,10 @@ import { SSP_Feature1 } from '../../components/__dump__/__field_dump';
 // social media icons
 import {FiFacebook, FiLinkedin, FiGithub} from 'react-icons/fi';
 
+// mission and vision icon 
+import {BiRocket} from 'react-icons/bi';
+import {MdOutlineInsights} from 'react-icons/md'
+
 // import hero banner images 
 import herobanner from '../../assets/images/herobanner/herobanner.jpg';
 import herobanner2 from '../../assets/images/herobanner/herobanner2.jpg';
@@ -24,6 +28,89 @@ export const heroBannerData = [
     }
 ];
 
+// mission and vision data 
+export const missionAndVisionData = [
+    {
+        title: 'Our Mission',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        icon: <BiRocket style={{fontSize: '30px', color: 'red'}}/>
+    },
+    {
+        title: 'Our Vision',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        icon: <MdOutlineInsights style={{fontSize: '30px', color: 'red'}}/>
+    },
+];
+
+// techstacks 
+export const techStacksData = [ 
+    {
+        stack: 'fa-html5'
+    },
+    {
+        stack: 'fa-css3-alt'
+    },
+    {
+        stack: 'fa-js'
+    },
+    {
+        stack: 'fa-vuejs'
+    },
+    {
+        stack: 'fa-react'
+    },
+    {
+        stack: 'fa-python'
+    },
+    {
+        stack: 'fa-php'
+    },
+    {
+        stack: 'fa-laravel'
+    },
+    {
+        stack: 'fa-java'
+    },
+    {
+        stack: 'fa-aws'
+    },
+    {
+        stack: 'fa-npm'
+    },
+    {
+        stack: 'fa-html5'
+    },
+    {
+        stack: 'fa-css3-alt'
+    },
+    {
+        stack: 'fa-js'
+    },
+    {
+        stack: 'fa-vuejs'
+    },
+    {
+        stack: 'fa-react'
+    },
+    {
+        stack: 'fa-python'
+    },
+    {
+        stack: 'fa-php'
+    },
+    {
+        stack: 'fa-laravel'
+    },
+    {
+        stack: 'fa-java'
+    },
+    {
+        stack: 'fa-aws'
+    },
+    {
+        stack: 'fa-npm'
+    },
+]
 export const ServicesData = [ 
     {
         img: web,
