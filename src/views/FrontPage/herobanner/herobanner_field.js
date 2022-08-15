@@ -60,8 +60,9 @@ const HeroBannerField = () => {
               smooth={true} 
               duration={500} 
               offset={-70}>
+
               <AppButton
-                buttonColor={'button-white'}
+                buttonColor={item.color}
                 variant="contained"
                 buttonName={item.name}
                 style={{
@@ -71,20 +72,9 @@ const HeroBannerField = () => {
                 }}
               />
               </Link>
-    
-            )
+
+            );
           })}
-      
-          <AppButton
-            buttonColor={'button-black'}
-            variant="contained"
-            buttonName={"Pricing"}
-            style={{
-              fontSize: "15px",
-              fontWeight: "600",
-              padding: "10px 20px",
-            }}
-          />
         </Box>
       </SystemContainer>
     </Box>

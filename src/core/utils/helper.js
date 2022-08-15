@@ -181,7 +181,14 @@ export const customerStepper = [
 export const herobannerButton = [
     {
         to: "services",
-        name: "Learn More"
+        name: "Learn More",
+        color: "button-white",
+        dropdown: false
+    },
+    {
+        name: "Pricing",
+        color: "button-black",
+        dropdown: false
     }
 ]
 
