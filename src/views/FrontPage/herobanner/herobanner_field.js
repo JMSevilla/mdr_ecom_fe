@@ -1,10 +1,11 @@
 import React from "react";
 import AppSwiper from "../../../components/Swiper/Swiper";
-import { heroBannerData } from "../../../core/utils/helper";
+import { herobannerButton, heroBannerData } from "../../../core/utils/helper";
 import SystemContainer from "../../../components/Container/Container";
 import SystemTypography from "../../../components/Typography/Typography";
 import { Box } from "@mui/material";
 import AppButton from "../../../components/Buttons/Button";
+import { Link } from "react-scroll";
 
 const HeroBannerField = () => {
   return (
@@ -50,16 +51,30 @@ const HeroBannerField = () => {
           />
         </Box>
         <Box style={{ display: "flex", gap: "1.5rem" }}>
-          <AppButton
-            buttonColor={'button-white'}
-            variant="contained"
-            buttonName={"Learn More"}
-            style={{
-              fontSize: "15px",
-              fontWeight: "600",
-              padding: "10px 20px",
-            }}
-          />
+          {herobannerButton.map((item, index) => {
+            return (
+              <Link 
+              to={item.to} 
+              activeClass='active' 
+              spy={true} 
+              smooth={true} 
+              duration={500} 
+              offset={-70}>
+              <AppButton
+                buttonColor={'button-white'}
+                variant="contained"
+                buttonName={item.name}
+                style={{
+                  fontSize: "15px",
+                  fontWeight: "600",
+                  padding: "10px 20px",
+                }}
+              />
+              </Link>
+    
+            )
+          })}
+      
           <AppButton
             buttonColor={'button-black'}
             variant="contained"

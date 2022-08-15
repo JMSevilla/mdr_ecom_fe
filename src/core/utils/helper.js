@@ -177,6 +177,14 @@ export const customerStepper = [
     'Finish'
 ]
 
+
+export const herobannerButton = [
+    {
+        to: "services",
+        name: "Learn More"
+    }
+]
+
 export const features = []
 
 export const destinationArray = []
