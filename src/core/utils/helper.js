@@ -200,7 +200,39 @@ export const security_questions = [
     {
         value : 'what is your dogs name ?',
         label : 'What is your dogs name ?'
-    }
+    },
+    {
+        value : 'In what city were you born ?',
+        label : 'In what city were you born ?'
+    },
+    {
+        value : "What is your mother's maiden name ?",
+        label : "What is your mother's maiden name ?"
+    },
+    {
+        value : "What high school did you attend ?",
+        label : "What high school did you attend ?"
+    },
+    {
+        value : "What was the name of your elementary school ?",
+        label : "What was the name of your elementary school ?"
+    },
+    {
+        value : "What was the make of your first car ?",
+        label : "What was the make of your first car ?"
+    },
+    {
+        value : "What was your favorite food as a child ?",
+        label : "What was your favorite food as a child ?"
+    },
+    {
+        value : "Where did you meet your spouse?",
+        label : "Where did you meet your spouse?"
+    },
+    {
+        value : "What year was your father (or mother) born?",
+        label : "What year was your father (or mother) born?"
+    },
 ]
 
 // REGEX //
