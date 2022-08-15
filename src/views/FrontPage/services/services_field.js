@@ -6,14 +6,16 @@ import AppButton from '../../../components/Buttons/Button'
 import Box from '@mui/material/Box'
 import ServiceOutlineText from '../../../assets/images/outline-text/service.svg'
 import { ServicesData } from '../../../core/utils/helper'
+import SystemContainer from '../../../components/Container/Container'
 
 const services_field = () => {
     return (
-        <Box id="services" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '4.5rem', height: '100vh'}}>
+        <Box id="services" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100vh', backgroundColor: 'rgb(255,255,255)'}}>
+            <SystemContainer maxWidth={'lg'}>
             <Box style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '.5rem'}}>
             <img src={ServiceOutlineText} alt='service outline'/>
             <SystemTypography variant={'h5'} text={'What We Do?'}/>
-            <SystemTypography variant={'subtitle'} text={'We offer developed softwares and budget price services...'} isgutter={true} style={{fontStyle: 'italic'}}/>
+            <SystemTypography variant={'subtitle'} text={'We offer developed softwares and budget price services...'} isgutter={true} style={{fontStyle: 'italic', marginBottom: '50px'}}/>
             </Box>
             <Box style={{display: 'flex', gap: '2rem'}}>
             {ServicesData.map((item, index) => {
@@ -44,6 +46,7 @@ const services_field = () => {
                 )
             })}
             </Box>
+            </SystemContainer>
         </Box>
       )
 }

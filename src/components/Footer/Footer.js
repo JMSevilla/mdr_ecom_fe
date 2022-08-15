@@ -14,7 +14,6 @@ const AppFooter = () => {
         backgroundColor: "rgb(253,249,255)",
         width: "100%",
         height: "10vh",
-        marginTop: "50px",
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
