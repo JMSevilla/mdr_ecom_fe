@@ -627,44 +627,31 @@ const SignupField = (props) => {
                                                                 children = {
                                                                     <CardContent>
                                                                         <SystemTypography 
-                                            isgutter={true}
-                                            text={'Security Area'}
-                                            variant={'h6'}
-                                        />
-                                        <hr />
-                                                                        <SystemGrid 
-                                                                            rowSpacing={1}
-                                                                            columnSpacing={{xs: 1, sm: 2, md: 3}}
-                                                                            GridItems={
-                                                                                [
-                                                                                    {
-                                                                                        childrenId: 1,
-                                                                                        children : <SystemSelect 
-                                                                value={fieldSettings.credentialsObj.sec_question}
-                                                                selectionArray={security_questions}
-                                                                selectionLabel={'Select Question'}
-                                                                selectionTitle={'Choose Question'}
-                                                                placeholder={'Choose Question'}
-                                                                style={{marginTop: '10px', marginBottom: '10px'}}
-                                                                handleSelect={(e) => HandleSelectQuestion(e)}
-                                                                />
-                                                                                    },
-                                                                                    {
-                                                                                        childrenId: 1,
-                                                                                        children :  <AppTextField 
-                                                                                        value={fieldSettings.credentialsObj.sec_answer}
-                                                                                        style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
-                                                                                        placeholder='State your answer'
-                                                                                        handleChange={(e) => HandleChangeBOSecAnswer(e)}
-                                                                                        variant={'outlined'}
-                                                                                        label={'Answer'}
-                                                                                        texthelper={fieldSettings.error_provider_message.epm_sec_answer}
-                                                                                        iserror={fieldSettings.errorProvider.error_sec_answer}
-                                                                                    />
-                                                                                    }
-                                                                                ]
-                                                                            }
+                                                                            isgutter={true}
+                                                                            text={'Security Area'}
+                                                                            variant={'h6'}
                                                                         />
+                                                                        <hr />
+                                                                                <SystemSelect 
+                                                                                value={fieldSettings.credentialsObj.sec_question}
+                                                                                selectionArray={security_questions}
+                                                                                selectionLabel={'Select Question'}
+                                                                                selectionTitle={'Choose Question'}
+                                                                                placeholder={'Choose Question'}
+                                                                                style={{marginTop: '10px', marginBottom: '10px'}}
+                                                                                handleSelect={(e) => HandleSelectQuestion(e)}
+                                                                                />
+                                                                                <AppTextField 
+                                                                                value={fieldSettings.credentialsObj.sec_answer}
+                                                                                style={{marginTop: '10px', marginBottom: '10px', width: '100%'}}
+                                                                                placeholder='State your answer'
+                                                                                handleChange={(e) => HandleChangeBOSecAnswer(e)}
+                                                                                variant={'outlined'}
+                                                                                label={'Answer'}
+                                                                                texthelper={fieldSettings.error_provider_message.epm_sec_answer}
+                                                                                iserror={fieldSettings.errorProvider.error_sec_answer}
+                                                                                />
+                                                                              
                                                                     </CardContent>
                                                                 }
                                                                 />
