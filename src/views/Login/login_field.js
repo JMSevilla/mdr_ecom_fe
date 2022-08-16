@@ -1,8 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import AppTextField from "../../components/TextField/TextField";
-import SystemTypography from "../../components/Typography/Typography";
-import AppButton from "../../components/Buttons/Button";
+import {AppTextField, SystemTypography, AppButton} from "../../components";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Link from "@mui/material/Link";

@@ -71,8 +71,8 @@
   }
   #infinite div.highway-barrier ul.highway-lane li.highway-car {
     width: 180px;
-    -webkit-animation: translateinfinite 30s linear infinite;
-            animation: translateinfinite 30s linear infinite;
+    -webkit-animation: translateinfinite 32s linear infinite;
+            animation: translateinfinite 32s linear infinite;
   }
   #infinite div.highway-barrier ul.highway-lane li.highway-car span.fab {
     font-size: 65px;
