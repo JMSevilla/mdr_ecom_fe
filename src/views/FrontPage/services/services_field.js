@@ -1,12 +1,9 @@
 import React from 'react'
-import SystemTypography from '../../../components/Typography/Typography'
-import ApplicationCard from '../../../components/Card/Card'
+import {SystemTypography, ApplicationCard, AppButton, SystemContainer} from '../../../components'
 import { CardContent, CardMedia } from '@mui/material'
-import AppButton from '../../../components/Buttons/Button'
 import Box from '@mui/material/Box'
 import ServiceOutlineText from '../../../assets/images/outline-text/service.svg'
 import { ServicesData } from '../../../core/utils/helper'
-import SystemContainer from '../../../components/Container/Container'
 
 const services_field = () => {
     return (

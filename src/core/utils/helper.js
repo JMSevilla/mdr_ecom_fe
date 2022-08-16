@@ -11,6 +11,10 @@ import {FiFacebook, FiLinkedin, FiGithub} from 'react-icons/fi';
 import {BiRocket} from 'react-icons/bi';
 import {MdOutlineInsights} from 'react-icons/md'
 
+// contact us icons 
+import { TbPhone } from "react-icons/tb";
+import { FiMail, FiMapPin } from "react-icons/fi";
+
 // import hero banner images 
 import herobanner from '../../assets/images/herobanner/herobanner.jpg';
 import herobanner2 from '../../assets/images/herobanner/herobanner2.jpg';
@@ -110,7 +114,9 @@ export const techStacksData = [
     {
         stack: 'fa-npm'
     },
-]
+];
+
+// services data //
 export const ServicesData = [ 
     {
         img: web,
@@ -128,6 +134,28 @@ export const ServicesData = [
         description: 'description about our mobile app development'
     },
 
+];
+
+// contact us data //
+export const contactUsData = [
+    {
+        icon: <FiMail style={{fontSize: '25px'}}/>,
+        title: "Want to buy a system?",
+        subtitle: "We are selling any kind of app...",
+        description: "Email us at modernresolve@gmail.com",
+      },
+      {
+        icon: <FiMapPin style={{fontSize: '25px'}}/>,
+        title: "Current Location",
+        subtitle: "Our office address...",
+        description: "Brgy. Banlic, Cabuyao Laguna 4025",
+      },
+      {
+        icon: <TbPhone style={{fontSize: '25px'}}/>,
+        title: "Phone Number",
+        subtitle: "You can call / text us at...",
+        description: "+63-912-345-6789",
+      },
 ];
 
 export const projectCategory = [
@@ -177,7 +205,6 @@ export const projectType = [
 ]
 
 // navbar data helper //
-
 export const navbarData = [ 
     {
         link: 'Home',
@@ -212,7 +239,6 @@ export const navbarData = [
 ];
 
 // footer social media icons 
-
 export const socialAccounts = [
     {
         icon: <FiFacebook className='social-icons'/>,
@@ -245,7 +271,6 @@ export const businessRules = [
 ];
 
 // dropdown shop button helper //
-
 export const shopButton = [
     'Category',
     'Web App',
@@ -253,8 +278,8 @@ export const shopButton = [
     'Mobile App',
     'View All'
 ]
-/* data helper */
 
+/* data helper */
 export const customerStepper = [
     'Personal Information',
     'Project Details',
@@ -264,7 +289,7 @@ export const customerStepper = [
     'Finish'
 ]
 
-
+// hero banner button //
 export const herobannerButton = [
     {
         to: "services",
@@ -283,6 +308,7 @@ export const features = []
 
 export const destinationArray = []
 
+// security questions data //
 export const security_questions = [
     {
         value : 'what is your dogs name ?',

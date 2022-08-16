@@ -1,9 +1,7 @@
 import React from 'react'
 import {Box} from '@mui/material';
-import SystemTypography from '../../../components/Typography/Typography';
-import AppButton from '../../../components/Buttons/Button';
+import {SystemTypography, AppButton, SystemContainer} from '../../../components';
 import AboutUsOutlineText from '../../../assets/images/outline-text/about.svg';
-import SystemContainer from '../../../components/Container/Container';
 import Lottie from "react-lottie";
 import * as aboutUsLogo from "../../../assets/images/aboutus/appDevelopment.json";
 import { Fade } from "react-reveal";
@@ -32,22 +30,22 @@ const AboutUs_field = () => {
                     <Box style={{display: 'flex', flexDirection: 'column', gap: '3rem', width: '50%'}}>
                         <Fade bottom>
                         <Box>
-                        <img src={AboutUsOutlineText} alt='about us outline text' style={{width: '60%'}}/>
+                        <img src={AboutUsOutlineText} alt='about us outline text' style={{width: '65%'}}/>
                         <SystemTypography variant={'h5'} text={'Who We Are?'}/>
                         </Box>
-                            <Box style={{display: 'flex', flexDirection: 'column', gap: '2rem'}}> 
                               {missionAndVisionData.map((item, index) => {
                                 return (
                                   <>
-                                  <Box style={{display: 'flex', alignItems: 'center', gap: '.5rem'}}>
-                                    <SystemTypography variant='h4' text={item.title} style={{color: 'red', fontWeight: 600, fontFamily: 'Helvetica'}} key={index}/>
-                                    {item.icon}
-                                  </Box>
+                                  <Box style={{display: 'flex', flexDirection: 'column', gap: '.5rem'}}>
+                                    <Box style={{display: 'flex', alignItems: 'center', gap: '.7rem'}}>
+                                      <SystemTypography variant='h4' text={item.title} style={{color: 'red', fontWeight: 600, fontFamily: 'Helvetica'}} key={index}/>
+                                      {item.icon}
+                                    </Box>
                                     <SystemTypography variant='h6' text={item.description} style={{textAlign: 'justify'}}/>
+                                  </Box>
                                   </>
                                 )
                               })}
-                              </Box>
                         <Box style={{width:'23.8%'}}>
                         <AppButton variant='contained' buttonName='Read More' buttonColor='button-black' style={{fontSize: '15px',fontWeight: '600',padding: '10px 20px'}}/>
                         </Box>

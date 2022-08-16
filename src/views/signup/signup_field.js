@@ -1,10 +1,7 @@
 import React, {useState, cloneElement, useEffect} from 'react'
-import SystemContainer from '../../components/Container/Container'
-import ApplicationCard from '../../components/Card/Card'
-import SystemStepper from '../../components/Stepper/Stepper'
+import {SystemContainer, ApplicationCard, SystemStepper, SystemTypography, SystemGrid} from '../../components'
 import { customerStepper } from '../../core/utils/helper'
-import SystemTypography from '../../components/Typography/Typography'
-import SystemGrid from '../../components/Grid/Grid'
+
 
 import { CardContent, CardMedia, Box , Grid, Card, Paper} from '@mui/material'
 
