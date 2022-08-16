@@ -18,7 +18,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
         onClose={handleClose}
         anchorOrigin={{
             vertical : 'top',
-            horizontal : 'right'
+            horizontal : 'center'
         }}
         >
             <Alert 
