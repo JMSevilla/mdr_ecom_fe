@@ -1,19 +1,10 @@
 import React, {useState, cloneElement, useEffect} from 'react'
-import {SystemContainer, ApplicationCard, SystemStepper, SystemTypography, SystemGrid} from '../../components'
+import {SystemContainer, ApplicationCard, SystemStepper, SystemTypography, SystemGrid, AppButton, AppTextField, NextPrevious, SystemSelect, SystemSlider} from '../../components'
 import { customerStepper } from '../../core/utils/helper'
-
-
 import { CardContent, CardMedia, Box , Grid, Card, Paper} from '@mui/material'
-
 import { styled } from '@mui/material/styles'
-
 import MDRClient from '../../assets/mdrclient.png'
 import MDRDev from '../../assets/mdrdev1.png'
-import AppButton from '../../components/Buttons/Button'
-import AppTextField from '../../components/TextField/TextField'
-import NextPrevious from '../../components/NextPrevious/NextPrevious'
-import SystemSelect from '../../components/Select/Select'
-import SystemSlider from '../../components/Slider/Slider'
 
 import FormService from '../../core/service/apiservice'
 
@@ -24,6 +15,7 @@ import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 import { projectCategory, projectType, features, destinationArray, security_questions } from '../../core/utils/helper'
 
 import { projectbreakdown } from '../../core/utils/dumpfeatures'
+import {motion} from 'framer-motion';
 
 const SignupField = (props) => {
     const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
@@ -202,6 +194,7 @@ const SignupField = (props) => {
     }
 
     return (
+        <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
         <SystemContainer max={'xl'} style={{marginTop: '150px', marginBottom : '50px'}}>
             
             <ApplicationCard
@@ -809,6 +802,7 @@ const SignupField = (props) => {
                 }
             />
         </SystemContainer>
+        </motion.div>
     )
 }
 
