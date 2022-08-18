@@ -13,7 +13,7 @@ const testimonials_field = () =>{
                         <Box style={{display: 'flex', flexDirection: 'column',  alignItems: 'center', gap: '1rem'}}>
                         <img src={testimonialOutline} alt='testimonial outline text' style={{width: "65%"}} />
                             <SystemTypography text={"What other people says?"} variant={'h5'} />
-                            <SystemTypography variant={'subtitle'} text={'Here are some of our Client Feedback...'} isgutter={true} style={{fontStyle: 'italic', marginBottom: '50px'}}/>
+                            <SystemTypography variant={'subtitle'} text={"Here are some of our client's feedback..."} isgutter={true} style={{fontStyle: 'italic', marginBottom: '50px'}}/>
                         </Box>
                     <Box style={{display: "flex", alignItems: 'left',}}>
                             <AppSwiper
