@@ -4,6 +4,7 @@ import {SystemContainer, SystemTypography, AppTextField, SystemGrid, AppButton} 
 import contactOutlineText from '../../../assets/images/outline-text/contact.svg';
 import { contactUsData } from '../../../core/utils/helper';
 import contactUsBg from '../../../assets/images/contactus/contactUsBg.jpg';
+import { Fade } from 'react-reveal'
 
 const ContactUs_Field = () => {
   return (
@@ -13,6 +14,7 @@ const ContactUs_Field = () => {
             {/* contact us content */}
             <Box style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 {/* title and subtitle */}
+                <Fade bottom>
                 <Box style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '.5rem'}}>
                   <img src={contactOutlineText} alt='contact us outline text'/>
                   <SystemTypography variant='h5' text='Do You Have Any Questions?'/>
@@ -20,6 +22,7 @@ const ContactUs_Field = () => {
                   text={'You can directly connect us from here, Just fill up the information below. We are very responsive to messages...'} 
                   isgutter={true} style={{textAlign:'center', maxWidth: '520px',fontStyle: 'italic', marginBottom: '60px'}}/>
                 </Box>
+                </Fade>
                 {/* end of title and subtitle */}
                 {/* contact details and contact fields */}
                 <Box style={{display: 'flex', gap: '5rem', width: '100%'}}>

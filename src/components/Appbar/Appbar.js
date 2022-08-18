@@ -31,7 +31,7 @@ const ApplicationBar = (props) => {
     <>
       <AppBar
         color={'inherit'}
-        style={{ minHeight: "80px", display: "flex", justifyContent: "center", backgroundColor: bg ? 'rgb(255,255,255)' : 'transparent'}}
+        style={{minHeight: '80px', display: "flex", justifyContent: "center", backgroundColor: bg ? 'rgb(255,255,255)' : 'transparent'}}
       >
         <Toolbar>
           <Box

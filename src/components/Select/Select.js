@@ -17,7 +17,8 @@ const SystemSelect = (props) => {
         multiple = false,
         isChip = false,
         formHelperMessage,
-        style
+        style,
+        disabled
      } = props
 
      const HelperText = () => {
@@ -60,6 +61,7 @@ const SystemSelect = (props) => {
            {
             multiple ? 
             <Select
+            disabled={disabled}
             fullWidth
             id={isChip ? 'demo-multiple-chip' : isError ? 'demo-simple-select-error' : 'demo-simple-select-error'}
             value={value}
@@ -87,6 +89,7 @@ const SystemSelect = (props) => {
             ></Select>
             :
             <Select
+            disabled={disabled}
             labelId='demo-simple-select-label'
             id='demo-simple-select'
             value={value}
