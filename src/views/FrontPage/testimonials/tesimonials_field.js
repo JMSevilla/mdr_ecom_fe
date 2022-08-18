@@ -15,7 +15,7 @@ const testimonials_field = () =>{
                             <SystemTypography text={"What other people says?"} variant={'h5'} />
                             <SystemTypography variant={'subtitle'} text={'Here are some of our Client Feedback...'} isgutter={true} style={{fontStyle: 'italic', marginBottom: '50px'}}/>
                         </Box>
-                    <Box style={{display: "flex", alignItems: 'left'}}>
+                    <Box style={{display: "flex", alignItems: 'left',}}>
                             <AppSwiper
                             swiperData={testimonialData}
                             style={{width:"25vw"}}
