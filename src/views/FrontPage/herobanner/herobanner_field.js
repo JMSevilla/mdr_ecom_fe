@@ -4,6 +4,7 @@ import { herobannerButton, heroBannerData } from "../../../core/utils/helper";
 import {SystemContainer, SystemTypography, AppButton} from "../../../components";
 import { Box } from "@mui/material";
 import { Link } from "react-scroll";
+import { Autoplay, EffectFade, Navigation } from "swiper";
 
 const HeroBannerField = () => {
   return (
@@ -11,6 +12,7 @@ const HeroBannerField = () => {
       <AppSwiper
         swiperData={heroBannerData}
         style={{ width: "100vw", height: "100vh", filter: "blur(7px)"}}
+        modules={[EffectFade, Autoplay, Navigation]}
       />
       <SystemContainer
         maxWidth={'lg'}

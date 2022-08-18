@@ -20,6 +20,11 @@ import herobanner from '../../assets/images/herobanner/herobanner.jpg';
 import herobanner2 from '../../assets/images/herobanner/herobanner2.jpg';
 import herobanner3 from '../../assets/images/herobanner/herobanner3.jpg';
 
+// import Testimonials Image
+import testimonials from '../../assets/images/testimonials/testimonial.jpg'
+import testimonials2 from '../../assets/images/testimonials/testimonial2.jpg'
+import testimonials3 from '../../assets/images/testimonials/testimonial3.jpg'
+
 export const heroBannerData = [
     {
         img: herobanner
@@ -302,6 +307,25 @@ export const herobannerButton = [
         color: "button-black",
         dropdown: false
     }
+]
+
+
+export const testimonialData = [
+    {
+        img: testimonials,
+        feedbackDisc:"The success of every websites now depends on search engine optimisation and digital marketing strategy. If you are on first page of all major search engines then you are ahead among your competitors in terms of online sales.",
+        creator:"― Dr. Christopher Dayagdag",
+    },
+    {
+        img: testimonials2,
+        feedbackDisc:"Your website is the center of your digital eco-system, like a brick and mortar location, the experience matters once a customer enters, just as much as the perception they have of you before they walk through the door.",
+        creator:"― Leland Dieno",
+    },
+    {
+        img: testimonials3,
+        feedbackDisc:"If there’s one thing you learn by working on a lot of different Web sites, it’s that almost any design idea–no matter how appallingly bad–can be made usable in the right circumstances, with enough effort.",
+        creator:"― Steve Krug",
+    },
 ]
 
 export const features = []
