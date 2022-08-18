@@ -163,6 +163,18 @@ export const contactUsData = [
       },
 ];
 
+// selection at login //
+export const loginUserCategory = [
+    {
+        label: 'Business Owner',
+        value: 'bo'
+    },
+    {
+        label: 'Student',
+        value: 'st'
+    }
+];
+
 export const projectCategory = [
     {
         label : 'Point Of Sales & Inventory System',
