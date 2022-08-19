@@ -21,7 +21,7 @@ const services_field = () => {
             {ServicesData.map((item, index) => {
                 return (
                     <>
-                        <ApplicationCard key={index} className='card'
+                        <ApplicationCard key={index}
                     cardmedia={
                         <CardMedia 
                             component="img"

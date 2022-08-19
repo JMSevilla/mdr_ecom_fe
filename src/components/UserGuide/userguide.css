@@ -1,0 +1,44 @@
+@import '~react-user-guide/dist/custom-style.css';
+
+.userGuide--modal{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.userGuide--modal h1 
+{
+    font-weight: 600;
+    font-size: 25px;
+}
+.userGuide--modal p
+{
+    font-size: 20px;
+    color: red;
+}
+.userGuide--modal button
+{
+    width: 40%;
+    font-size: 20px;
+}
+
+.userGuide--message{
+    text-align: center;
+}
+.userGuide--message h3 
+{
+    font-size: 20px;
+    color: red;
+}
+
+.userGuide--message p
+{
+    font-size: 18px;
+}
+.userGuide--message button
+{   
+    font-size: 17px;
+}
+.userGuide--message button:hover
+{   
+    color: black;
+}
