@@ -5,10 +5,20 @@ import SystemTypography from "../Typography/Typography";
 import Link from "@mui/material/Link";
 import { socialAccounts, businessRules } from "../../core/utils/helper";
 import { Fade } from "react-reveal";
+import { useHistory } from "react-router-dom";
+import { appRouter } from "../../routes/router";
 
 const AppFooter = ({fixed}) => {
   const date = new Date();
   const year = date.getFullYear();
+  const history = useHistory();
+  const navigateTermsAndConditions = () => {
+    history.push(appRouter.TermsAndConditions.path);
+  };
+  const navigatePrivacyPolicy = () => {
+    history.push(appRouter.PrivacyPolicy.path);
+  };
+  
   return (
     <Box
       style={{
@@ -56,7 +66,7 @@ const AppFooter = ({fixed}) => {
             return (
               <Link
                 className='link'
-                href={item.link}
+                onClick={eval(item.link)}
                 key={index}
                 color={"inherit"}
                 underline={"none"}
