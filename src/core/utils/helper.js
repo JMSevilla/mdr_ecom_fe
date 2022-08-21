@@ -326,17 +326,20 @@ export const testimonialData = [
     {
         img: testimonials,
         feedbackDisc:"The success of every websites now depends on search engine optimisation and digital marketing strategy. If you are on first page of all major search engines then you are ahead among your competitors in terms of online sales.",
-        creator:"― Dr. Christopher Dayagdag",
+        creator:"Dr. Christopher Dayagdag",
+        profession: 'Business Owner',
     },
     {
         img: testimonials2,
         feedbackDisc:"Your website is the center of your digital eco-system, like a brick and mortar location, the experience matters once a customer enters, just as much as the perception they have of you before they walk through the door.",
-        creator:"― Leland Dieno",
+        creator:"Leland Dieno",
+        profession: 'Client',
     },
     {
         img: testimonials3,
         feedbackDisc:"If there’s one thing you learn by working on a lot of different Web sites, it’s that almost any design idea–no matter how appallingly bad–can be made usable in the right circumstances, with enough effort.",
-        creator:"― Steve Krug",
+        creator:"Steve Krug",
+        profession: 'CEO',
     },
 ]
 

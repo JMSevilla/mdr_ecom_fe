@@ -7,11 +7,12 @@ const ApplicationCard = (props) => {
          style,
          sx,
         cardmedia,
+        className,
         ref
         } = props
     return (
         <>
-            <Card ref={ref} sx={sx} style={style}>
+            <Card ref={ref} sx={sx} style={style} className={className}>
                 <center>
                 {cardmedia}
                 </center>

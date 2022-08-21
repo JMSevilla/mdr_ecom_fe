@@ -15,3 +15,4 @@ export {default as SystemStepper} from './Stepper/Stepper';
 export {default as AppSwiper} from './Swiper/Swiper';
 export {default as AppTextField} from './TextField/TextField';
 export {default as SystemTypography} from './Typography/Typography';
+export {default as SystemUserGuide} from './UserGuide/UserGuide';
