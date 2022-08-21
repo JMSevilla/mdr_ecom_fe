@@ -24,6 +24,7 @@ import herobanner3 from '../../assets/images/herobanner/herobanner3.jpg';
 import testimonials from '../../assets/images/testimonials/testimonial.jpg'
 import testimonials2 from '../../assets/images/testimonials/testimonial2.jpg'
 import testimonials3 from '../../assets/images/testimonials/testimonial3.jpg'
+import TermsAndConditions from '../../views/BusinessPolicy/TermsAndConditions/TermsAndConditions';
 
 export const heroBannerData = [
     {
@@ -275,7 +276,7 @@ export const socialAccounts = [
 export const businessRules = [
     {
         name: 'Terms and Conditions',
-        link: '',
+        link: 'navigateTermsAndConditions',
     },
     {
         name: 'Privacy Policy',
@@ -285,6 +286,13 @@ export const businessRules = [
         name: 'Terms of Use',
         link: '',
     },
+];
+
+export const termsandconditionsData = [
+    {
+        title: '',
+        description: '',
+    }
 ];
 
 // dropdown shop button helper //
