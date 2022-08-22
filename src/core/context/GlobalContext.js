@@ -7,7 +7,21 @@ import FormService from '../service/apiservice'
 const GlobalContext = createContext()
 
 const Global = ({children}) => {
-    const [activeSteps, setActiveSteps] = useState(1)
+    // Timer for resend button
+    const [timer, setTimer] = useState(15);    
+    const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
+
+    useEffect(() => {
+    timer > 0 && setTimeout(timeOutCallback, 1000);
+    }, [timer, timeOutCallback]);
+
+    const resetTimer = function () {
+    if (!timer) {
+        setTimer(15);
+    }
+    };
+
+    const [activeSteps, setActiveSteps] = useState(0)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [signupCategory, setSignupCategory] = useState('pick')
@@ -598,6 +612,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                                             setOpen(false)
                                             setActiveSteps((activeSteps) => activeSteps + 1)
                                         }
+                                        resetTimer()
                                     })
                             } else {
                                 FormService.BUSINESS_verification_entry(fieldVerified)
@@ -616,6 +631,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                                                         }))
                                                         setOpen(false)
                                                         setActiveSteps((activeSteps) => activeSteps + 1)
+                                                        resetTimer()
                                                     }
                                                 })
                                         }
@@ -1082,7 +1098,8 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                     ...prevState.settings.message = "Verification Code Sent Successfully",
                     ...prevState.settings.severity = "success",
                     ...prevState.settings.autoHideDuration = 5000
-                }))
+                })) 
+                resetTimer();
             }else{
                 setOpen(false)
                 setSnacbarSettings(prevState => ({
@@ -1106,7 +1123,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             HandleChangeEmailLogin, HandleChangePasswordLogin, handleNext,
             snackbarSettings, handleClose, handlePrevious, HandleChangeBOEmailSignup, 
             HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, HandleChangeBOSecAnswer,
-            HandleSelectQuestion, verification, setVerification, HandleVerification, HandleResentEmail
+            HandleSelectQuestion, verification, setVerification, HandleVerification, HandleResentEmail, timer, resetTimer
         }}
         >{children}</GlobalContext.Provider>
     )
