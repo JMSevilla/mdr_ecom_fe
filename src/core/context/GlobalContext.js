@@ -413,14 +413,17 @@ const Global = ({children}) => {
         const userLoginObj = {
             email : value,
             password : tempFieldSelected.fieldSettings.userLoginObj.password,
+            loginAs : tempFieldSelected.fieldSettings.userLoginObj.loginAs,
         }
         const errorProvider = { 
-            error_email : !value ? true : false,
+            error_email : !value ? true : !validEmailAddress.test(value) ? true : false,
             error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
+            error_loginAs : tempFieldSelected.fieldSettings.errorProvider.error_loginAs,
         }
         const error_provider_message = {
-            epm_email : !value ? '*Please enter your email' : '',
+            epm_email : !value ? '*Please enter your email' : !validEmailAddress.test(value) ? 'This is not a valid email address' : '',
             epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
+            epm_loginAs : tempFieldSelected.fieldSettings.error_provider_message.epm_loginAs,
         }
         const fieldSettings = {
             userLoginObj : userLoginObj,
@@ -438,14 +441,17 @@ const Global = ({children}) => {
         const userLoginObj = {
             email : tempFieldSelected.fieldSettings.userLoginObj.email,
             password : value,
+            loginAs : tempFieldSelected.fieldSettings.userLoginObj.loginAs,
         }
         const errorProvider = { 
             error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
             error_password : !value ? true : false,
+            error_loginAs : tempFieldSelected.fieldSettings.errorProvider.error_loginAs,
         }
         const error_provider_message = {
-            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
             epm_password : !value ? '*Please enter your password' : '',
+            epm_loginAs : tempFieldSelected.fieldSettings.error_provider_message.epm_loginAs,
         }
         const fieldSettings = {
             userLoginObj : userLoginObj,
@@ -455,6 +461,65 @@ const Global = ({children}) => {
         tempFieldSelected.fieldSettings = fieldSettings
         tempAllFieldSelected[selectedIndex] = tempFieldSelected
         setAllFieldSelected(tempAllFieldSelected)
+    }
+    const HandleSelectLoginAs = (event) => {
+        let value = event.target.value
+         const tempAllFieldSelected = [...allFieldSelected]
+         const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+         const userLoginObj = {
+            email : tempFieldSelected.fieldSettings.userLoginObj.email,
+            password : tempFieldSelected.fieldSettings.userLoginObj.password,
+            loginAs : value,
+         }
+         const errorProvider = { 
+            error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
+            error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
+            error_loginAs : tempFieldSelected.fieldSettings.errorProvider.error_loginAs,
+         }
+         const error_provider_message = {
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
+            epm_loginAs : !value ? '*Please select user type' : '',
+         }
+         const fieldSettings = {
+            userLoginObj : userLoginObj,
+            errorProvider : errorProvider,
+            error_provider_message: error_provider_message
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+     } 
+    const handleSignIn = () => {
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const tempField = {...tempFieldSelected.fieldSettings}
+        if(!tempField.userLoginObj.email || !tempField.userLoginObj.password){
+                setSnacbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open = true,
+                    ...prevState.settings.message = "Empty fields. Please try again",
+                    ...prevState.settings.severity = "error",
+                    ...prevState.settings.autoHideDuration = 5000
+                }))
+            } else if (!tempField.userLoginObj.loginAs) {
+                setSnacbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open = true,
+                    ...prevState.settings.message = "Please select user type.",
+                    ...prevState.settings.severity = "error",
+                    ...prevState.settings.autoHideDuration = 5000
+                }))
+            } else {
+                setSnacbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open = true,
+                    ...prevState.settings.message = "Login Success",
+                    ...prevState.settings.severity = "success",
+                    ...prevState.settings.autoHideDuration = 5000
+                }))
+                // redirect to user dashboard.
+            }
     }
     const handleClose = (event, reason) => {
         if(reason === 'clickAway') {
@@ -1120,7 +1185,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             allFieldSelected, setAllFieldSelected,
             selectedIndex, setSelectedIndex, HandleChangeFirstname,
             HandleChangeLastname,HandleChangeAddress, HandleChangeContactNumber,
-            HandleChangeEmailLogin, HandleChangePasswordLogin, handleNext,
+            HandleChangeEmailLogin, HandleChangePasswordLogin, HandleSelectLoginAs, handleSignIn, handleNext,
             snackbarSettings, handleClose, handlePrevious, HandleChangeBOEmailSignup, 
             HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, HandleChangeBOSecAnswer,
             HandleSelectQuestion, verification, setVerification, HandleVerification, HandleResentEmail, timer, resetTimer

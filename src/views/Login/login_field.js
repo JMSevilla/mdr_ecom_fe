@@ -10,7 +10,7 @@ import { appRouter } from "../../routes/router";
 import { loginUserCategory } from "../../core/utils/helper";
 
 const Login_field = (props) => {
-  const {allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeEmailLogin, HandleChangePasswordLogin} = props;
+  const {allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeEmailLogin, HandleChangePasswordLogin, HandleSelectLoginAs, handleSignIn} = props;
   const { fieldSettings } = allFieldSelected[1]
   const history = useHistory();
   const navigateSignup = () => {
@@ -50,10 +50,14 @@ const Login_field = (props) => {
         texthelper={fieldSettings.error_provider_message.epm_password}
         iserror={fieldSettings.errorProvider.error_password}
       />
-      <SystemSelect 
+      <SystemSelect
+        value={fieldSettings.userLoginObj.loginAs}
+        handleSelect={(e) => HandleSelectLoginAs(e)}
         selectionArray={loginUserCategory}
         selectionTitle={'Login as'}
         style={{width: '400px', marginBottom: '10px'}}
+        texthelper={fieldSettings.error_provider_message.epm_loginAs}
+        iserror={fieldSettings.errorProvider.error_loginAs}
       />
       <Box
         style={{
@@ -75,6 +79,7 @@ const Login_field = (props) => {
         </Link>
       </Box>
       <AppButton
+        handleClick={handleSignIn}
         buttonColor={'button-black'}
         buttonName={"Sign In"}
         variant="contained"
