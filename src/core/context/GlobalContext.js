@@ -407,6 +407,7 @@ const Global = ({children}) => {
         setAllFieldSelected(tempAllFieldSelected)
     }
     const HandleChangeEmailLogin = (event) => {
+        
         let value = event.currentTarget.value
         const tempAllFieldSelected = [...allFieldSelected]
         const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
