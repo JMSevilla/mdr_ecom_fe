@@ -3,7 +3,7 @@ import { Box } from '@mui/material'
 import AppButton from '../Buttons/Button'
 
 const NextPrevious = (props) => {
-    const {activeSteps, stepperArray, handleNext, handleBack, hasResend, handleResend} = props
+    const {activeSteps, stepperArray, handleNext, handleBack, hasResend, handleResend, disabled, buttonName} = props
 
     return (
         <Box sx={{display : 'flex', flexDirection : 'row', pt: 2}}>
@@ -27,7 +27,8 @@ const NextPrevious = (props) => {
                     handleClick={handleNext}
                 />
                     <AppButton 
-                        buttonName={'Resend'}
+                        disabled={disabled}
+                        buttonName={buttonName}
                         color={'inherit'}
                         size={'sm'}
                         style={{float : 'right'}}

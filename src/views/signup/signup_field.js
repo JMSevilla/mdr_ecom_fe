@@ -20,8 +20,9 @@ const SignupField = (props) => {
     const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
         HandleChangeAddress, HandleChangeContactNumber, handleNext, HandleProjectName, HandleSelectProjectCategory,
         HandleSelectProjectType, HandleSliderChange, handlePrevious, HandleChangeBOEmailSignup, HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, 
-        HandleChangeBOSecAnswer, HandleSelectQuestion, HandleVerification, HandleResentEmail} = props
+        HandleChangeBOSecAnswer, HandleSelectQuestion, HandleVerification, HandleResentEmail, timer} = props
     const { fieldSettings, priceSettings } = allFieldSelected[0]
+
     const selectedCustomer = () => {
             setSignupCategory('survey')
     }
@@ -676,7 +677,7 @@ const SignupField = (props) => {
                                         <SystemContainer max={'xl'} style={{marginTop: '20px'}}>
                                         <SystemTypography 
                                             isgutter={true}
-                                            text={'Verification'}
+                                            text={'Account Verification'}
                                             variant={'h5'}
                                         />
                                         <hr />
@@ -686,11 +687,13 @@ const SignupField = (props) => {
                                             placeholder='Enter verification code'
                                             handleChange={(e) => HandleVerification(e)}
                                             variant={'outlined'}
-                                            label={'Verification Code'}
+                                            label={'Please enter the verification code sent to your email..'}
                                             texthelper={fieldSettings.verificationObj.epm_verify}
                                             iserror={fieldSettings.verificationObj.error_verify}
                                         />   
                                         <NextPrevious 
+                                            disabled={timer === 0 ? false : true}
+                                            buttonName={timer === 0 ? 'Resend' : `Resend in: ${timer} ${timer > 1 ? 'secs' : 'sec'}`}
                                             activeSteps={activeSteps}
                                             stepperArray={customerStepper}
                                             handleBack={() => handlePrevious()}
