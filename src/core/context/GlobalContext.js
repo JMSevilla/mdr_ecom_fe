@@ -11,6 +11,7 @@ const Global = ({children}) => {
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [signupCategory, setSignupCategory] = useState('pick')
+    const [projectDetails, setProjectDetails] = useState('')
     const [verification, setVerification] = useState({
         vrfyObj : {
             code_write : '',
@@ -653,7 +654,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                             if(repo.data.message == 'success_bo_registration'){
                                 FormService.BUSINESS_project_creation(
                                     tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
-                                    "no details",
+                                    projectDetails,
                                     destinationArray,
                                     tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
                                     tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing,
@@ -1106,7 +1107,8 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             HandleChangeEmailLogin, HandleChangePasswordLogin, handleNext,
             snackbarSettings, handleClose, handlePrevious, HandleChangeBOEmailSignup, 
             HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, HandleChangeBOSecAnswer,
-            HandleSelectQuestion, verification, setVerification, HandleVerification, HandleResentEmail
+            HandleSelectQuestion, verification, setVerification, HandleVerification, HandleResentEmail,
+            projectDetails, setProjectDetails
         }}
         >{children}</GlobalContext.Provider>
     )

@@ -15,7 +15,8 @@ const Signup = () => {
         HandleChangeLastname,  HandleChangeAddress, HandleChangeContactNumber,
         handleNext, snackbarSettings, handleClose, handlePrevious,HandleChangeBOEmailSignup,
         HandleChangeBOPasswordSignup,HandleChangeBOConPassSignup, HandleChangeBOSecAnswer , HandleSelectQuestion,
-        HandleVerification, verification, setVerification, HandleResentEmail} = useContext(GlobalContext)
+        HandleVerification, verification, setVerification, HandleResentEmail,
+        projectDetails, setProjectDetails} = useContext(GlobalContext)
     
     const projectcontextvalues = useContext(PROJECT_CONTEXT)
     const {HandleProjectName, HandleSelectProjectCategory, HandleSelectProjectType, HandleSliderChange} = projectcontextvalues
@@ -53,6 +54,8 @@ const Signup = () => {
                 setVerification={setVerification}
                 verification={verification}
                 HandleResentEmail={HandleResentEmail}
+                projectDetails={projectDetails}
+                setProjectDetails={setProjectDetails}
                 />
            } />
            <SystemBackdrop 
