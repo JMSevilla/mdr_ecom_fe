@@ -1,12 +1,13 @@
 import React from "react";
 import { Box } from "@mui/material";
-import {AppTextField, SystemTypography, AppButton} from "../../components";
+import {AppTextField, SystemTypography, AppButton, SystemSelect} from "../../components";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Link from "@mui/material/Link";
 import Checkbox from "@mui/material/Checkbox";
 import { useHistory } from "react-router-dom";
 import { appRouter } from "../../routes/router";
+import { loginUserCategory } from "../../core/utils/helper";
 
 const Login_field = (props) => {
   const {allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeEmailLogin, HandleChangePasswordLogin} = props;
@@ -15,6 +16,9 @@ const Login_field = (props) => {
   const navigateSignup = () => {
     history.push(appRouter.Signup.path);
   };
+  const navigateForgetPassword = () => {
+    history.push(appRouter.ForgetPassword.path);
+  }
   return (
     <Box
       style={{
@@ -46,6 +50,11 @@ const Login_field = (props) => {
         texthelper={fieldSettings.error_provider_message.epm_password}
         iserror={fieldSettings.errorProvider.error_password}
       />
+      <SystemSelect 
+        selectionArray={loginUserCategory}
+        selectionTitle={'Login as'}
+        style={{width: '400px', marginBottom: '10px'}}
+      />
       <Box
         style={{
           display: "flex",
@@ -57,6 +66,7 @@ const Login_field = (props) => {
           <FormControlLabel control={<Checkbox />} label="Remember Me" />
         </FormGroup>
         <Link
+          onClick={navigateForgetPassword}
           color={"inherit"}
           underline={"none"}
           style={{ cursor: "pointer" }}

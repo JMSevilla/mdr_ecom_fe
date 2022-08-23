@@ -4,21 +4,24 @@ import { CardContent, CardMedia } from '@mui/material'
 import Box from '@mui/material/Box'
 import ServiceOutlineText from '../../../assets/images/outline-text/service.svg'
 import { ServicesData } from '../../../core/utils/helper'
+import { Fade } from 'react-reveal'
 
 const services_field = () => {
     return (
         <Box id="services" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100vh', backgroundColor: 'rgb(255,255,255)'}}>
             <SystemContainer maxWidth={'lg'}>
+            <Fade bottom>
             <Box style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '.5rem'}}>
             <img src={ServiceOutlineText} alt='service outline'/>
             <SystemTypography variant={'h5'} text={'What We Do?'}/>
             <SystemTypography variant={'subtitle'} text={'We offer developed softwares and budget price services...'} isgutter={true} style={{fontStyle: 'italic', marginBottom: '50px'}}/>
             </Box>
+            </Fade>
             <Box style={{display: 'flex', gap: '2rem'}}>
             {ServicesData.map((item, index) => {
                 return (
                     <>
-                        <ApplicationCard key={index} className='card'
+                        <ApplicationCard key={index}
                     cardmedia={
                         <CardMedia 
                             component="img"

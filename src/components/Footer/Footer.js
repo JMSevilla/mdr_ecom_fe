@@ -4,25 +4,40 @@ import SystemContainer from "../Container/Container";
 import SystemTypography from "../Typography/Typography";
 import Link from "@mui/material/Link";
 import { socialAccounts, businessRules } from "../../core/utils/helper";
+import { Fade } from "react-reveal";
+import { useHistory } from "react-router-dom";
+import { appRouter } from "../../routes/router";
 
-const AppFooter = () => {
+const AppFooter = ({fixed}) => {
   const date = new Date();
   const year = date.getFullYear();
+  const history = useHistory();
+  const navigateTermsAndConditions = () => {
+    history.push(appRouter.TermsAndConditions.path);
+  };
+  const navigatePrivacyPolicy = () => {
+    history.push(appRouter.PrivacyPolicy.path);
+  };
+  
   return (
     <Box
       style={{
         backgroundColor: "rgb(253,249,255)",
         width: "100%",
-        height: "10vh",
+        height: fixed ? '8vh' : '10vh',
         display: "flex",
+        position: fixed ? 'absolute' : 'relative',
+        bottom: fixed ? 0 : '',
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
       }}
     >
+      
       <SystemContainer
         style={{ display: "flex", justifyContent: "space-between" }}
       >
+        <Fade bottom>
         <Box
           style={{
             display: "flex",
@@ -51,7 +66,7 @@ const AppFooter = () => {
             return (
               <Link
                 className='link'
-                href={item.link}
+                onClick={eval(item.link)}
                 key={index}
                 color={"inherit"}
                 underline={"none"}
@@ -84,7 +99,9 @@ const AppFooter = () => {
             );
           })}
         </Stack>
+        </Fade>
       </SystemContainer>
+      
     </Box>
   );
 };
