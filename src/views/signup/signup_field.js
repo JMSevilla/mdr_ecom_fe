@@ -16,11 +16,14 @@ import { projectCategory, projectType, features, destinationArray, security_ques
 import { projectbreakdown } from '../../core/utils/dumpfeatures'
 import {motion} from 'framer-motion';
 
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 const SignupField = (props) => {
     const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
         HandleChangeAddress, HandleChangeContactNumber, handleNext, HandleProjectName, HandleSelectProjectCategory,
         HandleSelectProjectType, HandleSliderChange, handlePrevious, HandleChangeBOEmailSignup, HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, 
-        HandleChangeBOSecAnswer, HandleSelectQuestion, HandleVerification, HandleResentEmail, timer} = props
+        HandleChangeBOSecAnswer, HandleSelectQuestion, HandleVerification, HandleResentEmail, projectDetails, setProjectDetails, timer} = props
     const { fieldSettings, priceSettings } = allFieldSelected[0]
 
     const selectedCustomer = () => {
@@ -40,26 +43,7 @@ const SignupField = (props) => {
         textAlign: 'center',
         color: theme.palette.text.secondary,
       }));
-    //   useEffect(() => {
-    //     fetchAllBOAccounts() 
-    //     fetchAllProject()
-    //   }, [])
-    //   //BO-fetch001
-    // const fetchAllBOAccounts = () => {
-    //     FormService.BUSINESS_findAllAccountsByEmail(
-    //         fieldSettings.credentialsObj.email 
-    //     ).then((res) => {
-    //         fieldSettings.businessFieldArray = res.data
-    //     })
-    // }
-    // //Project-fetch001
-    // const fetchAllProject = () => {
-    //     FormService.BUSINESS_findAllProjectByEmail(
-    //         fieldSettings.credentialsObj.email
-    //     ).then((res) => {
-    //         fieldSettings.projectFieldArray = res.data.data
-    //     })
-    // }
+    
     const CustomerSignup = () => {
         return (
             <motion.div initial={{opacity: 0}}
@@ -445,7 +429,20 @@ const SignupField = (props) => {
                                                         ]
                                                     }
                                             />
-
+                                            <CKEditor
+                                                editor={ ClassicEditor }
+                                                data={projectDetails}
+                                                onReady={ editor => {
+                                                } }
+                                                onChange={ ( event, editor ) => {
+                                                    const data = editor.getData();
+                                                    setProjectDetails(data)
+                                                } }
+                                                onBlur={ ( event, editor ) => {
+                                                } }
+                                                onFocus={ ( event, editor ) => {
+                                                } }
+                                            />
                                             <NextPrevious 
                                             activeSteps={activeSteps}
                                             stepperArray={customerStepper}
