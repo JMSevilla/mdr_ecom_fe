@@ -7,10 +7,11 @@ import FormService from '../service/apiservice'
 const GlobalContext = createContext()
 
 const Global = ({children}) => {
+
     // Timer for resend button
     const [timer, setTimer] = useState(15);    
     const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
-
+    
     useEffect(() => {
     timer > 0 && setTimeout(timeOutCallback, 1000);
     }, [timer, timeOutCallback]);
