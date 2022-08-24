@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles'
 import MDRClient from '../../assets/mdrclient.png'
 import MDRDev from '../../assets/mdrdev1.png'
 import FormService from '../../core/service/apiservice'
-
+import {motion} from 'framer-motion';
 import { Peso } from '../../core/utils/Intl'
 
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
@@ -14,10 +14,10 @@ import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 import { projectCategory, projectType, features, destinationArray, security_questions } from '../../core/utils/helper'
 
 import { projectbreakdown } from '../../core/utils/dumpfeatures'
-import {motion} from 'framer-motion';
 
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { TbBoxMultiple } from 'react-icons/tb'
 
 const SignupField = (props) => {
     const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
@@ -46,9 +46,7 @@ const SignupField = (props) => {
     
     const CustomerSignup = () => {
         return (
-            <motion.div initial={{opacity: 0}}
-            animate={{opacity: 1}}
-            exit={{opacity: 0}}>
+            <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
             <ApplicationCard
                 cardmedia={
                     <CardMedia 
@@ -106,9 +104,7 @@ const SignupField = (props) => {
     
     const BusinessOwner = () => {
         return (
-            <motion.div initial={{opacity: 0}}
-            animate={{opacity: 1}}
-            exit={{opacity: 0}}>
+            <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
             <ApplicationCard
                 cardmedia={
                     <CardMedia 
@@ -688,7 +684,7 @@ const SignupField = (props) => {
                                             texthelper={fieldSettings.verificationObj.epm_verify}
                                             iserror={fieldSettings.verificationObj.error_verify}
                                         />   
-                                        <NextPrevious 
+                                        <NextPrevious
                                             disabled={timer === 0 ? false : true}
                                             buttonName={timer === 0 ? 'Resend' : `Resend in: ${timer} ${timer > 1 ? 'secs' : 'sec'}`}
                                             activeSteps={activeSteps}
@@ -704,13 +700,14 @@ const SignupField = (props) => {
                                         <SystemContainer max={'xl'} style={{marginTop: '20px'}}>
                                         <SystemTypography 
                                             isgutter={true}
-                                            text={'Preview'}
+                                            text={'Account Preview'}
                                             variant={'h5'}
                                         />
                                         <hr />
                                         <SystemGrid 
                                                                             rowSpacing={1}
                                                                             columnSpacing={{xs: 1, sm: 2, md: 3}}
+                                                                            style={{marginBottom: '15px'}}
                                                                             GridItems={
                                                                                 [
                                                                                     {
@@ -720,27 +717,47 @@ const SignupField = (props) => {
                                                                                                 <CardContent>
                                                                                                     <SystemTypography 
                                                                                                         isgutter={true}
-                                                                                                        text={'Business Owner Account Preview'}
+                                                                                                        text={'Personal Information'}
                                                                                                         variant={'h6'}
+                                                                                                        style={{textAlign: 'center'}}
                                                                                                     />
                                                                                                     <hr />
                                                                                                     {
                                                                                                         allFieldSelected[selectedIndex].businessFieldArray && allFieldSelected[selectedIndex].businessFieldArray.map((item) => {
                                                                                                            return (
-                                                                                                            <>
-                                                                                                                <Item style={{marginBottom: '10px'}}>
+                                                                                                            <Box style={{display: 'flex', flexDirection: 'column', gap: '0.5rem'}}>
+                                                                                                                <Box style={{display: 'flex'}}>
+                                                                                                                <Item style={{width: '50%'}}>
                                                                                                                     <SystemTypography 
                                                                                                                             isgutter={true}
                                                                                                                             text={'Firstname :' + ' ' + item.firstname}
+                                                                                                                            style={{color: 'black', textAlign: 'left'}}
+                                                                                                                        /> 
+                                                                                                                        
+                                                                                                                </Item>
+                                                                                                                <Item style={{width: '50%'}}>
+                                                                                                                <SystemTypography 
+                                                                                                                            isgutter={true}
+                                                                                                                            text={'Lastname :' + ' ' + item.lastname}
+                                                                                                                            style={{color: 'black', textAlign: 'left'}}
+                                                                                                                        /> 
+                                                                                                                </Item>
+                                                                                                                </Box>
+                                                                                                                <Item>
+                                                                                                                <SystemTypography 
+                                                                                                                            isgutter={true}
+                                                                                                                            text={'Contact No : ' + 0 + item.contactnumber}
+                                                                                                                            style={{color: 'black', textAlign: 'left'}}
                                                                                                                         /> 
                                                                                                                 </Item>
                                                                                                                 <Item>
-                                                                                                                    <SystemTypography 
+                                                                                                                <SystemTypography 
                                                                                                                             isgutter={true}
-                                                                                                                            text={'Lastname :' + ' ' + item.lastname}
+                                                                                                                            text={'Address :' + ' ' + item.address}
+                                                                                                                            style={{color: 'black', textAlign: 'left'}}
                                                                                                                         /> 
                                                                                                                 </Item>
-                                                                                                            </>
+                                                                                                            </Box>
                                                                                                            )
                                                                                                         })
                                                                                                     }
@@ -749,15 +766,70 @@ const SignupField = (props) => {
                                                                                         />
                                                                                     },
                                                                                     {
-                                                                                        childrenId: 1,
+                                                                                        childrenId: 2,
                                                                                         children :  <ApplicationCard 
                                                                                         children={
                                                                                             <CardContent>
                                                                                                 <SystemTypography 
                                                                                                     isgutter={true}
-                                                                                                    text={'Project Preview'}
+                                                                                                    text={'User Credentials'}
+                                                                                                    variant={'h6'}
+                                                                                                    style={{textAlign: 'center'}}
                                                                                                 />
+                                                                                                <hr />
+                                                                                                {
+                                                                                                    allFieldSelected[selectedIndex].businessFieldArray && allFieldSelected[selectedIndex].businessFieldArray.map((item) => {
+                                                                                                       return (
+                                                                                                        <Box style={{display: 'flex', flexDirection: 'column', gap: '0.5rem'}}>
+                                                                                                            <Item>
+                                                                                                                <SystemTypography 
+                                                                                                                        isgutter={true}
+                                                                                                                        text={'Email Address:' + ' ' + item.email}
+                                                                                                                        style={{color: 'black', textAlign: 'left'}}
+                                                                                                                    /> 
+                                                                                                                    
+                                                                                                            </Item>
+                                                                                                            <Item>
+                                                                                                            <SystemTypography 
+                                                                                                                        isgutter={true}
+                                                                                                                        text={'Security question : ' + item.sec_question}
+                                                                                                                        style={{color: 'black', textAlign: 'left'}}
+                                                                                                                    /> 
+                                                                                                            </Item>
+                                                                                                            <Item>
+                                                                                                            <SystemTypography 
+                                                                                                                        isgutter={true}
+                                                                                                                        text={'Security Answer :' + ' ' + item.sec_answer}
+                                                                                                                        style={{color: 'black', textAlign: 'left'}}
+                                                                                                                    /> 
+                                                                                                            </Item>
+                                                                                                            <SystemTypography 
+                                                                                                                        isgutter={true}
+                                                                                                                        text={'Some of the information from credentials is prohibited to preview'}
+                                                                                                                        style={{color: 'black', fontSize: '13px', fontStyle: 'italic', textAlign: 'center'}}
+                                                                                                                    /> 
+                                                                                                        </Box>
+                                                                                                       )
+                                                                                                    })
+                                                                                                }
+                                                                                            </CardContent>
+                                                                                        }
+                                                                                    />
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        /> 
 
+                                                                            <ApplicationCard 
+                                                                                        children={
+                                                                                            <CardContent>
+                                                                                                <SystemTypography 
+                                                                                                    isgutter={true}
+                                                                                                    text={'Project Preview'}
+                                                                                                    variant={'h6'}
+                                                                                                    style={{textAlign: 'center'}}
+                                                                                                />
+                                                                                                <hr />
                                                                                                     {
                                                                                                         allFieldSelected[selectedIndex].projectFieldArray && allFieldSelected[selectedIndex].projectFieldArray.map((item) => {
                                                                                                             let newFeatures = JSON.parse(item.projectfeatures)
@@ -767,12 +839,14 @@ const SignupField = (props) => {
                                                                                                                     <SystemTypography 
                                                                                                                             isgutter={true}
                                                                                                                             text={'Project Name :' + ' ' + item.projectname}
+                                                                                                                            style={{color: 'black'}}
                                                                                                                         /> 
                                                                                                     </Item>
                                                                                                     <Item style={{marginBottom: '10px'}}>
                                                                                                                     <SystemTypography 
                                                                                                                             isgutter={true}
                                                                                                                             text={'Project Features :'}
+                                                                                                                            style={{color: 'black'}}
                                                                                                                         /> 
                                                                                                                         <Grid direction="rows" container spacing={2}>
                                                                                                                     {
@@ -802,10 +876,7 @@ const SignupField = (props) => {
                                                                                             </CardContent>
                                                                                         }
                                                                                     />
-                                                                                    }
-                                                                                ]
-                                                                            }
-                                                                        />        
+
                                         </SystemContainer>
                                         </>
                                         : <></>

@@ -5,15 +5,10 @@ import {
   AppFooter,
   SystemContainer,
 } from "../../../components";
-import { motion } from "framer-motion";
 
 const termsandcondition_field = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
+    <>
       <ApplicationBar title="ECommerce" simplified />
       <SystemContainer style={{ marginTop: "150px" }}>
         <div>
@@ -366,7 +361,7 @@ const termsandcondition_field = () => {
         </div>
       </SystemContainer>
       <AppFooter />
-    </motion.div>
+    </>
   );
 };
 

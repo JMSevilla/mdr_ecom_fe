@@ -6,12 +6,10 @@ import AppFooter from '../components/Footer/Footer'
 import HeroBanner from './FrontPage/herobanner/HeroBanner'
 import ContactUs from './FrontPage/contactus/ContactUs'
 import Testimonials from './FrontPage/testimonials/Testimonials'
-import { motion } from 'framer-motion';
- 
 
 const Home = () => {
     return (
-        <motion.div initial={{opacity: 1}} animate={{opacity: 1}} exit={{opacity: 0}}>
+        <>
             <ApplicationBar title={'Ecommerce'} />
             <HeroBanner/>
             <AboutUs/>
@@ -19,7 +17,7 @@ const Home = () => {
             <Testimonials />
             <ContactUs/>
             <AppFooter/>
-        </motion.div>
+        </>
     )
 }
 
