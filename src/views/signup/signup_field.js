@@ -726,7 +726,7 @@ const SignupField = (props) => {
                                                                                                         allFieldSelected[selectedIndex].businessFieldArray && allFieldSelected[selectedIndex].businessFieldArray.map((item) => {
                                                                                                            return (
                                                                                                             <Box style={{display: 'flex', flexDirection: 'column', gap: '0.5rem'}}>
-                                                                                                                <Box style={{display: 'flex'}}>
+                                                                                                                <Box style={{display: 'flex', gap: '0.5rem'}}>
                                                                                                                 <Item style={{width: '50%'}}>
                                                                                                                     <SystemTypography 
                                                                                                                             isgutter={true}
