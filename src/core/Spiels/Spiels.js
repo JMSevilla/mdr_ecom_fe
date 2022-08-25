@@ -74,7 +74,9 @@ class Spiels {
             fieldSettings : {
                 userLoginObj : {
                     email : '',
-                    password : ''
+                    password : '',
+                    loginAs : '',
+                    rememberMe: false
                 },
                 message : '',
                 router : {
@@ -84,11 +86,13 @@ class Spiels {
                 },
                 errorProvider : {
                     error_email : false,
-                    error_password : false
+                    error_password : false,
+                    error_loginAs : false
                 },
                 error_provider_message : {
                     epm_email : '',
-                    epm_password : ''
+                    epm_password : '',
+                    epm_loginAs : '',
                 }
             }
         }

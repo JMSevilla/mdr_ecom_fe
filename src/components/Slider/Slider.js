@@ -8,6 +8,7 @@ const SystemSlider = (props) => {
         <>
             <Typography gutterBottom>{title} : {intlPrice}</Typography>
             <Slider defaultValue={defaultValue}
+             style={{marginTop:'20px'}}
              max={max} min={min}
               step={step} 
               value={value}

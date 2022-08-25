@@ -3,8 +3,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import AppDropdown from "../Dropdown/Dropdown";
-import AppModal from '../../components/Modal/Modal';
+import {AppModal, AppDropdown} from '../../components';
 import {Link as Anchor} from "@mui/material";
 import {Link} from 'react-scroll';
 import logo from "../../assets/images/logo/modernresolve.png";
@@ -32,7 +31,7 @@ const ApplicationBar = (props) => {
     <>
       <AppBar
         color={'inherit'}
-        style={{ minHeight: "80px", display: "flex", justifyContent: "center", backgroundColor: bg ? 'rgb(255,255,255)' : 'transparent'}}
+        style={{minHeight: '80px', display: "flex", justifyContent: "center", backgroundColor: bg ? 'rgb(255,255,255)' : 'transparent'}}
       >
         <Toolbar>
           <Box

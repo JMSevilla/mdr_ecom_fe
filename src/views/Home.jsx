@@ -1,18 +1,21 @@
 import React from 'react'
-import ApplicationBar from '../components/Appbar/Appbar'
-import SystemContainer from '../components/Container/Container'
+import {ApplicationBar} from '../components'
+import AboutUs from './FrontPage/aboutus/AboutUs'
 import Services from './FrontPage/services/Services'
 import AppFooter from '../components/Footer/Footer'
 import HeroBanner from './FrontPage/herobanner/HeroBanner'
+import ContactUs from './FrontPage/contactus/ContactUs'
+import Testimonials from './FrontPage/testimonials/Testimonials'
 
 const Home = () => {
     return (
         <>
             <ApplicationBar title={'Ecommerce'} />
             <HeroBanner/>
-            <SystemContainer maxWidth={'lg'}>
-                <Services/>
-            </SystemContainer>    
+            <AboutUs/>
+            <Services/>
+            <Testimonials />
+            <ContactUs/>
             <AppFooter/>
         </>
     )
