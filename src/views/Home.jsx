@@ -9,15 +9,15 @@ import Testimonials from './FrontPage/testimonials/Testimonials'
 
 const Home = () => {
     return (
-        <>
-            <ApplicationBar title={'Ecommerce'} />
+        <div>
+            <ApplicationBar title={'Ecommerce'}/>
             <HeroBanner/>
             <AboutUs/>
             <Services/>
             <Testimonials />
             <ContactUs/>
             <AppFooter/>
-        </>
+        </div>
     )
 }
 
