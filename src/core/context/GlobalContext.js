@@ -10,19 +10,21 @@ const Global = ({children}) => {
 
     // Timer for resend button
     const [timer, setTimer] = useState(15);    
+    const [startTimer, setStartTimer] = useState(false);
     const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
     
     useEffect(() => {
-    timer > 0 && setTimeout(timeOutCallback, 1000);
-    }, [timer, timeOutCallback]);
+        if(startTimer) {
+            timer > 0 && setTimeout(timeOutCallback, 1000);
+        }
+    }, [startTimer, timer, timeOutCallback]);
 
-    const resetTimer = function () {
-    if (!timer) {
+    const resetTimer = () => {
+        setStartTimer(true);
         setTimer(15);
-    }
     };
 
-    const [activeSteps, setActiveSteps] = useState(0)
+    const [activeSteps, setActiveSteps] = useState(3)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [signupCategory, setSignupCategory] = useState('pick')
