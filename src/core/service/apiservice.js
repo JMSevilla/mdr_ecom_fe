@@ -83,6 +83,10 @@ class FormService {
             'check-admin'
         )
     }
+    ADMINISTRATOR_entry(obj){
+        return ApiConfig.connect().post('admin-registration-entry',
+        Process.ADMIN_user_entry(obj))
+    }
 }
 
 export default new FormService()

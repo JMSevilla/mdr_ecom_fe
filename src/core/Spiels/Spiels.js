@@ -95,6 +95,33 @@ class Spiels {
                     epm_loginAs : '',
                 }
             }
+        },
+        {
+            field_id : 3,
+            field_name : 'admin_registration',
+            fieldSettings : {
+                adminreg : {
+                    firstname : '',
+                    lastname : '',
+                    email : '',
+                    password : '',
+                    conpass : ''
+                },
+                errorProvider : {
+                    error_firstname : false,
+                    error_lastname : false,
+                    error_email : false,
+                    error_password : false,
+                    error_conpass : false
+                },
+                error_provider_message : {
+                    epm_firstname : '',
+                    epm_lastname : '',
+                    epm_email : '',
+                    epm_password : '',
+                    epm_conpass : ''
+                }
+            }
         }
     ]
 }
