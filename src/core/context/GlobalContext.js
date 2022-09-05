@@ -1,7 +1,7 @@
 import React, {createContext, cloneElement, useState, useCallback, useEffect} from 'react'
 import Spiels from '../Spiels/Spiels'
 import { projectbreakdown } from '../utils/dumpfeatures'
-import { features, destinationArray, validName, validContactNumber, validEmailAddress } from '../utils/helper'
+import { validName, validContactNumber, validEmailAddress } from '../utils/helper'
 import FormService from '../service/apiservice'
 
 const GlobalContext = createContext()
@@ -22,11 +22,13 @@ const Global = ({children}) => {
     }
     };
 
-    const [activeSteps, setActiveSteps] = useState(0)
+    const [activeSteps, setActiveSteps] = useState(1)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [signupCategory, setSignupCategory] = useState('pick')
     const [projectDetails, setProjectDetails] = useState('')
+    const [destinationArray, setDestinationArray] = useState([])
+    const [features, setFeatures] = useState([])
     const [verification, setVerification] = useState({
         vrfyObj : {
             code_write : '',
@@ -117,12 +119,12 @@ const Global = ({children}) => {
             if(destinationArray.length > 0) {
                 const confirmation = window.confirm("Changes has been made, are you sure you want to back ?")
                 if(confirmation) {
-                     features.length = 0
-                        destinationArray.length = 0
+                        setFeatures([])
+                        setDestinationArray([])
                         setActiveSteps((activeSteps) => activeSteps - 1)
                 }
             } else {
-                features.length = 0
+                setFeatures([])
                 setActiveSteps((activeSteps) => activeSteps - 1)
             }
         } else {
@@ -598,15 +600,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                 const field_filtered = filtered.filter((val) => {
                     return val.joinedSys.find(item => item == tempField.projectDetailsObj.projectCategory)
                 })
-                for(var x = 0; x < field_filtered.length; x++) {
-                    features.push({
-                        field_id : field_filtered[x].field_id,
-                        field_name : field_filtered[x].field_name,
-                        field_type : field_filtered[x].field_type,
-                        joinedSys : field_filtered[x].joinedSys,
-                        field : field_filtered[x].field
-                    })
-                }
+                setFeatures(field_filtered)
                 setActiveSteps((activeSteps) => activeSteps + 1)
             } 
             
@@ -1180,6 +1174,17 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             }
         })
     }
+    const handleOnDragEnd = (result) => {
+        if(!result.destination) return;
+        const RSI = result.source.index
+        let deleted = features.splice(RSI, 1)
+        setDestinationArray(destinationArray => [...destinationArray, ...deleted])
+    }
+    const deleteField = (index) => {
+        let deleted = destinationArray.splice(index, 1)
+        setFeatures(features => [...features, ...deleted])
+        
+    }
     return (
         <GlobalContext.Provider
         value={{
@@ -1192,7 +1197,8 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             snackbarSettings, handleClose, handlePrevious, HandleChangeBOEmailSignup, 
             HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, HandleChangeBOSecAnswer,
             HandleSelectQuestion, verification, setVerification, HandleVerification, HandleResentEmail,
-            projectDetails, setProjectDetails, timer, resetTimer
+            projectDetails, setProjectDetails, timer, resetTimer, destinationArray, handleOnDragEnd,
+            deleteField, features
         }}
         >{children}</GlobalContext.Provider>
     )
