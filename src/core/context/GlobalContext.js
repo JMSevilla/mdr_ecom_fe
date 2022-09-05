@@ -22,7 +22,7 @@ const Global = ({children}) => {
     }
     };
 
-    const [activeSteps, setActiveSteps] = useState(1)
+    const [activeSteps, setActiveSteps] = useState(0)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [signupCategory, setSignupCategory] = useState('pick')
