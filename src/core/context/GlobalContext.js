@@ -515,14 +515,6 @@ const Global = ({children}) => {
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
                 }))
-            } else if (!validEmailAddress.test(tempField.userLoginObj.email)){
-                setSnacbarSettings(prevState => ({
-                    ...prevState,
-                    ...prevState.settings.open = true,
-                    ...prevState.settings.message = "This is not a valid email address",
-                    ...prevState.settings.severity = "error",
-                    ...prevState.settings.autoHideDuration = 5000
-                }))
             } else {
                 setSnacbarSettings(prevState => ({
                     ...prevState,
