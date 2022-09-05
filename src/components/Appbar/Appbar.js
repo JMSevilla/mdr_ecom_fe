@@ -1,5 +1,7 @@
 import React, {useState, useEffect }from "react";
 import Typography from "@mui/material/Typography";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import {AppModal} from '../../components';
 import logo from "../../assets/images/logo/modernresolve.png";
@@ -26,7 +28,9 @@ const ApplicationBar = (props) => {
   const { title, simplified } = props;
   return (
     <>
-      <header className={`${bg ? 'bg-primary h-20' : 'h-24'} flex items-center fixed top-0 w-full text-black dark:text-white z-10 transition-all duration-300`}>
+    <AppBar color={'inherit'} className={'hidden'} style={{minHeight: '80px', display: "flex", justifyContent: "center", backgroundColor: bg ? 'rgb(255,255,255)' : 'transparent', 
+    transitionProperty: 'all', transitionTimingFunction: 'cubic-bezier(0.4, 0 , 0.2, 1)', transitionDuration: '300ms'}}>
+      <Toolbar>
         <Box className='container mx-auto h-full flex items-center justify-between'>
            {/* LOGO */}
             <Typography variant="p" onClick={backToHome} className='text-2xl font-logo lg:text-2xl flex items-center gap-2 cursor-pointer'><img src={logo} className='w-[50px] h-[50px]' alt='logo'/>{title}</Typography>
@@ -45,7 +49,8 @@ const ApplicationBar = (props) => {
                 <NavMobile />
             </Box>
         </Box>
-    </header>
+      </Toolbar>
+    </AppBar>
     </>
   );
 };

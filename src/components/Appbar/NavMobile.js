@@ -1,13 +1,15 @@
-import React, { useState }from 'react'
-import { navbarData } from '../../core/utils/helper';
+import React, { useState } from "react";
+import { navbarData, socialAccounts } from "../../core/utils/helper";
 import { XIcon } from "@heroicons/react/outline";
 import { MenuAlt3Icon } from "@heroicons/react/outline";
 import { motion } from "framer-motion";
 import { Link } from "react-scroll";
+import { AppModal } from "../../components";
+import SystemLogin from "../../views/Login/Login";
 import logo from "../../assets/images/logo/modernresolve.png";
 
 const NavMobile = () => {
-const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   // framer motion variants
   const circleVariants = {
     hidden: {
@@ -91,9 +93,44 @@ const [isOpen, setIsOpen] = useState(false);
             </li>
           );
         })}
+        <ul className="flex space-x-6">
+          {socialAccounts.map((item, index) => {
+            return (
+              <li
+                className="flex justify-center items-center text-black hover:text-accent-hover"
+                key={index}
+              >
+                <a
+                  className="text-xl"
+                  href={item.link}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {item.icon}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+
+        <AppModal
+          buttonName={"SIGN IN"}
+          buttonColor={"button-black"}
+          title={"ACCOUNT LOGIN"}
+          description={<SystemLogin />}
+          onClick={() => setIsOpen(false)}
+          buttonStyle={{
+            fontSize: "15px",
+            marginTop: "25px",
+            padding: "10px 25px",
+            borderRadius: "30px",
+            fontWeight: 600,
+          }}
+          logo
+        />
       </motion.ul>
     </nav>
-  )
-}
+  );
+};
 
-export default NavMobile
+export default NavMobile;
