@@ -45,6 +45,7 @@ export default function AppDropdown(props) {
       </List>
       <Menu
         id="lock-menu"
+        disableScrollLock={true}
         anchorEl={anchorEl}
         open={open}
         onClick={handleClose}
