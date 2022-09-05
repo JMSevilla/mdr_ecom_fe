@@ -3,12 +3,13 @@ import {TextField, Typography} from '@mui/material'
 
 const AppTextField = (props) => {
     const { value, handleChange, placeholder, label, variant, style,
-    ismultiLine, rows, iserror, texthelper, type, disabled} = props
+    ismultiLine, rows, iserror, texthelper, type, disabled, className} = props
 
     return ( 
         <>
             <Typography gutterBottom>{label}</Typography>
             <TextField
+            className={className}
             disabled={disabled}
             type={type}
             value={value}

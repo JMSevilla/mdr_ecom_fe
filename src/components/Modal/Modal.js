@@ -14,7 +14,6 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
   bgcolor: 'background.paper',
   borderRadius: '5px',
 //   border: '2px solid #000',
@@ -39,8 +38,8 @@ export default function AppModal(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          {logo && (<><img src={Logo} alt='logo' style={{position: 'absolute', top: 0, width: '18%', marginTop: '-50px', backgroundColor: 'white', borderRadius: '50%'}}/></>)}
+        <Box sx={style} className='md:w-[450px] w-[350px]'> 
+          {logo && (<><img src={Logo} alt='logo' className='absolute top-0 md:w-[18%] w-[22%] mt-[-50px] bg-white rounded-full'/></>)}
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {title}
           </Typography>

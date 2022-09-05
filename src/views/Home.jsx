@@ -25,15 +25,15 @@ const Home = () => {
         }
     }, [callback])
     return (
-        <>
-            <ApplicationBar title={'Ecommerce'} />
+        <div>
+            <ApplicationBar title={'Ecommerce'}/>
             <HeroBanner/>
             <AboutUs/>
             <Services/>
             <Testimonials />
             <ContactUs/>
             <AppFooter/>
-        </>
+        </div>
     )
 }
 

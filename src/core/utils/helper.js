@@ -235,7 +235,7 @@ export const navbarData = [
         dropdown: false,
     },
     {
-        link: 'What We Offer',
+        link: 'Services',
         to: 'services',
         dropdown: false,
     },
