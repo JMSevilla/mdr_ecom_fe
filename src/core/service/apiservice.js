@@ -78,6 +78,15 @@ class FormService {
             baseURLMiddlewareHelper('getall-projectbyemail', email)
         )
     }
+    ADMINISTRATOR_checkadmin(){
+        return ApiConfig.connect().get(
+            'check-admin'
+        )
+    }
+    ADMINISTRATOR_entry(obj){
+        return ApiConfig.connect().post('admin-registration-entry',
+        Process.ADMIN_user_entry(obj))
+    }
 }
 
 export default new FormService()

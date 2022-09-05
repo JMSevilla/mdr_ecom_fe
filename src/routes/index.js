@@ -4,6 +4,7 @@ import Home from '../views/Home'
 import Signup from '../views/signup/Signup'
 import ForgetPassword from '../views/ForgetPassword/ForgetPassword'
 import TermsAndConditions from '../views/BusinessPolicy/TermsAndConditions/TermsAndConditions'
+import AdminRegistration from '../views/Administrator/Registration/Registration'
 import { appRouter } from './router'
 
 const RouteWithLoad = ({component : Component, ...rest}) => {
@@ -25,5 +26,8 @@ export default () => (
         <RouteWithLoad exact path={appRouter.Signup.path} component={Signup} />
         <RouteWithLoad exact path={appRouter.ForgetPassword.path} component={ForgetPassword} />
         <RouteWithLoad exact path={appRouter.TermsAndConditions.path} component={TermsAndConditions} />
+
+        {/* admin registration */}
+        <RouteWithLoad exact path={appRouter.AdminRegistration.path} component={AdminRegistration} />
     </Switch>
 )

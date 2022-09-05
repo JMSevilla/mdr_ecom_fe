@@ -28,6 +28,13 @@ class Process {
         data.append("email", obj.email)
         return data
     }
+    ADMIN_user_entry(obj){
+        data.append('firstname', obj.firstname)
+        data.append('lastname', obj.lastname)
+        data.append('email', obj.email)
+        data.append('password', obj.password)
+        return data
+    }
 }
 
 export default new Process()
