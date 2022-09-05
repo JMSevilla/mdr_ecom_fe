@@ -28,8 +28,7 @@ const ApplicationBar = (props) => {
   const { title, simplified } = props;
   return (
     <>
-    <AppBar color={'inherit'} className={'hidden'} style={{minHeight: '80px', display: "flex", justifyContent: "center", backgroundColor: bg ? 'rgb(255,255,255)' : 'transparent', 
-    transitionProperty: 'all', transitionTimingFunction: 'cubic-bezier(0.4, 0 , 0.2, 1)', transitionDuration: '300ms'}}>
+    <AppBar color={'inherit'} style={{minHeight: bg ? '75px' : '80px', display: "flex", justifyContent: "center", backgroundColor: bg ? 'rgb(255,255,255)' : 'transparent'}}>
       <Toolbar>
         <Box className='container mx-auto h-full flex items-center justify-between'>
            {/* LOGO */}
