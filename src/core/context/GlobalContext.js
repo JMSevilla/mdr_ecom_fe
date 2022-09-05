@@ -519,7 +519,7 @@ const Global = ({children}) => {
                 setSnacbarSettings(prevState => ({
                     ...prevState,
                     ...prevState.settings.open = true,
-                    ...prevState.settings.message = "This is not a valid email address ",
+                    ...prevState.settings.message = "This is not a valid email address! ",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
                 }))
