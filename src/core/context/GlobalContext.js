@@ -24,7 +24,7 @@ const Global = ({children}) => {
         setTimer(15);
     };
 
-    const [activeSteps, setActiveSteps] = useState(3)
+    const [activeSteps, setActiveSteps] = useState(1)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [signupCategory, setSignupCategory] = useState('pick')
