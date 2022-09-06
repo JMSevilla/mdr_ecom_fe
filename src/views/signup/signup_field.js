@@ -11,7 +11,7 @@ import { Peso } from '../../core/utils/Intl'
 
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
-import { projectCategory, projectType, features, destinationArray, security_questions } from '../../core/utils/helper'
+import { projectCategory, projectType, security_questions } from '../../core/utils/helper'
 
 import { projectbreakdown } from '../../core/utils/dumpfeatures'
 
@@ -23,8 +23,10 @@ const SignupField = (props) => {
     const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
         HandleChangeAddress, HandleChangeContactNumber, handleNext, HandleProjectName, HandleSelectProjectCategory,
         HandleSelectProjectType, HandleSliderChange, handlePrevious, HandleChangeBOEmailSignup, HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, 
-        HandleChangeBOSecAnswer, HandleSelectQuestion, HandleVerification, HandleResentEmail, projectDetails, setProjectDetails, timer} = props
+        HandleChangeBOSecAnswer, HandleSelectQuestion, HandleVerification, HandleResentEmail, projectDetails, setProjectDetails, timer,
+        destinationArray, handleOnDragEnd, features} = props
     const { fieldSettings, priceSettings } = allFieldSelected[0]
+
 
     const selectedCustomer = () => {
             setSignupCategory('survey')
@@ -165,16 +167,7 @@ const SignupField = (props) => {
         )
     }
     
-    const handleOnDragEnd = (result) => {
-        if(!result.destination) return;
-        const RSI = result.source.index
-        const RDI = result.destination.index
-
-        features.forEach(function(elem, index) {
-            let deleted = features.splice(RSI, 1)
-            destinationArray.push(deleted[0])
-        })
-    }
+    
 
     return (
         <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
@@ -480,10 +473,11 @@ const SignupField = (props) => {
                                                                 />
                                                                 <hr />
                                                                 <Grid direction="rows" container spacing={2}>
-                                                                        
-                                                                            {
-                                                                        destinationArray.map((item, index) => (
-                                                                            <Grid item xs={12} sm={4}>
+                                                                            { 
+                                                                        destinationArray.length > 0 && destinationArray.map((item, index) => {
+                                                                            let indexProps = {key: index}
+                                                                            return (
+                                                                                <Grid item xs={12} sm={4}>
                                                                                 <Card
                                                                                             
                                                                                             style={{
@@ -491,11 +485,12 @@ const SignupField = (props) => {
                                                                                             }}
                                                                                             >
                                                                                                 <CardContent>
-                                                                                                    {cloneElement(item.field)}
+                                                                                                    {cloneElement(item.field, {indexProps})}
                                                                                                 </CardContent>
                                                                                         </Card>
                                                                             </Grid>
-                                                                        ))
+                                                                            )
+                                                                        })
                                                                 }
                                                                         
                                                                 </Grid>
@@ -518,8 +513,10 @@ const SignupField = (props) => {
                                                                     <hr />
                                                                     <Grid direction="rows" container spacing={2}>
                                                                             {
-                                                                                features.map((item, index) => (
-                                                                                    <Grid item xs={12} sm={4}>
+                                                                                features.map((item, index) => {
+                                                                                    let indexProps = {key : index}
+                                                                                    return(
+                                                                                        <Grid item xs={12} sm={4}>
                                                                                         <Draggable key={index} draggableId={item.field_id.toString()} index={index}>
                                                                                             {
                                                                                                 (provided, snapshot) => (
@@ -536,7 +533,7 @@ const SignupField = (props) => {
                                                                                                             >
                                                                                                                 <CardContent>
                                                                                                                     
-                                                                                                                    {cloneElement(item.field)}
+                                                                                                                    {cloneElement(item.field, {indexProps})}
                                                                                                                 </CardContent>
                                                                                                         </Card>
                                                                                                     </div>
@@ -544,7 +541,8 @@ const SignupField = (props) => {
                                                                                             }
                                                                                         </Draggable>
                                                                                     </Grid>
-                                                                                ))
+                                                                                    )
+                                                                                })
                                                                             }
                                                                     </Grid>
                                                                 </CardContent>
