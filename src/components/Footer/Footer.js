@@ -70,6 +70,7 @@ const AppFooter = ({fixed}) => {
                 key={index}
                 color={"inherit"}
                 underline={"none"}
+                style={{cursor: 'pointer'}}
               >
                 {item.name}
               </Link>
