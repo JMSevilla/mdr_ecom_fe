@@ -19,6 +19,9 @@ module.exports = {
       xl: '1280px',
     },
     extend: {
+      backgroundImage: {
+        'contactUsBackground': "url('/src/assets/images/contactus/contactUsBg.jpg')",
+      },
       content: {
         aboutUsTitle: 'url("/src/assets/images/outline-text/about.svg")',
         serviceTitle: 'url("/src/assets/images/outline-text/service.svg")',
