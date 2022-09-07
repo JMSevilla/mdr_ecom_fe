@@ -24,7 +24,7 @@ const Global = ({children}) => {
         setTimer(15);
     };
 
-    const [activeSteps, setActiveSteps] = useState(1)
+    const [activeSteps, setActiveSteps] = useState(3)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [signupCategory, setSignupCategory] = useState('pick')
@@ -658,7 +658,10 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                     //function verify existing sent code and email
                     //else new entry of verification code
                     setOpen(true)
-                    FormService.BUSINESS_check_email_verification(tempField.credentialsObj.email)
+                    FormService.BUSINESS_CONFIG_checkEmail(tempField.credentialsObj.email)
+                    .then(repository => {
+                        if(repository.data.message === 'not_exist'){
+                            FormService.BUSINESS_check_email_verification(tempField.credentialsObj.email)
                         .then(reps => {
                             if(reps.data.message == 'exceed_limit'){
                                 setSnacbarSettings(prevState => ({
@@ -710,6 +713,17 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                                     })
                             }
                         })
+                        } else {
+                            setOpen(false)
+                            setSnacbarSettings(prevState => ({
+                                    ...prevState,
+                                    ...prevState.settings.open = true,
+                                    ...prevState.settings.message = "This email is already taken.",
+                                    ...prevState.settings.severity = "error",
+                                    ...prevState.settings.autoHideDuration = 5000
+                            }))
+                        }
+                    })
                 }
         } else if(activeSteps == 4){
             if(!tempField.verificationObj.verificationcode){
