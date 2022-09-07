@@ -7,7 +7,7 @@ const TechStacks = () => {
     <>
       <section className="slide-option">
         <div id="infinite" className="highway-slider">
-          <div className="container highway-barrier">
+          <div className="container-body highway-barrier">
             <ul className="highway-lane">
               {techStacksData.map((item, index) => {
                 return (

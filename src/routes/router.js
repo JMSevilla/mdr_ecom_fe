@@ -3,5 +3,6 @@ export const appRouter = {
     Signup : {path : "/signup"},
     ForgetPassword : {path : "/forgetpassword"},
     TermsAndConditions : {path : "/termsandconditions"},
+    PrivacyPolicy : {path : "/privacypolicy"},
     AdminRegistration : {path : "/adminregistration"}
 }

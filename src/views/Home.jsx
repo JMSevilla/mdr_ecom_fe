@@ -29,10 +29,10 @@ const Home = () => {
             <ApplicationBar title={'Ecommerce'}/>
             <HeroBanner/>
             <AboutUs/>
-            <Services/>
+            {/* <Services/>
             <Testimonials />
             <ContactUs/>
-            <AppFooter/>
+            <AppFooter/> */}
         </div>
     )
 }
