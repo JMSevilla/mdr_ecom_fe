@@ -1154,6 +1154,74 @@ setActiveSteps((activeSteps) => activeSteps + 1)
         setAllFieldSelected(tempAllFieldSelected)
         console.log(tempAllFieldSelected)
     }
+    const handleResetField = () => {
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const personalInformationObj = {
+            firstname : tempFieldSelected.fieldSettings.personalInformationObj.firstname,
+            lastname : tempFieldSelected.fieldSettings.personalInformationObj.lastname,
+            contactnum : tempFieldSelected.fieldSettings.personalInformationObj.contactnum,
+            address : tempFieldSelected.fieldSettings.personalInformationObj.address
+        }
+        const errorProvider = { 
+            error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
+            error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
+            error_contactnum : tempFieldSelected.fieldSettings.errorProvider.error_contactnum,
+            error_address : tempFieldSelected.fieldSettings.errorProvider.error_address,
+            error_projectname : tempFieldSelected.fieldSettings.errorProvider.error_projectname,
+            error_projectCategory : tempFieldSelected.fieldSettings.errorProvider.error_projectCategory,
+            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType,
+            error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
+            error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
+            error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
+            error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer,
+            error_verify : tempFieldSelected.fieldSettings.errorProvider.error_verify
+        }
+        const verificationObj = {
+            verificationcode : '',
+            vrfycounts : tempFieldSelected.fieldSettings.verificationObj.vrfycounts
+        }
+        const projectDetailsObj = { 
+            projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
+            projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
+            projectType : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
+            projectPricing : tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing
+        }
+        const credentialsObj = {
+            email : tempFieldSelected.fieldSettings.credentialsObj.email,
+            password : tempFieldSelected.fieldSettings.credentialsObj.password,
+            conpass : tempFieldSelected.fieldSettings.credentialsObj.conpass,
+            sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
+            sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
+        }
+        const error_provider_message = {
+            epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
+            epm_lastname : tempFieldSelected.fieldSettings.error_provider_message.epm_lastname,
+            epm_contactnum : tempFieldSelected.fieldSettings.error_provider_message.epm_contactnum,
+            epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address,
+            epm_projectname : tempFieldSelected.fieldSettings.error_provider_message.epm_projectname,
+            epm_projectcategory : tempFieldSelected.fieldSettings.error_provider_message.epm_projectcategory,
+            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype,
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
+            epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
+            epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer,
+            epm_verify : tempFieldSelected.fieldSettings.error_provider_message.epm_verify
+        }
+        const fieldSettings = {
+            personalInformationObj : personalInformationObj,
+            projectDetailsObj: projectDetailsObj,
+            credentialsObj: credentialsObj,
+            verificationObj : verificationObj,
+            errorProvider : errorProvider,
+            error_provider_message: error_provider_message
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+    }
     const HandleResentEmail = () => {
         const tempAllFieldSelected = [...allFieldSelected]
         const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
@@ -1172,6 +1240,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                     ...prevState.settings.autoHideDuration = 5000
                 })) 
                 resetTimer();
+                handleResetField();
             }else{
                 setOpen(false)
                 setSnacbarSettings(prevState => ({
