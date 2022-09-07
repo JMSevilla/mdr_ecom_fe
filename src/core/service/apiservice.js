@@ -87,6 +87,11 @@ class FormService {
         return ApiConfig.connect().post('admin-registration-entry',
         Process.ADMIN_user_entry(obj))
     }
+    BUSINESS_CONFIG_checkEmail(email){
+        return ApiConfig.connect().get(
+            baseURLMiddlewareHelper('signup-config-check-email', email)
+        )
+    }
 }
 
 export default new FormService()
