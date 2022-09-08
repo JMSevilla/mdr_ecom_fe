@@ -8,10 +8,10 @@ import { Navigation, Pagination, Autoplay } from "swiper";
 const testimonials_field = () =>{
     return(
         <>
-        <Box id="testimonials" style={{height: '70vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: 'rgb(253,249,255)'}}>
+        <Box id="testimonials" className='sm:h-[80vh] flex flex-col justify-center bg-secondary'>
                 <SystemContainer maxWidth={'lg'}>
-                        <Box style={{display: 'flex', flexDirection: 'column',  alignItems: 'center', gap: '.5rem'}}>
-                        <img src={testimonialOutline} alt='testimonial outline text' style={{width: "65%"}} />
+                        <Box className='flex flex-col items-center gap-5'>
+                        <img src={testimonialOutline} alt='testimonial outline text' className='w-65 hidden sm:block' />
                             <SystemTypography text={"What other people says?"} variant={'h5'} />
                             <SystemTypography variant={'subtitle'} text={"Here are some of our client's feedback..."} isgutter={true} style={{fontStyle: 'italic', marginBottom: '50px'}}/>
                         </Box>
@@ -19,8 +19,9 @@ const testimonials_field = () =>{
                             <AppSwiper
                             testimonial={true}
                             swiperData={testimonialData}
-                            style={{width:'80%', height: '90%', borderRadius: '20px'}}
+                            // style={{width:'80%', height: '90%', borderRadius: '20px'}}
                             modules={[Autoplay,Pagination,Navigation]}
+                            className='w-80 h-95 rounded sm:w-full'
                             />
                            
                         </Box>
