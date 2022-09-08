@@ -8,16 +8,16 @@ import { Fade } from 'react-reveal'
 
 const services_field = () => {
     return (
-        <Box id="services" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100vh', backgroundColor: 'rgb(255,255,255)'}}>
+        <Box id="services" className='flex flex-col justify-center bg-primary h-[100vh' >
             <SystemContainer maxWidth={'lg'}>
             <Fade bottom>
-            <Box style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '.5rem'}}>
-            <img src={ServiceOutlineText} alt='service outline'/>
+            <Box className='flex flex-col items-center gap-5'>
+            <img src={ServiceOutlineText} alt='service outline' className='hidden sm:block' />
             <SystemTypography variant={'h5'} text={'What We Do?'}/>
             <SystemTypography variant={'subtitle'} text={'We offer developed softwares and budget price services...'} isgutter={true} style={{fontStyle: 'italic', marginBottom: '50px'}}/>
             </Box>
             </Fade>
-            <Box style={{display: 'flex', gap: '2rem'}}>
+            <Box className='md:flex gap-5 '>
             {ServicesData.map((item, index) => {
                 return (
                     <>
@@ -28,12 +28,12 @@ const services_field = () => {
                             height="240"
                             image={item.img}
                             alt="client"
-                            style={{width : '100%'}}
+                            className='w-full '
                         />
                     }
                     children={
                         <CardContent>
-                            <Box style={{display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center'}}>
+                            <Box className='flex flex-col text-center items-center'>
                                 <SystemTypography variant={'h5'} text={item.title} isgutter={true}/>
                                 <SystemTypography variant={'body'} text={item.description} isgutter={true}/>
                                 <AppButton buttonColor={'button-white'} buttonName={'More Details'} variant={'contained'} style={{fontWeight: 600, marginTop: '20px', 
