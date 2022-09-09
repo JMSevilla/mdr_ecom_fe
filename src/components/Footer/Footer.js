@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Stack } from "@mui/material";
 import SystemContainer from "../Container/Container";
 import SystemTypography from "../Typography/Typography";
@@ -18,12 +18,16 @@ const AppFooter = ({fixed}) => {
   const navigatePrivacyPolicy = () => {
     history.push(appRouter.PrivacyPolicy.path);
   };
-  
+
   return (
-    <Box className='w-full bg-primary md:flex justify-center items-center' >
+    <Box className={`${fixed ?' absolute h-[8vh]' : ' relative h-[8vh]' }  w-full items-center justify-center my-4`} >
       
-      <Box className="container gap-2 md:flex justify-center md:justify-between md:gap-20 items-center my-2">
+      <SystemContainer
+        style={{ display: "flex", justifyContent: "space-between" }}
+        >
+          <Box className='mx-auto flex flex-col sm:flex-row md:gap-10 gap-y-3'>
         <Fade bottom>
+
         <Box className=' flex gap-5 items-center justify-center' >
           <SystemTypography
             variant={"h6"}
@@ -32,7 +36,16 @@ const AppFooter = ({fixed}) => {
           />
         </Box>
 
-        <Box className='flex gap-2 items-center justify-center'>
+        <Stack
+          direction="row"
+          style={{
+            display: "flex",
+            fontSize: "18px",
+            gap: "1rem",
+            alignItems: "center",
+          }}
+          >
+            <Box className='flex flex-col  mx-auto items-center justify-center sm:flex-row '>
           {businessRules.map((item, index) => {
             return (
               <Link
@@ -47,9 +60,18 @@ const AppFooter = ({fixed}) => {
               </Link>
             );
           })}
-        </Box>
-
-        <Box className="flex text-lg items-center gap-1 justify-center">
+          </Box>
+        </Stack>
+        
+        <Stack
+          direction="row"
+          style={{
+            display: "flex",
+            fontSize: "22px",
+            gap: "1rem",
+            alignItems: "center",
+          }}>
+            <Box className="items-center justify-center mx-auto flex gap-1">
           {socialAccounts.map((item, index) => {
             return (
               <Link
@@ -62,9 +84,11 @@ const AppFooter = ({fixed}) => {
               </Link>
             );
           })}
-        </Box>
+            </Box>
+        </Stack>
         </Fade>
-      </Box>
+        </Box>
+      </SystemContainer>
       
     </Box>
   );

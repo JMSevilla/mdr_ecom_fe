@@ -8,7 +8,7 @@ import { Navigation, Pagination, Autoplay } from "swiper";
 const testimonials_field = () =>{
     return(
         <>
-        <Box id="testimonials" className='md:h-[70vh] flex flex-col justify-center bg-secondary'>
+        <Box id="testimonials" className='md:h-[80vh] flex flex-col justify-center bg-secondary'>
                 <SystemContainer maxWidth={'lg'}>
                         <Box className='flex flex-col items-center gap-5 md:mb-4'>
                         <img src={testimonialOutline} alt='testimonial outline text' className='w-65 hidden sm:block' />
