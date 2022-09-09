@@ -8,7 +8,7 @@ import { Fade } from 'react-reveal'
 
 const services_field = () => {
     return (
-        <Box id="services" className='flex flex-col justify-center bg-primary h-[100vh' >
+        <Box id="services" className='flex flex-col justify-center bg-primary md:h-[100vh] ' >
             <SystemContainer maxWidth={'lg'}>
             <Fade bottom>
             <Box className='flex flex-col items-center gap-5'>
@@ -21,7 +21,7 @@ const services_field = () => {
             {ServicesData.map((item, index) => {
                 return (
                     <>
-                        <ApplicationCard key={index}
+                        <ApplicationCard key={index} className='my-5 md:mx-0'
                     cardmedia={
                         <CardMedia 
                             component="img"

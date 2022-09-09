@@ -7,7 +7,7 @@ import { Fade } from 'react-reveal'
 
 const ContactUs_Field = () => {
   return (
-    <Box id="contactus" className='bg-none section h-[100vh] sm:bg-contactUsBackground sm:bg-cover sm:bg-no-repeat'>
+    <Box id="contactus" className='bg-none section h-[50%] md:h-[90%] sm:bg-contactUsBackground sm:bg-cover sm:bg-no-repeat'>
     <Box className="container mx-auto">
       {/* section title */}
       <Fade bottom>
