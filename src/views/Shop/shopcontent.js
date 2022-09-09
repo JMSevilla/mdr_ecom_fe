@@ -10,6 +10,8 @@ import { ApplicationCard, AppButton } from "../../components";
 const ShopContent = () => {
   const [item, setItem] = useState({ name: "all" });
   const [products, setProducts] = useState([]);
+  const [mobileView, setMobileView] = useState(false);
+  const [active, setActive] = useState(0);
 
   useEffect(() => {
     //get projects base on item
@@ -21,10 +23,19 @@ const ShopContent = () => {
       });
       setProducts(newProducts);
     }
+
+    window.addEventListener('resize', () => {
+      return window.innerWidth < 1024 ? setMobileView(true) : setMobileView(false);
+    })
   }, [item]);
 
   const handleChange = (e) => {
     setItem({ name: e.target.value.toLowerCase() });
+  };
+
+  const handleClick = (e, index) => {
+    setItem({ name: e.target.textContent.toLowerCase() });
+    setActive(index);
   };
 
   return (
@@ -32,30 +43,56 @@ const ShopContent = () => {
       {/* SHOPPING LIST START */}
       <Box className="flex flex-col items-center lg:flex-row lg:items-start">
         {/* LEFT SIDE START */}
-        <Box className="flex flex-col w-[18%] gap-4">
+        <Box className="flex flex-col w-[100%] text-center gap-4 lg:w-[18%] lg:text-left">
           <h1 className="text-2xl font-body">Categories</h1>
-          <h1 className="text-md font-body text-left">Filter by:</h1>
-          <FormControl>
-            <RadioGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue={item.name}
-              name="radio-buttons-group"
-            >
-              {shopCategoriesData.map((item, index) => {
-                return (
-                  <>
-                    <FormControlLabel
-                    onChange={handleChange}
-                      value={item.name}
-                      control={<Radio />}
-                      label={item.label}
-                      key={index}
-                    />
-                  </>
-                );
-              })}
-            </RadioGroup>
-          </FormControl>
+          <h1 className="text-md font-body text-center lg:text-left">Filter by:</h1>
+          {mobileView ? (
+            <>
+              <nav className="mb-12 max-w-xl mx-auto">
+                <ul className="flex lg:flex-col">
+                  {shopCategoriesData.map((item, index) => {
+                    return (
+                      <li
+                        onClick={(e) => {
+                          handleClick(e, index);
+                        }}
+                        className={`${
+                          active === index ? "active" : ""
+                        } cursor-pointer capitalize m-4`}
+                        key={index}
+                      >
+                        {item.name}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </nav>
+            </>
+          ) : (
+            <>
+              <FormControl>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue={item.name}
+                  name="radio-buttons-group"
+                >
+                  {shopCategoriesData.map((item, index) => {
+                    return (
+                      <>
+                        <FormControlLabel
+                          onChange={handleChange}
+                          value={item.name}
+                          control={<Radio />}
+                          label={item.label}
+                          key={index}
+                        />
+                      </>
+                    );
+                  })}
+                </RadioGroup>
+              </FormControl>
+            </>
+          )}
           <hr className="text-gray w-[70%]" />
         </Box>
         {/* LEFT SIDE END */}

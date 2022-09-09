@@ -409,6 +409,10 @@ export const productsData = [
 // radio button for shop helper //
 export const shopCategoriesData = [
     {
+        name: 'all',
+        label: 'All Products'
+    },
+    {
         name: 'web',
         label: 'Web App'
     },
@@ -419,10 +423,6 @@ export const shopCategoriesData = [
     {
         name: 'mobile',
         label: 'Mobile App'
-    },
-    {
-        name: 'all',
-        label: 'All Products'
     },
 ];
 
