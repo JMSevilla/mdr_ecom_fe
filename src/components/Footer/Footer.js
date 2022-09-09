@@ -84,7 +84,7 @@ const AppFooter = ({fixed}) => {
           })}
             </Box>
         </Stack>
-            </Box>
+        </Box>
       </SystemContainer>
       
     </Box>
