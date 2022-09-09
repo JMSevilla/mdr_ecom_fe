@@ -20,35 +20,11 @@ const AppFooter = ({fixed}) => {
   };
   
   return (
-    <Box
-      // style={{
-      //   backgroundColor: "rgb(253,249,255)",
-      //   width: "100%",
-      //   height: fixed ? '8vh' : '10vh',
-      //   display: "flex",
-      //   position: fixed ? 'absolute' : 'relative',
-      //   bottom: fixed ? 0 : '',
-      //   flexDirection: "row",
-      //   justifyContent: "center",
-      //   alignItems: "center",
-      // }}
-      className='w-full bg-primary md:flex justify-center items-center' 
-    >
+    <Box className='w-full bg-primary md:flex justify-center items-center' >
       
-      <Box
-        // style={{ display: "flex", justifyContent: "space-between" }}
-        className="container gap-2 md:flex justify-center md:justify-between md:gap-20 items-center my-2"
-      >
+      <Box className="container gap-2 md:flex justify-center md:justify-between md:gap-20 items-center my-2">
         <Fade bottom>
-        <Box
-          // style={{
-          //   display: "flex",
-          //   gap: ".5rem",
-          //   alignItems: "center",
-          //   justifyContent: "center",
-          // }}
-          className=' flex gap-5 items-center justify-center' 
-        >
+        <Box className=' flex gap-5 items-center justify-center' >
           <SystemTypography
             variant={"h6"}
             text={`@ ${year} Modern Resolve. All rights Reserved`}
@@ -56,16 +32,7 @@ const AppFooter = ({fixed}) => {
           />
         </Box>
 
-        <Box
-          // direction="row"
-          // style={{
-          //   display: "flex",
-          //   fontSize: "18px",
-          //   gap: "1rem",
-          //   alignItems: "center",
-          // }}
-          className='flex gap-2 items-center justify-center'
-        >
+        <Box className='flex gap-2 items-center justify-center'>
           {businessRules.map((item, index) => {
             return (
               <Link
@@ -82,9 +49,7 @@ const AppFooter = ({fixed}) => {
           })}
         </Box>
 
-        <Box
-          className="flex text-lg items-center gap-1 justify-center"
-        >
+        <Box className="flex text-lg items-center gap-1 justify-center">
           {socialAccounts.map((item, index) => {
             return (
               <Link
