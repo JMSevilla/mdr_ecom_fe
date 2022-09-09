@@ -24,7 +24,19 @@ import herobanner3 from '../../assets/images/herobanner/herobanner3.jpg';
 import testimonials from '../../assets/images/testimonials/testimonial.jpg'
 import testimonials2 from '../../assets/images/testimonials/testimonial2.jpg'
 import testimonials3 from '../../assets/images/testimonials/testimonial3.jpg'
-import TermsAndConditions from '../../views/BusinessPolicy/TermsAndConditions/TermsAndConditions';
+
+// import shop banner images //
+import shopBanner1 from '../../assets/images/shop/banner/shop1.jpg';
+import shopBanner2 from '../../assets/images/shop/banner/shop2.jpg';
+import shopBanner3 from '../../assets/images/shop/banner/shop3.jpg';
+
+// import products images //
+import webApp1 from '../../assets/images/shop/products/webApp/p1.webp';
+import webApp2 from '../../assets/images/shop/products/webApp/p2.webp';
+import webApp3 from '../../assets/images/shop/products/webApp/p3.webp';
+import webApp4 from '../../assets/images/shop/products/webApp/p4.webp';
+import webApp5 from '../../assets/images/shop/products/webApp/p5.webp';
+import webApp6 from '../../assets/images/shop/products/webApp/p6.webp';
 
 export const heroBannerData = [
     {
@@ -288,21 +300,131 @@ export const businessRules = [
     },
 ];
 
-export const termsandconditionsData = [
-    {
-        title: '',
-        description: '',
-    }
-];
-
 // dropdown shop button helper //
 export const shopButton = [
-    'Category',
-    'Web App',
-    'Desktop App',
-    'Mobile App',
-    'View All'
+    {
+        active: false,
+        title: 'Category',
+        link: ''
+    },
+    {
+        active: false,
+        title: 'Web App',
+        link: 'navigateToViewAll'
+    },
+    {
+        active: false,
+        title: 'Desktop App',
+        link: 'navigateToViewAll'
+    },
+    {
+        active: false,
+        title: 'Mobile App',
+        link: 'navigateToViewAll'
+    },
+    {
+        active: false,
+        title: 'View All',
+        link: 'navigateToViewAll'
+    },
 ]
+
+// shopBanner helper //
+export const shopBannerData = [
+    {
+        img: shopBanner1
+    },
+    {
+        img: shopBanner2
+    },
+    {
+        img: shopBanner3
+    },
+]
+
+// products helper //
+export const productsData = [
+    {
+      id: "1",
+      image: webApp1,
+      name: "WEB APP SYSTEM",
+      category: "web",
+      description: '',
+      pointer: false,
+    //   demo: "https://teslacloneui.netlify.app/",
+    //   github: "https://github.com/BryanPalad/Tesla-clone",
+    },
+    {
+        id: "2",
+        image: webApp2,
+        name: "DESKTOP APP SYSTEM",
+        category: "desktop",
+        description: '',
+        pointer: false,
+      //   demo: "https://teslacloneui.netlify.app/",
+      //   github: "https://github.com/BryanPalad/Tesla-clone",
+      },
+      {
+        id: "3",
+        image: webApp3,
+        name: "MOBILE APP SYSTEM",
+        category: "mobile",
+        description: '',
+        pointer: false,
+      //   demo: "https://teslacloneui.netlify.app/",
+      //   github: "https://github.com/BryanPalad/Tesla-clone",
+      },
+      {
+        id: "4",
+        image: webApp4,
+        name: "WEB APP SYSTEM",
+        category: "web",
+        description: '',
+        pointer: false,
+      //   demo: "https://teslacloneui.netlify.app/",
+      //   github: "https://github.com/BryanPalad/Tesla-clone",
+      },
+      {
+        id: "5",
+        image: webApp5,
+        name: "DESKTOP APP SYSTEM",
+        category: "desktop",
+        description: '',
+        pointer: false,
+      //   demo: "https://teslacloneui.netlify.app/",
+      //   github: "https://github.com/BryanPalad/Tesla-clone",
+      },
+      {
+        id: "6",
+        image: webApp6,
+        name: "MOBILE APP SYSTEM",
+        category: "mobile",
+        description: '',
+        pointer: false,
+      //   demo: "https://teslacloneui.netlify.app/",
+      //   github: "https://github.com/BryanPalad/Tesla-clone",
+      },
+]
+
+// radio button for shop helper //
+export const shopCategoriesData = [
+    {
+        name: 'all',
+        label: 'All Products'
+    },
+    {
+        name: 'web',
+        label: 'Web App'
+    },
+    {
+        name: 'desktop',
+        label: 'Desktop App'
+    },
+    {
+        name: 'mobile',
+        label: 'Mobile App'
+    },
+];
 
 /* data helper */
 export const customerStepper = [

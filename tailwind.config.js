@@ -31,6 +31,7 @@ module.exports = {
       colors: {
         primary: '#ffffff', // white
         secondary: '#fdf9ff', // light gray
+        gray: '#eff0f5', //gray
         accent: {
           DEFAULT: '#bd321c', //red,
           hoverToRed: '#bd321c', // red,

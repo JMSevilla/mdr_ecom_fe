@@ -3,13 +3,20 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import Link from "@mui/material/Link";
 import SystemTypography from '../Typography/Typography';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { appRouter } from '../../routes/router';
+import { useHistory } from 'react-router-dom';
 
 export default function AppDropdown(props) {
   const {optionsArray, dropdownTitle} = props;
   const options = optionsArray;
 
+  const history = useHistory();
+  const navigateToViewAll = () => {
+    history.push(appRouter.Shop.path);
+  }
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClickListItem = (event) => {
@@ -55,13 +62,21 @@ export default function AppDropdown(props) {
         }}
       >
         {options.map((option, index) => (
+          <Link 
+          className='link'
+          onClick={eval(option.link)}
+          key={index}
+          color={"inherit"}
+          underline={"none"}
+          style={{cursor: 'pointer'}}>
           <MenuItem
             key={option}
             disabled={index === 0}
             onClick={(event) => handleMenuItemClick(event, index)}
           >
-            {option}
+            {option.title}
           </MenuItem>
+          </Link>
         ))}
       </Menu>
     </div>
