@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Box, Stack } from "@mui/material";
 import SystemContainer from "../Container/Container";
 import SystemTypography from "../Typography/Typography";
@@ -25,7 +25,6 @@ const AppFooter = ({fixed}) => {
         style={{ display: "flex", justifyContent: "space-between" }}
         >
           <Box className='mx-auto flex flex-col sm:flex-row md:gap-10 gap-y-3'>
-        <Fade bottom>
 
         <Box className=' flex gap-5 items-center justify-center' >
           <SystemTypography
@@ -85,6 +84,7 @@ const AppFooter = ({fixed}) => {
           })}
             </Box>
         </Stack>
+            </Box>
       </SystemContainer>
       
     </Box>
