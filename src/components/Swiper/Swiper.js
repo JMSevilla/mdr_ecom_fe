@@ -49,8 +49,6 @@ const AppSwiper = (props) => {
               <>
               <img src={item.img} alt="hero_banner_images" style={style} />
               </>)}
-              
-             
             </SwiperSlide>
           );
         })}

@@ -4,7 +4,6 @@ import SystemContainer from "../Container/Container";
 import SystemTypography from "../Typography/Typography";
 import Link from "@mui/material/Link";
 import { socialAccounts, businessRules } from "../../core/utils/helper";
-import { Fade } from "react-reveal";
 import { useHistory } from "react-router-dom";
 import { appRouter } from "../../routes/router";
 
@@ -37,7 +36,6 @@ const AppFooter = ({fixed}) => {
       <SystemContainer
         style={{ display: "flex", justifyContent: "space-between" }}
       >
-        <Fade bottom>
         <Box
           style={{
             display: "flex",
@@ -100,7 +98,6 @@ const AppFooter = ({fixed}) => {
             );
           })}
         </Stack>
-        </Fade>
       </SystemContainer>
       
     </Box>
