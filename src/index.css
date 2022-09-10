@@ -77,10 +77,10 @@ code {
     @apply h-[48px];
   }
   .input {
-    @apply bg-white dark:bg-secondary text-paragraph h-[60px] border-2 dark:border-0 dark:outline-none pl-6 w-full font-body text-[15px] rounded-sm focus:outline focus:outline-1 focus:outline-accent;
+    @apply text-paragraph h-[60px] border-2 pl-6 w-full font-body text-[15px] rounded-sm focus:outline focus:outline-1 focus:outline-accent;
   }
   .textarea {
-    @apply bg-white dark:bg-secondary resize-none w-full border-2 dark:border-0 dark:outline-none p-6 rounded-sm h-[200px] focus:outline focus:outline-1 focus:outline-accent;
+    @apply resize-none w-full border-2 dark:outline-none p-6 rounded-sm h-[200px] focus:outline focus:outline-1 focus:outline-accent;
   }
   .active {
     @apply text-accent;
