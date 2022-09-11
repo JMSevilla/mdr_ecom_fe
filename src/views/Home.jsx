@@ -32,7 +32,7 @@ const Home = () => {
             <Services/>
             <Testimonials />
             <ContactUs/>
-            <AppFooter/>
+            {/* <AppFooter/> */}
         </div>
     )
 }

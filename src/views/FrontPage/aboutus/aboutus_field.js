@@ -19,7 +19,7 @@ import { missionAndVisionData } from '../../../core/utils/helper';
 const AboutUs_field = () => {
   return (
     <>
-        <section id='about' className='section h-[90vh] flex flex-col items-center justify-center bg-primary'>
+        <section id='about' className='section h-auto flex flex-col items-center justify-center bg-primary'>
           <Box className='container mx-auto my-auto'>
             {/* ABOUT US CONTENT */}
                 <Box className='flex justify-between text-center items-center sm:text-left'>

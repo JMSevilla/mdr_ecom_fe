@@ -35,6 +35,12 @@ class Process {
         data.append('password', obj.password)
         return data
     }
+    CLIENT_user_login(obj){
+        data.append('email', obj.email)
+        data.append('password', obj.password)
+        data.append('ct', obj.loginAs)
+        return data
+    }
 }
 
 export default new Process()
