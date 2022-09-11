@@ -68,7 +68,7 @@ const Signup = () => {
                 open={open}
             />
             <CustomizedSnackbars 
-            open={snackbarSettings.settings.open}
+            open={snackbarSettings.settings.open.signup}
             message={snackbarSettings.settings.message}
             handleClose={handleClose}
             severity={snackbarSettings.settings.severity}

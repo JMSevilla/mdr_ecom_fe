@@ -53,7 +53,10 @@ const Global = ({children}) => {
     const [open, setOpen] = useState(false)
     const [snackbarSettings, setSnacbarSettings] = useState({
         settings : {
-            open : false,
+            open : {
+                homepage : false,
+                signup : false,
+            },
             message : '',
             severity : 'success',
             autoHideDuration : 3000
@@ -516,7 +519,7 @@ const Global = ({children}) => {
         if(!tempField.userLoginObj.email || !tempField.userLoginObj.password){
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.homepage = true,
                     ...prevState.settings.message = "Empty fields. Please try again",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
@@ -524,7 +527,7 @@ const Global = ({children}) => {
             } else if (!tempField.userLoginObj.loginAs) {
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.homepage = true,
                     ...prevState.settings.message = "Please select user type.",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
@@ -532,7 +535,7 @@ const Global = ({children}) => {
             } else if(!validEmailAddress.test(tempField.userLoginObj.email)){
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.homepage = true,
                     ...prevState.settings.message = "Please check your inputs. ",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
@@ -551,7 +554,7 @@ const Global = ({children}) => {
                         })
                         setSnacbarSettings(prevState => ({
                             ...prevState,
-                            ...prevState.settings.open = true,
+                            ...prevState.settings.open.homepage = true,
                             ...prevState.settings.message = "Login Success",
                             ...prevState.settings.severity = "success",
                             ...prevState.settings.autoHideDuration = 5000
@@ -568,7 +571,7 @@ const Global = ({children}) => {
                         setOpen(false);
                         setSnacbarSettings(prevState => ({
                             ...prevState,
-                            ...prevState.settings.open = true,
+                            ...prevState.settings.open.homepage = true,
                             ...prevState.settings.message = "Invalid",
                             ...prevState.settings.severity = "error",
                             ...prevState.settings.autoHideDuration = 5000
@@ -578,7 +581,7 @@ const Global = ({children}) => {
                         setOpen(false);
                         setSnacbarSettings(prevState => ({
                             ...prevState,
-                            ...prevState.settings.open = true,
+                            ...prevState.settings.open.homepage = true,
                             ...prevState.settings.message = "Email or Password does not exist",
                             ...prevState.settings.severity = "error",
                             ...prevState.settings.autoHideDuration = 5000
@@ -595,7 +598,8 @@ const Global = ({children}) => {
         }
         setSnacbarSettings(prevState => ({
             ...prevState,
-            ...prevState.settings.open = false
+            ...prevState.settings.open.signup = false,
+            ...prevState.settings.open.homepage = false
         }))
     }
     const create_uuid = () =>{
@@ -626,7 +630,7 @@ const Global = ({children}) => {
              || tempField.personalInformationObj.address == ''){
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.signup = true,
                     ...prevState.settings.message = "There's an empty field, please try again",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
@@ -636,7 +640,7 @@ const Global = ({children}) => {
             !validName.test(tempField.personalInformationObj.lastname) || !validContactNumber.test(tempField.personalInformationObj.contactnum)){
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.signup = true,
                     ...prevState.settings.message = "Kindly check your inputs before proceeding",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
@@ -652,7 +656,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                     || tempField.projectDetailsObj.projectType == '') {
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.signup = true,
                     ...prevState.settings.message = "There's an empty field, please try again",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
@@ -674,7 +678,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             } else {
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.signup = true,
                     ...prevState.settings.message = "Kindly select system features",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
@@ -686,7 +690,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                 || !tempField.credentialsObj.sec_answer){
                     setSnacbarSettings(prevState => ({
                         ...prevState,
-                        ...prevState.settings.open = true,
+                        ...prevState.settings.open.signup = true,
                         ...prevState.settings.message = "There's an empty field, please try again",
                         ...prevState.settings.severity = "error",
                         ...prevState.settings.autoHideDuration = 5000
@@ -694,7 +698,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                 } else if (tempField.credentialsObj.password !== tempField.credentialsObj.conpass) {
                     setSnacbarSettings(prevState => ({
                         ...prevState,
-                        ...prevState.settings.open = true,
+                        ...prevState.settings.open.signup = true,
                         ...prevState.settings.message = "Password mismatch please try again",
                         ...prevState.settings.severity = "error",
                         ...prevState.settings.autoHideDuration = 5000
@@ -702,7 +706,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                 } else if (!validEmailAddress.test(tempField.credentialsObj.email)) {
                     setSnacbarSettings(prevState => ({
                         ...prevState,
-                        ...prevState.settings.open = true,
+                        ...prevState.settings.open.signup = true,
                         ...prevState.settings.message = "Invalid email please try again",
                         ...prevState.settings.severity = "error",
                         ...prevState.settings.autoHideDuration = 5000
@@ -719,7 +723,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                             if(reps.data.message == 'exceed_limit'){
                                 setSnacbarSettings(prevState => ({
                                     ...prevState,
-                                    ...prevState.settings.open = true,
+                                    ...prevState.settings.open.signup = true,
                                     ...prevState.settings.message = "You've already exceed the limit of resend email",
                                     ...prevState.settings.severity = "warning",
                                     ...prevState.settings.autoHideDuration = 5000
@@ -732,7 +736,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                                         if(repo.data.message == 'success'){
                                             setSnacbarSettings(prevState => ({
                                                 ...prevState,
-                                                ...prevState.settings.open = true,
+                                                ...prevState.settings.open.signup = true,
                                                 ...prevState.settings.message = "Verification Sent Successfully",
                                                 ...prevState.settings.severity = "success",
                                                 ...prevState.settings.autoHideDuration = 5000
@@ -752,7 +756,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                                                     if(resp.data.message == 'success_sent'){
                                                         setSnacbarSettings(prevState => ({
                                                             ...prevState,
-                                                            ...prevState.settings.open = true,
+                                                            ...prevState.settings.open.signup = true,
                                                             ...prevState.settings.message = "Successfully Sent Verification Code",
                                                             ...prevState.settings.severity = "success",
                                                             ...prevState.settings.autoHideDuration = 5000
@@ -770,7 +774,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                             setOpen(false)
                             setSnacbarSettings(prevState => ({
                                     ...prevState,
-                                    ...prevState.settings.open = true,
+                                    ...prevState.settings.open.signup = true,
                                     ...prevState.settings.message = "This email is already taken.",
                                     ...prevState.settings.severity = "error",
                                     ...prevState.settings.autoHideDuration = 5000
@@ -782,7 +786,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             if(!tempField.verificationObj.verificationcode){
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.signup = true,
                     ...prevState.settings.message = "There's an empty field, please try again",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
@@ -819,7 +823,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                                     if(projectrepo.data.message == 'success_project_entry'){
                                         setSnacbarSettings(prevState => ({
                                             ...prevState,
-                                            ...prevState.settings.open = true,
+                                            ...prevState.settings.open.signup = true,
                                             ...prevState.settings.message = "Account Created Successfully",
                                             ...prevState.settings.severity = "success",
                                             ...prevState.settings.autoHideDuration = 5000
@@ -849,7 +853,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                     } else if(repository.data.message == 'verification_problem'){
                         setSnacbarSettings(prevState => ({
                             ...prevState,
-                            ...prevState.settings.open = true,
+                            ...prevState.settings.open.signup = true,
                             ...prevState.settings.message = "Problem in verifying your code, please contact administrator",
                             ...prevState.settings.severity = "error",
                             ...prevState.settings.autoHideDuration = 5000
@@ -858,7 +862,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                     } else if(repository.data.message == 'invalid_verified'){
                         setSnacbarSettings(prevState => ({
                             ...prevState,
-                            ...prevState.settings.open = true,
+                            ...prevState.settings.open.signup = true,
                             ...prevState.settings.message = "Invalid Verification Code",
                             ...prevState.settings.severity = "error",
                             ...prevState.settings.autoHideDuration = 5000
@@ -1301,7 +1305,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                 setOpen(false)
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.signup = true,
                     ...prevState.settings.message = "Verification Code Sent Successfully",
                     ...prevState.settings.severity = "success",
                     ...prevState.settings.autoHideDuration = 5000
@@ -1312,7 +1316,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                 setOpen(false)
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.signup = true,
                     ...prevState.settings.message = "You've exceed the limit of sending verification email",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
