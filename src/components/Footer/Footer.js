@@ -24,7 +24,7 @@ const AppFooter = ({fixed}) => {
       <SystemContainer
         style={{ display: "flex", justifyContent: "space-between" }}
         >
-          <Box className='mx-auto flex flex-col sm:flex-row md:gap-10 gap-y-3'>
+          <Box className='mx-auto flex flex-col sm:flex-row md:gap-10 gap-y-2'>
 
         <Box className=' flex gap-5 items-center justify-center' >
           <SystemTypography
