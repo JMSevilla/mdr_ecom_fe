@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { GlobalContext } from "../../core/context/GlobalContext";
 import LoginField from "./login_field";
 import { ReplicateOnInit } from "../../core/context/CloneElement";
-import { CustomizedSnackbars } from "../../components";
+import { CustomizedSnackbars, SystemBackdrop } from "../../components";
 
 const Login = () => {
   const {
@@ -15,7 +15,8 @@ const Login = () => {
     selectedIndex,
     handleSignIn,
     handleClose,
-    snackbarSettings
+    snackbarSettings,
+    open
   } = useContext(GlobalContext);
   return (
     <>
@@ -33,6 +34,9 @@ const Login = () => {
           snackbarSettings={snackbarSettings}
         />
       }
+    />
+    <SystemBackdrop
+      open={open}
     />
            <CustomizedSnackbars 
             style={{width: '80%'}}

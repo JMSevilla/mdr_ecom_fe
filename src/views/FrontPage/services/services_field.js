@@ -8,6 +8,7 @@ import { Fade } from 'react-reveal'
 
 const services_field = () => {
     return (
+<<<<<<< HEAD
         <Box id="services" className='flex flex-col justify-center bg-primary md:h-[100vh] ' >
             <SystemContainer maxWidth={'lg'}>
             <Fade bottom>
@@ -24,29 +25,60 @@ const services_field = () => {
                         <ApplicationCard key={index} className='my-5 md:mx-0'
                     cardmedia={
                         <CardMedia 
+=======
+        <Box id="services" className='section flex flex-col justify-center bg-primary h-auto' >
+            <Box className='container mx-auto'>
+                <Fade bottom>
+                <Box className='flex flex-col items-center text-center gap-0.5'>
+                <img src={ServiceOutlineText} alt='about us outline text' className='hidden sm:block'/>
+                <h5 className='text-3xl font-semibold sm:text-2xl'>What We Do?</h5>
+                <SystemTypography variant={'subtitle'} text={'We offer developed softwares and budget price services...'} isgutter={true} style={{fontStyle: 'italic', marginBottom: '50px'}}/>
+                </Box>
+                </Fade>
+                <Box className="grid gap-y-16 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-12">
+                {ServicesData.map((item, index) => {
+                return (
+                    <>
+                    <ApplicationCard
+                        className="cursor-pointer"
+                        key={index}
+                        cardmedia={
+                        <CardMedia
+>>>>>>> 2af90ecc13ad9d5459a5899170a5210a01bfbc1d
                             component="img"
-                            height="240"
+                            height="140"
                             image={item.img}
-                            alt="client"
-                            className='w-full '
+                            alt="product image"
+                            className="hover:scale-105 duration-100 w-full"
                         />
-                    }
-                    children={
-                        <CardContent>
-                            <Box className='flex flex-col text-center items-center'>
-                                <SystemTypography variant={'h5'} text={item.title} isgutter={true}/>
-                                <SystemTypography variant={'body'} text={item.description} isgutter={true}/>
-                                <AppButton buttonColor={'button-white'} buttonName={'More Details'} variant={'contained'} style={{fontWeight: 600, marginTop: '20px', 
-                                 padding: '10px 20px', fontFamily: 'Georgia'}} size="small"/>
-                            </Box>
-                        </CardContent>
-                    }
-                />
+                        }
+                        children={
+                        <>
+                            <h1 className="text-2xl font-mono font-semibold text-center mt-4">
+                            {item.title}
+                            </h1>
+                            <CardContent>
+                                <Box className='flex flex-col justify-center text-center gap-4'>
+                                <h1 className='font-body'>{item.description}</h1>
+                                <AppButton
+                                buttonColor="button-white"
+                                buttonName={"More Details"}
+                                style={{
+                                    width: "100%",
+                                }}
+                                variant={"contained"}   
+                                size={"medium"}
+                                />
+                                </Box>
+                            </CardContent>
+                        </>
+                        }
+                    />
                     </>
-                )
-            })}
+                );
+                })}
             </Box>
-            </SystemContainer>
+        </Box>
         </Box>
       )
 }

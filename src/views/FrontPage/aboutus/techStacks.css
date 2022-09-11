@@ -24,7 +24,7 @@
   }
   div.highway-slider ul.highway-lane {
     display: flex;
-    height: 80%;
+    height: 100%;
   }
   div.highway-slider ul.highway-lane li.highway-car {
     flex: 1;

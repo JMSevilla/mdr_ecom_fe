@@ -3,28 +3,39 @@ import Spiels from '../Spiels/Spiels'
 import { projectbreakdown } from '../utils/dumpfeatures'
 import { validName, validContactNumber, validEmailAddress } from '../utils/helper'
 import FormService from '../service/apiservice'
+import { MdOutlineAutoFixNormal } from 'react-icons/md'
+import { useHistory } from 'react-router-dom'
+import { appRouter } from '../../routes/router'
 
 const GlobalContext = createContext()
 
 const Global = ({children}) => {
 
+    const [userData, setUserData] = useState([]);
+
     // Timer for resend button
     const [timer, setTimer] = useState(15);    
     const [startTimer, setStartTimer] = useState(false);
     const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
-    
     useEffect(() => {
         if(startTimer) {
             timer > 0 && setTimeout(timeOutCallback, 1000);
         }
-    }, [startTimer, timer, timeOutCallback]);
+        if(userData){
+            console.log(userData)
+        }
+    }, [startTimer, timer, timeOutCallback, userData]);
 
     const resetTimer = () => {
         setStartTimer(true);
         setTimer(15);
     };
+    const history = useHistory();
+    const navigateBusinessPlatform = () => {
+        history.push(appRouter.Shop.path);
+    }
 
-
+    
     const [activeSteps, setActiveSteps] = useState(0)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
@@ -522,19 +533,60 @@ const Global = ({children}) => {
                 setSnacbarSettings(prevState => ({
                     ...prevState,
                     ...prevState.settings.open = true,
-                    ...prevState.settings.message = "This is not a valid email address! ",
+                    ...prevState.settings.message = "Please check your inputs. ",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
                 }))
             } else {
-                setSnacbarSettings(prevState => ({
-                    ...prevState,
-                    ...prevState.settings.open = true,
-                    ...prevState.settings.message = "Login Success",
-                    ...prevState.settings.severity = "success",
-                    ...prevState.settings.autoHideDuration = 5000
-                }))
-                // redirect to user dashboard.
+                setOpen(true)
+                FormService.CLIENT_CONFIG_checkLogin(
+                tempField.userLoginObj).then(reps => {
+                    if(reps.data.message == 'success_login'){
+                        const { data } = reps;
+                        const fetchedTokenId = data.response_data[5];
+                        const finalData = data.response_data.map((item) => {
+                            return {
+                                data: item
+                            }
+                        })
+                        setSnacbarSettings(prevState => ({
+                            ...prevState,
+                            ...prevState.settings.open = true,
+                            ...prevState.settings.message = "Login Success",
+                            ...prevState.settings.severity = "success",
+                            ...prevState.settings.autoHideDuration = 5000
+                        }))
+
+                        setUserData(finalData) 
+                        localStorage.setItem('tokenId', fetchedTokenId);
+                        setTimeout(() => {
+                            setOpen(false);
+                            navigateBusinessPlatform();
+                        }, 2000)
+
+                    } else if (reps.data.message == 'invalid'){
+                        setOpen(false);
+                        setSnacbarSettings(prevState => ({
+                            ...prevState,
+                            ...prevState.settings.open = true,
+                            ...prevState.settings.message = "Invalid",
+                            ...prevState.settings.severity = "error",
+                            ...prevState.settings.autoHideDuration = 5000
+                        }))
+                      
+                    } else {
+                        setOpen(false);
+                        setSnacbarSettings(prevState => ({
+                            ...prevState,
+                            ...prevState.settings.open = true,
+                            ...prevState.settings.message = "Email or Password does not exist",
+                            ...prevState.settings.severity = "error",
+                            ...prevState.settings.autoHideDuration = 5000
+                        }))
+                    }
+                })
+                
+                
             }
     }
     const handleClose = (event, reason) => {
