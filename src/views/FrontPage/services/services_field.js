@@ -8,24 +8,6 @@ import { Fade } from 'react-reveal'
 
 const services_field = () => {
     return (
-<<<<<<< HEAD
-        <Box id="services" className='flex flex-col justify-center bg-primary md:h-[100vh] ' >
-            <SystemContainer maxWidth={'lg'}>
-            <Fade bottom>
-            <Box className='flex flex-col items-center gap-5'>
-            <img src={ServiceOutlineText} alt='service outline' className='hidden sm:block' />
-            <SystemTypography variant={'h5'} text={'What We Do?'}/>
-            <SystemTypography variant={'subtitle'} text={'We offer developed softwares and budget price services...'} isgutter={true} style={{fontStyle: 'italic', marginBottom: '50px'}}/>
-            </Box>
-            </Fade>
-            <Box className='md:flex gap-5 '>
-            {ServicesData.map((item, index) => {
-                return (
-                    <>
-                        <ApplicationCard key={index} className='my-5 md:mx-0'
-                    cardmedia={
-                        <CardMedia 
-=======
         <Box id="services" className='section flex flex-col justify-center bg-primary h-auto' >
             <Box className='container mx-auto'>
                 <Fade bottom>
@@ -44,7 +26,6 @@ const services_field = () => {
                         key={index}
                         cardmedia={
                         <CardMedia
->>>>>>> 2af90ecc13ad9d5459a5899170a5210a01bfbc1d
                             component="img"
                             height="140"
                             image={item.img}
