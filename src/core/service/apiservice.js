@@ -92,6 +92,13 @@ class FormService {
             baseURLMiddlewareHelper('signup-config-check-email', email)
         )
     }
+    CLIENT_CONFIG_checkLogin(obj){
+        const client_login_entry = ApiConfig.connect().post(
+            'applogin', Process.CLIENT_user_login(obj)
+        )
+        return client_login_entry
+    }
+
 }
 
 export default new FormService()
