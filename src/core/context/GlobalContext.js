@@ -6,11 +6,13 @@ import FormService from '../service/apiservice'
 import { MdOutlineAutoFixNormal } from 'react-icons/md'
 import { useHistory } from 'react-router-dom'
 import { appRouter } from '../../routes/router'
+import routerSpiels from '../Spiels/routerSpiels'
+import { localstoragehelper } from '../utils/storage'
 
 const GlobalContext = createContext()
 
 const Global = ({children}) => {
-
+    const [settings, setSettings] = useState(routerSpiels.router)
     const [userData, setUserData] = useState([]);
 
     // Timer for resend button
@@ -572,8 +574,8 @@ const Global = ({children}) => {
                             ...prevState.settings.autoHideDuration = 5000
                         }))
 
-                        setUserData(finalData) 
-                        localStorage.setItem('tokenId', fetchedTokenId);
+                        setUserData(finalData)
+                        localstoragehelper.store('key_identifier', fetchedTokenId)
                         setTimeout(() => {
                             setOpen(false);
                             navigateBusinessPlatform();
@@ -1482,6 +1484,25 @@ setActiveSteps((activeSteps) => activeSteps + 1)
         setFeatures(features => [...features, ...deleted])
         loadFormFeature()
     }
+    const tokenScanned = (index) => {
+        const tempAllFieldSelected = [...settings]
+        const tempFieldSelected = {...tempAllFieldSelected[index]}
+        const __key__ = localstoragehelper.load('key_identifier')
+        if(__key__ == 'unknown'){}
+        else{
+            FormService.USER_checkLogin(__key__)
+            .then(snapshot => {
+                const { data } = snapshot
+                if(__key__ == 'unknown'){
+                    history.push(tempFieldSelected.router_obj.home)
+                } else if(data.message[5] === 'business_platform'){
+                    alert('redirect to bo-dashboard')
+                } else{
+                    history.push(tempFieldSelected.router_obj.home)
+                }
+            })
+        }
+    }
     return (
         <GlobalContext.Provider
         value={{
@@ -1495,7 +1516,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, HandleChangeBOSecAnswer,
             HandleSelectQuestion, verification, setVerification, HandleVerification, HandleResentEmail,
             projectDetails, setProjectDetails, timer, resetTimer, destinationArray, handleOnDragEnd,
-            deleteField, features, featureData
+            deleteField, features, featureData, tokenScanned
         }}
         >{children}</GlobalContext.Provider>
     )

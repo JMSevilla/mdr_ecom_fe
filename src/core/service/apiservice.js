@@ -99,9 +99,9 @@ class FormService {
         return client_login_entry
     }
     USER_checkLogin(id){
-        return ApiConfig.connect().get(
-            `get-token?userid=${id}`
-        )
+        var data = new FormData()
+        data.append('userid', id)
+        return ApiConfig.connect().post('get-token', data)
     }
 
 }
