@@ -40,7 +40,7 @@ const Login = () => {
     />
            <CustomizedSnackbars 
             style={{width: '80%'}}
-            open={snackbarSettings.settings.open}
+            open={snackbarSettings.settings.open.homepage}
             message={snackbarSettings.settings.message}
             handleClose={handleClose}
             severity={snackbarSettings.settings.severity}

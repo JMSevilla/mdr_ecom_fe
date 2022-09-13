@@ -17,7 +17,7 @@ const Signup = () => {
         HandleChangeBOPasswordSignup,HandleChangeBOConPassSignup, HandleChangeBOSecAnswer , HandleSelectQuestion,
         HandleVerification, verification, setVerification, HandleResentEmail,
         projectDetails, setProjectDetails, timer, resetTimer, destinationArray, handleOnDragEnd,
-        features} = useContext(GlobalContext)
+        features, featureData, deleteField} = useContext(GlobalContext)
     
     const projectcontextvalues = useContext(PROJECT_CONTEXT)
     const {HandleProjectName, HandleSelectProjectCategory, HandleSelectProjectType, HandleSliderChange} = projectcontextvalues
@@ -62,13 +62,15 @@ const Signup = () => {
                 destinationArray={destinationArray}
                 handleOnDragEnd={handleOnDragEnd}
                 features={features}
+                featureData={featureData}
+                deleteField={deleteField}
                 />
            } />
            <SystemBackdrop 
                 open={open}
             />
             <CustomizedSnackbars 
-            open={snackbarSettings.settings.open}
+            open={snackbarSettings.settings.open.signup}
             message={snackbarSettings.settings.message}
             handleClose={handleClose}
             severity={snackbarSettings.settings.severity}
