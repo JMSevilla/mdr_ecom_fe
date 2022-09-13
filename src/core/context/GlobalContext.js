@@ -35,7 +35,6 @@ const Global = ({children}) => {
         history.push(appRouter.Shop.path);
     }
 
-    
     const [activeSteps, setActiveSteps] = useState(0)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
@@ -43,6 +42,7 @@ const Global = ({children}) => {
     const [projectDetails, setProjectDetails] = useState('')
     const [destinationArray, setDestinationArray] = useState([])
     const [features, setFeatures] = useState([])
+    const [featureData, setFeatureData] = useState([])
     const [verification, setVerification] = useState({
         vrfyObj : {
             code_write : '',
@@ -62,6 +62,17 @@ const Global = ({children}) => {
             autoHideDuration : 3000
         }
     })
+    useEffect(() => {loadFormFeature()},[destinationArray])
+    const loadFormFeature = () => {
+        const finalData = destinationArray.map(item => {
+            return {
+                id: item.field_id,
+                featureName: item.field_name,
+                featureType: item.field_type
+            }
+        })
+        setFeatureData(finalData)
+    }
     const HandleVerification = (event) => {
         let value = event.currentTarget.value
         const tempAllFieldSelected = [...allFieldSelected]
@@ -1330,10 +1341,11 @@ setActiveSteps((activeSteps) => activeSteps + 1)
         let deleted = features.splice(RSI, 1)
         setDestinationArray(destinationArray => [...destinationArray, ...deleted])
     }
-    const deleteField = (index) => {
+    const deleteField = (params) => {
+        let index = destinationArray.findIndex(item => item.field_id == params.row.id)
         let deleted = destinationArray.splice(index, 1)
         setFeatures(features => [...features, ...deleted])
-        
+        loadFormFeature()
     }
     return (
         <GlobalContext.Provider
@@ -1348,7 +1360,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, HandleChangeBOSecAnswer,
             HandleSelectQuestion, verification, setVerification, HandleVerification, HandleResentEmail,
             projectDetails, setProjectDetails, timer, resetTimer, destinationArray, handleOnDragEnd,
-            deleteField, features
+            deleteField, features, featureData
         }}
         >{children}</GlobalContext.Provider>
     )

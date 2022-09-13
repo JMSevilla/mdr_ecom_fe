@@ -1,15 +1,7 @@
-import React, {useContext} from 'react'
-import { Grid, Typography } from '@mui/material'
-import {AppButton} from '../index'
-import { destinationArray, features } from '../../core/utils/helper'
-import { GlobalContext } from '../../core/context/GlobalContext'
+import React from 'react'
+import { Typography } from '@mui/material'
 
-const SSP_Feature1 = (props) => {
-    const { indexProps } = props
-    const contextValues = useContext(GlobalContext)
-    const { deleteField, destinationArray } = contextValues
-    
-
+const SSP_Feature1 = () => {
     return (
         <div>
             {/* <Typography variant="h5" gutterBottom>Scale (SSP) : Feature 1</Typography> */}
@@ -20,30 +12,13 @@ const SSP_Feature1 = (props) => {
                 alt="Login"
                 />
                 <Typography variant="h6">Login</Typography>
-                 {
-                    typeof destinationArray[0]  !== 'undefined' && <AppButton 
-                        buttonName={'REMOVE'}
-                        style={{
-                            width: '100%'
-                        }}
-                        variant={'contained'}
-                        color={'error'}
-                        size={'small'}
-                        handleClick={(e) => {
-                            deleteField(indexProps.key)
-                        }}
-                        /> 
-                 }
                 {/* <Typography >A login generally requires the user to enter two pieces of information, first a user name and then a password. This information is entered into a login window on a GUI</Typography> */}
             </center>
         </div>
     )
 }
 
-const SSP_Feature2 = (props) => {
-    const { indexProps } = props
-    const contextValues = useContext(GlobalContext)
-    const { deleteField, destinationArray } = contextValues
+const SSP_Feature2 = () => {
     return (
         <div>
             {/* <Typography variant="h5" gutterBottom>Scale (SSP) : Feature 2</Typography> */}
@@ -54,9 +29,7 @@ const SSP_Feature2 = (props) => {
                 alt="Login"
                 />
                 <Typography variant="h6">Admin Dashboard</Typography>
-                {console.log(destinationArray)}
-                {console.log(indexProps)}
-                 {
+                 {/* {
                   typeof destinationArray[1] !== 'undefined' && <AppButton 
                         buttonName={'REMOVE'}
                         style={{
@@ -69,7 +42,7 @@ const SSP_Feature2 = (props) => {
                             deleteField(indexProps.key)
                         }}
                         /> 
-                 }
+                 } */}
                 {/* <Typography >A login generally requires the user to enter two pieces of information, first a user name and then a password. This information is entered into a login window on a GUI</Typography> */}
             </center>
         </div>
