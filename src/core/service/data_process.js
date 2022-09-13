@@ -41,6 +41,13 @@ class Process {
         data.append('ct', obj.loginAs)
         return data
     }
+    CLIENT_email_sending(obj){
+        data.append('fullname', obj.fullname)
+        data.append('email', obj.email)
+        data.append('subject', obj.subject)
+        data.append('message', obj.message)
+        return data
+    }
 }
 
 export default new Process()

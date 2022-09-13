@@ -29,7 +29,7 @@ const ContactUs = () => {
       handleChangeContactUsEmail={handleChangeContactUsEmail}
       handleChangeSubject={handleChangeSubject}
       handleChangeMessage={handleChangeMessage}
-      setSelectedIndex={setSelectedIndex(3)}
+      setSelectedIndex={setSelectedIndex(3)}  
       allFieldSelected={allFieldSelected}
       setAllFieldSelected={setAllFieldSelected}
       selectedIndex={selectedIndex}
@@ -40,8 +40,7 @@ const ContactUs = () => {
       open={open}
     />
            <CustomizedSnackbars 
-            style={{width: '80%'}}
-            open={snackbarSettings.settings.open}
+            open={snackbarSettings.settings.open.contactUs}
             message={snackbarSettings.settings.message}
             handleClose={handleClose}
             severity={snackbarSettings.settings.severity}

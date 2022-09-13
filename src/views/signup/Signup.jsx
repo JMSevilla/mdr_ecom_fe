@@ -21,6 +21,9 @@ const Signup = () => {
     
     const projectcontextvalues = useContext(PROJECT_CONTEXT)
     const {HandleProjectName, HandleSelectProjectCategory, HandleSelectProjectType, HandleSliderChange} = projectcontextvalues
+    useEffect(() => {
+        setSelectedIndex(0)
+    }, [])
     return (
         <>
             <ApplicationBar title={'Ecommerce'} simplified/>
@@ -31,7 +34,6 @@ const Signup = () => {
                 allFieldSelected={allFieldSelected}
                 setAllFieldSelected={setAllFieldSelected}
                 selectedIndex={selectedIndex}
-                setSelectedIndex={setSelectedIndex(0)}
                 HandleChangeFirstname={HandleChangeFirstname}
                 signupCategory={signupCategory}
                 setSignupCategory={setSignupCategory}
@@ -69,7 +71,7 @@ const Signup = () => {
            <SystemBackdrop 
                 open={open}
             />
-            <CustomizedSnackbars 
+            <CustomizedSnackbars
             open={snackbarSettings.settings.open.signup}
             message={snackbarSettings.settings.message}
             handleClose={handleClose}
