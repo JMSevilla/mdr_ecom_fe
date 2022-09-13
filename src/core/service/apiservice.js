@@ -98,6 +98,11 @@ class FormService {
         )
         return client_login_entry
     }
+    USER_checkLogin(id){
+        return ApiConfig.connect().get(
+            `get-token?userid=${id}`
+        )
+    }
 
 }
 

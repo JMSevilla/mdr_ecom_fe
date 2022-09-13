@@ -18,8 +18,20 @@ const Home = () => {
             setCallback(res.data.message)
         })
     },[])
+
+    const getToken = localStorage.getItem('tokenId');
+    const checkUser = () => {
+        FormService.USER_checkLogin(getToken).then(res => {
+            const {data} = res;
+            if(data.message[5] == 'business_platform'){
+                history.push(appRouter.Shop.path)
+            }
+        })
+    }
+
     useEffect(() => {
         checkadmin()
+        checkUser()
         if(callback === 'not_exist'){
             history.push(appRouter.AdminRegistration.path)
         }
@@ -31,8 +43,8 @@ const Home = () => {
             <AboutUs/>
             <Services/>
             <Testimonials />
-            <ContactUs/>
-            {/* <AppFooter/> */}
+            {/* <ContactUs/> */}
+            <AppFooter/>
         </div>
     )
 }

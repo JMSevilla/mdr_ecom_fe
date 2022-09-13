@@ -438,8 +438,8 @@ const Global = ({children}) => {
         tempAllFieldSelected[selectedIndex] = tempFieldSelected
         setAllFieldSelected(tempAllFieldSelected)
     }
+    
     const HandleChangeEmailLogin = (event) => {
-        
         let value = event.currentTarget.value
         const tempAllFieldSelected = [...allFieldSelected]
         const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
@@ -460,13 +460,14 @@ const Global = ({children}) => {
         }
         const fieldSettings = {
             userLoginObj : userLoginObj,
-            errorProvider : errorProvider,
+            errorProvider: errorProvider,
             error_provider_message: error_provider_message
         }
         tempFieldSelected.fieldSettings = fieldSettings
         tempAllFieldSelected[selectedIndex] = tempFieldSelected
         setAllFieldSelected(tempAllFieldSelected)
-    }
+    } 
+
     const HandleChangePasswordLogin = (event) => {
         let value = event.currentTarget.value
         const tempAllFieldSelected = [...allFieldSelected]
@@ -603,6 +604,140 @@ const Global = ({children}) => {
                 
             }
     }
+
+    // CONTACT US FORM //
+    const handleContactUsSubmit = () => {
+        alert('button clicked');
+    }
+
+    const handleChangeFullname = (event) => {
+        let value = event.currentTarget.value
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const contactUsFormObj = {
+            fullname : value,
+            email : tempFieldSelected.fieldSettings.contactUsFormObj.email,
+            subject : tempFieldSelected.fieldSettings.contactUsFormObj.subject,
+            message : tempFieldSelected.fieldSettings.contactUsFormObj.message,
+        }
+        const errorProvider = { 
+            error_fullname : !value ? true : false,
+            error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
+            error_subject : tempFieldSelected.fieldSettings.errorProvider.error_subject,
+            error_message : tempFieldSelected.fieldSettings.errorProvider.error_message,
+        }
+        const error_provider_message = {
+            epm_fullname : !value ? 'Kindly provide your fullname' : '',
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_subject : tempFieldSelected.fieldSettings.error_provider_message.epm_subject,
+            epm_message : tempFieldSelected.fieldSettings.error_provider_message.epm_message,
+        }
+        const fieldSettings = {
+            contactUsFormObj : contactUsFormObj,
+            errorProvider: errorProvider,
+            error_provider_message: error_provider_message
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+    } 
+
+    const handleChangeContactUsEmail = (event) => {
+        let value = event.currentTarget.value
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const contactUsFormObj = {
+            fullname : tempFieldSelected.fieldSettings.contactUsFormObj.fullname,
+            email : value,
+            subject : tempFieldSelected.fieldSettings.contactUsFormObj.subject,
+            message : tempFieldSelected.fieldSettings.contactUsFormObj.message,
+        }
+        const errorProvider = { 
+            error_fullname : tempFieldSelected.fieldSettings.errorProvider.error_fullname,
+            error_email : !value ? true : false,
+            error_subject : tempFieldSelected.fieldSettings.errorProvider.error_subject,
+            error_message : tempFieldSelected.fieldSettings.errorProvider.error_message,
+        }
+        const error_provider_message = {
+            epm_fullname : tempFieldSelected.fieldSettings.error_provider_message.epm_fullname,
+            epm_email : !value ? 'Kindly provide your email address' : '',
+            epm_subject : tempFieldSelected.fieldSettings.error_provider_message.epm_subject,
+            epm_message : tempFieldSelected.fieldSettings.error_provider_message.epm_message,
+        }
+        const fieldSettings = {
+            contactUsFormObj : contactUsFormObj,
+            errorProvider: errorProvider,
+            error_provider_message: error_provider_message
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+    }
+
+    const handleChangeSubject = (event) => {
+        let value = event.currentTarget.value
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const contactUsFormObj = {
+            fullname : tempFieldSelected.fieldSettings.contactUsFormObj.fullname,
+            email : tempFieldSelected.fieldSettings.contactUsFormObj.email,
+            subject : value,
+            message : tempFieldSelected.fieldSettings.contactUsFormObj.message,
+        }
+        const errorProvider = { 
+            error_fullname : tempFieldSelected.fieldSettings.errorProvider.error_fullname,
+            error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
+            error_subject : !value ? true : false,
+            error_message : tempFieldSelected.fieldSettings.errorProvider.error_message,
+        }
+        const error_provider_message = {
+            epm_fullname : tempFieldSelected.fieldSettings.error_provider_message.epm_fullname,
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_subject : !value ? 'Please provide your subject' : '',
+            epm_message : tempFieldSelected.fieldSettings.error_provider_message.epm_message,
+        }
+        const fieldSettings = {
+            contactUsFormObj : contactUsFormObj,
+            errorProvider: errorProvider,
+            error_provider_message: error_provider_message
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+    }
+
+    const handleChangeMessage = (event) => {
+        let value = event.currentTarget.value
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const contactUsFormObj = {
+            fullname : tempFieldSelected.fieldSettings.contactUsFormObj.fullname,
+            email : tempFieldSelected.fieldSettings.contactUsFormObj.email,
+            subject : tempFieldSelected.fieldSettings.contactUsFormObj.subject,
+            message : value,
+        }
+        const errorProvider = { 
+            error_fullname : tempFieldSelected.fieldSettings.errorProvider.error_fullname,
+            error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
+            error_subject : tempFieldSelected.fieldSettings.errorProvider.error_subject,
+            error_message : !value ? true : false,
+        }
+        const error_provider_message = {
+            epm_fullname : tempFieldSelected.fieldSettings.error_provider_message.epm_message,
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_subject : tempFieldSelected.fieldSettings.error_provider_message.epm_subject,
+            epm_message : !value ? 'Kindly provide your message' : '',
+        }
+        const fieldSettings = {
+            contactUsFormObj : contactUsFormObj,
+            errorProvider: errorProvider,
+            error_provider_message: error_provider_message
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+    }
+
     const handleClose = (event, reason) => {
         if(reason === 'clickAway') {
             return;

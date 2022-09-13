@@ -122,7 +122,31 @@ class Spiels {
                     epm_conpass : ''
                 }
             }
-        }
+        },
+        {
+            field_id : 4,
+            field_name : 'contact_us_form',
+            fieldSettings : {
+                contactUsFormObj : {
+                    fullname : '',
+                    email : '',
+                    subject : '',
+                    message : '',
+                },
+                errorProvider : {
+                    error_fullname : false,
+                    error_email : false,
+                    error_subject : false,
+                    error_message : false
+                },
+                error_provider_message : {
+                    epm_fullname : '',
+                    epm_email : '',
+                    epm_subject : '',
+                    epm_message : ''
+                }
+            }
+        },
     ]
 }
 
