@@ -3,26 +3,39 @@ import Spiels from '../Spiels/Spiels'
 import { projectbreakdown } from '../utils/dumpfeatures'
 import { validName, validContactNumber, validEmailAddress } from '../utils/helper'
 import FormService from '../service/apiservice'
+import { MdOutlineAutoFixNormal } from 'react-icons/md'
+import { useHistory } from 'react-router-dom'
+import { appRouter } from '../../routes/router'
 
 const GlobalContext = createContext()
 
 const Global = ({children}) => {
 
+    const [userData, setUserData] = useState([]);
+
     // Timer for resend button
     const [timer, setTimer] = useState(15);    
+    const [startTimer, setStartTimer] = useState(false);
     const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
-    
     useEffect(() => {
-    timer > 0 && setTimeout(timeOutCallback, 1000);
-    }, [timer, timeOutCallback]);
+        if(startTimer) {
+            timer > 0 && setTimeout(timeOutCallback, 1000);
+        }
+        if(userData){
+            console.log(userData)
+        }
+    }, [startTimer, timer, timeOutCallback, userData]);
 
-    const resetTimer = function () {
-    if (!timer) {
+    const resetTimer = () => {
+        setStartTimer(true);
         setTimer(15);
-    }
     };
+    const history = useHistory();
+    const navigateBusinessPlatform = () => {
+        history.push(appRouter.Shop.path);
+    }
 
-    const [activeSteps, setActiveSteps] = useState(1)
+    const [activeSteps, setActiveSteps] = useState(0)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [signupCategory, setSignupCategory] = useState('pick')
@@ -40,7 +53,10 @@ const Global = ({children}) => {
     const [open, setOpen] = useState(false)
     const [snackbarSettings, setSnacbarSettings] = useState({
         settings : {
-            open : false,
+            open : {
+                homepage : false,
+                signup : false,
+            },
             message : '',
             severity : 'success',
             autoHideDuration : 3000
@@ -514,7 +530,7 @@ const Global = ({children}) => {
         if(!tempField.userLoginObj.email || !tempField.userLoginObj.password){
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.homepage = true,
                     ...prevState.settings.message = "Empty fields. Please try again",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
@@ -522,20 +538,69 @@ const Global = ({children}) => {
             } else if (!tempField.userLoginObj.loginAs) {
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.homepage = true,
                     ...prevState.settings.message = "Please select user type.",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
                 }))
-            } else {
+            } else if(!validEmailAddress.test(tempField.userLoginObj.email)){
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
-                    ...prevState.settings.message = "Login Success",
-                    ...prevState.settings.severity = "success",
+                    ...prevState.settings.open.homepage = true,
+                    ...prevState.settings.message = "Please check your inputs. ",
+                    ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
                 }))
-                // redirect to user dashboard.
+            } else {
+                setOpen(true)
+                FormService.CLIENT_CONFIG_checkLogin(
+                tempField.userLoginObj).then(reps => {
+                    if(reps.data.message == 'success_login'){
+                        const { data } = reps;
+                        const fetchedTokenId = data.response_data[5];
+                        const finalData = data.response_data.map((item) => {
+                            return {
+                                data: item
+                            }
+                        })
+                        setSnacbarSettings(prevState => ({
+                            ...prevState,
+                            ...prevState.settings.open.homepage = true,
+                            ...prevState.settings.message = "Login Success",
+                            ...prevState.settings.severity = "success",
+                            ...prevState.settings.autoHideDuration = 5000
+                        }))
+
+                        setUserData(finalData) 
+                        localStorage.setItem('tokenId', fetchedTokenId);
+                        setTimeout(() => {
+                            setOpen(false);
+                            navigateBusinessPlatform();
+                        }, 2000)
+
+                    } else if (reps.data.message == 'invalid'){
+                        setOpen(false);
+                        setSnacbarSettings(prevState => ({
+                            ...prevState,
+                            ...prevState.settings.open.homepage = true,
+                            ...prevState.settings.message = "Invalid",
+                            ...prevState.settings.severity = "error",
+                            ...prevState.settings.autoHideDuration = 5000
+                        }))
+                      
+                    } else {
+                        setOpen(false);
+                        setSnacbarSettings(prevState => ({
+                            ...prevState,
+                            ...prevState.settings.open.homepage = true,
+                            ...prevState.settings.message = "Email or Password does not exist",
+                            ...prevState.settings.severity = "error",
+                            ...prevState.settings.autoHideDuration = 5000
+                        }))
+                    }
+                })
+                
+                
             }
     }
     const handleClose = (event, reason) => {
@@ -544,7 +609,8 @@ const Global = ({children}) => {
         }
         setSnacbarSettings(prevState => ({
             ...prevState,
-            ...prevState.settings.open = false
+            ...prevState.settings.open.signup = false,
+            ...prevState.settings.open.homepage = false
         }))
     }
     const create_uuid = () =>{
@@ -575,7 +641,7 @@ const Global = ({children}) => {
              || tempField.personalInformationObj.address == ''){
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.signup = true,
                     ...prevState.settings.message = "There's an empty field, please try again",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
@@ -585,7 +651,7 @@ const Global = ({children}) => {
             !validName.test(tempField.personalInformationObj.lastname) || !validContactNumber.test(tempField.personalInformationObj.contactnum)){
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.signup = true,
                     ...prevState.settings.message = "Kindly check your inputs before proceeding",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
@@ -601,7 +667,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                     || tempField.projectDetailsObj.projectType == '') {
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.signup = true,
                     ...prevState.settings.message = "There's an empty field, please try again",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
@@ -623,7 +689,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             } else {
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.signup = true,
                     ...prevState.settings.message = "Kindly select system features",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
@@ -635,7 +701,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                 || !tempField.credentialsObj.sec_answer){
                     setSnacbarSettings(prevState => ({
                         ...prevState,
-                        ...prevState.settings.open = true,
+                        ...prevState.settings.open.signup = true,
                         ...prevState.settings.message = "There's an empty field, please try again",
                         ...prevState.settings.severity = "error",
                         ...prevState.settings.autoHideDuration = 5000
@@ -643,7 +709,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                 } else if (tempField.credentialsObj.password !== tempField.credentialsObj.conpass) {
                     setSnacbarSettings(prevState => ({
                         ...prevState,
-                        ...prevState.settings.open = true,
+                        ...prevState.settings.open.signup = true,
                         ...prevState.settings.message = "Password mismatch please try again",
                         ...prevState.settings.severity = "error",
                         ...prevState.settings.autoHideDuration = 5000
@@ -651,7 +717,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                 } else if (!validEmailAddress.test(tempField.credentialsObj.email)) {
                     setSnacbarSettings(prevState => ({
                         ...prevState,
-                        ...prevState.settings.open = true,
+                        ...prevState.settings.open.signup = true,
                         ...prevState.settings.message = "Invalid email please try again",
                         ...prevState.settings.severity = "error",
                         ...prevState.settings.autoHideDuration = 5000
@@ -660,12 +726,15 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                     //function verify existing sent code and email
                     //else new entry of verification code
                     setOpen(true)
-                    FormService.BUSINESS_check_email_verification(tempField.credentialsObj.email)
+                    FormService.BUSINESS_CONFIG_checkEmail(tempField.credentialsObj.email)
+                    .then(repository => {
+                        if(repository.data.message === 'not_exist'){
+                            FormService.BUSINESS_check_email_verification(tempField.credentialsObj.email)
                         .then(reps => {
                             if(reps.data.message == 'exceed_limit'){
                                 setSnacbarSettings(prevState => ({
                                     ...prevState,
-                                    ...prevState.settings.open = true,
+                                    ...prevState.settings.open.signup = true,
                                     ...prevState.settings.message = "You've already exceed the limit of resend email",
                                     ...prevState.settings.severity = "warning",
                                     ...prevState.settings.autoHideDuration = 5000
@@ -678,7 +747,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                                         if(repo.data.message == 'success'){
                                             setSnacbarSettings(prevState => ({
                                                 ...prevState,
-                                                ...prevState.settings.open = true,
+                                                ...prevState.settings.open.signup = true,
                                                 ...prevState.settings.message = "Verification Sent Successfully",
                                                 ...prevState.settings.severity = "success",
                                                 ...prevState.settings.autoHideDuration = 5000
@@ -698,7 +767,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                                                     if(resp.data.message == 'success_sent'){
                                                         setSnacbarSettings(prevState => ({
                                                             ...prevState,
-                                                            ...prevState.settings.open = true,
+                                                            ...prevState.settings.open.signup = true,
                                                             ...prevState.settings.message = "Successfully Sent Verification Code",
                                                             ...prevState.settings.severity = "success",
                                                             ...prevState.settings.autoHideDuration = 5000
@@ -712,12 +781,23 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                                     })
                             }
                         })
+                        } else {
+                            setOpen(false)
+                            setSnacbarSettings(prevState => ({
+                                    ...prevState,
+                                    ...prevState.settings.open.signup = true,
+                                    ...prevState.settings.message = "This email is already taken.",
+                                    ...prevState.settings.severity = "error",
+                                    ...prevState.settings.autoHideDuration = 5000
+                            }))
+                        }
+                    })
                 }
         } else if(activeSteps == 4){
             if(!tempField.verificationObj.verificationcode){
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.signup = true,
                     ...prevState.settings.message = "There's an empty field, please try again",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
@@ -754,7 +834,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                                     if(projectrepo.data.message == 'success_project_entry'){
                                         setSnacbarSettings(prevState => ({
                                             ...prevState,
-                                            ...prevState.settings.open = true,
+                                            ...prevState.settings.open.signup = true,
                                             ...prevState.settings.message = "Account Created Successfully",
                                             ...prevState.settings.severity = "success",
                                             ...prevState.settings.autoHideDuration = 5000
@@ -784,7 +864,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                     } else if(repository.data.message == 'verification_problem'){
                         setSnacbarSettings(prevState => ({
                             ...prevState,
-                            ...prevState.settings.open = true,
+                            ...prevState.settings.open.signup = true,
                             ...prevState.settings.message = "Problem in verifying your code, please contact administrator",
                             ...prevState.settings.severity = "error",
                             ...prevState.settings.autoHideDuration = 5000
@@ -793,7 +873,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                     } else if(repository.data.message == 'invalid_verified'){
                         setSnacbarSettings(prevState => ({
                             ...prevState,
-                            ...prevState.settings.open = true,
+                            ...prevState.settings.open.signup = true,
                             ...prevState.settings.message = "Invalid Verification Code",
                             ...prevState.settings.severity = "error",
                             ...prevState.settings.autoHideDuration = 5000
@@ -1156,6 +1236,74 @@ setActiveSteps((activeSteps) => activeSteps + 1)
         setAllFieldSelected(tempAllFieldSelected)
         console.log(tempAllFieldSelected)
     }
+    const handleResetField = () => {
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const personalInformationObj = {
+            firstname : tempFieldSelected.fieldSettings.personalInformationObj.firstname,
+            lastname : tempFieldSelected.fieldSettings.personalInformationObj.lastname,
+            contactnum : tempFieldSelected.fieldSettings.personalInformationObj.contactnum,
+            address : tempFieldSelected.fieldSettings.personalInformationObj.address
+        }
+        const errorProvider = { 
+            error_firstname : tempFieldSelected.fieldSettings.errorProvider.error_firstname,
+            error_lastname : tempFieldSelected.fieldSettings.errorProvider.error_lastname,
+            error_contactnum : tempFieldSelected.fieldSettings.errorProvider.error_contactnum,
+            error_address : tempFieldSelected.fieldSettings.errorProvider.error_address,
+            error_projectname : tempFieldSelected.fieldSettings.errorProvider.error_projectname,
+            error_projectCategory : tempFieldSelected.fieldSettings.errorProvider.error_projectCategory,
+            error_projectType : tempFieldSelected.fieldSettings.errorProvider.error_projectType,
+            error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
+            error_password : tempFieldSelected.fieldSettings.errorProvider.error_password,
+            error_conpass : tempFieldSelected.fieldSettings.errorProvider.error_conpass,
+            error_sec_question : tempFieldSelected.fieldSettings.errorProvider.error_sec_question,
+            error_sec_answer : tempFieldSelected.fieldSettings.errorProvider.error_sec_answer,
+            error_verify : tempFieldSelected.fieldSettings.errorProvider.error_verify
+        }
+        const verificationObj = {
+            verificationcode : '',
+            vrfycounts : tempFieldSelected.fieldSettings.verificationObj.vrfycounts
+        }
+        const projectDetailsObj = { 
+            projectName : tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
+            projectCategory : tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
+            projectType : tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
+            projectPricing : tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing
+        }
+        const credentialsObj = {
+            email : tempFieldSelected.fieldSettings.credentialsObj.email,
+            password : tempFieldSelected.fieldSettings.credentialsObj.password,
+            conpass : tempFieldSelected.fieldSettings.credentialsObj.conpass,
+            sec_question : tempFieldSelected.fieldSettings.credentialsObj.sec_question,
+            sec_answer : tempFieldSelected.fieldSettings.credentialsObj.sec_answer
+        }
+        const error_provider_message = {
+            epm_firstname : tempFieldSelected.fieldSettings.error_provider_message.epm_firstname,
+            epm_lastname : tempFieldSelected.fieldSettings.error_provider_message.epm_lastname,
+            epm_contactnum : tempFieldSelected.fieldSettings.error_provider_message.epm_contactnum,
+            epm_address : tempFieldSelected.fieldSettings.error_provider_message.epm_address,
+            epm_projectname : tempFieldSelected.fieldSettings.error_provider_message.epm_projectname,
+            epm_projectcategory : tempFieldSelected.fieldSettings.error_provider_message.epm_projectcategory,
+            epm_projecttype: tempFieldSelected.fieldSettings.error_provider_message.epm_projecttype,
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_password : tempFieldSelected.fieldSettings.error_provider_message.epm_password,
+            epm_conpass : tempFieldSelected.fieldSettings.error_provider_message.epm_conpass,
+            epm_sec_question : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_question,
+            epm_sec_answer : tempFieldSelected.fieldSettings.error_provider_message.epm_sec_answer,
+            epm_verify : tempFieldSelected.fieldSettings.error_provider_message.epm_verify
+        }
+        const fieldSettings = {
+            personalInformationObj : personalInformationObj,
+            projectDetailsObj: projectDetailsObj,
+            credentialsObj: credentialsObj,
+            verificationObj : verificationObj,
+            errorProvider : errorProvider,
+            error_provider_message: error_provider_message
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+    }
     const HandleResentEmail = () => {
         const tempAllFieldSelected = [...allFieldSelected]
         const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
@@ -1168,17 +1316,18 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                 setOpen(false)
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.signup = true,
                     ...prevState.settings.message = "Verification Code Sent Successfully",
                     ...prevState.settings.severity = "success",
                     ...prevState.settings.autoHideDuration = 5000
                 })) 
                 resetTimer();
+                handleResetField();
             }else{
                 setOpen(false)
                 setSnacbarSettings(prevState => ({
                     ...prevState,
-                    ...prevState.settings.open = true,
+                    ...prevState.settings.open.signup = true,
                     ...prevState.settings.message = "You've exceed the limit of sending verification email",
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000

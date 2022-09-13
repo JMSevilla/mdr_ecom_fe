@@ -78,6 +78,27 @@ class FormService {
             baseURLMiddlewareHelper('getall-projectbyemail', email)
         )
     }
+    ADMINISTRATOR_checkadmin(){
+        return ApiConfig.connect().get(
+            'check-admin'
+        )
+    }
+    ADMINISTRATOR_entry(obj){
+        return ApiConfig.connect().post('admin-registration-entry',
+        Process.ADMIN_user_entry(obj))
+    }
+    BUSINESS_CONFIG_checkEmail(email){
+        return ApiConfig.connect().get(
+            baseURLMiddlewareHelper('signup-config-check-email', email)
+        )
+    }
+    CLIENT_CONFIG_checkLogin(obj){
+        const client_login_entry = ApiConfig.connect().post(
+            'applogin', Process.CLIENT_user_login(obj)
+        )
+        return client_login_entry
+    }
+
 }
 
 export default new FormService()

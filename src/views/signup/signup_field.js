@@ -480,6 +480,7 @@ const SignupField = (props) => {
                                                     const data = editor.getData();
                                                     setProjectDetails(data)
                                                 } }
+                                                config={{removePlugins: ['CKFinderUploadAdapter', 'CKFinder', 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed']}}
                                                 onBlur={ ( event, editor ) => {
                                                 } }
                                                 onFocus={ ( event, editor ) => {

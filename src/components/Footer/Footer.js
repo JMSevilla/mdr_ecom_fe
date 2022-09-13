@@ -4,7 +4,6 @@ import SystemContainer from "../Container/Container";
 import SystemTypography from "../Typography/Typography";
 import Link from "@mui/material/Link";
 import { socialAccounts, businessRules } from "../../core/utils/helper";
-import { Fade } from "react-reveal";
 import { useHistory } from "react-router-dom";
 import { appRouter } from "../../routes/router";
 
@@ -18,34 +17,16 @@ const AppFooter = ({fixed}) => {
   const navigatePrivacyPolicy = () => {
     history.push(appRouter.PrivacyPolicy.path);
   };
-  
+
   return (
-    <Box
-      style={{
-        backgroundColor: "rgb(253,249,255)",
-        width: "100%",
-        height: fixed ? '8vh' : '10vh',
-        display: "flex",
-        position: fixed ? 'absolute' : 'relative',
-        bottom: fixed ? 0 : '',
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <Box className={`${fixed ?' absolute h-[8vh]' : ' relative h-[8vh]' }  w-full items-center justify-center my-4`} >
       
       <SystemContainer
         style={{ display: "flex", justifyContent: "space-between" }}
-      >
-        <Fade bottom>
-        <Box
-          style={{
-            display: "flex",
-            gap: ".5rem",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
         >
+          <Box className='mx-auto flex flex-col sm:flex-row md:gap-10 gap-y-2'>
+
+        <Box className=' flex gap-5 items-center justify-center' >
           <SystemTypography
             variant={"h6"}
             text={`@ ${year} Modern Resolve. All rights Reserved`}
@@ -61,7 +42,8 @@ const AppFooter = ({fixed}) => {
             gap: "1rem",
             alignItems: "center",
           }}
-        >
+          >
+            <Box className='flex flex-col  mx-auto items-center justify-center sm:flex-row '>
           {businessRules.map((item, index) => {
             return (
               <Link
@@ -70,13 +52,15 @@ const AppFooter = ({fixed}) => {
                 key={index}
                 color={"inherit"}
                 underline={"none"}
+                style={{cursor: 'pointer'}}
               >
                 {item.name}
               </Link>
             );
           })}
+          </Box>
         </Stack>
-
+        
         <Stack
           direction="row"
           style={{
@@ -84,8 +68,8 @@ const AppFooter = ({fixed}) => {
             fontSize: "22px",
             gap: "1rem",
             alignItems: "center",
-          }}
-        >
+          }}>
+            <Box className="items-center justify-center mx-auto flex gap-1">
           {socialAccounts.map((item, index) => {
             return (
               <Link
@@ -98,8 +82,9 @@ const AppFooter = ({fixed}) => {
               </Link>
             );
           })}
+            </Box>
         </Stack>
-        </Fade>
+        </Box>
       </SystemContainer>
       
     </Box>
