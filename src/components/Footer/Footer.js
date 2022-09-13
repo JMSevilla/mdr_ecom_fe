@@ -19,14 +19,10 @@ const AppFooter = ({fixed}) => {
   };
 
   return (
-    <Box className={`${fixed ?' absolute h-[8vh]' : ' relative h-[8vh]' }  w-full items-center justify-center my-4`} >
-      
-      <SystemContainer
-        style={{ display: "flex", justifyContent: "space-between" }}
-        >
-          <Box className='mx-auto flex flex-col sm:flex-row md:gap-10 gap-y-2'>
-
-        <Box className=' flex gap-5 items-center justify-center' >
+    <Box className={`${fixed ?' absolute h-[8vh] bottom-0' : 'relative h-[8vh]' } w-full flex items-center text-center py-24 sm:py-12`}>
+      <Box className='container mx-auto'>
+        <Box className='flex flex-col justify-between gap-y-2 mb-4 sm:mb-0 sm:flex-row md:gap-10'>
+        <Box className=' flex gap-5 justify-center'>
           <SystemTypography
             variant={"h6"}
             text={`@ ${year} Modern Resolve. All rights Reserved`}
@@ -43,7 +39,7 @@ const AppFooter = ({fixed}) => {
             alignItems: "center",
           }}
           >
-            <Box className='flex flex-col  mx-auto items-center justify-center sm:flex-row '>
+            <Box className='flex flex-col  mx-auto items-center justify-center gap-4 sm:flex-row'>
           {businessRules.map((item, index) => {
             return (
               <Link
@@ -69,7 +65,7 @@ const AppFooter = ({fixed}) => {
             gap: "1rem",
             alignItems: "center",
           }}>
-            <Box className="items-center justify-center mx-auto flex gap-1">
+            <Box className="items-center justify-center mx-auto flex gap-4">
           {socialAccounts.map((item, index) => {
             return (
               <Link
@@ -85,8 +81,8 @@ const AppFooter = ({fixed}) => {
             </Box>
         </Stack>
         </Box>
-      </SystemContainer>
-      
+
+      </Box>
     </Box>
   );
 };

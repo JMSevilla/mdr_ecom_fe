@@ -33,7 +33,7 @@ const AppSwiper = (props) => {
             >
               {testimonial ? (
               <>
-              <Box className='gap-8 mb-50 mt-30 mx-6 md:flex'>
+              <Box className='gap-8 mt-30 mx-6 md:flex'>
               <img src={item.img} alt="hero_banner_images" className={className} />
                 <Box className='flex flex-col gap-6'>
                   <h1 className="text-base mt-4 font-body italic text-justify lg:text-lg lg:mt-0"> {item.feedbackDisc} </h1>
