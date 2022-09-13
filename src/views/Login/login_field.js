@@ -11,7 +11,7 @@ import { loginUserCategory } from "../../core/utils/helper";
 import Spiels from "../../core/Spiels/Spiels";
 
 const Login_field = (props) => {
-  const {allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeEmailLogin, HandleChangePasswordLogin, HandleSelectLoginAs, handleSignIn} = props;
+  const {allFieldSelected, HandleChangeEmailLogin, HandleChangePasswordLogin, HandleSelectLoginAs, handleSignIn} = props;
   const { fieldSettings } = allFieldSelected[1]
   const history = useHistory();
   const navigateSignup = () => {

@@ -103,6 +103,12 @@ class FormService {
             `get-token?userid=${id}`
         )
     }
+    SEND_EMAIL_contactUs(obj){
+        const emailForm_entry = ApiConfig.connect().post(
+            'send-message/contactus', Process.CLIENT_email_sending(obj)
+        )
+        return emailForm_entry
+    }
 
 }
 

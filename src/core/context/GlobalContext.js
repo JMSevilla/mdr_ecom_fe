@@ -56,6 +56,7 @@ const Global = ({children}) => {
             open : {
                 homepage : false,
                 signup : false,
+                contactUs: false,
             },
             message : '',
             severity : 'success',
@@ -607,7 +608,70 @@ const Global = ({children}) => {
 
     // CONTACT US FORM //
     const handleContactUsSubmit = () => {
-        alert('button clicked');
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const tempField = {...tempFieldSelected.fieldSettings}
+        if(tempField.contactUsFormObj.fullname == ''
+             || tempField.contactUsFormObj.email == '' ||
+             tempField.contactUsFormObj.subject == ''
+             || tempField.contactUsFormObj.message == ''){
+                setSnacbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open.contactUs = true,
+                    ...prevState.settings.message = "There's an empty field, please try again",
+                    ...prevState.settings.severity = "error",
+                    ...prevState.settings.autoHideDuration = 5000
+                }))
+                return;
+            } else if (!validName.test(tempField.contactUsFormObj.fullname)){
+                setSnacbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open.contactUs = true,
+                    ...prevState.settings.message = "Name must not contain any special characters",
+                    ...prevState.settings.severity = "error",
+                    ...prevState.settings.autoHideDuration = 5000
+                }))
+                return;
+            } else if (!validEmailAddress.test(tempField.contactUsFormObj.email)){
+                setSnacbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open.contactUs = true,
+                    ...prevState.settings.message = "Please provide a valid email address",
+                    ...prevState.settings.severity = "error",
+                    ...prevState.settings.autoHideDuration = 5000
+                }))
+                return;
+            } else {
+                setOpen(true)
+                FormService.SEND_EMAIL_contactUs(tempField.contactUsFormObj)
+                .then(reps => {
+                    const { data } = reps
+                    if(data.message == "success_sent_message"){
+                        setTimeout(() => {
+                            setSnacbarSettings(prevState => ({
+                                ...prevState,
+                                ...prevState.settings.open.contactUs = true,
+                                ...prevState.settings.message = "Email sent successfully",
+                                ...prevState.settings.severity = "success",
+                                ...prevState.settings.autoHideDuration = 5000
+                            }))
+                            setOpen(false)
+                        }, 2000)
+                    } else {
+                        setTimeout(() => {
+                            setSnacbarSettings(prevState => ({
+                                ...prevState,
+                                ...prevState.settings.open.contactUs = true,
+                                ...prevState.settings.message = "Error sending email. pls try again later",
+                                ...prevState.settings.severity = "error",
+                                ...prevState.settings.autoHideDuration = 5000
+                            }))
+                            setOpen(false)
+                        }, 2000)
+                    }
+                })
+                
+            }
     }
 
     const handleChangeFullname = (event) => {
@@ -621,13 +685,13 @@ const Global = ({children}) => {
             message : tempFieldSelected.fieldSettings.contactUsFormObj.message,
         }
         const errorProvider = { 
-            error_fullname : !value ? true : false,
+            error_fullname : !value ? true : !validName.test(value) ? true : false,
             error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
             error_subject : tempFieldSelected.fieldSettings.errorProvider.error_subject,
             error_message : tempFieldSelected.fieldSettings.errorProvider.error_message,
         }
         const error_provider_message = {
-            epm_fullname : !value ? 'Kindly provide your fullname' : '',
+            epm_fullname : !value ? 'Kindly provide your fullname' : !validName.test(value) ? 'Name must not contain any special characters' : '',
             epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
             epm_subject : tempFieldSelected.fieldSettings.error_provider_message.epm_subject,
             epm_message : tempFieldSelected.fieldSettings.error_provider_message.epm_message,
@@ -654,13 +718,13 @@ const Global = ({children}) => {
         }
         const errorProvider = { 
             error_fullname : tempFieldSelected.fieldSettings.errorProvider.error_fullname,
-            error_email : !value ? true : false,
+            error_email : !value ? true : !validEmailAddress.test(value) ? true : false,
             error_subject : tempFieldSelected.fieldSettings.errorProvider.error_subject,
             error_message : tempFieldSelected.fieldSettings.errorProvider.error_message,
         }
         const error_provider_message = {
             epm_fullname : tempFieldSelected.fieldSettings.error_provider_message.epm_fullname,
-            epm_email : !value ? 'Kindly provide your email address' : '',
+            epm_email : !value ? '*Kindly provide your email address' : !validEmailAddress.test(value) ? 'This is not a valid email address' : '',
             epm_subject : tempFieldSelected.fieldSettings.error_provider_message.epm_subject,
             epm_message : tempFieldSelected.fieldSettings.error_provider_message.epm_message,
         }
@@ -723,7 +787,7 @@ const Global = ({children}) => {
             error_message : !value ? true : false,
         }
         const error_provider_message = {
-            epm_fullname : tempFieldSelected.fieldSettings.error_provider_message.epm_message,
+            epm_fullname : tempFieldSelected.fieldSettings.error_provider_message.epm_fullname,
             epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
             epm_subject : tempFieldSelected.fieldSettings.error_provider_message.epm_subject,
             epm_message : !value ? 'Kindly provide your message' : '',
@@ -745,7 +809,8 @@ const Global = ({children}) => {
         setSnacbarSettings(prevState => ({
             ...prevState,
             ...prevState.settings.open.signup = false,
-            ...prevState.settings.open.homepage = false
+            ...prevState.settings.open.homepage = false,
+            ...prevState.settings.open.contactUs = false
         }))
     }
     const create_uuid = () =>{
@@ -1495,7 +1560,8 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, HandleChangeBOSecAnswer,
             HandleSelectQuestion, verification, setVerification, HandleVerification, HandleResentEmail,
             projectDetails, setProjectDetails, timer, resetTimer, destinationArray, handleOnDragEnd,
-            deleteField, features, featureData
+            deleteField, features, featureData, handleContactUsSubmit, handleChangeFullname, handleChangeContactUsEmail,
+            handleChangeSubject, handleChangeMessage
         }}
         >{children}</GlobalContext.Provider>
     )
