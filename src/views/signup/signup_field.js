@@ -1,5 +1,5 @@
 import React, {useState, cloneElement, useEffect} from 'react'
-import {SystemContainer, ApplicationCard, SystemStepper, SystemTypography, SystemGrid, AppButton, AppTextField, NextPrevious, SystemSelect, SystemSlider, SystemUserGuide} from '../../components'
+import {SystemContainer, ApplicationCard, SystemStepper, SystemTypography, SystemGrid, AppButton, AppTextField, NextPrevious, SystemSelect, SystemSlider, SystemUserGuide, ProjectTable} from '../../components'
 import { customerStepper } from '../../core/utils/helper'
 import { CardContent, CardMedia, Box , Grid, Card, Paper} from '@mui/material'
 import { styled } from '@mui/material/styles'
@@ -18,15 +18,68 @@ import { projectbreakdown } from '../../core/utils/dumpfeatures'
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { TbBoxMultiple } from 'react-icons/tb'
+import SystemDialog from '../../components/Dialog/Dialog'
+
+import FeatureSpiels from '../../core/Spiels/FeatureSpiels'
 
 const SignupField = (props) => {
     const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
         HandleChangeAddress, HandleChangeContactNumber, handleNext, HandleProjectName, HandleSelectProjectCategory,
         HandleSelectProjectType, HandleSliderChange, handlePrevious, HandleChangeBOEmailSignup, HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, 
         HandleChangeBOSecAnswer, HandleSelectQuestion, HandleVerification, HandleResentEmail, projectDetails, setProjectDetails, timer,
-        destinationArray, handleOnDragEnd, features} = props
+        destinationArray, handleOnDragEnd, features, featureData, deleteField} = props
     const { fieldSettings, priceSettings } = allFieldSelected[0]
 
+    const [dialogOpen, setDialogOpen] = useState(false)
+    const columns = [
+        {
+            field : FeatureSpiels.propertyNames.id,
+            headerName : FeatureSpiels.fieldLabels.id,
+            flex: 3.5,
+            width: 250 
+        },
+        {
+            field : FeatureSpiels.propertyNames.featureName,
+            headerName : FeatureSpiels.fieldLabels.featureName,
+            flex: 3.5,
+            width: 250 
+        },
+        {
+            field : FeatureSpiels.propertyNames.featureType,
+            headerName : FeatureSpiels.fieldLabels.featureType,
+            flex: 1.5,
+            sortable: false,
+            headerClassName: ''
+        },
+        {
+            headerName: FeatureSpiels.fieldLabels.actions,
+            sortable: false,
+            flex: 1,
+            renderCell: (params) => (
+                <>
+                    <AppButton 
+                        buttonName={'REMOVE'}
+                        style={{
+                            width: '100%'
+                        }}
+                        variant={'contained'}
+                        color={'error'}
+                        size={'small'}
+                        handleClick={() => handleRemoveFeatures(params)}
+                    />
+                </>
+            )
+        }
+    ]
+
+    const handleRemoveFeatures = (params) => {
+        if(destinationArray.length > 1) {
+            deleteField(params)
+        } else {
+            deleteField(params)
+            setDialogOpen(false)
+        }
+    }
 
     const selectedCustomer = () => {
             setSignupCategory('survey')
@@ -465,16 +518,54 @@ const SignupField = (props) => {
                                                         ref={provided.innerRef}
                                                         >
                                                             <CardContent>
+                                                                <div style={{display : 'flex'}}>
                                                                 <SystemTypography 
-                                                                isgutter={true}
-                                                                text={'Your Project Features Here'}
-                                                                style={{textAlign: 'center', fontFamily: 'Georgia'}}
-                                                                />
+                                                                    isgutter={true}
+                                                                    text={'Your Project Features Here'}
+                                                                    style={{ fontFamily: 'Georgia', marginRight : '50px'}}
+                                                                    />
+                                                                    {
+                                                                        destinationArray.length > 0 && <AppButton 
+                                                                        buttonName={'REMOVE FEATURES'}
+                                                                        variant={'contained'}
+                                                                        color={'error'}
+                                                                        size={'small'}
+                                                                        handleClick={() => setDialogOpen(!dialogOpen)}
+                                                                    /> 
+                                                                    }
+                                                                    <SystemDialog 
+                                                                        open={dialogOpen}
+                                                                        title={'List of features dropped'}
+                                                                        fullWidth={true}
+                                                                        maxWidth={'lg'}
+                                                                        handleClose={() => setDialogOpen(false)}
+                                                                        children={
+                                                                            <>
+                                                                                <SystemContainer max={'xl'} style={{marginTop: '20px'}}>
+                                                                                    <ApplicationCard 
+                                                                                    children={
+                                                                                        <CardContent>
+                                                                                            <SystemTypography 
+                                                                                                isgutter={true}
+                                                                                                text={'Project features list'}
+                                                                                                style={{ fontFamily: 'Georgia', marginRight : '50px'}}
+                                                                                            />
+                                                                                            <ProjectTable 
+                                                                                            dataColumns={columns}
+                                                                                            dataRow={featureData}
+                                                                                            />
+                                                                                        </CardContent>
+                                                                                    }
+                                                                                    />
+                                                                                </SystemContainer>
+                                                                            </>
+                                                                        }
+                                                                    />
+                                                                </div>
                                                                 <hr />
                                                                 <Grid direction="rows" container spacing={2}>
                                                                             { 
                                                                         destinationArray.length > 0 && destinationArray.map((item, index) => {
-                                                                            let indexProps = {key: index}
                                                                             return (
                                                                                 <Grid item xs={12} sm={4}>
                                                                                 <Card
@@ -484,7 +575,9 @@ const SignupField = (props) => {
                                                                                             }}
                                                                                             >
                                                                                                 <CardContent>
-                                                                                                    {cloneElement(item.field, {indexProps})}
+                                                                                                    {
+                                                                                                        cloneElement(item.field)
+                                                                                                    }
                                                                                                 </CardContent>
                                                                                         </Card>
                                                                             </Grid>
@@ -513,10 +606,9 @@ const SignupField = (props) => {
                                                                     <Grid direction="rows" container spacing={2}>
                                                                             {
                                                                                 features.map((item, index) => {
-                                                                                    let indexProps = {key : index}
                                                                                     return(
                                                                                         <Grid item xs={12} sm={4}>
-                                                                                        <Draggable key={index} draggableId={item.field_id.toString()} index={index}>
+                                                                                        <Draggable key={index} draggableId={index.toString()} index={index}>
                                                                                             {
                                                                                                 (provided, snapshot) => (
                                                                                                     <div
@@ -531,8 +623,9 @@ const SignupField = (props) => {
                                                                                                             }}
                                                                                                             >
                                                                                                                 <CardContent>
-                                                                                                                    
-                                                                                                                    {cloneElement(item.field, {indexProps})}
+                                                                                                                    {
+                                                                                                                        cloneElement(item.field)
+                                                                                                                    }
                                                                                                                 </CardContent>
                                                                                                         </Card>
                                                                                                     </div>
