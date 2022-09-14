@@ -13,7 +13,7 @@ const ShopField = () => {
       {/* SHOP HEADER START*/}
         <Box className='flex flex-col bg-secondary items-center gap-6 lg:gap-2 lg:flex-row'>
             <Box className='flex flex-col w-full lg:w-1/4 text-center gap-0.5 lg:gap-4'>
-            <h1 className='text-2xl font-logo font-semibold md:text-4xl'>Welcome to Modern Resolve Shop</h1>
+            <h1 className='text-2xl font-logo font-semibold md:text-4xl'>Welcome to Modern Resolve Shops</h1>
             <h1 className='text-md font-body italic'>Feel free to view our products</h1>
             </Box>
             <Box className='w-full lg:w-3/4'>
