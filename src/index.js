@@ -6,18 +6,22 @@ import { ProjectDetailsContext } from './core/context/ProjectDetailsContext';
 import { AdministratorContext } from './core/context/AdminContext';
 import { HashRouter } from 'react-router-dom'
 import ApplicationRouter from './routes/index'
+import { Student } from './core/context/StudentContext';
 
 const root = document.getElementById('root')
 
 ReactDOM.render(
   <HashRouter>
-    <Global>
-      <ProjectDetailsContext>
-           <AdministratorContext>
-              <ApplicationRouter />
-           </AdministratorContext>
-      </ProjectDetailsContext>
-    </Global>
+      <Global>
+        <Student>
+            <ProjectDetailsContext>
+                <AdministratorContext>
+                    <ApplicationRouter />
+                </AdministratorContext>
+            </ProjectDetailsContext>
+        </Student>
+      </Global>
+   
   </HashRouter>,
   root
 )

@@ -435,7 +435,15 @@ export const customerStepper = [
     'Verification',
     'Finish'
 ]
-
+export const studentStepper = [
+    'Personal Information',
+    'Project Details',
+    'Project Features',
+    'Credentials',
+    'Verification',
+    'Consultation',
+    'Finish'
+]
 // hero banner button //
 export const herobannerButton = [
     {

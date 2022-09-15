@@ -22,6 +22,8 @@ import SystemDialog from '../../components/Dialog/Dialog'
 
 import FeatureSpiels from '../../core/Spiels/FeatureSpiels'
 
+import Studentfield from './Student/Student'
+
 const SignupField = (props) => {
     const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
         HandleChangeAddress, HandleChangeContactNumber, handleNext, HandleProjectName, HandleSelectProjectCategory,
@@ -88,6 +90,13 @@ const SignupField = (props) => {
         setOpen(true)
         setTimeout(() => {
             setSignupCategory('business_owner')
+            setOpen(false)
+        }, 2000)
+    }
+    const selectedIAmStudent  = () => {
+        setOpen(true)
+        setTimeout(() => {
+            setSignupCategory('selected_student')
             setOpen(false)
         }, 2000)
     }
@@ -213,6 +222,7 @@ const SignupField = (props) => {
                         }}
                         variant={'contained'}
                         size={'small'}
+                        handleClick={() => selectedIAmStudent()}
                         />
                     </CardContent>
                 }
@@ -974,6 +984,10 @@ const SignupField = (props) => {
                                         : <></>
                                     }
                                 </>
+                            : signupCategory == 'selected_student' ?
+                            <>
+                            <Studentfield />
+                            </> 
                             : <></>
                         }
                     </CardContent>
