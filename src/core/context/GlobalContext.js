@@ -1,4 +1,4 @@
-import React, {createContext, cloneElement, useState, useCallback, useEffect} from 'react'
+import React, {createContext, useState, useCallback, useEffect, useRef} from 'react'
 import Spiels from '../Spiels/Spiels'
 import { projectbreakdown } from '../utils/dumpfeatures'
 import { validName, validContactNumber, validEmailAddress } from '../utils/helper'
@@ -9,12 +9,18 @@ import { appRouter } from '../../routes/router'
 import routerSpiels from '../Spiels/routerSpiels'
 import { localstoragehelper } from '../utils/storage'
 
-const GlobalContext = createContext()
+//initialize dispatch
 
+
+import { useSelector, useDispatch } from 'react-redux'
+import { ScannedToken, SelectionTest } from '../redux/slice/tokenSlice'
+
+const GlobalContext = createContext()
 const Global = ({children}) => {
     const [settings, setSettings] = useState(routerSpiels.router)
     const [userData, setUserData] = useState([]);
-
+    const dispatch = useDispatch()
+    const token_message = useSelector(SelectionTest)
     // Timer for resend button
     const [timer, setTimer] = useState(15);    
     const [startTimer, setStartTimer] = useState(false);
@@ -27,6 +33,7 @@ const Global = ({children}) => {
             console.log(userData)
         }
     }, [startTimer, timer, timeOutCallback, userData]);
+
 
     const resetTimer = () => {
         setStartTimer(true);
@@ -557,9 +564,9 @@ const Global = ({children}) => {
                 }))
             } else {
                 setOpen(true)
-                FormService.CLIENT_CONFIG_checkLogin(
-                tempField.userLoginObj).then(reps => {
-                    if(reps.data.message == 'success_login'){
+                FormService.CLIENT_CONFIG_checkLogin(tempField.userLoginObj)
+                .then(reps => {
+                         if(reps.data.message == 'success_login'){
                         const { data } = reps;
                         const fetchedTokenId = data.response_data[5];
                         const finalData = data.response_data.map((item) => {
@@ -603,8 +610,6 @@ const Global = ({children}) => {
                         }))
                     }
                 })
-                
-                
             }
     }
 
@@ -1556,16 +1561,21 @@ setActiveSteps((activeSteps) => activeSteps + 1)
         if(__key__ == 'unknown'){}
         else{
             FormService.USER_checkLogin(__key__)
-            .then(snapshot => {
-                const { data } = snapshot
-                if(__key__ == 'unknown'){
-                    history.push(tempFieldSelected.router_obj.home)
-                } else if(data.message[5] === 'business_platform'){
-                    alert('redirect to bo-dashboard')
-                } else{
-                    history.push(tempFieldSelected.router_obj.home)
-                }
+            .then(res => {
+                const { data } = res
+                dispatch(ScannedToken(data))
+
             })
+            // setTimeout(() => {
+            //     const res = baseRef.tokenRef.current.token_message
+            //     if(__key__ == 'unknown'){
+            //         history.push(tempFieldSelected.router_obj.home)
+            //     } else if(res.message[5] === 'business_platform'){
+            //         alert('redirect to bo-dashboard')
+            //     } else {
+            //         history.push(tempFieldSelected.router_obj.home)
+            //     }
+            // }, 1000)
         }
     }
     return (
