@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { GlobalContext } from "../../core/context/GlobalContext";
 import LoginField from "./login_field";
 import { ReplicateOnInit } from "../../core/context/CloneElement";
 import { CustomizedSnackbars, SystemBackdrop } from "../../components";
 
-const Login = () => {
+const Login = (props) => {
   const {
     HandleChangeEmailLogin,
     HandleChangePasswordLogin,
@@ -18,23 +18,22 @@ const Login = () => {
     snackbarSettings,
     open
   } = useContext(GlobalContext);
+  useEffect(() => {
+    setSelectedIndex(1)
+  }, [HandleChangeEmailLogin, HandleChangePasswordLogin])
   return (
     <>
-    <ReplicateOnInit
-      children={
         <LoginField
           HandleChangeEmailLogin={HandleChangeEmailLogin}
           HandleChangePasswordLogin={HandleChangePasswordLogin}
           HandleSelectLoginAs={HandleSelectLoginAs}
-          setSelectedIndex={setSelectedIndex(1)}
+          
           allFieldSelected={allFieldSelected}
           setAllFieldSelected={setAllFieldSelected}
           selectedIndex={selectedIndex}
           handleSignIn={handleSignIn}
           snackbarSettings={snackbarSettings}
         />
-      }
-    />
     <SystemBackdrop
       open={open}
     />

@@ -8,7 +8,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
  const CustomizedSnackbars = (
     {
-        open, message, handleClose, severity, autoHideDuration, style
+        open, message, handleClose, severity, autoHideDuration, style, frontPage
     }
  ) => {
     return (
@@ -17,7 +17,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
         open={open} 
         autoHideDuration={autoHideDuration}
         onClose={handleClose}
-        anchorOrigin={{
+        anchorOrigin={{ 
             vertical : 'top',
             horizontal : 'center'
         }}

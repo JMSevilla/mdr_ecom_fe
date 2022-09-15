@@ -99,9 +99,15 @@ class FormService {
         return client_login_entry
     }
     USER_checkLogin(id){
-        return ApiConfig.connect().get(
-            `get-token?userid=${id}`
+        var data = new FormData()
+        data.append('userid', id)
+        return ApiConfig.connect().post('get-token', data)
+    }
+    SEND_EMAIL_contactUs(obj){
+        const emailForm_entry = ApiConfig.connect().post(
+            'send-message/contactus', Process.CLIENT_email_sending(obj)
         )
+        return emailForm_entry
     }
 
 }
