@@ -1,12 +1,16 @@
-import React, {useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import { Box } from "@mui/material";
 import { ApplicationBar, AppFooter} from "../../../components";
 import { privacyPolicyData } from "../../../core/utils/helper";
 
 const Privacypolicy_field = () => {
+  const [footerPosition, setFooterPosition] = useState(true)
   useEffect(() => {
+    window.addEventListener('resize', () => {
+      return window.innerWidth < 1280 ? setFooterPosition(false) : setFooterPosition(true);
+    }, [footerPosition])
     window.scrollTo(0, 0);
-  }, []);
+  }, [footerPosition]);
   return (
     <>
     <ApplicationBar title="Ecommerce" simplified/>
@@ -27,7 +31,7 @@ const Privacypolicy_field = () => {
         })}
           
       </Box>
-      <AppFooter fixed/>
+      <AppFooter fixed={footerPosition}/>
       </>)
 
 };

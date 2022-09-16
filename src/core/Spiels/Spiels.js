@@ -136,13 +136,13 @@ class Spiels {
                 errorProvider : {
                     error_fullname : false,
                     error_email : false,
-                    error_subbject : false,
+                    error_subject : false,
                     error_message : false,
                 },
                 error_provider_message : {
                     epm_fullname : '',
                     epm_email : '',
-                    epm_subbject : '',
+                    epm_subject : '',
                     epm_message : '',
                 }
             }

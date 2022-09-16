@@ -5,7 +5,9 @@ import contactOutlineText from '../../../assets/images/outline-text/contact.svg'
 import { contactUsData } from '../../../core/utils/helper';
 import { Fade } from 'react-reveal'
 
-const ContactUs_Field = () => {
+const ContactUs_Field = (props) => {
+  const {allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, handleContactUsSubmit, handleChangeFullname, handleChangeContactUsEmail, handleChangeSubject, handleChangeMessage} = props;
+  const { fieldSettings } = allFieldSelected[3]
   return (
     <Box id="contactus" className='bg-none section h-[50%] md:h-[90%] sm:bg-contactUsBackground sm:bg-cover sm:bg-no-repeat'>
     <Box className="container mx-auto">
@@ -50,7 +52,11 @@ const ContactUs_Field = () => {
               className="input"
               name="fullname"
               type="text"
+              value={fieldSettings.contactUsFormObj.fullname}
               placeholder="Your Full Name"
+              handleChange={(e) => handleChangeFullname(e)}
+              texthelper={fieldSettings.error_provider_message.epm_fullname}
+              iserror={fieldSettings.errorProvider.error_fullname}
             />
           </Box>
           <Box className="w-full">
@@ -58,25 +64,37 @@ const ContactUs_Field = () => {
               className="input"
               name="email"
               type="email"
+               value={fieldSettings.contactUsFormObj.email}
               placeholder="Your Email"
+              handleChange={(e) => handleChangeContactUsEmail(e)}
+              texthelper={fieldSettings.error_provider_message.epm_email}
+              iserror={fieldSettings.errorProvider.error_email}
             />
           </Box>
         </Box>
         <AppTextField
           type="text"
+           value={fieldSettings.contactUsFormObj.subject}
           name="subject"
           className="input"
           placeholder="Subject"
+          handleChange={(e) => handleChangeSubject(e)}
+          texthelper={fieldSettings.error_provider_message.epm_subject}
+          iserror={fieldSettings.errorProvider.error_subject}
         />
         <AppTextField
           className="textarea"
           name="message"
+           value={fieldSettings.contactUsFormObj.message}
           placeholder="Your message"
+          handleChange={(e) => handleChangeMessage(e)}
           ismultiLine={true}
           rows={6}
+          texthelper={fieldSettings.error_provider_message.epm_message}
+          iserror={fieldSettings.errorProvider.error_message}
         />
         <Box className='w-[160px]'>
-        <AppButton variant='contained' buttonName={'Send Message'} 
+        <AppButton variant='contained' handleClick={handleContactUsSubmit} buttonName={'Send Message'} 
          buttonColor='button-black' 
          style={{fontWeight: 600, marginBottom:'10px', padding: '12px 20px'}}/>
          </Box>

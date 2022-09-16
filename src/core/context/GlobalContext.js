@@ -1,4 +1,4 @@
-import React, {createContext, cloneElement, useState, useCallback, useEffect} from 'react'
+import React, {createContext, useState, useCallback, useEffect, useRef} from 'react'
 import Spiels from '../Spiels/Spiels'
 import { projectbreakdown } from '../utils/dumpfeatures'
 import { validName, validContactNumber, validEmailAddress } from '../utils/helper'
@@ -6,13 +6,25 @@ import FormService from '../service/apiservice'
 import { MdOutlineAutoFixNormal } from 'react-icons/md'
 import { useHistory } from 'react-router-dom'
 import { appRouter } from '../../routes/router'
+import routerSpiels from '../Spiels/routerSpiels'
+import { localstoragehelper } from '../utils/storage'
+
+//initialize dispatch
+
+
+import { useSelector, useDispatch } from 'react-redux'
+import { ScannedToken, loginProcess } from '../redux/slice'
 
 const GlobalContext = createContext()
-
+const getSelectors = (state) => ({token_message : state.token, logon_message: state.login})
 const Global = ({children}) => {
-
+    const [settings, setSettings] = useState(routerSpiels.router)
     const [userData, setUserData] = useState([]);
-
+    const dispatch = useDispatch()
+    const {token_message, logon_message} = useSelector(getSelectors)
+    const baseRef = {
+        tokenRef : useRef(token_message), loginRef : useRef(logon_message)
+    }
     // Timer for resend button
     const [timer, setTimer] = useState(15);    
     const [startTimer, setStartTimer] = useState(false);
@@ -25,6 +37,11 @@ const Global = ({children}) => {
             console.log(userData)
         }
     }, [startTimer, timer, timeOutCallback, userData]);
+
+    useEffect(() => {
+        baseRef.tokenRef.current = token_message
+        baseRef.loginRef.current = logon_message
+    }, [token_message, logon_message])
 
     const resetTimer = () => {
         setStartTimer(true);
@@ -56,6 +73,7 @@ const Global = ({children}) => {
             open : {
                 homepage : false,
                 signup : false,
+                contactUs: false,
             },
             message : '',
             severity : 'success',
@@ -437,8 +455,8 @@ const Global = ({children}) => {
         tempAllFieldSelected[selectedIndex] = tempFieldSelected
         setAllFieldSelected(tempAllFieldSelected)
     }
+    
     const HandleChangeEmailLogin = (event) => {
-        
         let value = event.currentTarget.value
         const tempAllFieldSelected = [...allFieldSelected]
         const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
@@ -459,13 +477,14 @@ const Global = ({children}) => {
         }
         const fieldSettings = {
             userLoginObj : userLoginObj,
-            errorProvider : errorProvider,
+            errorProvider: errorProvider,
             error_provider_message: error_provider_message
         }
         tempFieldSelected.fieldSettings = fieldSettings
         tempAllFieldSelected[selectedIndex] = tempFieldSelected
         setAllFieldSelected(tempAllFieldSelected)
-    }
+    } 
+
     const HandleChangePasswordLogin = (event) => {
         let value = event.currentTarget.value
         const tempAllFieldSelected = [...allFieldSelected]
@@ -552,12 +571,12 @@ const Global = ({children}) => {
                 }))
             } else {
                 setOpen(true)
-                FormService.CLIENT_CONFIG_checkLogin(
-                tempField.userLoginObj).then(reps => {
-                    if(reps.data.message == 'success_login'){
-                        const { data } = reps;
-                        const fetchedTokenId = data.response_data[5];
-                        const finalData = data.response_data.map((item) => {
+                dispatch(loginProcess(tempField.userLoginObj))
+                setTimeout(() => {
+                    const reps = baseRef.loginRef.current.logon_message
+                    if(reps.message == 'success_login'){
+                        const fetchedTokenId = reps.response_data[5];
+                        const finalData = reps.response_data.map((item) => {
                             return {
                                 data: item
                             }
@@ -570,14 +589,14 @@ const Global = ({children}) => {
                             ...prevState.settings.autoHideDuration = 5000
                         }))
 
-                        setUserData(finalData) 
-                        localStorage.setItem('tokenId', fetchedTokenId);
+                        setUserData(finalData)
+                        localstoragehelper.store('key_identifier', fetchedTokenId)
                         setTimeout(() => {
                             setOpen(false);
                             navigateBusinessPlatform();
                         }, 2000)
 
-                    } else if (reps.data.message == 'invalid'){
+                    } else if (reps.message == 'invalid'){
                         setOpen(false);
                         setSnacbarSettings(prevState => ({
                             ...prevState,
@@ -597,11 +616,206 @@ const Global = ({children}) => {
                             ...prevState.settings.autoHideDuration = 5000
                         }))
                     }
+                }, 1000)
+            }
+    }
+
+    // CONTACT US FORM //
+    const handleContactUsSubmit = () => {
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const tempField = {...tempFieldSelected.fieldSettings}
+        if(tempField.contactUsFormObj.fullname == ''
+             || tempField.contactUsFormObj.email == '' ||
+             tempField.contactUsFormObj.subject == ''
+             || tempField.contactUsFormObj.message == ''){
+                setSnacbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open.contactUs = true,
+                    ...prevState.settings.message = "There's an empty field, please try again",
+                    ...prevState.settings.severity = "error",
+                    ...prevState.settings.autoHideDuration = 5000
+                }))
+                return;
+            } else if (!validName.test(tempField.contactUsFormObj.fullname)){
+                setSnacbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open.contactUs = true,
+                    ...prevState.settings.message = "Name must not contain any special characters",
+                    ...prevState.settings.severity = "error",
+                    ...prevState.settings.autoHideDuration = 5000
+                }))
+                return;
+            } else if (!validEmailAddress.test(tempField.contactUsFormObj.email)){
+                setSnacbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open.contactUs = true,
+                    ...prevState.settings.message = "Please provide a valid email address",
+                    ...prevState.settings.severity = "error",
+                    ...prevState.settings.autoHideDuration = 5000
+                }))
+                return;
+            } else {
+                setOpen(true)
+                FormService.SEND_EMAIL_contactUs(tempField.contactUsFormObj)
+                .then(reps => {
+                    const { data } = reps
+                    if(data.message == "success_sent_message"){
+                        setTimeout(() => {
+                            setSnacbarSettings(prevState => ({
+                                ...prevState,
+                                ...prevState.settings.open.contactUs = true,
+                                ...prevState.settings.message = "Email sent successfully",
+                                ...prevState.settings.severity = "success",
+                                ...prevState.settings.autoHideDuration = 5000
+                            }))
+                            setOpen(false)
+                        }, 2000)
+                    } else {
+                        setTimeout(() => {
+                            setSnacbarSettings(prevState => ({
+                                ...prevState,
+                                ...prevState.settings.open.contactUs = true,
+                                ...prevState.settings.message = "Error sending email. pls try again later",
+                                ...prevState.settings.severity = "error",
+                                ...prevState.settings.autoHideDuration = 5000
+                            }))
+                            setOpen(false)
+                        }, 2000)
+                    }
                 })
-                
                 
             }
     }
+
+    const handleChangeFullname = (event) => {
+        let value = event.currentTarget.value
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const contactUsFormObj = {
+            fullname : value,
+            email : tempFieldSelected.fieldSettings.contactUsFormObj.email,
+            subject : tempFieldSelected.fieldSettings.contactUsFormObj.subject,
+            message : tempFieldSelected.fieldSettings.contactUsFormObj.message,
+        }
+        const errorProvider = { 
+            error_fullname : !value ? true : !validName.test(value) ? true : false,
+            error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
+            error_subject : tempFieldSelected.fieldSettings.errorProvider.error_subject,
+            error_message : tempFieldSelected.fieldSettings.errorProvider.error_message,
+        }
+        const error_provider_message = {
+            epm_fullname : !value ? 'Kindly provide your fullname' : !validName.test(value) ? 'Name must not contain any special characters' : '',
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_subject : tempFieldSelected.fieldSettings.error_provider_message.epm_subject,
+            epm_message : tempFieldSelected.fieldSettings.error_provider_message.epm_message,
+        }
+        const fieldSettings = {
+            contactUsFormObj : contactUsFormObj,
+            errorProvider: errorProvider,
+            error_provider_message: error_provider_message
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+    } 
+
+    const handleChangeContactUsEmail = (event) => {
+        let value = event.currentTarget.value
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const contactUsFormObj = {
+            fullname : tempFieldSelected.fieldSettings.contactUsFormObj.fullname,
+            email : value,
+            subject : tempFieldSelected.fieldSettings.contactUsFormObj.subject,
+            message : tempFieldSelected.fieldSettings.contactUsFormObj.message,
+        }
+        const errorProvider = { 
+            error_fullname : tempFieldSelected.fieldSettings.errorProvider.error_fullname,
+            error_email : !value ? true : !validEmailAddress.test(value) ? true : false,
+            error_subject : tempFieldSelected.fieldSettings.errorProvider.error_subject,
+            error_message : tempFieldSelected.fieldSettings.errorProvider.error_message,
+        }
+        const error_provider_message = {
+            epm_fullname : tempFieldSelected.fieldSettings.error_provider_message.epm_fullname,
+            epm_email : !value ? '*Kindly provide your email address' : !validEmailAddress.test(value) ? 'This is not a valid email address' : '',
+            epm_subject : tempFieldSelected.fieldSettings.error_provider_message.epm_subject,
+            epm_message : tempFieldSelected.fieldSettings.error_provider_message.epm_message,
+        }
+        const fieldSettings = {
+            contactUsFormObj : contactUsFormObj,
+            errorProvider: errorProvider,
+            error_provider_message: error_provider_message
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+    }
+
+    const handleChangeSubject = (event) => {
+        let value = event.currentTarget.value
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const contactUsFormObj = {
+            fullname : tempFieldSelected.fieldSettings.contactUsFormObj.fullname,
+            email : tempFieldSelected.fieldSettings.contactUsFormObj.email,
+            subject : value,
+            message : tempFieldSelected.fieldSettings.contactUsFormObj.message,
+        }
+        const errorProvider = { 
+            error_fullname : tempFieldSelected.fieldSettings.errorProvider.error_fullname,
+            error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
+            error_subject : !value ? true : false,
+            error_message : tempFieldSelected.fieldSettings.errorProvider.error_message,
+        }
+        const error_provider_message = {
+            epm_fullname : tempFieldSelected.fieldSettings.error_provider_message.epm_fullname,
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_subject : !value ? 'Please provide your subject' : '',
+            epm_message : tempFieldSelected.fieldSettings.error_provider_message.epm_message,
+        }
+        const fieldSettings = {
+            contactUsFormObj : contactUsFormObj,
+            errorProvider: errorProvider,
+            error_provider_message: error_provider_message
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+    }
+
+    const handleChangeMessage = (event) => {
+        let value = event.currentTarget.value
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const contactUsFormObj = {
+            fullname : tempFieldSelected.fieldSettings.contactUsFormObj.fullname,
+            email : tempFieldSelected.fieldSettings.contactUsFormObj.email,
+            subject : tempFieldSelected.fieldSettings.contactUsFormObj.subject,
+            message : value,
+        }
+        const errorProvider = { 
+            error_fullname : tempFieldSelected.fieldSettings.errorProvider.error_fullname,
+            error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
+            error_subject : tempFieldSelected.fieldSettings.errorProvider.error_subject,
+            error_message : !value ? true : false,
+        }
+        const error_provider_message = {
+            epm_fullname : tempFieldSelected.fieldSettings.error_provider_message.epm_fullname,
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_subject : tempFieldSelected.fieldSettings.error_provider_message.epm_subject,
+            epm_message : !value ? 'Kindly provide your message' : '',
+        }
+        const fieldSettings = {
+            contactUsFormObj : contactUsFormObj,
+            errorProvider: errorProvider,
+            error_provider_message: error_provider_message
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+    }
+
     const handleClose = (event, reason) => {
         if(reason === 'clickAway') {
             return;
@@ -609,7 +823,8 @@ const Global = ({children}) => {
         setSnacbarSettings(prevState => ({
             ...prevState,
             ...prevState.settings.open.signup = false,
-            ...prevState.settings.open.homepage = false
+            ...prevState.settings.open.homepage = false,
+            ...prevState.settings.open.contactUs = false
         }))
     }
     const create_uuid = () =>{
@@ -1346,6 +1561,25 @@ setActiveSteps((activeSteps) => activeSteps + 1)
         setFeatures(features => [...features, ...deleted])
         loadFormFeature()
     }
+    const tokenScanned = (index) => {
+        const tempAllFieldSelected = [...settings]
+        const tempFieldSelected = {...tempAllFieldSelected[index]}
+        const __key__ = localstoragehelper.load('key_identifier')
+        if(__key__ == 'unknown'){}
+        else{
+            dispatch(ScannedToken(__key__))
+            setTimeout(() => {
+                const res = baseRef.tokenRef.current.token_message
+                if(__key__ == 'unknown'){
+                    history.push(tempFieldSelected.router_obj.home)
+                } else if(res.message[5] === 'business_platform'){
+                    alert('redirect to bo-dashboard')
+                } else {
+                    history.push(tempFieldSelected.router_obj.home)
+                }
+            }, 1000)
+        }
+    }
     return (
         <GlobalContext.Provider
         value={{
@@ -1359,7 +1593,8 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, HandleChangeBOSecAnswer,
             HandleSelectQuestion, verification, setVerification, HandleVerification, HandleResentEmail,
             projectDetails, setProjectDetails, timer, resetTimer, destinationArray, handleOnDragEnd,
-            deleteField, features, featureData
+            deleteField, features, featureData, handleContactUsSubmit, handleChangeFullname, handleChangeContactUsEmail,
+            handleChangeSubject, handleChangeMessage, tokenScanned
         }}
         >{children}</GlobalContext.Provider>
     )
