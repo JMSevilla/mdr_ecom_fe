@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import store from './core/redux/store';
+import configureStore from './core/redux/store';
 import './index.css';
 import { Global } from './core/context/GlobalContext'
 import { ProjectDetailsContext } from './core/context/ProjectDetailsContext';
@@ -11,7 +11,7 @@ import ApplicationRouter from './routes/index'
 
 
 
-
+const store = configureStore()
 
 const root = document.getElementById('root')
 

@@ -13,14 +13,18 @@ import { localstoragehelper } from '../utils/storage'
 
 
 import { useSelector, useDispatch } from 'react-redux'
-import { ScannedToken, SelectionTest } from '../redux/slice/tokenSlice'
+import { ScannedToken, loginProcess } from '../redux/slice'
 
 const GlobalContext = createContext()
+const getSelectors = (state) => ({token_message : state.token, logon_message: state.login})
 const Global = ({children}) => {
     const [settings, setSettings] = useState(routerSpiels.router)
     const [userData, setUserData] = useState([]);
     const dispatch = useDispatch()
-    const token_message = useSelector(SelectionTest)
+    const {token_message, logon_message} = useSelector(getSelectors)
+    const baseRef = {
+        tokenRef : useRef(token_message), loginRef : useRef(logon_message)
+    }
     // Timer for resend button
     const [timer, setTimer] = useState(15);    
     const [startTimer, setStartTimer] = useState(false);
@@ -34,6 +38,10 @@ const Global = ({children}) => {
         }
     }, [startTimer, timer, timeOutCallback, userData]);
 
+    useEffect(() => {
+        baseRef.tokenRef.current = token_message
+        baseRef.loginRef.current = logon_message
+    }, [token_message, logon_message])
 
     const resetTimer = () => {
         setStartTimer(true);
@@ -564,12 +572,12 @@ const Global = ({children}) => {
                 }))
             } else {
                 setOpen(true)
-                FormService.CLIENT_CONFIG_checkLogin(tempField.userLoginObj)
-                .then(reps => {
-                         if(reps.data.message == 'success_login'){
-                        const { data } = reps;
-                        const fetchedTokenId = data.response_data[5];
-                        const finalData = data.response_data.map((item) => {
+                dispatch(loginProcess(tempField.userLoginObj))
+                setTimeout(() => {
+                    const reps = baseRef.loginRef.current.logon_message
+                    if(reps.message == 'success_login'){
+                        const fetchedTokenId = reps.response_data[5];
+                        const finalData = reps.response_data.map((item) => {
                             return {
                                 data: item
                             }
@@ -589,7 +597,7 @@ const Global = ({children}) => {
                             navigateBusinessPlatform();
                         }, 2000)
 
-                    } else if (reps.data.message == 'invalid'){
+                    } else if (reps.message == 'invalid'){
                         setOpen(false);
                         setSnacbarSettings(prevState => ({
                             ...prevState,
@@ -609,7 +617,7 @@ const Global = ({children}) => {
                             ...prevState.settings.autoHideDuration = 5000
                         }))
                     }
-                })
+                }, 1000)
             }
     }
 
@@ -1560,22 +1568,17 @@ setActiveSteps((activeSteps) => activeSteps + 1)
         const __key__ = localstoragehelper.load('key_identifier')
         if(__key__ == 'unknown'){}
         else{
-            FormService.USER_checkLogin(__key__)
-            .then(res => {
-                const { data } = res
-                dispatch(ScannedToken(data))
-
-            })
-            // setTimeout(() => {
-            //     const res = baseRef.tokenRef.current.token_message
-            //     if(__key__ == 'unknown'){
-            //         history.push(tempFieldSelected.router_obj.home)
-            //     } else if(res.message[5] === 'business_platform'){
-            //         alert('redirect to bo-dashboard')
-            //     } else {
-            //         history.push(tempFieldSelected.router_obj.home)
-            //     }
-            // }, 1000)
+            dispatch(ScannedToken(__key__))
+            setTimeout(() => {
+                const res = baseRef.tokenRef.current.token_message
+                if(__key__ == 'unknown'){
+                    history.push(tempFieldSelected.router_obj.home)
+                } else if(res.message[5] === 'business_platform'){
+                    alert('redirect to bo-dashboard')
+                } else {
+                    history.push(tempFieldSelected.router_obj.home)
+                }
+            }, 1000)
         }
     }
     return (
