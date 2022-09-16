@@ -444,6 +444,13 @@ export const studentStepper = [
     'Consultation',
     'Finish'
 ]
+
+export const studentRequirements = [
+    '✓ Valid ID or Student ID',
+    '✓ School Registration Form',
+    '✓ Birth Certificate / NSO'
+]
+
 // hero banner button //
 export const herobannerButton = [
     {

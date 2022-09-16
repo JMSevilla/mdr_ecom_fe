@@ -5,13 +5,17 @@ import  SystemBackdrop  from '../../../components/Backdrop/Backdrop'
 import { ReplicateOnInit } from '../../../core/context/CloneElement'
 import { StudentContext } from '../../../core/context/StudentContext'
 import Studentfield from './student_field'
-import { PROJECT_CONTEXT } from '../../../core/context/ProjectDetailsContext'
+import { PROJECT_CONTEXT } from '../../../core/context/StudentProjectContext'
 
-const Student = () => {
+const Student = (props) => {
+  const {backToRegistrationSelection} = props;
     const {activeSteps, setActiveSteps, handleNext, HandleChangeFirstname,
             selectedIndex, setSelectedIndex, open, setOpen , allFieldSelected, 
             setAllFieldSelected, HandleChangeLastname, HandleChangeContactNumber, HandleChangeAddress,
-            snackbarSettings, handleClose, projectDetails, setProjectDetails  } = useContext(StudentContext)
+            snackbarSettings, handleClose, projectDetails, setProjectDetails, features, featureData, destinationArray, handleOnDragEnd, deleteField,
+            HandleChangeBOEmailSignup, HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, HandleSelectQuestion, HandleChangeBOSecAnswer, HandleVerification,
+            timer, handlePrevious, HandleResentEmail} = useContext(StudentContext)
+
     const projectcontextvalues = useContext(PROJECT_CONTEXT)
     const {HandleProjectName, HandleSelectProjectCategory, HandleSelectProjectType, HandleSliderChange } = projectcontextvalues
   return (
@@ -24,7 +28,7 @@ const Student = () => {
         allFieldSelected={allFieldSelected}
         setAllFieldSelected={setAllFieldSelected}
         handleNext={handleNext}
-        // setOpen={setOpen}
+        setOpen={setOpen}
         selectedIndex={selectedIndex}
         setSelectedIndex={setSelectedIndex(4)}
         HandleChangeFirstname={HandleChangeFirstname}
@@ -38,9 +42,24 @@ const Student = () => {
         HandleSelectProjectCategory={HandleSelectProjectCategory}
         HandleSelectProjectType={HandleSelectProjectType}
         HandleSliderChange={HandleSliderChange}
+        backToRegistrationSelection={backToRegistrationSelection}
+        features={features}
+        featureData={featureData}
+        destinationArray={destinationArray}
+        handleOnDragEnd={handleOnDragEnd}
+        deleteField={deleteField}
+        HandleChangeBOEmailSignup={HandleChangeBOEmailSignup}
+        HandleChangeBOPasswordSignup={HandleChangeBOPasswordSignup}
+        HandleChangeBOConPassSignup={HandleChangeBOConPassSignup}
+        HandleSelectQuestion={HandleSelectQuestion}
+        HandleChangeBOSecAnswer={HandleChangeBOSecAnswer}
+        HandleVerification={HandleVerification}
+        timer={timer}
+        handlePrevious={handlePrevious}
+        HandleResentEmail={HandleResentEmail}
      />
     } />
-      {/* <SystemBackdrop
+      <SystemBackdrop
       open={open}
       />
       <CustomizedSnackbars
@@ -49,7 +68,7 @@ const Student = () => {
         handleClose={handleClose}
         severity={snackbarSettings.settings.severity}
         autoHideDuration={snackbarSettings.settings.autoHideDuration}
-      /> */}
+      />
     </>
   )
 }

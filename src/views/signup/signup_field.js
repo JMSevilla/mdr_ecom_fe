@@ -1,5 +1,5 @@
 import React, {useState, cloneElement, useEffect} from 'react'
-import {SystemContainer, ApplicationCard, SystemStepper, SystemTypography, SystemGrid, AppButton, AppTextField, NextPrevious, SystemSelect, SystemSlider, SystemUserGuide, ProjectTable} from '../../components'
+import {SystemContainer, ApplicationCard, SystemStepper, SystemTypography, SystemGrid, AppButton, AppTextField, NextPrevious, SystemSelect, SystemSlider, SystemUserGuide, ProjectTable, SystemDialog} from '../../components'
 import { customerStepper } from '../../core/utils/helper'
 import { CardContent, CardMedia, Box , Grid, Card, Paper} from '@mui/material'
 import { styled } from '@mui/material/styles'
@@ -18,7 +18,6 @@ import { projectbreakdown } from '../../core/utils/dumpfeatures'
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { TbBoxMultiple } from 'react-icons/tb'
-import SystemDialog from '../../components/Dialog/Dialog'
 
 import FeatureSpiels from '../../core/Spiels/FeatureSpiels'
 
@@ -73,6 +72,10 @@ const SignupField = (props) => {
             )
         }
     ]
+
+    const backToRegistrationSelection = () => {
+        setSignupCategory('pick');
+    }
 
     const handleRemoveFeatures = (params) => {
         if(destinationArray.length > 1) {
@@ -210,7 +213,7 @@ const SignupField = (props) => {
                             'https://aeccglobal.ng/images/2021/05/18/best-courses-to-study-in-uk.webp'
                         }
                         alt="student"
-                        style={{width : '50%'}}
+                        style={{width : '67%'}}
                     />
                 }
                 children={
@@ -391,7 +394,7 @@ const SignupField = (props) => {
                                             <NextPrevious 
                                             activeSteps={activeSteps}
                                             stepperArray={customerStepper}
-                                            handleBack={() => setActiveSteps((activeSteps) => activeSteps - 1)}
+                                            handleBack={backToRegistrationSelection}
                                             handleNext={() => handleNext()}
                                             />
                                             </SystemContainer>
@@ -986,7 +989,7 @@ const SignupField = (props) => {
                                 </>
                             : signupCategory == 'selected_student' ?
                             <>
-                            <Studentfield />
+                            <Studentfield backToRegistrationSelection={backToRegistrationSelection}/>
                             </> 
                             : <></>
                         }

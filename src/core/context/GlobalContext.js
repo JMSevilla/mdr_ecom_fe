@@ -161,7 +161,6 @@ const Global = ({children}) => {
     }
 
     
-    
     const HandleChangeFirstname = (event) => {
         let value = event.currentTarget.value
         const tempAllFieldSelected = [...allFieldSelected]
