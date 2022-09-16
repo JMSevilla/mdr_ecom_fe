@@ -48,6 +48,10 @@ class Process {
         data.append('message', obj.message)
         return data
     }
+    USER_checktokenization(uid){
+        data.append('userid', uid)
+        return data
+    }
 }
 
 export default new Process()
