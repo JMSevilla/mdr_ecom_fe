@@ -127,26 +127,91 @@ class Spiels {
             field_id : 4,
             field_name : 'contact_us_form',
             fieldSettings : {
-                contactUsFormObj : {
+                contactUsFormObj:{
                     fullname : '',
                     email : '',
-                    subject : '',
+                    subbject : '',
                     message : '',
                 },
                 errorProvider : {
                     error_fullname : false,
                     error_email : false,
                     error_subject : false,
-                    error_message : false
+                    error_message : false,
                 },
                 error_provider_message : {
                     epm_fullname : '',
                     epm_email : '',
                     epm_subject : '',
-                    epm_message : ''
+                    epm_message : '',
                 }
             }
         },
+        {
+            field_id : 5,
+            field_name : 'student_registration',
+            priceSettings : {
+                max : 250000,
+                min : 25000
+            },
+            businessFieldArray : [],
+            projectFieldArray : [],
+            fieldSettings : {
+                personalInfoObjSt : {
+                    firstname : '',
+                    lastname : '',
+                    contactnum : '',
+                    address : ''
+                },
+                projectDetailsObjSt : {
+                    projectName : '',
+                    projectCategory : '',
+                    projectType : '',
+                    projectPricing : 25000
+                },
+                credentialsObjSt : {
+                    email : '',
+                    password : '',
+                    conpass : '',
+                    sec_question : '',
+                    sec_answer : ''
+                },
+                verificationObjSt : {
+                    verificationcode : '',
+                    vrfycounts : 0
+                },
+                errorProviderSt : {
+                    error_firstname : false,
+                    error_lastname : false,
+                    error_contactnum : false,
+                    error_address : false,
+                    error_projectname : false,
+                    error_projectCategory : false,
+                    error_projectType : false,
+                    error_email : false,
+                    error_password : false,
+                    error_conpass : false,
+                    error_sec_question : false,
+                    error_sec_answer : false,
+                    error_verify : false
+                },
+                error_provider_messageSt : {
+                    epm_firstname : '',
+                    epm_lastname : '',
+                    epm_contactnum : '',
+                    epm_address : '',
+                    epm_projectname : '',
+                    epm_projectcategory : '',
+                    epm_projecttype: '',
+                    epm_email : '',
+                    epm_password : '',
+                    epm_conpass : '',
+                    epm_sec_question : '',
+                    epm_sec_answer : '',
+                    epm_verify : ''
+                }
+            }
+        }
     ]
 }
 

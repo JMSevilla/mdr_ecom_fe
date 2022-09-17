@@ -435,6 +435,21 @@ export const customerStepper = [
     'Verification',
     'Finish'
 ]
+export const studentStepper = [
+    'Personal Information',
+    'Project Details',
+    'Project Features',
+    'Credentials',
+    'Verification',
+    'Consultation',
+    'Finish'
+]
+
+export const studentRequirements = [
+    '✓ Valid ID or Student ID',
+    '✓ School Registration Form',
+    '✓ Birth Certificate / NSO'
+]
 
 // hero banner button //
 export const herobannerButton = [

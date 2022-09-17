@@ -7,7 +7,7 @@ const SystemTypography = (props) => {
     return (
         <>
             <Typography
-            classname={className}
+            className={className}
             style={style}
             variant={variant}
             component={component}
