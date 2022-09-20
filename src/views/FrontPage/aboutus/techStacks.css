@@ -4,7 +4,7 @@
     width: 100%;
     height: 20vh;
   }
-  section div.container {
+  section div.containerbody {
     transition: all 0.3s ease;
   }
   @media (max-width: 992px) {
@@ -24,7 +24,7 @@
   }
   div.highway-slider ul.highway-lane {
     display: flex;
-    height: 80%;
+    height: 100%;
   }
   div.highway-slider ul.highway-lane li.highway-car {
     flex: 1;
@@ -36,12 +36,12 @@
   }
   @-webkit-keyframes translateinfinite {
     100% {
-      transform: translateX(calc(-180px * 12));
+      transform: translateX(calc(-180px * 11));
     }
   }
   @keyframes translateinfinite {
     100% {
-      transform: translateX(calc(-180px * 12));
+      transform: translateX(calc(-180px * 11));
     }
   }
   #infinite div.highway-barrier {
@@ -67,7 +67,7 @@
     background: linear-gradient(to left, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
   }
   #infinite div.highway-barrier ul.highway-lane {
-    width: calc(180px * 24);
+    width: calc(180px * 22);
   }
   #infinite div.highway-barrier ul.highway-lane li.highway-car {
     width: 180px;
