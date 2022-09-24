@@ -36,7 +36,7 @@ const Login_field = (props) => {
         rm : true
       }
       localStorage.setItem('rm', JSON.stringify(storage))
-      console.log(storage)
+
     }
   }
   const handleHelperEmail = () => {

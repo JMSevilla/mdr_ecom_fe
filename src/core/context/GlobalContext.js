@@ -33,10 +33,8 @@ const Global = ({children}) => {
         if(startTimer) {
             timer > 0 && setTimeout(timeOutCallback, 1000);
         }
-        if(userData){
-            console.log(userData)
-        }
-    }, [startTimer, timer, timeOutCallback, userData]);
+        
+    }, [startTimer, timer, timeOutCallback]);
 
     useEffect(() => {
         baseRef.tokenRef.current = token_message
@@ -1094,7 +1092,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
                         }))
                         setOpen(false)
                     } else {
-                        console.log(repository.data)
+                        
                     }
                 })
             }
@@ -1168,7 +1166,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
         tempFieldSelected.fieldSettings = fieldSettings
         tempAllFieldSelected[selectedIndex] = tempFieldSelected
         setAllFieldSelected(tempAllFieldSelected)
-        console.log(tempAllFieldSelected)
+        
     }
     const HandleChangeBOEmailSignup = (event) => {
         let value = event.currentTarget.value
@@ -1238,7 +1236,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
         tempFieldSelected.fieldSettings = fieldSettings
         tempAllFieldSelected[selectedIndex] = tempFieldSelected
         setAllFieldSelected(tempAllFieldSelected)
-        console.log(tempAllFieldSelected)
+        
     }
     const HandleChangeBOPasswordSignup = (event) => {
         let value = event.currentTarget.value
@@ -1308,7 +1306,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
         tempFieldSelected.fieldSettings = fieldSettings
         tempAllFieldSelected[selectedIndex] = tempFieldSelected
         setAllFieldSelected(tempAllFieldSelected)
-        console.log(tempAllFieldSelected)
+        
     }
     const HandleChangeBOConPassSignup = (event) => {
         let value = event.currentTarget.value
@@ -1378,7 +1376,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
         tempFieldSelected.fieldSettings = fieldSettings
         tempAllFieldSelected[selectedIndex] = tempFieldSelected
         setAllFieldSelected(tempAllFieldSelected)
-        console.log(tempAllFieldSelected)
+        
     }
     const HandleChangeBOSecAnswer = (event) => {
         let value = event.currentTarget.value
@@ -1448,7 +1446,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
         tempFieldSelected.fieldSettings = fieldSettings
         tempAllFieldSelected[selectedIndex] = tempFieldSelected
         setAllFieldSelected(tempAllFieldSelected)
-        console.log(tempAllFieldSelected)
+        
     }
     const handleResetField = () => {
         const tempAllFieldSelected = [...allFieldSelected]
