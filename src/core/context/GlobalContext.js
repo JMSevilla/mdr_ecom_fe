@@ -9,21 +9,23 @@ import { appRouter } from '../../routes/router'
 import routerSpiels from '../Spiels/routerSpiels'
 import { localstoragehelper } from '../utils/storage'
 
+
 //initialize dispatch
 
 
 import { useSelector, useDispatch } from 'react-redux'
-import { ScannedToken, loginProcess } from '../redux/slice'
+import { ScannedToken, loginProcess, scanProcess } from '../redux/slice'
 
 const GlobalContext = createContext()
-const getSelectors = (state) => ({token_message : state.token, logon_message: state.login})
+const getSelectors = (state) => ({token_message : state.token, logon_message: state.login, check_admin_message: state.admin})
 const Global = ({children}) => {
     const [settings, setSettings] = useState(routerSpiels.router)
     const [userData, setUserData] = useState([]);
     const dispatch = useDispatch()
-    const {token_message, logon_message} = useSelector(getSelectors)
+    const {token_message, logon_message, check_admin_message} = useSelector(getSelectors)
     const baseRef = {
-        tokenRef : useRef(token_message), loginRef : useRef(logon_message)
+        tokenRef : useRef(token_message), loginRef : useRef(logon_message),
+        adminScanRef : useRef(check_admin_message)
     }
     // Timer for resend button
     const [timer, setTimer] = useState(15);    
@@ -41,7 +43,8 @@ const Global = ({children}) => {
     useEffect(() => {
         baseRef.tokenRef.current = token_message
         baseRef.loginRef.current = logon_message
-    }, [token_message, logon_message])
+        baseRef.adminScanRef.current = check_admin_message
+    }, [token_message, logon_message, check_admin_message])
 
     const resetTimer = () => {
         setStartTimer(true);
@@ -553,14 +556,6 @@ const Global = ({children}) => {
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
                 }))
-            } else if (!tempField.userLoginObj.loginAs) {
-                setSnacbarSettings(prevState => ({
-                    ...prevState,
-                    ...prevState.settings.open.homepage = true,
-                    ...prevState.settings.message = "Please select user type.",
-                    ...prevState.settings.severity = "error",
-                    ...prevState.settings.autoHideDuration = 5000
-                }))
             } else if(!validEmailAddress.test(tempField.userLoginObj.email)){
                 setSnacbarSettings(prevState => ({
                     ...prevState,
@@ -574,48 +569,61 @@ const Global = ({children}) => {
                 dispatch(loginProcess(tempField.userLoginObj))
                 setTimeout(() => {
                     const reps = baseRef.loginRef.current.logon_message
-                    if(reps.message == 'success_login'){
+                    if(reps.message === 'success_login') {
                         const fetchedTokenId = reps.response_data[5];
-                        const finalData = reps.response_data.map((item) => {
-                            return {
-                                data: item
-                            }
+                            const finalData = reps.response_data.map((item) => {
+                                return {
+                                    data: item
+                                }
                         })
-                        setSnacbarSettings(prevState => ({
-                            ...prevState,
-                            ...prevState.settings.open.homepage = true,
-                            ...prevState.settings.message = "Login Success",
-                            ...prevState.settings.severity = "success",
-                            ...prevState.settings.autoHideDuration = 5000
-                        }))
-
+                        if(reps.response_data[3] === 'success_admin_platform') { // new code to identify the user type
+                            setSnacbarSettings(prevState => ({
+                                ...prevState,
+                                ...prevState.settings.open.homepage = true,
+                                ...prevState.settings.message = "Login as Administrator Success",
+                                ...prevState.settings.severity = "success",
+                                ...prevState.settings.autoHideDuration = 5000
+                            }))
+                                setTimeout(() => {
+                                    setOpen(false);
+                                    //history push to admin dashboard
+                                    alert("Navigate to admin dashboard") // change this to history push
+                                }, 2000)
+                        } else if(reps.response_data[3] === 'success_business_platform') {
+                            setSnacbarSettings(prevState => ({
+                                ...prevState,
+                                ...prevState.settings.open.homepage = true,
+                                ...prevState.settings.message = "Login Success",
+                                ...prevState.settings.severity = "success",
+                                ...prevState.settings.autoHideDuration = 5000
+                            }))
+                            setTimeout(() => {
+                                    setOpen(false);
+                                    navigateBusinessPlatform()
+                                }, 2000)
+                        }
                         setUserData(finalData)
                         localstoragehelper.store('key_identifier', fetchedTokenId)
-                        setTimeout(() => {
-                            setOpen(false);
-                            navigateBusinessPlatform();
-                        }, 2000)
-
-                    } else if (reps.message == 'invalid'){
-                        setOpen(false);
-                        setSnacbarSettings(prevState => ({
-                            ...prevState,
-                            ...prevState.settings.open.homepage = true,
-                            ...prevState.settings.message = "Invalid",
-                            ...prevState.settings.severity = "error",
-                            ...prevState.settings.autoHideDuration = 5000
-                        }))
-                      
+                    } else if (reps.message === 'invalid') {
+                             setOpen(false);
+                            setSnacbarSettings(prevState => ({
+                                ...prevState,
+                                ...prevState.settings.open.homepage = true,
+                                ...prevState.settings.message = "Invalid",
+                                ...prevState.settings.severity = "error",
+                                ...prevState.settings.autoHideDuration = 5000
+                            }))
                     } else {
-                        setOpen(false);
-                        setSnacbarSettings(prevState => ({
-                            ...prevState,
-                            ...prevState.settings.open.homepage = true,
-                            ...prevState.settings.message = "Email or Password does not exist",
-                            ...prevState.settings.severity = "error",
-                            ...prevState.settings.autoHideDuration = 5000
-                        }))
+                          setOpen(false);
+                            setSnacbarSettings(prevState => ({
+                                ...prevState,
+                                ...prevState.settings.open.homepage = true,
+                                ...prevState.settings.message = "Email or Password does not exist",
+                                ...prevState.settings.severity = "error",
+                                ...prevState.settings.autoHideDuration = 5000
+                            }))
                     }
+                    
                 }, 1000)
             }
     }
@@ -1580,6 +1588,16 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             }, 1000)
         }
     }
+    const adminScanned = (index) => {
+        dispatch(scanProcess())
+        setTimeout(() => {
+            const res = baseRef.adminScanRef.current.check_admin_message.message
+            console.log(res)
+            if(res === 'not_exist') {
+                history.push(appRouter.AdminRegistration.path)
+            } else{}
+        }, 1000)
+    }
     return (
         <GlobalContext.Provider
         value={{
@@ -1594,7 +1612,7 @@ setActiveSteps((activeSteps) => activeSteps + 1)
             HandleSelectQuestion, verification, setVerification, HandleVerification, HandleResentEmail,
             projectDetails, setProjectDetails, timer, resetTimer, destinationArray, handleOnDragEnd,
             deleteField, features, featureData, handleContactUsSubmit, handleChangeFullname, handleChangeContactUsEmail,
-            handleChangeSubject, handleChangeMessage, tokenScanned
+            handleChangeSubject, handleChangeMessage, tokenScanned, adminScanned
         }}
         >{children}</GlobalContext.Provider>
     )
