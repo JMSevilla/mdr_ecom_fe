@@ -1,5 +1,5 @@
 import React, {useState, cloneElement, useEffect} from 'react'
-import {SystemContainer, ApplicationCard, SystemStepper, SystemTypography, SystemGrid, AppButton, AppTextField, NextPrevious, SystemSelect, SystemSlider, SystemUserGuide} from '../../components'
+import {SystemContainer, ApplicationCard, SystemStepper, SystemTypography, SystemGrid, AppButton, AppTextField, NextPrevious, SystemSelect, SystemSlider, SystemUserGuide, ProjectTable, SystemDialog} from '../../components'
 import { customerStepper } from '../../core/utils/helper'
 import { CardContent, CardMedia, Box , Grid, Card, Paper} from '@mui/material'
 import { styled } from '@mui/material/styles'
@@ -11,7 +11,7 @@ import { Peso } from '../../core/utils/Intl'
 
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
-import { projectCategory, projectType, features, destinationArray, security_questions } from '../../core/utils/helper'
+import { projectCategory, projectType, security_questions } from '../../core/utils/helper'
 
 import { projectbreakdown } from '../../core/utils/dumpfeatures'
 
@@ -19,12 +19,72 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { TbBoxMultiple } from 'react-icons/tb'
 
+import FeatureSpiels from '../../core/Spiels/FeatureSpiels'
+
+import Studentfield from './Student/Student'
+
 const SignupField = (props) => {
-    const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeFirstname, HandleChangeLastname,
+    const { activeSteps, signupCategory, setSignupCategory, setOpen, setActiveSteps, allFieldSelected, selectedIndex, HandleChangeFirstname, HandleChangeLastname,
         HandleChangeAddress, HandleChangeContactNumber, handleNext, HandleProjectName, HandleSelectProjectCategory,
         HandleSelectProjectType, HandleSliderChange, handlePrevious, HandleChangeBOEmailSignup, HandleChangeBOPasswordSignup, HandleChangeBOConPassSignup, 
-        HandleChangeBOSecAnswer, HandleSelectQuestion, HandleVerification, HandleResentEmail, projectDetails, setProjectDetails, timer} = props
+        HandleChangeBOSecAnswer, HandleSelectQuestion, HandleVerification, HandleResentEmail, projectDetails, setProjectDetails, timer,
+        destinationArray, handleOnDragEnd, features, featureData, deleteField} = props
     const { fieldSettings, priceSettings } = allFieldSelected[0]
+
+    const [dialogOpen, setDialogOpen] = useState(false)
+    const columns = [
+        {
+            field : FeatureSpiels.propertyNames.id,
+            headerName : FeatureSpiels.fieldLabels.id,
+            flex: 3.5,
+            width: 250 
+        },
+        {
+            field : FeatureSpiels.propertyNames.featureName,
+            headerName : FeatureSpiels.fieldLabels.featureName,
+            flex: 3.5,
+            width: 250 
+        },
+        {
+            field : FeatureSpiels.propertyNames.featureType,
+            headerName : FeatureSpiels.fieldLabels.featureType,
+            flex: 1.5,
+            sortable: false,
+            headerClassName: ''
+        },
+        {
+            headerName: FeatureSpiels.fieldLabels.actions,
+            sortable: false,
+            flex: 1,
+            renderCell: (params) => (
+                <>
+                    <AppButton 
+                        buttonName={'REMOVE'}
+                        style={{
+                            width: '100%'
+                        }}
+                        variant={'contained'}
+                        color={'error'}
+                        size={'small'}
+                        handleClick={() => handleRemoveFeatures(params)}
+                    />
+                </>
+            )
+        }
+    ]
+
+    const backToRegistrationSelection = () => {
+        setSignupCategory('pick');
+    }
+
+    const handleRemoveFeatures = (params) => {
+        if(destinationArray.length > 1) {
+            deleteField(params)
+        } else {
+            deleteField(params)
+            setDialogOpen(false)
+        }
+    }
 
     const selectedCustomer = () => {
             setSignupCategory('survey')
@@ -33,6 +93,13 @@ const SignupField = (props) => {
         setOpen(true)
         setTimeout(() => {
             setSignupCategory('business_owner')
+            setOpen(false)
+        }, 2000)
+    }
+    const selectedIAmStudent  = () => {
+        setOpen(true)
+        setTimeout(() => {
+            setSignupCategory('selected_student')
             setOpen(false)
         }, 2000)
     }
@@ -146,7 +213,7 @@ const SignupField = (props) => {
                             'https://aeccglobal.ng/images/2021/05/18/best-courses-to-study-in-uk.webp'
                         }
                         alt="student"
-                        style={{width : '50%'}}
+                        style={{width : '67%'}}
                     />
                 }
                 children={
@@ -158,6 +225,7 @@ const SignupField = (props) => {
                         }}
                         variant={'contained'}
                         size={'small'}
+                        handleClick={() => selectedIAmStudent()}
                         />
                     </CardContent>
                 }
@@ -165,16 +233,7 @@ const SignupField = (props) => {
         )
     }
     
-    const handleOnDragEnd = (result) => {
-        if(!result.destination) return;
-        const RSI = result.source.index
-        const RDI = result.destination.index
-
-        features.forEach(function(elem, index) {
-            let deleted = features.splice(RSI, 1)
-            destinationArray.push(deleted[0])
-        })
-    }
+    
 
     return (
         <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
@@ -335,7 +394,7 @@ const SignupField = (props) => {
                                             <NextPrevious 
                                             activeSteps={activeSteps}
                                             stepperArray={customerStepper}
-                                            handleBack={() => setActiveSteps((activeSteps) => activeSteps - 1)}
+                                            handleBack={backToRegistrationSelection}
                                             handleNext={() => handleNext()}
                                             />
                                             </SystemContainer>
@@ -434,6 +493,7 @@ const SignupField = (props) => {
                                                     const data = editor.getData();
                                                     setProjectDetails(data)
                                                 } }
+                                                config={{removePlugins: ['CKFinderUploadAdapter', 'CKFinder', 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed']}}
                                                 onBlur={ ( event, editor ) => {
                                                 } }
                                                 onFocus={ ( event, editor ) => {
@@ -472,17 +532,56 @@ const SignupField = (props) => {
                                                         ref={provided.innerRef}
                                                         >
                                                             <CardContent>
+                                                                <div style={{display : 'flex'}}>
                                                                 <SystemTypography 
-                                                                isgutter={true}
-                                                                text={'Your Project Features Here'}
-                                                                style={{textAlign: 'center', fontFamily: 'Georgia'}}
-                                                                />
+                                                                    isgutter={true}
+                                                                    text={'Your Project Features Here'}
+                                                                    style={{ fontFamily: 'Georgia', marginRight : '50px'}}
+                                                                    />
+                                                                    {
+                                                                        destinationArray.length > 0 && <AppButton 
+                                                                        buttonName={'REMOVE FEATURES'}
+                                                                        variant={'contained'}
+                                                                        color={'error'}
+                                                                        size={'small'}
+                                                                        handleClick={() => setDialogOpen(!dialogOpen)}
+                                                                    /> 
+                                                                    }
+                                                                    <SystemDialog 
+                                                                        open={dialogOpen}
+                                                                        title={'List of features dropped'}
+                                                                        fullWidth={true}
+                                                                        maxWidth={'lg'}
+                                                                        handleClose={() => setDialogOpen(false)}
+                                                                        children={
+                                                                            <>
+                                                                                <SystemContainer max={'xl'} style={{marginTop: '20px'}}>
+                                                                                    <ApplicationCard 
+                                                                                    children={
+                                                                                        <CardContent>
+                                                                                            <SystemTypography 
+                                                                                                isgutter={true}
+                                                                                                text={'Project features list'}
+                                                                                                style={{ fontFamily: 'Georgia', marginRight : '50px'}}
+                                                                                            />
+                                                                                            <ProjectTable 
+                                                                                            dataColumns={columns}
+                                                                                            dataRow={featureData}
+                                                                                            />
+                                                                                        </CardContent>
+                                                                                    }
+                                                                                    />
+                                                                                </SystemContainer>
+                                                                            </>
+                                                                        }
+                                                                    />
+                                                                </div>
                                                                 <hr />
                                                                 <Grid direction="rows" container spacing={2}>
-                                                                        
-                                                                            {
-                                                                        destinationArray.map((item, index) => (
-                                                                            <Grid item xs={12} sm={4}>
+                                                                            { 
+                                                                        destinationArray.length > 0 && destinationArray.map((item, index) => {
+                                                                            return (
+                                                                                <Grid item xs={12} sm={4}>
                                                                                 <Card
                                                                                             
                                                                                             style={{
@@ -490,11 +589,14 @@ const SignupField = (props) => {
                                                                                             }}
                                                                                             >
                                                                                                 <CardContent>
-                                                                                                    {cloneElement(item.field)}
+                                                                                                    {
+                                                                                                        cloneElement(item.field)
+                                                                                                    }
                                                                                                 </CardContent>
                                                                                         </Card>
                                                                             </Grid>
-                                                                        ))
+                                                                            )
+                                                                        })
                                                                 }
                                                                         
                                                                 </Grid>
@@ -517,9 +619,10 @@ const SignupField = (props) => {
                                                                     <hr />
                                                                     <Grid direction="rows" container spacing={2}>
                                                                             {
-                                                                                features.map((item, index) => (
-                                                                                    <Grid item xs={12} sm={4}>
-                                                                                        <Draggable key={index} draggableId={item.field_id.toString()} index={index}>
+                                                                                features.map((item, index) => {
+                                                                                    return(
+                                                                                        <Grid item xs={12} sm={4}>
+                                                                                        <Draggable key={index} draggableId={index.toString()} index={index}>
                                                                                             {
                                                                                                 (provided, snapshot) => (
                                                                                                     <div
@@ -534,8 +637,9 @@ const SignupField = (props) => {
                                                                                                             }}
                                                                                                             >
                                                                                                                 <CardContent>
-                                                                                                                    
-                                                                                                                    {cloneElement(item.field)}
+                                                                                                                    {
+                                                                                                                        cloneElement(item.field)
+                                                                                                                    }
                                                                                                                 </CardContent>
                                                                                                         </Card>
                                                                                                     </div>
@@ -543,7 +647,8 @@ const SignupField = (props) => {
                                                                                             }
                                                                                         </Draggable>
                                                                                     </Grid>
-                                                                                ))
+                                                                                    )
+                                                                                })
                                                                             }
                                                                     </Grid>
                                                                 </CardContent>
@@ -882,6 +987,10 @@ const SignupField = (props) => {
                                         : <></>
                                     }
                                 </>
+                            : signupCategory == 'selected_student' ?
+                            <>
+                            <Studentfield backToRegistrationSelection={backToRegistrationSelection}/>
+                            </> 
                             : <></>
                         }
                     </CardContent>

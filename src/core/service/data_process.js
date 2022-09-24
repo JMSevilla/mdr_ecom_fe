@@ -28,6 +28,30 @@ class Process {
         data.append("email", obj.email)
         return data
     }
+    ADMIN_user_entry(obj){
+        data.append('firstname', obj.firstname)
+        data.append('lastname', obj.lastname)
+        data.append('email', obj.email)
+        data.append('password', obj.password)
+        return data
+    }
+    CLIENT_user_login(obj){
+        data.append('email', obj.email)
+        data.append('password', obj.password)
+        data.append('ct', obj.loginAs)
+        return data
+    }
+    CLIENT_email_sending(obj){
+        data.append('fullname', obj.fullname)
+        data.append('email', obj.email)
+        data.append('subject', obj.subject)
+        data.append('message', obj.message)
+        return data
+    }
+    USER_checktokenization(uid){
+        data.append('userid', uid)
+        return data
+    }
 }
 
 export default new Process()

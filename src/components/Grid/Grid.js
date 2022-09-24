@@ -11,9 +11,9 @@ const SystemGrid = (props) => {
         spacing={spacing}
         >
             {
-                GridItems.map((item) => {
+                GridItems.map((item, index) => {
                     return (
-                        <Grid item xs={6}>
+                        <Grid item xs={6} key={index}>
                             {cloneElement(item.children)}
                         </Grid>
                     )

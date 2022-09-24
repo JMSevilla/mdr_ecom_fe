@@ -3,7 +3,7 @@ import { SSP_Feature1, SSP_Feature2 } from "../../components/__dump__/__field_du
 export const projectbreakdown = [
     {
         field_id : 1,
-        field_name : 'ssp_login',
+        field_name : 'Login',
         field_type : 'SSP',
         joinedSys : [
             'POS_INV',
@@ -18,7 +18,7 @@ export const projectbreakdown = [
     },
     {
         field_id : 2,
-        field_name : 'ssp_customer_registration',
+        field_name : 'Sign Up',
         field_type : 'SSP',
         joinedSys : [
             'ECOM',

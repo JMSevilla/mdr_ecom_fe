@@ -1,6 +1,5 @@
 import React from 'react'
-import { Grid, Typography } from '@mui/material'
-
+import { Typography } from '@mui/material'
 
 const SSP_Feature1 = () => {
     return (
@@ -12,7 +11,7 @@ const SSP_Feature1 = () => {
                 style={{width: '50%', height : 'auto'}}
                 alt="Login"
                 />
-                <Typography variant="h6">User Management</Typography>
+                <Typography variant="h6">Login</Typography>
                 {/* <Typography >A login generally requires the user to enter two pieces of information, first a user name and then a password. This information is entered into a login window on a GUI</Typography> */}
             </center>
         </div>
@@ -30,6 +29,20 @@ const SSP_Feature2 = () => {
                 alt="Login"
                 />
                 <Typography variant="h6">Admin Dashboard</Typography>
+                 {/* {
+                  typeof destinationArray[1] !== 'undefined' && <AppButton 
+                        buttonName={'REMOVE'}
+                        style={{
+                            width: '100%'
+                        }}
+                        variant={'contained'}
+                        color={'error'}
+                        size={'small'}
+                        handleClick={(e) => {
+                            deleteField(indexProps.key)
+                        }}
+                        /> 
+                 } */}
                 {/* <Typography >A login generally requires the user to enter two pieces of information, first a user name and then a password. This information is entered into a login window on a GUI</Typography> */}
             </center>
         </div>

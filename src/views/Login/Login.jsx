@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { GlobalContext } from "../../core/context/GlobalContext";
 import LoginField from "./login_field";
 import { ReplicateOnInit } from "../../core/context/CloneElement";
-import { CustomizedSnackbars } from "../../components";
+import { CustomizedSnackbars, SystemBackdrop } from "../../components";
 
-const Login = () => {
+const Login = (props) => {
   const {
     HandleChangeEmailLogin,
     HandleChangePasswordLogin,
@@ -15,28 +15,31 @@ const Login = () => {
     selectedIndex,
     handleSignIn,
     handleClose,
-    snackbarSettings
+    snackbarSettings,
+    open
   } = useContext(GlobalContext);
+  useEffect(() => {
+    setSelectedIndex(1)
+  }, [HandleChangeEmailLogin, HandleChangePasswordLogin])
   return (
     <>
-    <ReplicateOnInit
-      children={
         <LoginField
           HandleChangeEmailLogin={HandleChangeEmailLogin}
           HandleChangePasswordLogin={HandleChangePasswordLogin}
           HandleSelectLoginAs={HandleSelectLoginAs}
-          setSelectedIndex={setSelectedIndex(1)}
+          
           allFieldSelected={allFieldSelected}
           setAllFieldSelected={setAllFieldSelected}
           selectedIndex={selectedIndex}
           handleSignIn={handleSignIn}
           snackbarSettings={snackbarSettings}
         />
-      }
+    <SystemBackdrop
+      open={open}
     />
            <CustomizedSnackbars 
             style={{width: '80%'}}
-            open={snackbarSettings.settings.open}
+            open={snackbarSettings.settings.open.homepage}
             message={snackbarSettings.settings.message}
             handleClose={handleClose}
             severity={snackbarSettings.settings.severity}

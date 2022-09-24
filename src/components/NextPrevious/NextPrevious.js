@@ -8,8 +8,8 @@ const NextPrevious = (props) => {
     return (
         <Box sx={{display : 'flex', flexDirection : 'row', pt: 2}}>
             <AppButton 
-                buttonName={'Back'}
-                disabled={activeSteps === 0}
+                buttonName={activeSteps === 0 ? 'Back to Selection' : 'Back'}
+                // disabled={activeSteps === 0}
                 color={'inherit'}
                 size={'sm'}
                 sx={{mr : 1}}

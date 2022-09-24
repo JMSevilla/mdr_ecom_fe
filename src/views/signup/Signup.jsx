@@ -16,10 +16,14 @@ const Signup = () => {
         handleNext, snackbarSettings, handleClose, handlePrevious,HandleChangeBOEmailSignup,
         HandleChangeBOPasswordSignup,HandleChangeBOConPassSignup, HandleChangeBOSecAnswer , HandleSelectQuestion,
         HandleVerification, verification, setVerification, HandleResentEmail,
-        projectDetails, setProjectDetails, timer, resetTimer} = useContext(GlobalContext)
+        projectDetails, setProjectDetails, timer, resetTimer, destinationArray, handleOnDragEnd,
+        features, featureData, deleteField} = useContext(GlobalContext)
     
     const projectcontextvalues = useContext(PROJECT_CONTEXT)
     const {HandleProjectName, HandleSelectProjectCategory, HandleSelectProjectType, HandleSliderChange} = projectcontextvalues
+    useEffect(() => {
+        setSelectedIndex(0)
+    }, [])
     return (
         <>
             <ApplicationBar title={'Ecommerce'} simplified/>
@@ -30,7 +34,6 @@ const Signup = () => {
                 allFieldSelected={allFieldSelected}
                 setAllFieldSelected={setAllFieldSelected}
                 selectedIndex={selectedIndex}
-                setSelectedIndex={setSelectedIndex(0)}
                 HandleChangeFirstname={HandleChangeFirstname}
                 signupCategory={signupCategory}
                 setSignupCategory={setSignupCategory}
@@ -58,13 +61,18 @@ const Signup = () => {
                 setProjectDetails={setProjectDetails}
                 timer={timer}
                 resetTimer={resetTimer}
+                destinationArray={destinationArray}
+                handleOnDragEnd={handleOnDragEnd}
+                features={features}
+                featureData={featureData}
+                deleteField={deleteField}
                 />
            } />
            <SystemBackdrop 
                 open={open}
             />
-            <CustomizedSnackbars 
-            open={snackbarSettings.settings.open}
+            <CustomizedSnackbars
+            open={snackbarSettings.settings.open.signup}
             message={snackbarSettings.settings.message}
             handleClose={handleClose}
             severity={snackbarSettings.settings.severity}

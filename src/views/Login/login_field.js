@@ -11,7 +11,7 @@ import { loginUserCategory } from "../../core/utils/helper";
 import Spiels from "../../core/Spiels/Spiels";
 
 const Login_field = (props) => {
-  const {allFieldSelected, setAllFieldSelected, selectedIndex, setSelectedIndex, HandleChangeEmailLogin, HandleChangePasswordLogin, HandleSelectLoginAs, handleSignIn} = props;
+  const {allFieldSelected, HandleChangeEmailLogin, HandleChangePasswordLogin, HandleSelectLoginAs, handleSignIn} = props;
   const { fieldSettings } = allFieldSelected[1]
   const history = useHistory();
   const navigateSignup = () => {
@@ -68,24 +68,17 @@ const Login_field = (props) => {
     }
   }
   return (
-    <Box
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: ".5rem",
-        marginTop: "10px",
-      }}
-    >
+    <Box className='flex flex-col gap-2 mt-[10px]'>
       <AppTextField
         type={'text'}
         value={
           handleHelperEmail()
         }
+        className={'w-auto md:w-[400px] text-xl'}
         label={"Email Address"}
         placeholder={"Enter your email"}
         handleChange={(e) => HandleChangeEmailLogin(e)}
         variant="outlined"
-        style={{ width: "400px", marginBottom: "10px" }}
         texthelper={fieldSettings.error_provider_message.epm_email}
         iserror={fieldSettings.errorProvider.error_email}
       />
@@ -94,30 +87,24 @@ const Login_field = (props) => {
         value={
           handleHelperPassword()
         }
+        className={'w-auto text-xl'}
         label={"Password"}
         placeholder={"Enter password"}
         handleChange={(e) => HandleChangePasswordLogin(e)}
         variant="outlined"
-        style={{ width: "400px", marginBottom: "10px" }}
         texthelper={fieldSettings.error_provider_message.epm_password}
         iserror={fieldSettings.errorProvider.error_password}
       />
       <SystemSelect
+        className={'w-auto text-xl'}
         value={fieldSettings.userLoginObj.loginAs}
         handleSelect={(e) => HandleSelectLoginAs(e)}
         selectionArray={loginUserCategory}
         selectionTitle={'Login as'}
-        style={{width: '400px', marginBottom: '10px'}}
         texthelper={fieldSettings.error_provider_message.epm_loginAs}
         iserror={fieldSettings.errorProvider.error_loginAs}
       />
-      <Box
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
+      <Box className="flex items-center justify-between">
         <FormGroup>
           <FormControlLabel control={<Checkbox onChange={(e) => handleRememberMe(e)} />} label="Remember Me" />
         </FormGroup>
@@ -125,7 +112,7 @@ const Login_field = (props) => {
           onClick={navigateForgetPassword}
           color={"inherit"}
           underline={"none"}
-          style={{ cursor: "pointer" }}
+          className='cursor-pointer'
         >
           Forget Password?
         </Link>
@@ -137,21 +124,13 @@ const Login_field = (props) => {
         variant="contained"
         style={{ margin: "10px 0px", width: '100%', fontWeight: 600}}
       />
-      <Box
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: ".5rem",
-          marginTop: "5px",
-        }}
-      >
+      <Box className='flex justify-center items-center gap-2 mt-[5px]'>
         <SystemTypography text={"Not a member?"} />
         <Link
           color={"primary"}
           underline={"none"}
           onClick={() => navigateSignup()}
-          style={{ cursor: "pointer" }}
+          className='cursor-pointer'
         >
           Sign Up Now
         </Link>
