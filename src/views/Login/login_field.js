@@ -95,15 +95,6 @@ const Login_field = (props) => {
         texthelper={fieldSettings.error_provider_message.epm_password}
         iserror={fieldSettings.errorProvider.error_password}
       />
-      <SystemSelect
-        className={'w-auto text-xl'}
-        value={fieldSettings.userLoginObj.loginAs}
-        handleSelect={(e) => HandleSelectLoginAs(e)}
-        selectionArray={loginUserCategory}
-        selectionTitle={'Login as'}
-        texthelper={fieldSettings.error_provider_message.epm_loginAs}
-        iserror={fieldSettings.errorProvider.error_loginAs}
-      />
       <Box className="flex items-center justify-between">
         <FormGroup>
           <FormControlLabel control={<Checkbox onChange={(e) => handleRememberMe(e)} />} label="Remember Me" />
