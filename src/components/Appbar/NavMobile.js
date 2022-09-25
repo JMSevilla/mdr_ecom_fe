@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { navbarData, socialAccounts } from "../../core/utils/helper";
 import { XIcon } from "@heroicons/react/outline";
 import { MenuAlt3Icon } from "@heroicons/react/outline";
 import { motion } from "framer-motion";
-import { Link } from "react-scroll";
+import { NavHashLink as Link } from 'react-router-hash-link';
 import { AppModal } from "../../components";
 import SystemLogin from "../../views/Login/Login";
 import logo from "../../assets/images/logo/modernresolve.png";
@@ -12,7 +12,6 @@ import { appRouter } from '../../routes/router';
 
 const NavMobile = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isRoot, setIsRoot] = useState(true);
   const history = useHistory();
   // framer motion variants
   const circleVariants = {
@@ -40,22 +39,6 @@ const NavMobile = () => {
       },
     },
   };
-  const navigateToViewAll = () => {
-    history.push(appRouter.Shop.path);
-  }
-  useEffect(()=>{
-    if (!(window.location.href === "http://localhost:3000/#/")
-     ) {
-      setIsRoot(false);
-    }
-  }, [])
-  const toTest = (Link, isRoot)=>{
-    if(isRoot){
-      return {to: Link};
-    }else{
-      return null;
-    }
-  }
   return (
     <nav className="relative">
       {/* menu icon */}
@@ -101,20 +84,11 @@ const NavMobile = () => {
           return (
             <li key={index} className="mb-8">
               <Link
-                onClick={() =>{ 
-                  setIsOpen(false)
-                    if (item.link === 'Shop') {
-                      navigateToViewAll();
-                    }
-                    if (!isRoot) {
-                      history.push(appRouter.Homepage.path);
-                    }
-                  }
-                }
-                {...toTest(item.to, isRoot)}
-                smooth={true}
-                duration={500}
-                offset={-70}
+                onClick={() =>setIsOpen(false)}
+                to={`${item.to}`}
+                smooth
+                activeClassName="selected"
+                activeStyle={{ color: '#bd321c' }}
                 className="text-xl font-body cursor-pointer text-black capitalize hover:text-accent"
               >
                 {item.link}

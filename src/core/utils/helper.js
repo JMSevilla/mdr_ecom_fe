@@ -238,32 +238,32 @@ export const projectType = [
 export const navbarData = [ 
     {
         link: 'Home',
-        to: 'home',
+        to: '/#home',
         dropdown: false,
     },
     {
         link: 'About',
-        to: 'about',
+        to: '/#about',
         dropdown: false,
     },
     {
         link: 'Services',
-        to: 'services',
+        to: '/#services',
         dropdown: false,
     },
     {
         link: 'Testimonials',
-        to: 'testimonials',
+        to: '/#testimonials',
         dropdown: false,
     },
     {
         link: 'Contact Us',
-        to: 'contactus',
+        to: '/#contactus',
         dropdown: false,
     },
     {
         link: 'Shop',
-        to: 'shop',
+        to: '/shop',
         dropdown: true,
     },
 ];
@@ -454,12 +454,13 @@ export const studentRequirements = [
 // hero banner button //
 export const herobannerButton = [
     {
-        to: "services",
+        to: "/#services",
         name: "Learn More",
         color: "button-white",
         dropdown: false
     },
     {
+        to: "/#services",
         name: "Pricing",
         color: "button-black",
         dropdown: false
