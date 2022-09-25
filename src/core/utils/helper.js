@@ -54,12 +54,12 @@ export const heroBannerData = [
 export const missionAndVisionData = [
     {
         title: 'Our Mission',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
+        description: 'To enhancing the business growth of our customers with creative Design and Development to deliver market-defining high-quality solutions that create value and consistent competitive advantage for our clients around the Country',
         icon: <BiRocket style={{fontSize: '30px', color: 'red'}}/>
     },
     {
         title: 'Our Vision',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
+        description: 'To become a prime performer, in providing quality Web, Print and Software solutions in the competitive Local market place.',
         icon: <MdOutlineInsights style={{fontSize: '30px', color: 'red'}}/>
     },
 ];
