@@ -36,7 +36,7 @@ const Login_field = (props) => {
         rm : true
       }
       localStorage.setItem('rm', JSON.stringify(storage))
-      console.log(storage)
+
     }
   }
   const handleHelperEmail = () => {
@@ -94,15 +94,6 @@ const Login_field = (props) => {
         variant="outlined"
         texthelper={fieldSettings.error_provider_message.epm_password}
         iserror={fieldSettings.errorProvider.error_password}
-      />
-      <SystemSelect
-        className={'w-auto text-xl'}
-        value={fieldSettings.userLoginObj.loginAs}
-        handleSelect={(e) => HandleSelectLoginAs(e)}
-        selectionArray={loginUserCategory}
-        selectionTitle={'Login as'}
-        texthelper={fieldSettings.error_provider_message.epm_loginAs}
-        iserror={fieldSettings.errorProvider.error_loginAs}
       />
       <Box className="flex items-center justify-between">
         <FormGroup>

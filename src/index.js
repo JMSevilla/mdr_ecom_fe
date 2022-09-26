@@ -7,7 +7,7 @@ import { Global } from './core/context/GlobalContext'
 import { ProjectDetailsContext } from './core/context/ProjectDetailsContext';
 import {StudentProjectContext} from './core/context/StudentProjectContext';
 import { AdministratorContext } from './core/context/AdminContext';
-import { HashRouter } from 'react-router-dom'
+import { HashRouter, BrowserRouter } from 'react-router-dom'
 import ApplicationRouter from './routes/index'
 import { Student } from './core/context/StudentContext';
 
@@ -16,7 +16,7 @@ const store = configureStore()
 const root = document.getElementById('root')
 
 ReactDOM.render(
-  <HashRouter>
+  <BrowserRouter>
     <Provider store={store}>
       <Global>
         <Student>
@@ -30,6 +30,6 @@ ReactDOM.render(
         </Student>
       </Global>
     </Provider>
-  </HashRouter>,
+  </BrowserRouter>,
   root
 )

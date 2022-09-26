@@ -3,7 +3,7 @@ import AppSwiper from "../../../components/Swiper/Swiper";
 import { herobannerButton, heroBannerData } from "../../../core/utils/helper";
 import {AppButton} from "../../../components";
 import { Box } from "@mui/material";
-import { Link } from "react-scroll";
+import { NavHashLink as Link } from 'react-router-hash-link';
 import { Autoplay, EffectFade, Navigation } from "swiper";
 
 const HeroBannerField = () => {
@@ -28,12 +28,11 @@ const HeroBannerField = () => {
             return (
               <Link 
               key={index}
-              to={item.to} 
-              activeClass='active' 
-              spy={true} 
-              smooth={true} 
-              duration={500} 
-              offset={-70}>
+              to={item.to}
+              activeClassName="selected"
+              activeStyle={{ color: '#bd321c' }}
+              smooth
+              >
 
               <AppButton
                 buttonColor={item.color}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-scroll";
+import { NavHashLink as Link } from 'react-router-hash-link';
 import { navbarData, shopButton } from "../../core/utils/helper";
 import { AppDropdown } from "../../components";
 
@@ -17,13 +17,10 @@ const NavLinks = () => {
                     key={index}
                   >
                     <Link
-                      to={item.to}
-                      activeClass="active"
-                      spy={true}
-                      smooth={true}
-                      duration={500}
-                      offset={-70}
-                      className="transition-all duration-300"
+                      to={`${item.to}`}
+                      activeClassName="selected"
+                      activeStyle={{ color: '#bd321c' }}
+                      smooth
                     >
                       {item.link}
                     </Link>
