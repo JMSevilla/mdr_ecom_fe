@@ -2,7 +2,7 @@ import React from 'react'
 import {Box} from '@mui/material';
 import {AppButton} from '../../../components';
 import AboutUsOutlineText from '../../../assets/images/outline-text/about.svg';
-import Lottie from "react-lottie";
+// import Lottie from "react-lottie";
 import * as aboutUsLogo from "../../../assets/images/aboutus/appDevelopment.json";
 import { Fade } from "react-reveal";
 import { missionAndVisionData } from '../../../core/utils/helper';
@@ -52,11 +52,11 @@ const AboutUs_field = () => {
                     <Box className='hidden lg:block'>
                     <Fade right>
                       {/* Right Side Content */}
-                    <Lottie
+                    {/* <Lottie
                         options={loadingAnimation}
                         height={450}
                         width={450}
-                        />
+                        /> */}
                     </Fade>
                     </Box>
                  </Box>

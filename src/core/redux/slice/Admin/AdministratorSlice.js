@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiCallBegan } from "../../actions/Action";
-import { sliceConfig } from "../config";
+import FormService from '../../../service/apiservice'
 const initialState = {
     check_admin_message : ''
 }
@@ -20,13 +19,10 @@ export default administratorSlice.reducer
 
 export const scanProcess = () => dispatch => {
     try {
-        return dispatch(
-            apiCallBegan({
-                url: sliceConfig.urlhandler('check-admin'),
-                method : sliceConfig.methodhandler('GET'),
-                onSuccess: scanSuccess.type
-            })
-        )
+        FormService.ADMINISTRATOR_checkadmin()
+        .then(res => {
+            dispatch(scanSuccess(res.data))
+        })
     } catch (error) {
         console.log("Scanning" , error)
     }

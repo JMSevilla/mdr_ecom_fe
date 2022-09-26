@@ -12,7 +12,7 @@ export {default as SystemSelect} from './Select/Select';
 export {default as SystemSlider} from './Slider/Slider';
 export {default as CustomizedSnackbars} from './Snackbar/Snackbar';
 export {default as SystemStepper} from './Stepper/Stepper';
-export {default as AppSwiper} from './Swiper/Swiper';
+// export {default as AppSwiper} from './Swiper/Swiper';
 export {default as AppTextField} from './TextField/TextField';
 export {default as SystemTypography} from './Typography/Typography';
 export {default as SystemUserGuide} from './UserGuide/UserGuide';
