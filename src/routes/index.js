@@ -8,6 +8,7 @@ import PrivacyPolicy from '../views/BusinessPolicy/PrivacyPolicy/PrivacyPolicy'
 import Shop from '../views/Shop/Shop'
 import AdminRegistration from '../views/Administrator/Registration/Registration'
 import { appRouter } from './router'
+import Login from '../views/Login/Login'
 
 const RouteWithLoad = ({component : Component, ...rest}) => {
     return ( 
@@ -30,7 +31,7 @@ export default () => (
         <RouteWithLoad exact path={appRouter.TermsAndConditions.path} component={TermsAndConditions}/>
         <RouteWithLoad exact path={appRouter.PrivacyPolicy.path} component={PrivacyPolicy} />
         <RouteWithLoad exact path={appRouter.Shop.path} component={Shop} />
-
+        <RouteWithLoad exact path={appRouter.Signin.path} component={Login} />
         {/* admin registration */}
         <RouteWithLoad exact path={appRouter.AdminRegistration.path} component={AdminRegistration} />
     </Switch>
