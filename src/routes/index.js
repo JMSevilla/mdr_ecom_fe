@@ -6,8 +6,10 @@ import ForgetPassword from '../views/ForgetPassword/ForgetPassword'
 import TermsAndConditions from '../views/BusinessPolicy/TermsAndConditions/TermsAndConditions'
 import PrivacyPolicy from '../views/BusinessPolicy/PrivacyPolicy/PrivacyPolicy'
 import Shop from '../views/Shop/Shop'
+import HomeDashboard from '../views/Administrator/Dashboard/Home/Home'
 import AdminRegistration from '../views/Administrator/Registration/Registration'
-import { appRouter } from './router'
+import { appRouter, appAdminRouter} from './router'
+import {RouteWithAdminSidebar} from './base/route_sd';
 
 const RouteWithLoad = ({component : Component, ...rest}) => {
     return ( 
@@ -33,5 +35,6 @@ export default () => (
 
         {/* admin registration */}
         <RouteWithLoad exact path={appRouter.AdminRegistration.path} component={AdminRegistration} />
+        <RouteWithAdminSidebar exact path={appAdminRouter.Home.path} component={HomeDashboard} />
     </Switch>
 )

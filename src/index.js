@@ -11,8 +11,6 @@ import { HashRouter } from 'react-router-dom'
 import ApplicationRouter from './routes/index'
 import { Student } from './core/context/StudentContext';
 
-
-
 const store = configureStore()
 
 const root = document.getElementById('root')

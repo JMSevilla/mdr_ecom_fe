@@ -32,6 +32,10 @@ module.exports = {
         primary: '#ffffff', // white
         secondary: '#fdf9ff', // light gray
         gray: '#eff0f5', //gray
+        sideBar: '#051e34', //dark blue
+        sideBarTab : '#122c44', // light gray
+        sideBarTabHover: '#253d53', // white gray
+        blue: '#1a73e8', // blue
         accent: {
           DEFAULT: '#bd321c', //red,
           hoverToRed: '#bd321c', // red,
