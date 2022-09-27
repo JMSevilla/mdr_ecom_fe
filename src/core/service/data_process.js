@@ -48,6 +48,13 @@ class Process {
         data.append('message', obj.message)
         return data
     }
+    CLIENT_message_toEmail(obj){
+        data.append('fullname', obj.fullname)
+        data.append('email', obj.email)
+        data.append('subject', obj.subject)
+        data.append('message', obj.message)
+        return data
+    }
     USER_checktokenization(uid){
         data.append('userid', uid)
         return data

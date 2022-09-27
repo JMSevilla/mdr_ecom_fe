@@ -667,16 +667,23 @@ const Global = ({children}) => {
                 .then(reps => {
                     const { data } = reps
                     if(data.message == "success_sent_message"){
-                        setTimeout(() => {
-                            setSnacbarSettings(prevState => ({
-                                ...prevState,
-                                ...prevState.settings.open.contactUs = true,
-                                ...prevState.settings.message = "Email sent successfully",
-                                ...prevState.settings.severity = "success",
-                                ...prevState.settings.autoHideDuration = 5000
-                            }))
-                            setOpen(false)
-                        }, 2000)
+                        FormService.SEND_MESSAGE_ContactUs(tempField.contactUsFormObj)
+                        .then(reps => {
+                            if(reps.data.message == ''){
+                                setTimeout(() => {
+                                    setSnacbarSettings(prevState => ({
+                                        ...prevState,
+                                        ...prevState.settings.open.contactUs = true,
+                                        ...prevState.settings.message = "Email sent successfully",
+                                        ...prevState.settings.severity = "success",
+                                        ...prevState.settings.autoHideDuration = 5000
+                                    }))
+                                    handleResetContactUsFields();
+                                    setOpen(false)
+                                }, 2000)
+                            }
+                        })
+                        
                     } else {
                         setTimeout(() => {
                             setSnacbarSettings(prevState => ({
@@ -1524,6 +1531,38 @@ setActiveSteps((activeSteps) => activeSteps + 1)
         tempAllFieldSelected[selectedIndex] = tempFieldSelected
         setAllFieldSelected(tempAllFieldSelected)
     }
+    
+    const handleResetContactUsFields = () => {
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        const contactUsFormObj = {
+            fullname : '',
+            email : '',
+            subject : '',
+            message : '',
+        }
+        const errorProvider = { 
+            error_fullname : tempFieldSelected.fieldSettings.errorProvider.error_fullname,
+            error_email : tempFieldSelected.fieldSettings.errorProvider.error_email,
+            error_subject : tempFieldSelected.fieldSettings.errorProvider.error_subject,
+            error_message : tempFieldSelected.fieldSettings.errorProvider.error_message,
+        }
+        const error_provider_message = {
+            epm_fullname : tempFieldSelected.fieldSettings.error_provider_message.epm_fullname,
+            epm_email : tempFieldSelected.fieldSettings.error_provider_message.epm_email,
+            epm_subject : tempFieldSelected.fieldSettings.error_provider_message.epm_subject,
+            epm_message : tempFieldSelected.fieldSettings.error_provider_message.epm_message,
+        }
+        const fieldSettings = {
+            contactUsFormObj : contactUsFormObj,
+            errorProvider: errorProvider,
+            error_provider_message: error_provider_message
+        }
+        tempFieldSelected.fieldSettings = fieldSettings
+        tempAllFieldSelected[selectedIndex] = tempFieldSelected
+        setAllFieldSelected(tempAllFieldSelected)
+    }
+
     const HandleResentEmail = () => {
         const tempAllFieldSelected = [...allFieldSelected]
         const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}

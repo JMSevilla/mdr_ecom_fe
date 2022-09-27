@@ -109,6 +109,12 @@ class FormService {
         )
         return emailForm_entry
     }
+    SEND_MESSAGE_ContactUs(obj){
+        const contactUsForm_entry = ApiConfig.connect().post(
+            'send-message/toEmail', Process.CLIENT_message_toEmail(obj)
+        )
+        return contactUsForm_entry
+    }
 
 }
 
