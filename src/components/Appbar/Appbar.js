@@ -44,16 +44,6 @@ const ApplicationBar = (props) => {
                 </>)}
             </Box>
             <Box className='hidden lg:block'>
-              {/* <AppModal buttonName={"SIGN IN"} buttonColor={'button-black'} title={"ACCOUNT LOGIN"} description={<SystemLogin/>} 
-              buttonStyle={{fontSize: '15px', padding: '10px 25px', borderRadius: '30px', fontWeight: 600}} logo/> */}
-              {/* <Link
-               onClick={navigateSignIn}
-               Style={{fontSize: '15px', padding: '10px 25px', borderRadius: '30px', fontWeight: 600}}
-               Color={'black'}
-               variant="contained"
-               >
-                Sign in
-              </Link> */}
               <AppButton
                 handleClick={navigateSignIn}
                 style={{fontSize: '15px', padding: '10px 25px', borderRadius: '30px', fontWeight: 600}} 
