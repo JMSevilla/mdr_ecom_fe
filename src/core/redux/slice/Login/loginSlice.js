@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiCallBegan } from "../../actions/Action";
-import {sliceConfig} from '../config'
-import Process from '../../../service/data_process'
+import FormService from '../../../service/apiservice'
 
 const initialState = { 
     logon_message : ''
@@ -22,13 +20,11 @@ export default loginSlice.reducer
 
 export const loginProcess = (object) => (dispatch) => {
     try {
-        return dispatch(
-            apiCallBegan({
-                url : sliceConfig.urlhandler('applogin'),
-                method : sliceConfig.methodhandler('POST'),
-                data : Process.CLIENT_user_login(object),
-                onSuccess : loginOnSuccess.type
-            })
+        FormService.CLIENT_CONFIG_checkLogin(object)
+        .then(
+            res => { 
+                dispatch(loginOnSuccess(res.data))
+            }
         )
     } catch (error) {
         console.log(error)
