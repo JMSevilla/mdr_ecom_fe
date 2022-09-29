@@ -7,3 +7,7 @@ export const appRouter = {
     AdminRegistration : {path : "/adminregistration"},
     Shop : {path: "/shop"}
 }   
+
+export const appAdminRouter = {
+    Home : {path : "/admin/dashboard"},
+}
