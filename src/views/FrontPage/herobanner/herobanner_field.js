@@ -3,7 +3,7 @@ import React from "react";
 import { herobannerButton, heroBannerData } from "../../../core/utils/helper";
 import {AppButton} from "../../../components";
 import { Box } from "@mui/material";
-import { Link } from "react-scroll";
+import { NavHashLink as Link } from 'react-router-hash-link';
 
 const HeroBannerField = () => {
   return (
