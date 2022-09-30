@@ -16,6 +16,9 @@ import { AdministratorContext } from '../core/context/AdminContext';
 import { Student } from '../core/context/StudentContext';
 import { Provider } from 'react-redux'
 import configureStore from '../core/redux/store';
+import { appAdminRouter } from './router'
+import { RouteWithAdminSidebar } from './base/route_sd'
+
 const store = configureStore()
 
 const RouteWithLoad = ({component : Component, ...rest}) => {
@@ -49,6 +52,7 @@ export default () => (
 
                                     {/* admin registration */}
                                     <RouteWithLoad exact path={appRouter.AdminRegistration.path} component={AdminRegistration} />
+                                    <RouteWithAdminSidebar exact path={appAdminRouter.Home.path} component={HomeDashboard} />
                             </AdministratorContext>
                         </StudentProjectContext>
                         </ProjectDetailsContext>

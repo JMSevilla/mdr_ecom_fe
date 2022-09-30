@@ -1,7 +1,6 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import 'react-pro-sidebar/dist/css/styles.css';
 
 const RouteWithAdminSidebar = (
     {component: Component, ...rest}
