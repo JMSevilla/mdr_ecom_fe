@@ -72,6 +72,7 @@ const Login_field = (props) => {
     <Box className=' container px-6 py-12 h-full mt-[100px]  mx-auto shadow'>
       <Box className='flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full gap-20' >
         <Box className="flex text-center md:w-8/12 lg:w-6/12 mb-12 md:mb-0  hidden lg:block" >
+          {/* MDR logo */}
         <img
             src={logo}
             class="mx-auto"
