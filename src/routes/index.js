@@ -9,9 +9,6 @@ import Shop from '../views/Shop/Shop'
 import HomeDashboard from '../views/Administrator/Dashboard/Home/Home'
 import AdminRegistration from '../views/Administrator/Registration/Registration'
 import { appRouter } from './router'
-<<<<<<< HEAD
-import Login from '../views/Login/Login'
-=======
 import { Global } from '../core/context/GlobalContext'
 import { ProjectDetailsContext } from '../core/context/ProjectDetailsContext';
 import {StudentProjectContext} from '../core/context/StudentProjectContext';
@@ -19,8 +16,10 @@ import { AdministratorContext } from '../core/context/AdminContext';
 import { Student } from '../core/context/StudentContext';
 import { Provider } from 'react-redux'
 import configureStore from '../core/redux/store';
+import { appAdminRouter } from './router'
+import { RouteWithAdminSidebar } from './base/route_sd'
+import Login from '../views/Login/Login'
 const store = configureStore()
->>>>>>> 418222d83451e935f17ae8b7cdc84cc7075aff4c
 
 const RouteWithLoad = ({component : Component, ...rest}) => {
     return ( 
@@ -36,19 +35,6 @@ const RouteWithLoad = ({component : Component, ...rest}) => {
 }
 
 export default () => (
-<<<<<<< HEAD
-    <Switch>
-        <RouteWithLoad exact path={appRouter.Homepage.path} component={Home} />
-        <RouteWithLoad exact path={appRouter.Signup.path} component={Signup} />
-        <RouteWithLoad exact path={appRouter.ForgetPassword.path} component={ForgetPassword} />
-        <RouteWithLoad exact path={appRouter.TermsAndConditions.path} component={TermsAndConditions}/>
-        <RouteWithLoad exact path={appRouter.PrivacyPolicy.path} component={PrivacyPolicy} />
-        <RouteWithLoad exact path={appRouter.Shop.path} component={Shop} />
-        <RouteWithLoad exact path={appRouter.Signin.path} component={Login} />
-        {/* admin registration */}
-        <RouteWithLoad exact path={appRouter.AdminRegistration.path} component={AdminRegistration} />
-    </Switch>
-=======
     <BrowserRouter>
         <Switch>
             <Provider store={store}>
@@ -63,9 +49,10 @@ export default () => (
                                     <RouteWithLoad exact path={appRouter.TermsAndConditions.path} component={TermsAndConditions}/>
                                     <RouteWithLoad exact path={appRouter.PrivacyPolicy.path} component={PrivacyPolicy} />
                                     <RouteWithLoad exact path={appRouter.Shop.path} component={Shop} />
-
+                                    <RouteWithLoad exact path={appRouter.SignIn.path} component={Login} />
                                     {/* admin registration */}
                                     <RouteWithLoad exact path={appRouter.AdminRegistration.path} component={AdminRegistration} />
+                                    <RouteWithAdminSidebar exact path={appAdminRouter.Home.path} component={HomeDashboard} /> 
                             </AdministratorContext>
                         </StudentProjectContext>
                         </ProjectDetailsContext>
@@ -74,5 +61,4 @@ export default () => (
             </Provider>
         </Switch>
     </BrowserRouter>
->>>>>>> 418222d83451e935f17ae8b7cdc84cc7075aff4c
 )

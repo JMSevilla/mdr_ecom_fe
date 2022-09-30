@@ -20,7 +20,7 @@ const ApplicationBar = (props) => {
   };
 
   const navigateSignIn = () => {
-    history.push(appRouter.Signin.path);
+    history.push(appRouter.SignIn.path);
   }
 
   useEffect(() => {
