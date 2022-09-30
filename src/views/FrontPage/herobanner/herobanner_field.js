@@ -1,19 +1,18 @@
 import React from "react";
-import AppSwiper from "../../../components/Swiper/Swiper";
+// import AppSwiper from "../../../components/Swiper/Swiper";
 import { herobannerButton, heroBannerData } from "../../../core/utils/helper";
 import {AppButton} from "../../../components";
 import { Box } from "@mui/material";
 import { NavHashLink as Link } from 'react-router-hash-link';
-import { Autoplay, EffectFade, Navigation } from "swiper";
 
 const HeroBannerField = () => {
   return (
     <Box id="home" className='flex justify-center items-center'>
-      <AppSwiper
+      {/* <AppSwiper
         swiperData={heroBannerData}
         style={{ width: "100vw", height: "100vh", filter: "blur(7px)"}}
         modules={[EffectFade, Autoplay, Navigation]}
-      />
+      /> */}
       <Box className='container mx-auto my-auto flex flex-col justify-center items-center text-center gap-12 absolute z-10'>
         <Box className='flex flex-col gap-6'>
           <h5 className='italic text-lg font-body font-medium lg:text-2xl'>

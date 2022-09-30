@@ -805,3 +805,26 @@ export const privacyPolicyData = [
         description: (<span>We are not responsible for any content, code or any other imprecision. We do not provide warranties or guarantees. In no event shall we be liable for any special, direct, indirect, consequential, or incidental damages or any damages whatsoever, whether in an action of contract, negligence or other tort, arising out of or in connection with the use of the Service or the contents of the Service. We reserve the right to make additions, deletions, or modifications to the contents on the Service at any time without prior notice.<br/><br/> Our Service and its contents are provided 'as is' and 'as available' without any warranty or representations of any kind, whether express or implied. We are a distributor and not a publisher of the content supplied by third parties, as such, our exercises no editorial control over such content and makes no warranty or representation as to the accuracy, reliability or currency of any information, content, service or merchandise provided through or accessible via our Service. Without limiting the foregoing, We specifically disclaim all warranties and representations in any content transmitted on or in connection with our Service or on sites that may appear as links on our Service, or in the products provided as a part of, or otherwise in connection with, our Service, including without limitation any warranties of merchantability, fitness for a particular purpose or non-infringement of third party rights. No oral advice or written information given by us or any of its affiliates, employees, officers, directors, agents, or the like will create a warranty. Price and availability information is subject to change without notice. Without limiting the foregoing, we do not warrant that our Service will be uninterrupted, uncorrupted, timely, or error-free.</span>),
     }
 ]
+
+export const adminSidebarData = [
+    {
+        title: 'Admin Overview',
+        dropDown: false,
+    },
+    {
+        title: 'User Management',
+        dropDown: false,
+    },
+    {
+        title: 'Ecommerce',
+        dropDown: true,
+    },
+    {
+        title: 'Client Profiles',
+        dropDown: false,
+    },
+    {
+        title: 'Transactions',
+        dropDown: false,
+    }
+]

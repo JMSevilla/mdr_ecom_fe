@@ -1,9 +1,9 @@
 import { Box } from "@mui/system";
 import React from "react";
 import testimonialOutline from "../../../assets/images/outline-text/testimonials.svg"
-import { AppSwiper, SystemTypography  } from "../../../components";
+import { SystemTypography  } from "../../../components";
 import { testimonialData } from "../../../core/utils/helper";
-import { Navigation, Pagination, Autoplay } from "swiper";
+// import { Navigation, Pagination, Autoplay } from "swiper";
 
 const testimonials_field = () =>{
     return(
@@ -16,13 +16,13 @@ const testimonials_field = () =>{
                         <SystemTypography variant={'subtitle'} text={"Here are some of our client's feedback..."} isgutter={true} style={{fontStyle: 'italic', marginBottom: '50px'}}/>
                         </Box>
                     <Box style={{display: "flex"}}>
-                            <AppSwiper
+                            {/* <AppSwiper
                             testimonial={true}
                             swiperData={testimonialData}
                             modules={[Autoplay,Pagination,Navigation]}
                             className='rounded w-full'
                             />
-                           
+                            */}
                         </Box>
              </Box>
         </Box>
