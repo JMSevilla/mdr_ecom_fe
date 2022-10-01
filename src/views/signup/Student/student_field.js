@@ -78,12 +78,6 @@ const Student_field = (props) => {
 
   const columns = [
     {
-      field: FeatureSpiels.propertyNames.id,
-      headerName: FeatureSpiels.fieldLabels.id,
-      flex: 3.5,
-      width: 250,
-    },
-    {
       field: FeatureSpiels.propertyNames.featureName,
       headerName: FeatureSpiels.fieldLabels.featureName,
       flex: 3.5,
@@ -243,6 +237,8 @@ const Student_field = (props) => {
                         fieldSettings.error_provider_messageSt.epm_address
                       }
                       iserror={fieldSettings.errorProviderSt.error_address}
+                      ismultiLine={true}
+                      rows={4}
                     />
                   ),
                 },
@@ -429,27 +425,27 @@ const Student_field = (props) => {
                           ref={provided.innerRef}
                         >
                           <CardContent>
-                            <div style={{ display: "flex" }}>
+                            <div className='flex justify-between mb-2 ml-12'>
                               <SystemTypography
                                 isgutter={true}
                                 text={"Your Project Features Here"}
                                 style={{
                                   fontFamily: "Georgia",
-                                  marginRight: "50px",
                                 }}
                               />
                               {destinationArray.length > 0 && (
                                 <AppButton
-                                  buttonName={"REMOVE FEATURES"}
+                                  buttonName={"EDIT FEATURES"}
                                   variant={"contained"}
                                   color={"error"}
                                   size={"small"}
+                                  style={{marginLeft: '20px'}}
                                   handleClick={() => setDialogOpen(!dialogOpen)}
                                 />
                               )}
                               <SystemDialog
                                 open={dialogOpen}
-                                title={"List of features dropped"}
+                                title={"List of dropped features"}
                                 fullWidth={true}
                                 maxWidth={"lg"}
                                 handleClose={() => setDialogOpen(false)}
@@ -467,7 +463,7 @@ const Student_field = (props) => {
                                               text={"Project features list"}
                                               style={{
                                                 fontFamily: "Georgia",
-                                                marginRight: "50px",
+                                                textAlign: 'center', fontSize: '20px'
                                               }}
                                             />
                                             <ProjectTable
