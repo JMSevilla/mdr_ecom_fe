@@ -12,3 +12,7 @@ export const appRouter = {
 export const appAdminRouter = {
     Home : {path : "/admin/dashboard"},
 }
+
+export const appBORouter = {
+    Home : {path: "/bo/dashboard"},
+}
