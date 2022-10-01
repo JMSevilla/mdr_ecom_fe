@@ -5,7 +5,8 @@ export const appRouter = {
     TermsAndConditions : {path : "/termsandconditions"},
     PrivacyPolicy : {path : "/privacypolicy"},
     AdminRegistration : {path : "/adminregistration"},
-    Shop : {path: "/shop"}
+    Shop : {path: "/shop"},
+    SignIn : {path: "/login"}
 }   
 
 export const appAdminRouter = {

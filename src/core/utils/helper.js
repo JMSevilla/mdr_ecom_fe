@@ -5,8 +5,8 @@ import desktop from '../../assets/images/services/desktop_app.jpg';
 import { SSP_Feature1 } from '../../components/__dump__/__field_dump';
 
 // social media icons
-import {FiFacebook, FiLinkedin, FiGithub} from 'react-icons/fi';
-
+import {FiFacebook, FiLinkedin, FiGithub , FiVoicemail} from 'react-icons/fi';
+import { FaGoogle } from "react-icons/fa";
 // mission and vision icon 
 import {BiRocket} from 'react-icons/bi';
 import {MdOutlineInsights} from 'react-icons/md'
@@ -272,18 +272,37 @@ export const navbarData = [
 export const socialAccounts = [
     {
         icon: <FiFacebook className='social-icons'/>,
+        color: 'blue',
         link: 'https://facebook.com',
     },
     {
         icon: <FiLinkedin className='social-icons'/>,
+        color: 'skyblue',
         link: 'https://linkedin.com',
     },
     {
         icon: <FiGithub className='social-icons'/>,
+        color: 'black',
         link: 'https://github.com',
     }
 ];
-
+export const loginIcon = [
+    {
+        icon: <FiFacebook className='social-icons'/>,
+        color: 'blue',
+        link: 'https://facebook.com',
+    },
+    {
+        icon: <FiLinkedin className='social-icons'/>,
+        color: 'skyblue',
+        link: 'https://linkedin.com',
+    },
+    {
+        icon: <FaGoogle className='social-icons'/>,
+        color: 'red',
+        link: 'https://accounts.google.com/Login?hl=tl',
+    }
+]
 // footer terms and conditions etc.
 export const businessRules = [
     {

@@ -17,6 +17,7 @@ import { Student } from '../core/context/StudentContext';
 import { Provider } from 'react-redux'
 import configureStore from '../core/redux/store';
 import { RouteWithAdminSidebar } from './base/route_sd'
+import Login from '../views/Login/Login'
 const store = configureStore()
 
 const RouteWithLoad = ({component : Component, ...rest}) => {
@@ -48,12 +49,10 @@ export default () => (
                                     <RouteWithLoad exact path={appRouter.TermsAndConditions.path} component={TermsAndConditions}/>
                                     <RouteWithLoad exact path={appRouter.PrivacyPolicy.path} component={PrivacyPolicy} />
                                     <RouteWithLoad exact path={appRouter.Shop.path} component={Shop} />
-
+                                    <RouteWithLoad exact path={appRouter.SignIn.path} component={Login} />
                                     {/* admin registration */}
                                     <RouteWithLoad exact path={appRouter.AdminRegistration.path} component={AdminRegistration} />
-
-                                    {/* admin dashboard */}
-                                    <RouteWithAdminSidebar exact path={appAdminRouter.Home.path} component={HomeDashboard} />
+                                    <RouteWithAdminSidebar exact path={appAdminRouter.Home.path} component={HomeDashboard} /> 
                             </AdministratorContext>
                         </StudentProjectContext>
                         </ProjectDetailsContext>
