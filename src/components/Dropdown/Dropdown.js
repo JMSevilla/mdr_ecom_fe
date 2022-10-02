@@ -16,7 +16,6 @@ export default function AppDropdown(props) {
   const history = useHistory();
   const navigateToViewAll = () => {
     history.push(appRouter.Shop.path);
-    window.location.reload();
   }
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
