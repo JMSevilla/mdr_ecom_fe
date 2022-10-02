@@ -5,8 +5,8 @@ import desktop from '../../assets/images/services/desktop_app.jpg';
 import { SSP_Feature1 } from '../../components/__dump__/__field_dump';
 
 // social media icons
-import {FiFacebook, FiLinkedin, FiGithub} from 'react-icons/fi';
-
+import {FiFacebook, FiLinkedin, FiGithub , FiVoicemail} from 'react-icons/fi';
+import { FaGoogle } from "react-icons/fa";
 // mission and vision icon 
 import {BiRocket} from 'react-icons/bi';
 import {MdOutlineInsights} from 'react-icons/md'
@@ -54,13 +54,13 @@ export const heroBannerData = [
 export const missionAndVisionData = [
     {
         title: 'Our Mission',
-        description: 'To enhancing the business growth of our customers with creative Design and Development to deliver market-defining high-quality solutions that create value and consistent competitive advantage for our clients around the Country',
-        icon: <BiRocket style={{fontSize: '30px', color: 'red'}}/>
+        description: 'To enhance the business growth of our customers with creative Design and Development to deliver market-defining high-quality solutions that create value and consistent competitive advantage for our clients around the Country.',
+        icon: <BiRocket style={{fontSize: '30px', color: 'white'}}/>
     },
     {
         title: 'Our Vision',
         description: 'To become a prime performer, in providing quality Web, Print and Software solutions in the competitive Local market place.',
-        icon: <MdOutlineInsights style={{fontSize: '30px', color: 'red'}}/>
+        icon: <MdOutlineInsights style={{fontSize: '30px', color: 'white'}}/>
     },
 ];
 
@@ -272,18 +272,37 @@ export const navbarData = [
 export const socialAccounts = [
     {
         icon: <FiFacebook className='social-icons'/>,
+        color: 'blue',
         link: 'https://facebook.com',
     },
     {
         icon: <FiLinkedin className='social-icons'/>,
+        color: 'skyblue',
         link: 'https://linkedin.com',
     },
     {
         icon: <FiGithub className='social-icons'/>,
+        color: 'black',
         link: 'https://github.com',
     }
 ];
-
+export const loginIcon = [
+    {
+        icon: <FiFacebook className='social-icons'/>,
+        color: 'blue',
+        link: 'https://facebook.com',
+    },
+    {
+        icon: <FiLinkedin className='social-icons'/>,
+        color: 'skyblue',
+        link: 'https://linkedin.com',
+    },
+    {
+        icon: <FaGoogle className='social-icons'/>,
+        color: 'red',
+        link: 'https://accounts.google.com/Login?hl=tl',
+    }
+]
 // footer terms and conditions etc.
 export const businessRules = [
     {
@@ -455,7 +474,7 @@ export const studentRequirements = [
 export const herobannerButton = [
     {
         to: "/#services",
-        name: "Learn More",
+        name: "Get to know us",
         color: "button-white",
         dropdown: false
     },
@@ -471,21 +490,27 @@ export const herobannerButton = [
 export const testimonialData = [
     {
         img: testimonials,
-        feedbackDisc:"The success of every websites now depends on search engine optimisation and digital marketing strategy. If you are on first page of all major search engines then you are ahead among your competitors in terms of online sales.",
+        feedbackDisc:"''The success of every websites now depends on search engine optimisation and digital marketing strategy. If you are on first page of all major search engines then you are ahead among your competitors in terms of online sales.''",
         creator:"Dr. Christopher Dayagdag",
         profession: 'Business Owner',
+        ratingValue: 4.5,
+        ratingPrecision: 0.5,
     },
     {
         img: testimonials2,
-        feedbackDisc:"Your website is the center of your digital eco-system, like a brick and mortar location, the experience matters once a customer enters, just as much as the perception they have of you before they walk through the door.",
+        feedbackDisc:"''Your website is the center of your digital eco-system, like a brick and mortar location, the experience matters once a customer enters, just as much as the perception they have of you before they walk through the door.''",
         creator:"Leland Dieno",
         profession: 'Client',
+        ratingValue: 5,
+        ratingPrecision: 1,
     },
     {
         img: testimonials3,
-        feedbackDisc:"If there’s one thing you learn by working on a lot of different Web sites, it’s that almost any design idea–no matter how appallingly bad–can be made usable in the right circumstances, with enough effort.",
+        feedbackDisc:"''If there’s one thing you learn by working on a lot of different Web sites, it’s that almost any design idea–no matter how appallingly bad–can be made usable in the right circumstances, with enough effort.''",
         creator:"Steve Krug",
         profession: 'CEO',
+        ratingValue: 4.5,
+        ratingPrecision: 0.5,
     },
 ]
 
@@ -808,4 +833,19 @@ export const adminSidebarData = [
         title: 'Transactions',
         dropDown: false,
     }
+]
+
+export const boSidebarData = [
+    {
+        title: 'My Dashboard',
+        dropDown: false,
+    },
+    {
+        title: 'Profile',
+        dropDown: false,
+    },
+    {
+        title: 'Projects',
+        dropDown: false,
+    },
 ]

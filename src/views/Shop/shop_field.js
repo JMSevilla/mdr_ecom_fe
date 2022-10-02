@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box } from '@mui/material'
-import { AppFooter, ApplicationBar } from '../../components'
-// import { Autoplay, EffectFade, Navigation, Pagination } from "swiper";
+import { AppFooter, ApplicationBar, AppSwiper} from '../../components'
 import { shopBannerData } from '../../core/utils/helper';
 import ShopContent from './shopcontent';
 import { motion } from 'framer-motion'
