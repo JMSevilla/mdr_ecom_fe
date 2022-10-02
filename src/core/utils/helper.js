@@ -834,3 +834,18 @@ export const adminSidebarData = [
         dropDown: false,
     }
 ]
+
+export const boSidebarData = [
+    {
+        title: 'My Dashboard',
+        dropDown: false,
+    },
+    {
+        title: 'Profile',
+        dropDown: false,
+    },
+    {
+        title: 'Projects',
+        dropDown: false,
+    },
+]

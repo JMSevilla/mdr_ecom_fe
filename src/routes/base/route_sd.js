@@ -14,7 +14,14 @@ const RouteWithAdminSidebar = (
     )
 }
 
-const RouteWithBusinessOwnerSidebar = () => {
+const RouteWithBusinessOwnerSidebar = (
+    {component: Component, ...rest}
+) => {
+    return (
+        <Route {...rest} render={props => (
+            <Component {...props} />
+        )} />
+    )
 
 }
 
@@ -22,4 +29,4 @@ const RouteWithStudentSidebar = () => {
     
 }
 
-export {RouteWithAdminSidebar}
+export {RouteWithAdminSidebar, RouteWithBusinessOwnerSidebar}
