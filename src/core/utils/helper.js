@@ -54,13 +54,13 @@ export const heroBannerData = [
 export const missionAndVisionData = [
     {
         title: 'Our Mission',
-        description: 'To enhancing the business growth of our customers with creative Design and Development to deliver market-defining high-quality solutions that create value and consistent competitive advantage for our clients around the Country',
-        icon: <BiRocket style={{fontSize: '30px', color: 'red'}}/>
+        description: 'To enhance the business growth of our customers with creative Design and Development to deliver market-defining high-quality solutions that create value and consistent competitive advantage for our clients around the Country.',
+        icon: <BiRocket style={{fontSize: '30px', color: 'white'}}/>
     },
     {
         title: 'Our Vision',
         description: 'To become a prime performer, in providing quality Web, Print and Software solutions in the competitive Local market place.',
-        icon: <MdOutlineInsights style={{fontSize: '30px', color: 'red'}}/>
+        icon: <MdOutlineInsights style={{fontSize: '30px', color: 'white'}}/>
     },
 ];
 
@@ -474,7 +474,7 @@ export const studentRequirements = [
 export const herobannerButton = [
     {
         to: "/#services",
-        name: "Learn More",
+        name: "Get to know us",
         color: "button-white",
         dropdown: false
     },
@@ -490,21 +490,27 @@ export const herobannerButton = [
 export const testimonialData = [
     {
         img: testimonials,
-        feedbackDisc:"The success of every websites now depends on search engine optimisation and digital marketing strategy. If you are on first page of all major search engines then you are ahead among your competitors in terms of online sales.",
+        feedbackDisc:"''The success of every websites now depends on search engine optimisation and digital marketing strategy. If you are on first page of all major search engines then you are ahead among your competitors in terms of online sales.''",
         creator:"Dr. Christopher Dayagdag",
         profession: 'Business Owner',
+        ratingValue: 4.5,
+        ratingPrecision: 0.5,
     },
     {
         img: testimonials2,
-        feedbackDisc:"Your website is the center of your digital eco-system, like a brick and mortar location, the experience matters once a customer enters, just as much as the perception they have of you before they walk through the door.",
+        feedbackDisc:"''Your website is the center of your digital eco-system, like a brick and mortar location, the experience matters once a customer enters, just as much as the perception they have of you before they walk through the door.''",
         creator:"Leland Dieno",
         profession: 'Client',
+        ratingValue: 5,
+        ratingPrecision: 1,
     },
     {
         img: testimonials3,
-        feedbackDisc:"If there’s one thing you learn by working on a lot of different Web sites, it’s that almost any design idea–no matter how appallingly bad–can be made usable in the right circumstances, with enough effort.",
+        feedbackDisc:"''If there’s one thing you learn by working on a lot of different Web sites, it’s that almost any design idea–no matter how appallingly bad–can be made usable in the right circumstances, with enough effort.''",
         creator:"Steve Krug",
         profession: 'CEO',
+        ratingValue: 4.5,
+        ratingPrecision: 0.5,
     },
 ]
 
