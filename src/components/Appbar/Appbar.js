@@ -3,10 +3,10 @@ import Typography from "@mui/material/Typography";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
-import {AppModal} from '../../components';
+import {AppButton} from '../../components';
 import logo from "../../assets/images/logo/modernresolve.png";
 import SystemLogin from "../../views/Login/Login";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { appRouter } from "../../routes/router";
 import NavLinks from "./NavLinks";
 import NavMobile from "./NavMobile";
@@ -17,7 +17,12 @@ const ApplicationBar = (props) => {
   const history = useHistory();
   const backToHome = () => {
     history.push(appRouter.Homepage.path);
+    window.location.reload();
   };
+
+  const navigateSignIn = () => {
+    history.push(appRouter.SignIn.path);
+  }
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
@@ -32,7 +37,7 @@ const ApplicationBar = (props) => {
       <Toolbar>
         <Box className='container mx-auto h-full flex items-center justify-between'>
            {/* LOGO */}
-            <Typography variant="p" onClick={backToHome} className='text-2xl font-logo lg:text-2xl flex items-center gap-2 cursor-pointer'><img src={logo} className='w-[50px] h-[50px]' alt='logo'/>{title}</Typography>
+            <Typography variant="p" onClick={backToHome} className='text-2xl font-subtitle lg:text-2xl flex items-center gap-2 cursor-pointer'><img src={logo} className='w-[50px] h-[50px]' alt='logo'/>{title}</Typography>
             {/* NAVLINKS */}
             <Box className='hidden lg:block'>
                 {!simplified && (<>
@@ -40,8 +45,13 @@ const ApplicationBar = (props) => {
                 </>)}
             </Box>
             <Box className='hidden lg:block'>
-              <AppModal buttonName={"SIGN IN"} buttonColor={'button-black'} title={"ACCOUNT LOGIN"} description={<SystemLogin/>} 
-              buttonStyle={{fontSize: '15px', padding: '10px 25px', borderRadius: '30px', fontWeight: 600}} logo/>
+              <AppButton
+                handleClick={navigateSignIn}
+                style={{fontSize: '15px', padding: '10px 25px', borderRadius: '30px', fontWeight: 600}} 
+                buttonColor={'button-black'}
+                buttonName={"Sign In"}
+                variant="contained"             
+              />
             </Box>
              {/* NAV MOBILE */}
              <Box className='lg:hidden'>

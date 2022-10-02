@@ -13,7 +13,7 @@ const NavLinks = () => {
               {item.dropdown === false ? (
                 <>
                   <li
-                    className="text-black hover:text-accent cursor-pointer"
+                    className="text-black font-subtitle hover:text-accent cursor-pointer"
                     key={index}
                   >
                     <Link
