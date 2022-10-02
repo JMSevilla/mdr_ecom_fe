@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {ApplicationBar, SystemContainer, AppFooter, SystemTypography, ApplicationCard, AppTextField, SystemSelect, AppButton} from '../../components';
 import { Box } from '@mui/material';
-// import Lottie from "react-lottie";
+import Lottie from "react-lottie";
 import * as forgetPasswordLogo from '../../assets/images/forgetpassword/forgetpassword.json'
 import * as securityCode from '../../assets/images/forgetpassword/securitycode.json'
 import forgetPasswordIcon from '../../assets/images/forgetpassword/forgetpasswordlogo.jpg'
@@ -63,12 +63,12 @@ const ForgetPassword_field = (props) => {
         <ApplicationCard 
                 children= {
                     <Box style={{display: 'flex', alignItems: 'center', gap: '5rem', padding: '60px 60px'}}>
-                        {/* <Lottie
+                        <Lottie
                         options={loadingAnimation}
                         style={style}
                         height={300}
                         width={300}
-                        /> */}
+                        />
                         <Box style={{display: 'flex', flexDirection: 'column'}}>
                             <Box style={{display: 'flex', alignItems: 'center', marginBottom: '20px', gap: '0.5rem'}}>
                                 <img src={forgetPasswordIcon} alt='forgetpassword icon' style={{width: '90px'}}/>
@@ -180,12 +180,12 @@ const ForgetPassword_field = (props) => {
                                 <AppButton buttonName={togglePasswordOptionTwo ? '' : 'Choose another way?'} handleClick={handleAnotherOption} style={{marginTop: '10px', textTransform:'none', color: 'black'}}/>
                             </Box>
                         </Box>
-                        {/* <Lottie
+                        <Lottie
                         options={loadingAnimation}
                         style={style}
                         height={300}
                         width={300}
-                        /> */}
+                        />
                     </Box>
                 }
             

@@ -3,16 +3,13 @@ import { navbarData, socialAccounts } from "../../core/utils/helper";
 import { XIcon } from "@heroicons/react/outline";
 import { MenuAlt3Icon } from "@heroicons/react/outline";
 import { motion } from "framer-motion";
-import { NavHashLink as Link } from 'react-router-hash-link';
+import { Link } from "react-scroll";
 import { AppModal } from "../../components";
 import SystemLogin from "../../views/Login/Login";
 import logo from "../../assets/images/logo/modernresolve.png";
-import { useHistory } from 'react-router-dom';
-import { appRouter } from '../../routes/router';
 
 const NavMobile = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const history = useHistory();
   // framer motion variants
   const circleVariants = {
     hidden: {
@@ -84,11 +81,11 @@ const NavMobile = () => {
           return (
             <li key={index} className="mb-8">
               <Link
-                onClick={() =>setIsOpen(false)}
-                to={`${item.to}`}
-                smooth
-                activeClassName="selected"
-                activeStyle={{ color: '#bd321c' }}
+                onClick={() => setIsOpen(false)}
+                to={item.to}
+                smooth={true}
+                duration={500}
+                offset={-70}
                 className="text-xl font-body cursor-pointer text-black capitalize hover:text-accent"
               >
                 {item.link}

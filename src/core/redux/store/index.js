@@ -1,5 +1,6 @@
 import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit'
-import { tokenReducer, loginReducer, administratorReducer } from '../slice'
+import { tokenReducer, loginReducer } from '../slice'
+import serverMiddleware from '../middleware/serverMiddleware'
 
 const customizedMiddleware = getDefaultMiddleware({
     serializableCheck: false
@@ -9,9 +10,8 @@ const customizedMiddleware = getDefaultMiddleware({
     return configureStore({
         reducer : {
             token : tokenReducer,
-            login : loginReducer,
-            admin : administratorReducer
+            login : loginReducer
         },
-        middleware: [...customizedMiddleware]
+        middleware: [...customizedMiddleware, serverMiddleware]
     })
   }

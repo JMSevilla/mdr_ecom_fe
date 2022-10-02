@@ -8,7 +8,7 @@ const Privacypolicy_field = () => {
   useEffect(() => {
     window.addEventListener('resize', () => {
       return window.innerWidth < 1280 ? setFooterPosition(false) : setFooterPosition(true);
-    })
+    }, [footerPosition])
     window.scrollTo(0, 0);
   }, [footerPosition]);
   return (
@@ -31,7 +31,7 @@ const Privacypolicy_field = () => {
         })}
           
       </Box>
-      <AppFooter/>
+      <AppFooter fixed={footerPosition}/>
       </>)
 
 };
