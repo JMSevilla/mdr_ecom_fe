@@ -52,6 +52,25 @@ class Process {
         data.append('userid', uid)
         return data
     }
+    
+    // STUDENT REGISTRATION //
+    ST_vc_entry(obj){
+        data.append('email', obj.email)
+        data.append('code', obj.code)
+        return data;
+    }
+    ST_registration(obj){
+        data.append('firstname', obj.firstname)
+        data.append('lastname', obj.lastname)
+        data.append('contactnumber', obj.contactnumber)
+        data.append('address', obj.address)
+        data.append('email', obj.email)
+        data.append('password', obj.password)
+        data.append('isverified', '0')
+        data.append('sec_question', obj.sec_question)
+        data.append('sec_answer', obj.sec_answer)
+        return data
+    }
 }
 
 export default new Process()

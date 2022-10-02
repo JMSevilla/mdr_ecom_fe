@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box } from '@mui/material'
-import { AppFooter, ApplicationBar, AppSwiper } from '../../components'
-import { Autoplay, EffectFade, Navigation, Pagination } from "swiper";
+import { AppFooter, ApplicationBar, AppSwiper} from '../../components'
 import { shopBannerData } from '../../core/utils/helper';
 import ShopContent from './shopcontent';
 import { motion } from 'framer-motion'
@@ -17,11 +16,6 @@ const ShopField = () => {
             <h1 className='text-md font-body italic'>Feel free to view our products</h1>
             </Box>
             <Box className='w-full lg:w-3/4'>
-            <AppSwiper
-            swiperData={shopBannerData}
-            style={{width:'100%', height: '220px'}}
-            modules={[Autoplay, EffectFade, Navigation, Pagination]}
-            />
             </Box>
         </Box>
         {/* SHOP HEADER END*/}

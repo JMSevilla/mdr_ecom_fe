@@ -31,6 +31,10 @@ import { styled } from '@mui/material/styles'
 import { projectbreakdown } from '../../../core/utils/dumpfeatures'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { CardContent, CardMedia, Box, Grid, Card, Paper } from "@mui/material";
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import FeatureSpiels from "../../../core/Spiels/FeatureSpiels";
 
 const Student_field = (props) => {
@@ -73,12 +77,6 @@ const Student_field = (props) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const columns = [
-    {
-      field: FeatureSpiels.propertyNames.id,
-      headerName: FeatureSpiels.fieldLabels.id,
-      flex: 3.5,
-      width: 250,
-    },
     {
       field: FeatureSpiels.propertyNames.featureName,
       headerName: FeatureSpiels.fieldLabels.featureName,
@@ -239,6 +237,8 @@ const Student_field = (props) => {
                         fieldSettings.error_provider_messageSt.epm_address
                       }
                       iserror={fieldSettings.errorProviderSt.error_address}
+                      ismultiLine={true}
+                      rows={4}
                     />
                   ),
                 },
@@ -425,27 +425,27 @@ const Student_field = (props) => {
                           ref={provided.innerRef}
                         >
                           <CardContent>
-                            <div style={{ display: "flex" }}>
+                            <div className='flex justify-between mb-2 ml-12'>
                               <SystemTypography
                                 isgutter={true}
                                 text={"Your Project Features Here"}
                                 style={{
                                   fontFamily: "Georgia",
-                                  marginRight: "50px",
                                 }}
                               />
                               {destinationArray.length > 0 && (
                                 <AppButton
-                                  buttonName={"REMOVE FEATURES"}
+                                  buttonName={"EDIT FEATURES"}
                                   variant={"contained"}
                                   color={"error"}
                                   size={"small"}
+                                  style={{marginLeft: '20px'}}
                                   handleClick={() => setDialogOpen(!dialogOpen)}
                                 />
                               )}
                               <SystemDialog
                                 open={dialogOpen}
-                                title={"List of features dropped"}
+                                title={"List of dropped features"}
                                 fullWidth={true}
                                 maxWidth={"lg"}
                                 handleClose={() => setDialogOpen(false)}
@@ -463,7 +463,7 @@ const Student_field = (props) => {
                                               text={"Project features list"}
                                               style={{
                                                 fontFamily: "Georgia",
-                                                marginRight: "50px",
+                                                textAlign: 'center', fontSize: '20px'
                                               }}
                                             />
                                             <ProjectTable
@@ -714,7 +714,7 @@ const Student_field = (props) => {
             <hr className='mb-8'/>
             <AppTextField
               value={fieldSettings.verificationObjSt.verificationcode}
-              style={{ marginTop: "10px", marginBottom: "30px", width: "100%" }}
+              style={{ marginTop: "10px", marginBottom: "30px", width: "100%"}}
               placeholder="Enter verification code"
               handleChange={(e) => HandleVerification(e)}
               variant={"outlined"}
@@ -738,9 +738,18 @@ const Student_field = (props) => {
                 )
               })}
             </ul>
-              <label for="myfile">Select a file: </label>
-              <input type="file" id="myfile" name="myfile"/><br/><br/>
-              <input type="submit"/>
+            <Stack direction="row" alignItems="center" spacing={2}>
+            <label for="consultation">Select a file:</label>
+              <Button variant="contained" component="label">
+                Upload
+                <input hidden accept="image/*" multiple type="file" />
+              </Button>
+              <span>or</span>
+              <IconButton color="primary" aria-label="upload picture" component="label">
+              <input type="file" class="hidden" accept="image/*;capture=camera"/>
+                <PhotoCamera />
+              </IconButton>
+            </Stack>
             <NextPrevious
               disabled={timer === 0 ? false : true}
               buttonName={
@@ -767,28 +776,41 @@ const Student_field = (props) => {
             />
             <hr className='mb-4'/>
             <Box className='flex flex-col gap-4'>
-            <Box className='flex gap-1'>
-            <span style={{color: 'red'}}>*</span>
+
             <SystemTypography
               isgutter={true}
               text={"Select available date and time for your project consultation."}
               variant={"h6"}
               style={{fontSize: '16px'}}
             />
+        
+            <Box className="flex gap-1">
+            <span style={{color: 'red'}}>*</span>
+            <label for="consultation">Choose Available Date:</label>
             </Box>
-            <Box className='flex gap-1'>
-            <label for="consultation">Choose Date:</label>
-            <input type="date" id="consultation" name="consultation"/>
+            <Box className='flex gap-2'>
+            <Box className='flex gap-1 items-center'>
+            <label for="consultation">From:</label>
+            <input type="date" id="consultation" className='border-solid border-2 border-black-500 px-1 rounded' name="consultation"/>
+            </Box>
+            <Box className='flex gap-1 items-center'>
+            <label for="consultation">To:</label>
+            <input type="date" id="consultation" className='border-solid border-2 border-black-500 px-1 rounded' name="consultation"/>
+            </Box>
             </Box>
 
-            <Box className='flex gap-2'>
-            <Box className='flex gap-1'>
-            <label for="appt">From:</label>
-            <input type="time" id="appt" name="appt"/>
+            <Box className="flex gap-1">
+            <span style={{color: 'red'}}>*</span>
+            <label for="consultation">Choose Available Time:</label>
             </Box>
-            <Box className='flex gap-1'>
+            <Box className='flex gap-2'>
+            <Box className='flex gap-1 items-center'>
+            <label for="appt">From:</label>
+            <input type="time" id="appt" className='border-solid border-2 border-black-500 px-1 rounded' name="appt"/>
+            </Box>
+            <Box className='flex gap-1 items-center'>
             <label for="appt">To:</label>
-            <input type="time" id="appt" name="appt"/>
+            <input type="time" id="appt" className='border-solid border-2 border-black-500 px-1 rounded' name="appt"/>
             </Box>
             </Box>
 

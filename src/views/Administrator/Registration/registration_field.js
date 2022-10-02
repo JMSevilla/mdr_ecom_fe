@@ -12,7 +12,7 @@ const RegistrationField = (props) => {
                 marginBottom: '20px'
             }}>
                 <CardContent>
-                    {console.log(fieldSettings)}
+                    
                     <SystemTypography 
                     text={'Administrator Automatic Scanner | Account Creation'}
                     isgutter={false}
