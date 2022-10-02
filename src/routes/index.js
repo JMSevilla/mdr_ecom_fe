@@ -17,7 +17,6 @@ import { AdministratorContext } from '../core/context/AdminContext';
 import { Student } from '../core/context/StudentContext';
 import { Provider } from 'react-redux'
 import configureStore from '../core/redux/store';
-import { RouteWithAdminSidebar } from './base/route_sd'
 import { RouteWithAdminSidebar, RouteWithBusinessOwnerSidebar } from './base/route_sd'
 import Login from '../views/Login/Login'
 const store = configureStore()
