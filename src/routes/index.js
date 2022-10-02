@@ -7,8 +7,9 @@ import TermsAndConditions from '../views/BusinessPolicy/TermsAndConditions/Terms
 import PrivacyPolicy from '../views/BusinessPolicy/PrivacyPolicy/PrivacyPolicy'
 import Shop from '../views/Shop/Shop'
 import HomeDashboard from '../views/Administrator/Dashboard/Home/Home'
+import BOHomeDashboard from '../views/BusinessOwner/Dashboard/Home/Home'
 import AdminRegistration from '../views/Administrator/Registration/Registration'
-import { appRouter } from './router'
+import { appRouter, appAdminRouter, appBORouter } from './router'
 import { Global } from '../core/context/GlobalContext'
 import { ProjectDetailsContext } from '../core/context/ProjectDetailsContext';
 import {StudentProjectContext} from '../core/context/StudentProjectContext';
@@ -16,8 +17,7 @@ import { AdministratorContext } from '../core/context/AdminContext';
 import { Student } from '../core/context/StudentContext';
 import { Provider } from 'react-redux'
 import configureStore from '../core/redux/store';
-import { appAdminRouter } from './router'
-import { RouteWithAdminSidebar } from './base/route_sd'
+import { RouteWithAdminSidebar, RouteWithBusinessOwnerSidebar } from './base/route_sd'
 import Login from '../views/Login/Login'
 const store = configureStore()
 
@@ -52,7 +52,10 @@ export default () => (
                                     <RouteWithLoad exact path={appRouter.SignIn.path} component={Login} />
                                     {/* admin registration */}
                                     <RouteWithLoad exact path={appRouter.AdminRegistration.path} component={AdminRegistration} />
+                                    {/* admin dashboard */}
                                     <RouteWithAdminSidebar exact path={appAdminRouter.Home.path} component={HomeDashboard} /> 
+                                    {/* business owner dashboard */}
+                                    <RouteWithBusinessOwnerSidebar exact path={appBORouter.Home.path} component={BOHomeDashboard}/>
                             </AdministratorContext>
                         </StudentProjectContext>
                         </ProjectDetailsContext>
