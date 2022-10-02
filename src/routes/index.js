@@ -6,6 +6,7 @@ import ForgetPassword from '../views/ForgetPassword/ForgetPassword'
 import TermsAndConditions from '../views/BusinessPolicy/TermsAndConditions/TermsAndConditions'
 import PrivacyPolicy from '../views/BusinessPolicy/PrivacyPolicy/PrivacyPolicy'
 import Shop from '../views/Shop/Shop'
+import HomeDashboard from '../views/Administrator/Dashboard/Home/Home'
 import AdminRegistration from '../views/Administrator/Registration/Registration'
 import { appRouter } from './router'
 import { Global } from '../core/context/GlobalContext'
@@ -15,6 +16,8 @@ import { AdministratorContext } from '../core/context/AdminContext';
 import { Student } from '../core/context/StudentContext';
 import { Provider } from 'react-redux'
 import configureStore from '../core/redux/store';
+import { appAdminRouter } from './router'
+import { RouteWithAdminSidebar } from './base/route_sd'
 import Login from '../views/Login/Login'
 const store = configureStore()
 
@@ -46,9 +49,10 @@ export default () => (
                                     <RouteWithLoad exact path={appRouter.TermsAndConditions.path} component={TermsAndConditions}/>
                                     <RouteWithLoad exact path={appRouter.PrivacyPolicy.path} component={PrivacyPolicy} />
                                     <RouteWithLoad exact path={appRouter.Shop.path} component={Shop} />
-                                    <RouteWithLoad exact path={appRouter.Signin.path} component={Login} />
+                                    <RouteWithLoad exact path={appRouter.SignIn.path} component={Login} />
                                     {/* admin registration */}
                                     <RouteWithLoad exact path={appRouter.AdminRegistration.path} component={AdminRegistration} />
+                                    <RouteWithAdminSidebar exact path={appAdminRouter.Home.path} component={HomeDashboard} /> 
                             </AdministratorContext>
                         </StudentProjectContext>
                         </ProjectDetailsContext>

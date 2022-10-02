@@ -6,5 +6,9 @@ export const appRouter = {
     PrivacyPolicy : {path : "/privacypolicy"},
     AdminRegistration : {path : "/adminregistration"},
     Shop : {path: "/shop"},
-    Signin : {path : "/login"}
+    SignIn : {path: "/login"}
 }   
+
+export const appAdminRouter = {
+    Home : {path : "/admin/dashboard"},
+}
