@@ -2,8 +2,8 @@
 class FeatureSpiels {
     fieldLabels = {
         id: "fieldID",
-        featureName : "Field Name",
-        featureType : "Field Type",
+        featureName : "Features name",
+        featureType : "Project Scale",
         actions: "Actions"
     }
     propertyNames = {
