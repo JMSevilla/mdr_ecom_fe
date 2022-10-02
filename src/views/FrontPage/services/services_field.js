@@ -8,7 +8,10 @@ import { Fade } from 'react-reveal'
 
 const services_field = () => {
     return (
-        <Box id="services" className='section flex flex-col justify-center bg-primary h-auto' >
+    <>
+        <Box id="services" className='flex flex-col justify-center bg-primary h-auto py-10 lg:h-[100vh] lg:py-0'>
+             <div className="blur hidden lg:block" style={{ top: "-10%", right: "0" }}></div>
+             <div className="blur hidden lg:block" style={{ bottom: "30%", left: "0" }}></div>
             <Box className='container mx-auto'>
                 <Fade bottom>
                 <Box className='flex flex-col items-center text-center gap-0.5'>
@@ -61,6 +64,8 @@ const services_field = () => {
             </Box>
         </Box>
         </Box>
+        <Box className="curve hidden lg:block"></Box>
+        </>
       )
 }
 

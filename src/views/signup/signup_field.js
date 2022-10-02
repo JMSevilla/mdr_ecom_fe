@@ -34,12 +34,6 @@ const SignupField = (props) => {
     const [dialogOpen, setDialogOpen] = useState(false)
     const columns = [
         {
-            field : FeatureSpiels.propertyNames.id,
-            headerName : FeatureSpiels.fieldLabels.id,
-            flex: 3.5,
-            width: 250 
-        },
-        {
             field : FeatureSpiels.propertyNames.featureName,
             headerName : FeatureSpiels.fieldLabels.featureName,
             flex: 3.5,
@@ -539,24 +533,25 @@ const SignupField = (props) => {
                                                         ref={provided.innerRef}
                                                         >
                                                             <CardContent>
-                                                                <div style={{display : 'flex'}}>
+                                                                <div className='flex justify-between mb-2 ml-12'>
                                                                 <SystemTypography 
                                                                     isgutter={true}
                                                                     text={'Your Project Features Here'}
-                                                                    style={{ fontFamily: 'Georgia', marginRight : '50px'}}
+                                                                    style={{ fontFamily: 'Georgia'}}
                                                                     />
                                                                     {
                                                                         destinationArray.length > 0 && <AppButton 
-                                                                        buttonName={'REMOVE FEATURES'}
+                                                                        buttonName={'EDIT FEATURES'}
                                                                         variant={'contained'}
                                                                         color={'error'}
                                                                         size={'small'}
+                                                                        style={{marginLeft: '20px'}}
                                                                         handleClick={() => setDialogOpen(!dialogOpen)}
                                                                     /> 
                                                                     }
                                                                     <SystemDialog 
                                                                         open={dialogOpen}
-                                                                        title={'List of features dropped'}
+                                                                        title={'List of dropped features'}
                                                                         fullWidth={true}
                                                                         maxWidth={'lg'}
                                                                         handleClose={() => setDialogOpen(false)}
@@ -568,8 +563,8 @@ const SignupField = (props) => {
                                                                                         <CardContent>
                                                                                             <SystemTypography 
                                                                                                 isgutter={true}
-                                                                                                text={'Project features list'}
-                                                                                                style={{ fontFamily: 'Georgia', marginRight : '50px'}}
+                                                                                                text={'Project Features List'}
+                                                                                                style={{ fontFamily: 'Georgia', textAlign: 'center', fontSize: '20px'}}
                                                                                             />
                                                                                             <ProjectTable 
                                                                                             dataColumns={columns}
