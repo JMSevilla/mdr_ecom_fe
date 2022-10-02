@@ -9,7 +9,6 @@ import Shop from '../views/Shop/Shop'
 import HomeDashboard from '../views/Administrator/Dashboard/Home/Home'
 import BOHomeDashboard from '../views/BusinessOwner/Dashboard/Home/Home'
 import AdminRegistration from '../views/Administrator/Registration/Registration'
-
 import { appRouter, appAdminRouter, appBORouter } from './router'
 import { Global } from '../core/context/GlobalContext'
 import { ProjectDetailsContext } from '../core/context/ProjectDetailsContext';
