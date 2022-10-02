@@ -7,7 +7,17 @@ import TermsAndConditions from '../views/BusinessPolicy/TermsAndConditions/Terms
 import PrivacyPolicy from '../views/BusinessPolicy/PrivacyPolicy/PrivacyPolicy'
 import Shop from '../views/Shop/Shop'
 import AdminRegistration from '../views/Administrator/Registration/Registration'
-import { appRouter } from './router'
+import { appRouter, appAdminRouter, appBORouter } from './router'
+import { Global } from '../core/context/GlobalContext'
+import { ProjectDetailsContext } from '../core/context/ProjectDetailsContext';
+import {StudentProjectContext} from '../core/context/StudentProjectContext';
+import { AdministratorContext } from '../core/context/AdminContext';
+import { Student } from '../core/context/StudentContext';
+import { Provider } from 'react-redux'
+import configureStore from '../core/redux/store';
+import { RouteWithAdminSidebar, RouteWithBusinessOwnerSidebar } from './base/route_sd'
+import Login from '../views/Login/Login'
+const store = configureStore()
 
 const RouteWithLoad = ({component : Component, ...rest}) => {
     return ( 
