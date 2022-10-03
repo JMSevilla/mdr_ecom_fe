@@ -9,7 +9,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
 
 /* signin button */
@@ -48,95 +47,6 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-.curve {
-  position: absolute;
-  height: 200px;
-  width: 100%;
-  bottom: 0;
-  text-align: center;
-  z-index: 1;
-}
-
-.curve::before {
-  content: '';
-  display: block;
-  position: absolute;
-  border-radius: 100% 50%;
-  width: 55%;
-  height: 100%;
-  transform: translate(85%, 60%);
-  background-color: #051e34;
-}
-
-.curve::after {
-  content: '';
-  display: block;
-  position: absolute;
-  border-radius: 100% 50%;
-  width: 55%;
-  height: 100%;
-  background-color: #ffffff;
-  transform: translate(-4%, 40%);
-  z-index: -1;
-}
-
-.blur {
-  position:absolute;
-  width: 10rem;
-  height: 14rem;
-  border-radius: 50%;
-  filter: blur(90px);
-  background: #a6ddf0;
-}
-
-.bounce {
-animation: bounce 5s infinite;
-}
-  @keyframes bounce {
-    0%, 100% {
-      transform: translateY(2%);
-      animation-timing-function: cubic-bezier(0.0, 0, 2, 0);
-    }
-    50% {
-      transform: translateY(0);
-      animation-timing-function: cubic-bezier(0, 0, 0.2, 0);
-    }
-  }
-
-  /* CAROUSEL */
-  
-  .carousel-cell {
-    width: 100%;
-    height: auto;
-    margin-right: 10px;
-    /* center images in cells with flexbox */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .carousel-cell-image {
-    display: block;
-    max-height: 100%;
-  }
-  
-  /* smaller, dark, rounded square */
-.flickity-prev-next-button {
-  width: 30px;
-  height: 30px;
-  border-radius: 5px;
-}
-.flickity-prev-next-button:hover {
-  background: #F90;
-}
-/* arrow color */
-.flickity-prev-next-button .arrow {
-  fill: white;
-}
-.flickity-prev-next-button.no-svg {
-  color: white;
 }
 
 @layer base {

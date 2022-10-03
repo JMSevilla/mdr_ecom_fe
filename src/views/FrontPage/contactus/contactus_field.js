@@ -57,7 +57,6 @@ const ContactUs_Field = (props) => {
               handleChange={(e) => handleChangeFullname(e)}
               texthelper={fieldSettings.error_provider_message.epm_fullname}
               iserror={fieldSettings.errorProvider.error_fullname}
-              testid="handleChangeFullNameContactUs"
             />
           </Box>
           <Box className="w-full">
@@ -70,7 +69,6 @@ const ContactUs_Field = (props) => {
               handleChange={(e) => handleChangeContactUsEmail(e)}
               texthelper={fieldSettings.error_provider_message.epm_email}
               iserror={fieldSettings.errorProvider.error_email}
-              testid="handleChangeEmailContactUs"
             />
           </Box>
         </Box>
@@ -83,7 +81,6 @@ const ContactUs_Field = (props) => {
           handleChange={(e) => handleChangeSubject(e)}
           texthelper={fieldSettings.error_provider_message.epm_subject}
           iserror={fieldSettings.errorProvider.error_subject}
-          testid="handleChangeSubjectContactUs"
         />
         <AppTextField
           className="textarea"
@@ -95,10 +92,9 @@ const ContactUs_Field = (props) => {
           rows={6}
           texthelper={fieldSettings.error_provider_message.epm_message}
           iserror={fieldSettings.errorProvider.error_message}
-          testid="handleChangeMessageContactUs"
         />
         <Box className='w-[160px]'>
-        <AppButton testid="btnsubmitcontactus" variant='contained' handleClick={handleContactUsSubmit} buttonName={'Send Message'} 
+        <AppButton variant='contained' handleClick={handleContactUsSubmit} buttonName={'Send Message'} 
          buttonColor='button-black' 
          style={{fontWeight: 600, marginBottom:'10px', padding: '12px 20px'}}/>
          </Box>
