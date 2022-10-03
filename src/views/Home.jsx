@@ -7,11 +7,16 @@ import HeroBanner from './FrontPage/herobanner/HeroBanner'
 import ContactUs from './FrontPage/contactus/ContactUs'
 import Testimonials from './FrontPage/testimonials/Testimonials'
 import { GlobalContext } from '../core/context/GlobalContext'
+import { localstoragehelper } from '../core/utils/storage'
 const Home = () => {
     const contextValues = useContext(GlobalContext)
-    const { tokenScanned } = contextValues
+    const { tokenScanned, adminScanned } = contextValues
     useEffect(() => {
-        tokenScanned(1)
+        adminScanned()
+        const __key__ = localstoragehelper.load('key_identifier')
+        if(__key__ == null || __key__ == undefined
+        || __key__ == 'unknown'){}
+        else{tokenScanned(1)}
     }, [])
     return (
         <div>
