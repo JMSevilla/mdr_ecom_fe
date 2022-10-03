@@ -51,12 +51,14 @@ export default () => (
                                     <RouteWithLoad exact path={appRouter.PrivacyPolicy.path} component={PrivacyPolicy} />
                                     <RouteWithLoad exact path={appRouter.Shop.path} component={Shop} />
                                     <RouteWithLoad exact path={appRouter.SignIn.path} component={Login} />
+                                    
                                     {/* admin registration */}
                                     <RouteWithLoad exact path={appRouter.AdminRegistration.path} component={AdminRegistration} />
                                     {/* admin dashboard */}
                                     <RouteWithAdminSidebar exact path={appAdminRouter.Home.path} component={HomeDashboard} /> 
                                     {/* business owner dashboard */}
                                     <RouteWithBusinessOwnerSidebar exact path={appBORouter.Home.path} component={BOHomeDashboard}/>
+
                             </AdministratorContext>
                         </StudentProjectContext>
                         </ProjectDetailsContext>
