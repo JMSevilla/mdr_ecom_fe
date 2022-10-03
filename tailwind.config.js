@@ -4,7 +4,9 @@ module.exports = {
     fontFamily: {
       primary: 'Playfair Display',
       body: 'Work Sans',
-      logo: 'Proxima Nova'
+      logo: 'Proxima Nova',
+      main: 'Abyssinica SIL',
+      subtitle: 'Roboto Slab'
     },
     container: {
       padding: {
@@ -24,6 +26,7 @@ module.exports = {
       },
       content: {
         aboutUsTitle: 'url("/src/assets/images/outline-text/about.svg")',
+        aboutUsTitleWhite: 'url("/src/assets/images/outline-text/aboutWhite.svg")',
         serviceTitle: 'url("/src/assets/images/outline-text/service.svg")',
         testimonialsTitle: 'url("/src/assets/images/outline-text/testimonials.svg")',
         contactUsTitle: 'url("/src/assets/images/outline-text/contact.svg")',
@@ -32,6 +35,12 @@ module.exports = {
         primary: '#ffffff', // white
         secondary: '#fdf9ff', // light gray
         gray: '#eff0f5', //gray
+        curveGray: '#202731', // dark gray
+        curveBlue: '#3c31dd',  // blue
+        sideBar: '#051e34', //dark blue
+        sideBarTab : '#122c44', // light gray
+        sideBarTabHover: '#253d53', // white gray
+        blue: '#1a73e8', // blue
         accent: {
           DEFAULT: '#bd321c', //red,
           hoverToRed: '#bd321c', // red,

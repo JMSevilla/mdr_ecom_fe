@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiCallBegan } from "../../actions/Action";
-import {sliceConfig} from '../config'
-import Process from '../../../service/data_process'
+import FormService from '../../../service/apiservice'
+
 const tokenSlice = createSlice({
     name : 'token',
     initialState : {
@@ -24,14 +23,10 @@ const { tokenSuccess } = tokenSlice.actions
 
 export const ScannedToken = (id) => async dispatch => {
     try {
-        return dispatch(
-            apiCallBegan({
-                url : sliceConfig.urlhandler('get-token'),
-                method : sliceConfig.methodhandler('POST'),
-                data: Process.USER_checktokenization(id),
-                onSuccess: tokenSuccess.type
-            })
-        )
+        FormService.USER_checkLogin(id)
+        .then(res => {
+            dispatch(tokenSuccess(res.data))
+        })
     } catch (error) {
         return console.log(error.message)
     }

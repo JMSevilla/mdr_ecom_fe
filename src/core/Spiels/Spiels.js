@@ -75,7 +75,6 @@ class Spiels {
                 userLoginObj : {
                     email : '',
                     password : '',
-                    loginAs : '',
                     rememberMe: false
                 },
                 message : '',

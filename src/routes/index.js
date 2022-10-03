@@ -1,11 +1,13 @@
 import React from 'react'
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, BrowserRouter} from 'react-router-dom'
 import Home from '../views/Home'
 import Signup from '../views/signup/Signup'
 import ForgetPassword from '../views/ForgetPassword/ForgetPassword'
 import TermsAndConditions from '../views/BusinessPolicy/TermsAndConditions/TermsAndConditions'
 import PrivacyPolicy from '../views/BusinessPolicy/PrivacyPolicy/PrivacyPolicy'
 import Shop from '../views/Shop/Shop'
+import HomeDashboard from '../views/Administrator/Dashboard/Home/Home'
+import BOHomeDashboard from '../views/BusinessOwner/Dashboard/Home/Home'
 import AdminRegistration from '../views/Administrator/Registration/Registration'
 import { appRouter, appAdminRouter, appBORouter } from './router'
 import { Global } from '../core/context/GlobalContext'
@@ -31,6 +33,7 @@ const RouteWithLoad = ({component : Component, ...rest}) => {
         </>
     )
 }
+
 
 export default () => (
     <BrowserRouter>
