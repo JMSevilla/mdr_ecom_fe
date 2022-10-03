@@ -33,35 +33,15 @@ const RouteWithLoad = ({component : Component, ...rest}) => {
 }
 
 export default () => (
-    <BrowserRouter>
-        <Switch>
-            <Provider store={store}>
-                    <Global>
-                        <Student>
-                        <ProjectDetailsContext>
-                        <StudentProjectContext>
-                            <AdministratorContext>
-                                    <RouteWithLoad exact path={appRouter.Homepage.path} component={Home} />
-                                    <RouteWithLoad exact path={appRouter.Signup.path} component={Signup} />
-                                    <RouteWithLoad exact path={appRouter.ForgetPassword.path} component={ForgetPassword} />
-                                    <RouteWithLoad exact path={appRouter.TermsAndConditions.path} component={TermsAndConditions}/>
-                                    <RouteWithLoad exact path={appRouter.PrivacyPolicy.path} component={PrivacyPolicy} />
-                                    <RouteWithLoad exact path={appRouter.Shop.path} component={Shop} />
-                                    <RouteWithLoad exact path={appRouter.SignIn.path} component={Login} />
-                                    
-                                    {/* admin registration */}
-                                    <RouteWithLoad exact path={appRouter.AdminRegistration.path} component={AdminRegistration} />
-                                    {/* admin dashboard */}
-                                    <RouteWithAdminSidebar exact path={appAdminRouter.Home.path} component={HomeDashboard} /> 
-                                    {/* business owner dashboard */}
-                                    <RouteWithBusinessOwnerSidebar exact path={appBORouter.Home.path} component={BOHomeDashboard}/>
+    <Switch>
+        <RouteWithLoad exact path={appRouter.Homepage.path} component={Home} />
+        <RouteWithLoad exact path={appRouter.Signup.path} component={Signup} />
+        <RouteWithLoad exact path={appRouter.ForgetPassword.path} component={ForgetPassword} />
+        <RouteWithLoad exact path={appRouter.TermsAndConditions.path} component={TermsAndConditions}/>
+        <RouteWithLoad exact path={appRouter.PrivacyPolicy.path} component={PrivacyPolicy} />
+        <RouteWithLoad exact path={appRouter.Shop.path} component={Shop} />
 
-                            </AdministratorContext>
-                        </StudentProjectContext>
-                        </ProjectDetailsContext>
-                        </Student>
-                    </Global>
-            </Provider>
-        </Switch>
-    </BrowserRouter>
+        {/* admin registration */}
+        <RouteWithLoad exact path={appRouter.AdminRegistration.path} component={AdminRegistration} />
+    </Switch>
 )
