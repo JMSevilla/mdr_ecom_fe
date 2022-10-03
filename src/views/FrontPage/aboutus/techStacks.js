@@ -1,11 +1,12 @@
 import React from "react";
 import "./techStacks.css";
+import { Box } from "@mui/material";
 import { techStacksData } from "../../../core/utils/helper";
 
 const TechStacks = () => {
   return (
     <>
-      <section className="slide-option">
+      <Box className="slide-option">
         <div id="infinite" className="highway-slider">
           <div className="container-body highway-barrier">
             <ul className="highway-lane">
@@ -21,7 +22,7 @@ const TechStacks = () => {
             </ul>
           </div>
         </div>
-      </section>
+      </Box>
     </>
   );
 };

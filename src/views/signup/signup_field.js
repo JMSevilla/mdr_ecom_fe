@@ -34,12 +34,6 @@ const SignupField = (props) => {
     const [dialogOpen, setDialogOpen] = useState(false)
     const columns = [
         {
-            field : FeatureSpiels.propertyNames.id,
-            headerName : FeatureSpiels.fieldLabels.id,
-            flex: 3.5,
-            width: 250 
-        },
-        {
             field : FeatureSpiels.propertyNames.featureName,
             headerName : FeatureSpiels.fieldLabels.featureName,
             flex: 3.5,
@@ -63,6 +57,7 @@ const SignupField = (props) => {
                         style={{
                             width: '100%'
                         }}
+                        testid="btnOnRemovedProjectFeatures"
                         variant={'contained'}
                         color={'error'}
                         size={'small'}
@@ -133,6 +128,7 @@ const SignupField = (props) => {
                         }}
                         variant={'contained'}
                         size={'small'}
+                        testid="btnSelectClientCategorySignup"
                         handleClick={() => selectedCustomer()}
                         />
                     </CardContent>
@@ -162,6 +158,7 @@ const SignupField = (props) => {
                         }}
                         variant={'contained'}
                         size={'small'}
+                        testid="btnSelectDevelopersCategorySignup"
                         />
                     </CardContent>
                 }
@@ -194,7 +191,7 @@ const SignupField = (props) => {
                         variant={'contained'}
                         size={'small'}
                         handleClick={() => selectedIAmBusinessOwner()}
-                        testid={'NavigateBusinessOwner'}
+                        testid="NavigateBusinessOwner"
                         />
                     </CardContent>
                 }
@@ -226,6 +223,7 @@ const SignupField = (props) => {
                         variant={'contained'}
                         size={'small'}
                         handleClick={() => selectedIAmStudent()}
+                        testid="NavigateStudent"
                         />
                     </CardContent>
                 }
@@ -331,7 +329,7 @@ const SignupField = (props) => {
                                                                 handleChange={(e) => HandleChangeFirstname(e)}
                                                                 variant={'outlined'}
                                                                 label={'Firstname'}
-                                                                
+                                                                testid="signupFirstname"
                                                                 texthelper={fieldSettings.error_provider_message.epm_firstname}
                                                                 iserror={fieldSettings.errorProvider.error_firstname}
                                                                 />
@@ -345,7 +343,7 @@ const SignupField = (props) => {
                                                                 handleChange={(e) => HandleChangeLastname(e)}
                                                                 variant={'outlined'}
                                                                 label={'Lastname'}
-                                                                
+                                                                testid="signupLastname"
                                                                 texthelper={fieldSettings.error_provider_message.epm_lastname}
                                                                 iserror={fieldSettings.errorProvider.error_lastname}
                                                                 />
@@ -367,7 +365,7 @@ const SignupField = (props) => {
                                                                 handleChange={(e) => HandleChangeContactNumber(e)}
                                                                 variant={'outlined'}
                                                                 label={'Contact Number'}
-                                                                
+                                                                testid="signupContactNumber"
                                                                 texthelper={fieldSettings.error_provider_message.epm_contactnum}
                                                                 iserror={fieldSettings.errorProvider.error_contactnum}
                                                             />
@@ -381,7 +379,7 @@ const SignupField = (props) => {
                                                                 handleChange={(e) => HandleChangeAddress(e)}
                                                                 variant={'outlined'}
                                                                 label={'Address'}
-                                                                
+                                                                testid="signupAddress"
                                                                 texthelper={fieldSettings.error_provider_message.epm_address}
                                                                 iserror={fieldSettings.errorProvider.error_address}
                                                                 ismultiLine={true}
@@ -422,7 +420,7 @@ const SignupField = (props) => {
                                                                 handleChange={(e) => HandleProjectName(e)}
                                                                 variant={'outlined'}
                                                                 label={'Project Name'}
-                                                                
+                                                                testid="signupProjectName"
                                                                 texthelper={fieldSettings.error_provider_message.epm_projectname}
                                                                 iserror={fieldSettings.errorProvider.error_projectname}
                                                             />
@@ -435,6 +433,7 @@ const SignupField = (props) => {
                                                                 selectionLabel={'Select Project Category'}
                                                                 selectionTitle={'Choose Project Category'}
                                                                 placeholder={'Choose Project Category'}
+                                                                testid="signupProjectCategory"
                                                                 style={{marginTop: '10px', marginBottom: '20px'}}
                                                                 handleSelect={(e) => HandleSelectProjectCategory(e)}
                                                                 />
@@ -459,6 +458,7 @@ const SignupField = (props) => {
                                                                 placeholder={'Choose Project Type'}
                                                                 style={{marginTop: '10px', marginBottom: '10px'}}
                                                                 handleSelect={(e) => HandleSelectProjectType(e)}
+                                                                testid="signupProjectType"
                                                                 />
                                                             },
                                                             {
@@ -468,6 +468,7 @@ const SignupField = (props) => {
                                                                    fieldSettings.projectDetailsObj.projectPricing
                                                                 }
                                                                 title={'Project Pricing'}
+                                                                testid="signupProjectSlider"
                                                                 max={priceSettings.max}
                                                                 min={priceSettings.min}
                                                                 sliderChange={HandleSliderChange}
@@ -532,24 +533,25 @@ const SignupField = (props) => {
                                                         ref={provided.innerRef}
                                                         >
                                                             <CardContent>
-                                                                <div style={{display : 'flex'}}>
+                                                                <div className='flex justify-between mb-2 ml-12'>
                                                                 <SystemTypography 
                                                                     isgutter={true}
                                                                     text={'Your Project Features Here'}
-                                                                    style={{ fontFamily: 'Georgia', marginRight : '50px'}}
+                                                                    style={{ fontFamily: 'Georgia'}}
                                                                     />
                                                                     {
                                                                         destinationArray.length > 0 && <AppButton 
-                                                                        buttonName={'REMOVE FEATURES'}
+                                                                        buttonName={'EDIT FEATURES'}
                                                                         variant={'contained'}
                                                                         color={'error'}
                                                                         size={'small'}
+                                                                        style={{marginLeft: '20px'}}
                                                                         handleClick={() => setDialogOpen(!dialogOpen)}
                                                                     /> 
                                                                     }
                                                                     <SystemDialog 
                                                                         open={dialogOpen}
-                                                                        title={'List of features dropped'}
+                                                                        title={'List of dropped features'}
                                                                         fullWidth={true}
                                                                         maxWidth={'lg'}
                                                                         handleClose={() => setDialogOpen(false)}
@@ -561,8 +563,8 @@ const SignupField = (props) => {
                                                                                         <CardContent>
                                                                                             <SystemTypography 
                                                                                                 isgutter={true}
-                                                                                                text={'Project features list'}
-                                                                                                style={{ fontFamily: 'Georgia', marginRight : '50px'}}
+                                                                                                text={'Project Features List'}
+                                                                                                style={{ fontFamily: 'Georgia', textAlign: 'center', fontSize: '20px'}}
                                                                                             />
                                                                                             <ProjectTable 
                                                                                             dataColumns={columns}
@@ -696,6 +698,7 @@ const SignupField = (props) => {
                                                                             variant={'outlined'}
                                                                             label={'Email'}
                                                                             type={'email'}
+                                                                            testid="signupBoEmail"
                                                                             texthelper={fieldSettings.error_provider_message.epm_email}
                                                                             iserror={fieldSettings.errorProvider.error_email}
                                                                         />
@@ -707,6 +710,7 @@ const SignupField = (props) => {
                                                                             variant={'outlined'}
                                                                             label={'Password'}
                                                                             type={'password'}
+                                                                            testid="signupBoPassword"
                                                                             texthelper={fieldSettings.error_provider_message.epm_password}
                                                                             iserror={fieldSettings.errorProvider.error_password}
                                                                         />
@@ -716,6 +720,7 @@ const SignupField = (props) => {
                                                                             placeholder='Confirm your password'
                                                                             handleChange={(e) => HandleChangeBOConPassSignup(e)}
                                                                             variant={'outlined'}
+                                                                            testid="signupBoConPassword"
                                                                             label={'Confirm Password'}
                                                                             type={'password'}
                                                                             texthelper={fieldSettings.error_provider_message.epm_conpass}

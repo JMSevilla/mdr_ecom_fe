@@ -5,8 +5,8 @@ import desktop from '../../assets/images/services/desktop_app.jpg';
 import { SSP_Feature1 } from '../../components/__dump__/__field_dump';
 
 // social media icons
-import {FiFacebook, FiLinkedin, FiGithub} from 'react-icons/fi';
-
+import {FiFacebook, FiLinkedin, FiGithub , FiVoicemail} from 'react-icons/fi';
+import { FaGoogle } from "react-icons/fa";
 // mission and vision icon 
 import {BiRocket} from 'react-icons/bi';
 import {MdOutlineInsights} from 'react-icons/md'
@@ -54,13 +54,13 @@ export const heroBannerData = [
 export const missionAndVisionData = [
     {
         title: 'Our Mission',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-        icon: <BiRocket style={{fontSize: '30px', color: 'red'}}/>
+        description: 'To enhance the business growth of our customers with creative Design and Development to deliver market-defining high-quality solutions that create value and consistent competitive advantage for our clients around the Country.',
+        icon: <BiRocket style={{fontSize: '30px', color: 'white'}}/>
     },
     {
         title: 'Our Vision',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-        icon: <MdOutlineInsights style={{fontSize: '30px', color: 'red'}}/>
+        description: 'To become a prime performer, in providing quality Web, Print and Software solutions in the competitive Local market place.',
+        icon: <MdOutlineInsights style={{fontSize: '30px', color: 'white'}}/>
     },
 ];
 
@@ -238,32 +238,32 @@ export const projectType = [
 export const navbarData = [ 
     {
         link: 'Home',
-        to: 'home',
+        to: '/#home',
         dropdown: false,
     },
     {
         link: 'About',
-        to: 'about',
+        to: '/#about',
         dropdown: false,
     },
     {
         link: 'Services',
-        to: 'services',
+        to: '/#services',
         dropdown: false,
     },
     {
         link: 'Testimonials',
-        to: 'testimonials',
+        to: '/#testimonials',
         dropdown: false,
     },
     {
         link: 'Contact Us',
-        to: 'contactus',
+        to: '/#contactus',
         dropdown: false,
     },
     {
         link: 'Shop',
-        to: 'shop',
+        to: '/shop',
         dropdown: true,
     },
 ];
@@ -272,18 +272,37 @@ export const navbarData = [
 export const socialAccounts = [
     {
         icon: <FiFacebook className='social-icons'/>,
+        color: 'blue',
         link: 'https://facebook.com',
     },
     {
         icon: <FiLinkedin className='social-icons'/>,
+        color: 'skyblue',
         link: 'https://linkedin.com',
     },
     {
         icon: <FiGithub className='social-icons'/>,
+        color: 'black',
         link: 'https://github.com',
     }
 ];
-
+export const loginIcon = [
+    {
+        icon: <FiFacebook className='social-icons'/>,
+        color: 'blue',
+        link: 'https://facebook.com',
+    },
+    {
+        icon: <FiLinkedin className='social-icons'/>,
+        color: 'skyblue',
+        link: 'https://linkedin.com',
+    },
+    {
+        icon: <FaGoogle className='social-icons'/>,
+        color: 'red',
+        link: 'https://accounts.google.com/Login?hl=tl',
+    }
+]
 // footer terms and conditions etc.
 export const businessRules = [
     {
@@ -454,12 +473,13 @@ export const studentRequirements = [
 // hero banner button //
 export const herobannerButton = [
     {
-        to: "services",
-        name: "Learn More",
+        to: "/#services",
+        name: "Get to know us",
         color: "button-white",
         dropdown: false
     },
     {
+        to: "/#services",
         name: "Pricing",
         color: "button-black",
         dropdown: false
@@ -470,21 +490,27 @@ export const herobannerButton = [
 export const testimonialData = [
     {
         img: testimonials,
-        feedbackDisc:"The success of every websites now depends on search engine optimisation and digital marketing strategy. If you are on first page of all major search engines then you are ahead among your competitors in terms of online sales.",
+        feedbackDisc:"''The success of every websites now depends on search engine optimisation and digital marketing strategy. If you are on first page of all major search engines then you are ahead among your competitors in terms of online sales.''",
         creator:"Dr. Christopher Dayagdag",
         profession: 'Business Owner',
+        ratingValue: 4.5,
+        ratingPrecision: 0.5,
     },
     {
         img: testimonials2,
-        feedbackDisc:"Your website is the center of your digital eco-system, like a brick and mortar location, the experience matters once a customer enters, just as much as the perception they have of you before they walk through the door.",
+        feedbackDisc:"''Your website is the center of your digital eco-system, like a brick and mortar location, the experience matters once a customer enters, just as much as the perception they have of you before they walk through the door.''",
         creator:"Leland Dieno",
         profession: 'Client',
+        ratingValue: 5,
+        ratingPrecision: 1,
     },
     {
         img: testimonials3,
-        feedbackDisc:"If there’s one thing you learn by working on a lot of different Web sites, it’s that almost any design idea–no matter how appallingly bad–can be made usable in the right circumstances, with enough effort.",
+        feedbackDisc:"''If there’s one thing you learn by working on a lot of different Web sites, it’s that almost any design idea–no matter how appallingly bad–can be made usable in the right circumstances, with enough effort.''",
         creator:"Steve Krug",
         profession: 'CEO',
+        ratingValue: 4.5,
+        ratingPrecision: 0.5,
     },
 ]
 
@@ -784,4 +810,42 @@ export const privacyPolicyData = [
         title: "Privacy Policy",
         description: (<span>We are not responsible for any content, code or any other imprecision. We do not provide warranties or guarantees. In no event shall we be liable for any special, direct, indirect, consequential, or incidental damages or any damages whatsoever, whether in an action of contract, negligence or other tort, arising out of or in connection with the use of the Service or the contents of the Service. We reserve the right to make additions, deletions, or modifications to the contents on the Service at any time without prior notice.<br/><br/> Our Service and its contents are provided 'as is' and 'as available' without any warranty or representations of any kind, whether express or implied. We are a distributor and not a publisher of the content supplied by third parties, as such, our exercises no editorial control over such content and makes no warranty or representation as to the accuracy, reliability or currency of any information, content, service or merchandise provided through or accessible via our Service. Without limiting the foregoing, We specifically disclaim all warranties and representations in any content transmitted on or in connection with our Service or on sites that may appear as links on our Service, or in the products provided as a part of, or otherwise in connection with, our Service, including without limitation any warranties of merchantability, fitness for a particular purpose or non-infringement of third party rights. No oral advice or written information given by us or any of its affiliates, employees, officers, directors, agents, or the like will create a warranty. Price and availability information is subject to change without notice. Without limiting the foregoing, we do not warrant that our Service will be uninterrupted, uncorrupted, timely, or error-free.</span>),
     }
+]
+
+export const adminSidebarData = [
+    {
+        title: 'Admin Overview',
+        dropDown: false,
+    },
+    {
+        title: 'User Management',
+        dropDown: false,
+    },
+    {
+        title: 'Ecommerce',
+        dropDown: true,
+    },
+    {
+        title: 'Client Profiles',
+        dropDown: false,
+    },
+    {
+        title: 'Transactions',
+        dropDown: false,
+    }
+]
+
+export const boSidebarData = [
+    {
+        title: 'My Dashboard',
+        dropDown: false,
+    },
+    {
+        title: 'Profile',
+        dropDown: false,
+    },
+    {
+        title: 'Projects',
+        dropDown: false,
+    },
 ]

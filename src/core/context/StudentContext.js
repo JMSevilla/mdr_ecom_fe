@@ -366,7 +366,10 @@ const StudentContext = createContext()
         const tempAllFieldSelected = [...allFieldSelected]
         const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
         const tempField = {...tempFieldSelected.fieldSettings}
-
+        const fieldVerified = {
+            email : tempField.credentialsObjSt.email,
+            code : create_uuid()
+        }
         const filteredcompare = {
             email : tempField.credentialsObjSt.email,
             code : tempField.verificationObjSt.verificationcode
@@ -456,10 +459,76 @@ const StudentContext = createContext()
                     ...prevState.settings.autoHideDuration = 5000
                 }))
 
-            } else {
-                // add here sending email
-                    setActiveSteps((activeSteps) => activeSteps + 1)
-                    resetTimer();
+            } else { 
+                //function verify existing sent code and email
+                //else new entry of verification code
+                setOpen(true)
+                FormService.STUDENT_CONFIG_checkEmail(tempField.credentialsObjSt.email)
+                .then(repository => {
+                    if(repository.data.message === 'not_exist'){
+                        FormService.STUDENT_check_email_verification(tempField.credentialsObjSt.email)
+                    .then(reps => {
+                        if(reps.data.message == 'exceed_limit'){
+                            setSnackbarSettings(prevState => ({
+                                ...prevState,
+                                ...prevState.settings.open = true,
+                                ...prevState.settings.message = "You've already exceed the limit of resend email",
+                                ...prevState.settings.severity = "warning",
+                                ...prevState.settings.autoHideDuration = 5000
+                            }))
+                            setOpen(false)
+                            setActiveSteps((activeSteps) => activeSteps + 1)
+                        } else if (reps.data.message == 'update_another_sent_count'){
+                            FormService.STUDENT_update_with_send(fieldVerified)
+                                .then(repo => {
+                                    if(repo.data.message == 'success'){
+                                        setSnackbarSettings(prevState => ({
+                                            ...prevState,
+                                            ...prevState.settings.open = true,
+                                            ...prevState.settings.message = "Verification Sent Successfully",
+                                            ...prevState.settings.severity = "success",
+                                            ...prevState.settings.autoHideDuration = 5000
+                                        }))
+                                        setOpen(false)
+                                        setActiveSteps((activeSteps) => activeSteps + 1)
+                                    }
+                                    resetTimer()
+                                })
+                        } else {
+                            FormService.STUDENT_verification_entry(fieldVerified)
+                                .then(res => {
+                                    if(res.data.message == 'success_vc_entry'){
+                                        //call api send email
+                                        FormService.STUDENT_send_email(fieldVerified)
+                                            .then(resp => {
+                                                if(resp.data.message == 'success_sent'){
+                                                    setSnackbarSettings(prevState => ({
+                                                        ...prevState,
+                                                        ...prevState.settings.open = true,
+                                                        ...prevState.settings.message = "Successfully Sent Verification Code",
+                                                        ...prevState.settings.severity = "success",
+                                                        ...prevState.settings.autoHideDuration = 5000
+                                                    }))
+                                                    setOpen(false)
+                                                    setActiveSteps((activeSteps) => activeSteps + 1)
+                                                    resetTimer()
+                                                }
+                                            })
+                                    }
+                                })
+                        }
+                    })
+                    } else {
+                        setOpen(false)
+                        setSnackbarSettings(prevState => ({
+                                ...prevState,
+                                ...prevState.settings.open = true,
+                                ...prevState.settings.message = "This email is already taken.",
+                                ...prevState.settings.severity = "error",
+                                ...prevState.settings.autoHideDuration = 5000
+                        }))
+                    }
+                })
             }
         } else if(activeSteps == 4){
             if(!tempField.verificationObjSt.verificationcode){
@@ -470,91 +539,87 @@ const StudentContext = createContext()
                     ...prevState.settings.severity = "error",
                     ...prevState.settings.autoHideDuration = 5000
                 }))
-
-            // } else {
-            //     setOpen(true)
-            //     FormService.BUSINESS_compare_verification(filteredcompare)
-            //     .then((repository) => {
-            //         if(repository.data.message == 'verified_success'){
-            //             //insertion
-            //             const fieldPersonalWithCredentials = {
-            //                 firstname : tempField.personalInformationObj.firstname,
-            //                 lastname : tempField.personalInformationObj.lastname,
-            //                 contactnumber : tempField.personalInformationObj.contactnum,
-            //                 address : tempField.personalInformationObj.address,
-            //                 email : tempField.credentialsObj.email,
-            //                 password : tempField.credentialsObj.password,
-            //                 sec_question : tempField.credentialsObj.sec_question,
-            //                 sec_answer: tempField.credentialsObj.sec_answer
-            //             }
-            //             FormService.BUSINESS_account_registration(fieldPersonalWithCredentials)
-            //             .then(repo => {
-            //                 if(repo.data.message == 'success_bo_registration'){
-            //                     FormService.BUSINESS_project_creation(
-            //                         tempFieldSelected.fieldSettings.projectDetailsObj.projectName,
-            //                         projectDetails,
-            //                         destinationArray,
-            //                         tempFieldSelected.fieldSettings.projectDetailsObj.projectCategory,
-            //                         tempFieldSelected.fieldSettings.projectDetailsObj.projectPricing,
-            //                         tempFieldSelected.fieldSettings.projectDetailsObj.projectType,
-            //                         tempFieldSelected.fieldSettings.credentialsObj.email
-            //                     )
-            //                     .then(projectrepo => {
-            //                         if(projectrepo.data.message == 'success_project_entry'){
-            //                             setSnackbarSettings(prevState => ({
-            //                                 ...prevState,
-            //                                 ...prevState.settings.open = true,
-            //                                 ...prevState.settings.message = "Account Created Successfully",
-            //                                 ...prevState.settings.severity = "success",
-            //                                 ...prevState.settings.autoHideDuration = 5000
-            //                             }))
-            //                             FormService.BUSINESS_findAllAccountsByEmail(
-            //                                 tempFieldSelected.fieldSettings.credentialsObj.email
-            //                             ).then((res) => {
-            //                                 allFieldSelected[selectedIndex].businessFieldArray = res.data
-            //                                 if (allFieldSelected[selectedIndex].businessFieldArray.length > 0) {
-            //                                     FormService.BUSINESS_findAllProjectByEmail(
-            //                                         tempFieldSelected.fieldSettings.credentialsObj.email
-            //                                     ).then(resp => {
-            //                                         allFieldSelected[selectedIndex].projectFieldArray = resp.data.data
-            //                                         if(allFieldSelected[selectedIndex].projectFieldArray.length > 0) {
-            //                                             setOpen(false)
-            //                                             setActiveSteps((activeSteps) => activeSteps + 1)
-            //                                         }
-            //                                     })
-            //                                 } else {
-            //                                     return;
-            //                                 }
-            //                             })
-            //                         }
-            //                     })
-            //                 }
-            //             })
-            //         } else if(repository.data.message == 'verification_problem'){
-            //             setSnackbarSettings(prevState => ({
-            //                 ...prevState,
-            //                 ...prevState.settings.open = true,
-            //                 ...prevState.settings.message = "Problem in verifying your code, please contact administrator",
-            //                 ...prevState.settings.severity = "error",
-            //                 ...prevState.settings.autoHideDuration = 5000
-            //             }))
-            //             setOpen(false)
-            //         } else if(repository.data.message == 'invalid_verified'){
-            //             setSnackbarSettings(prevState => ({
-            //                 ...prevState,
-            //                 ...prevState.settings.open = true,
-            //                 ...prevState.settings.message = "Invalid Verification Code",
-            //                 ...prevState.settings.severity = "error",
-            //                 ...prevState.settings.autoHideDuration = 5000
-            //             }))
-            //             setOpen(false)
-            //         } else {
-            //             console.log(repository.data)
-            //         }
-            //     })
-            // }
-        } else {
-            setActiveSteps((activeSteps) => activeSteps + 1)
+            } else {
+                setOpen(true)
+                FormService.BUSINESS_compare_verification(filteredcompare)
+                .then((repository) => {
+                    if(repository.data.message == 'verified_success'){
+                        //insertion
+                        const fieldPersonalWithCredentials = {
+                            firstname : tempField.personalInfoObjSt.firstname,
+                            lastname : tempField.personalInfoObjSt.lastname,
+                            contactnumber : tempField.personalInfoObjSt.contactnum,
+                            address : tempField.personalInfoObjSt.address,
+                            email : tempField.credentialsObjSt.email,
+                            password : tempField.credentialsObjSt.password,
+                            sec_question : tempField.credentialsObjSt.sec_question,
+                            sec_answer: tempField.credentialsObjSt.sec_answer
+                        }
+                        FormService.STUDENT_account_registration(fieldPersonalWithCredentials)
+                        .then(repo => {
+                            if(repo.data.message == 'success_bo_registration'){
+                                FormService.STUDENT_project_creation(
+                                    tempFieldSelected.fieldSettings.projectDetailsObjSt.projectName,
+                                    projectDetails,
+                                    destinationArray,
+                                    tempFieldSelected.fieldSettings.projectDetailsObjSt.projectCategory,
+                                    tempFieldSelected.fieldSettings.projectDetailsObjSt.projectPricing,
+                                    tempFieldSelected.fieldSettings.projectDetailsObjSt.projectType,
+                                    tempFieldSelected.fieldSettings.credentialsObjSt.email
+                                )
+                                .then(projectrepo => {
+                                    if(projectrepo.data.message == 'success_project_entry'){
+                                        setSnackbarSettings(prevState => ({
+                                            ...prevState,
+                                            ...prevState.settings.open = true,
+                                            ...prevState.settings.message = "Account Created Successfully",
+                                            ...prevState.settings.severity = "success",
+                                            ...prevState.settings.autoHideDuration = 5000
+                                        }))
+                                        FormService.STUDENT_findAllAccountsByEmail(
+                                            tempFieldSelected.fieldSettings.credentialsObjSt.email
+                                        ).then((res) => {
+                                            allFieldSelected[selectedIndex].businessFieldArray = res.data
+                                            if (allFieldSelected[selectedIndex].businessFieldArray.length > 0) {
+                                                FormService.STUDENT_findAllProjectByEmail(
+                                                    tempFieldSelected.fieldSettings.credentialsObjSt.email
+                                                ).then(resp => {
+                                                    allFieldSelected[selectedIndex].projectFieldArray = resp.data.data
+                                                    if(allFieldSelected[selectedIndex].projectFieldArray.length > 0) {
+                                                        setOpen(false)
+                                                        setActiveSteps((activeSteps) => activeSteps + 1)
+                                                    }
+                                                })
+                                            } else {
+                                                return;
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    } else if(repository.data.message == 'verification_problem'){
+                        setSnackbarSettings(prevState => ({
+                            ...prevState,
+                            ...prevState.settings.open = true,
+                            ...prevState.settings.message = "Problem in verifying your code, please contact administrator",
+                            ...prevState.settings.severity = "error",
+                            ...prevState.settings.autoHideDuration = 5000
+                        }))
+                        setOpen(false)
+                    } else if(repository.data.message == 'invalid_verified'){
+                        setSnackbarSettings(prevState => ({
+                            ...prevState,
+                            ...prevState.settings.open = true,
+                            ...prevState.settings.message = "Invalid Verification Code",
+                            ...prevState.settings.severity = "error",
+                            ...prevState.settings.autoHideDuration = 5000
+                        }))
+                        setOpen(false)
+                    } else {
+                        
+                    }
+                })
             }
         } else if(activeSteps == 5){
             setActiveSteps((activeSteps) => activeSteps + 1)
@@ -1054,41 +1119,36 @@ const StudentContext = createContext()
     }
 
     const HandleResentEmail = () => {
-         const tempAllFieldSelected = [...allFieldSelected]
-         const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
-            setOpen(true)
-            setTimeout(() => {
+        const tempAllFieldSelected = [...allFieldSelected]
+        const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
+        setOpen(true)
+        FormService.BUSINESS_resend_email(
+            tempFieldSelected.fieldSettings.credentialsObjSt.email,
+            create_uuid()
+        ).then(res => {
+            if(res.data.message == 'success'){
                 setOpen(false)
+                setSnackbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open = true,
+                    ...prevState.settings.message = "Verification Code Sent Successfully",
+                    ...prevState.settings.severity = "success",
+                    ...prevState.settings.autoHideDuration = 5000
+                })) 
                 resetTimer();
-            handleResetField();
-            }, 2000)
-            // FormService.BUSINESS_resend_email(
-            //     tempFieldSelected.fieldSettings.credentialsObjSt.email,
-            //     create_uuid()
-            // ).then(res => {
-            //     if(res.data.message == 'success'){
-            //         setOpen(false)
-            //         setSnackbarSettings(prevState => ({
-            //             ...prevState,
-            //             ...prevState.settings.open.signup = true,
-            //             ...prevState.settings.message = "Verification Code Sent Successfully",
-            //             ...prevState.settings.severity = "success",
-            //             ...prevState.settings.autoHideDuration = 5000
-            //         })) 
-            //         resetTimer();
-            //         handleResetField();
-            //     }else{
-            //         setOpen(false)
-            //         setSnackbarSettings(prevState => ({
-            //             ...prevState,
-            //             ...prevState.settings.open.signup = true,
-            //             ...prevState.settings.message = "You've exceed the limit of sending verification email",
-            //             ...prevState.settings.severity = "error",
-            //             ...prevState.settings.autoHideDuration = 5000
-            //         }))
-            //     }
-            // })
-        }
+                handleResetField();
+            }else{
+                setOpen(false)
+                setSnackbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open = true,
+                    ...prevState.settings.message = "You've exceed the limit of sending verification email",
+                    ...prevState.settings.severity = "error",
+                    ...prevState.settings.autoHideDuration = 5000
+                }))
+            }
+        })
+    }
 
     const handleClose = (event, reason) => {
         if(reason === 'clickAway') {
