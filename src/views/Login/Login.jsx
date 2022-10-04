@@ -38,7 +38,7 @@ const Login = (props) => {
       open={open}
     />
            <CustomizedSnackbars 
-            style={{width: '80%'}}
+            style={{width: '100%'}}
             open={snackbarSettings.settings.open.homepage}
             message={snackbarSettings.settings.message}
             handleClose={handleClose}
