@@ -16,7 +16,6 @@ import {StudentProjectContext} from '../core/context/StudentProjectContext';
 import { AdministratorContext } from '../core/context/AdminContext';
 import { Student } from '../core/context/StudentContext';
 import { Provider } from 'react-redux'
-
 import { RouteWithAdminSidebar, RouteWithBusinessOwnerSidebar } from './base/route_sd'
 import Login from '../views/Login/Login'
 
@@ -25,20 +24,18 @@ import configureStore from '../core/redux/reducers/store';
 
 const store = configureStore()
 
-const RouteWithLoad = ({ component: Component, ...rest }) => {
-  return (
-    <>
-      <Route
-        {...rest}
-        render={(props) => (
-          <>
+const RouteWithLoad = ({component : Component, ...rest}) => {
+    return ( 
+        <>
+            <Route
+            {...rest}
+            render={props => (<>
             <Component {...props} />
-          </>
-        )}
-      />
-    </>
-  );
-};
+            </>)}
+            />
+        </>
+    )
+}
 
 
 export default () => (
@@ -57,12 +54,14 @@ export default () => (
                                     <RouteWithLoad exact path={appRouter.PrivacyPolicy.path} component={PrivacyPolicy} />
                                     <RouteWithLoad exact path={appRouter.Shop.path} component={Shop} />
                                     <RouteWithLoad exact path={appRouter.SignIn.path} component={Login} />
+                                    
                                     {/* admin registration */}
                                     <RouteWithLoad exact path={appRouter.AdminRegistration.path} component={AdminRegistration} />
                                     {/* admin dashboard */}
                                     <RouteWithAdminSidebar exact path={appAdminRouter.Home.path} component={HomeDashboard} /> 
                                     {/* business owner dashboard */}
                                     <RouteWithBusinessOwnerSidebar exact path={appBORouter.Home.path} component={BOHomeDashboard}/>
+
                             </AdministratorContext>
                         </StudentProjectContext>
                         </ProjectDetailsContext>
