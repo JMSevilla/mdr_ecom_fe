@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef, useEffect, useState} from "react";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -6,18 +6,50 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Avatar from "@mui/material/Avatar";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Menu, MenuItem } from "@mui/material";
+import { SystemDialog, SystemBackdrop } from "../../../../components";
+import { useDispatch, useSelector } from "react-redux";
+import { SIGNOUT_PROCESS } from "../../../../core/redux/reducers/Login/login";
 
 const AdminNavbar = (props) => {
-    const {open, handleDrawerOpen, AppBar} = props;
-
+    const {open, handleDrawerOpen, AppBar, token, signoutRouteDestroy} = props;
+    const dispatch = useDispatch()
+    const getSelectors = (state) => ({signout_message : state.login})
+    const { signout_message } = useSelector(getSelectors)
+    const baseRef = {
+      logoutRef : useRef(signout_message)
+    }
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [backdrop , setBackdrop] = useState(false)
     const logout = Boolean(anchorEl);
+    const [Dialogopen, setDialogOpen] = React.useState(false)
+    useEffect(() => {
+      baseRef.logoutRef.current = signout_message
+    }, [signout_message])
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
       setAnchorEl(null);
     };
+    const handleSignoutDialog = () => {
+      setDialogOpen(!Dialogopen)
+    }
+    const handleSignout = () => {
+      setDialogOpen(false)
+      setBackdrop(!backdrop)
+      let obj = {
+        userID : token.userID,
+        token: token.token
+      }
+      dispatch(SIGNOUT_PROCESS(obj))
+      setTimeout(() => {
+        const res = baseRef.logoutRef.current.signout_message
+        if(res.message == 'signout_success'){
+          localStorage.setItem('key_identifier', JSON.stringify('unknown1'))
+          signoutRouteDestroy()
+        }
+      },3000)
+    }
   return (
     <>
       {/* NAVBAR START*/}
@@ -61,12 +93,24 @@ const AdminNavbar = (props) => {
                   'aria-labelledby': 'basic-button',
                 }}
               >
-                <MenuItem onClick={handleClose}>Log out</MenuItem>
+                <MenuItem onClick={handleSignoutDialog}>Log out</MenuItem>
               </Menu>
             </Box>
           </Box>
         </Toolbar>
       </AppBar>
+      <SystemDialog 
+      open={Dialogopen}
+      title={'Administrator Signout'}
+      children={'Are you sure you want to sign out ? '}
+      fullWidth={true}
+      buttonCancelText={'CANCEL'}
+      buttonAgreeText={'SIGNOUT'}
+      handleClose={handleSignout}         
+      />
+      <SystemBackdrop 
+      open={backdrop}
+      />
       {/* NAVBAR END */}
     </>
   );

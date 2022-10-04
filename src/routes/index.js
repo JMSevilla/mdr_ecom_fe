@@ -16,9 +16,12 @@ import {StudentProjectContext} from '../core/context/StudentProjectContext';
 import { AdministratorContext } from '../core/context/AdminContext';
 import { Student } from '../core/context/StudentContext';
 import { Provider } from 'react-redux'
-import configureStore from '../core/redux/store';
 import { RouteWithAdminSidebar, RouteWithBusinessOwnerSidebar } from './base/route_sd'
 import Login from '../views/Login/Login'
+
+
+import configureStore from '../core/redux/reducers/store';
+
 const store = configureStore()
 
 const RouteWithLoad = ({component : Component, ...rest}) => {

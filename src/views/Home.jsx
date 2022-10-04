@@ -16,7 +16,7 @@ const Home = () => {
         const __key__ = localstoragehelper.load('key_identifier')
         if(__key__ == null || __key__ == undefined
         || __key__ == 'unknown'){}
-        else{tokenScanned(1)}
+        else{tokenScanned(0)}
     }, [])
     return (
         <div>

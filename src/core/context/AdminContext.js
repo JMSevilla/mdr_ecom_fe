@@ -1,16 +1,24 @@
-import React, {createContext, useState} from 'react'
+import React, {createContext, useState, useRef, useEffect} from 'react'
 import Spiels from '../Spiels/Spiels'
 import FormService from '../service/apiservice'
 import { useHistory } from 'react-router-dom'
 import { appRouter } from '../../routes/router'
+import { ADMIN_REGISTER } from '../redux/reducers/Admin/admin'
+import { useSelector, useDispatch } from 'react-redux'
 
 const AdminContext = createContext()
 
+const getSelector = (state) => ({admin_registration_onsuccess : state.admin})
 const AdministratorContext = ({children}) => {
+    const dispatch = useDispatch()
     const history = useHistory()
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(2)
     const [open, setOpen] = useState(false)
+    const { admin_registration_onsuccess } = useSelector(getSelector)
+    const baseRef = { 
+        adminregRef : useRef(admin_registration_onsuccess)
+    }
     const [snackbarSettings, setSnacbarSettings] = useState({
         settings : {
             open : false,
@@ -19,6 +27,10 @@ const AdministratorContext = ({children}) => {
             autoHideDuration : 3000
         }
     })
+
+    useEffect(() => {
+        baseRef.adminregRef.current = admin_registration_onsuccess
+    }, [admin_registration_onsuccess])
 
     const handleAdminFirstname = event => {
         const value = event.currentTarget.value
@@ -236,13 +248,14 @@ const AdministratorContext = ({children}) => {
                 }))
         } else {
             setOpen(!open)
-            FormService.ADMINISTRATOR_entry(tempField.adminreg)
-            .then((res) => {
-                if(res.data.message === 'success_registration_admin'){
+            dispatch(ADMIN_REGISTER(tempField.adminreg))
+            setTimeout(() => {
+                const res = baseRef.adminregRef.current.admin_registration_onsuccess.message
+                if(res === 'success_registration_admin'){
                     setOpen(false)
                     history.push(appRouter.Homepage.path)
                 }
-            })
+            },1000)
         }
     }
     const handleClose = (event, reason) => {
