@@ -113,7 +113,7 @@ class FormService {
     // STUDENT REGISTRATION //
     STUDENT_CONFIG_checkEmail(email){
         return ApiConfig.connect().get(
-            baseURLMiddlewareHelper('signup-student-check-email', email)
+            baseURLMiddlewareHelper('student-check-email', email)
         )
     }
     STUDENT_check_email_verification(email){
@@ -183,7 +183,7 @@ class FormService {
     }
     STUDENT_resend_email(email, code){
         const resend_st_vc = ApiConfig.connect().get(
-            `student-check-email-counts/${email}/${code}`
+            `student-verification-counts-before-update/${email}/${code}`
         )
         return resend_st_vc
     }
