@@ -5,9 +5,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import AppButton from '../Buttons/Button';
 
 const SystemDialog = (props) => {
-  const { open, handleClose, title, children, buttonCancelText, buttonAgreeText, handleDisagree, fullWidth, maxWidth } = props
+  const { open, handleClose, title, children, buttonCancelText, buttonAgreeText, handleDisagree, fullWidth, maxWidth, testid } = props
 
   return (
     <div>
@@ -28,10 +29,16 @@ const SystemDialog = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => handleDisagree()}>{buttonCancelText}</Button>
-          <Button onClick={handleClose} autoFocus>
-            {buttonAgreeText}
-          </Button>
+          <AppButton 
+          handleClick={handleDisagree}
+          buttonName={buttonCancelText}
+          />
+          <AppButton 
+          testid={testid}
+          handleClick={handleClose}
+          buttonName={buttonAgreeText}
+          autoFocus={true}
+          />
         </DialogActions>
       </Dialog>
     </div>

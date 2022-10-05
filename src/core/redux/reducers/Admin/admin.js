@@ -14,18 +14,16 @@ const adminSlice = createSlice({
   reducers: {
     ADMIN_REGISTRATION_FULFILLED: (state, action) => {
       state.admin_registration_onsuccess = action.payload
+    },
+    ADMIN_SCANNING_FULFILLED: (state, action) => {
+      state.admin_message = action.payload
     }
   },
-  extraReducers : (builder) => {
-    builder.addCase(ADMIN_SCANNING.fulfilled, (state, action) => {
-      state.admin_message = action.payload
-    })
-  }
 });
 
 export default adminSlice.reducer;
 
-const { ADMIN_REGISTRATION_FULFILLED } = adminSlice.actions
+const { ADMIN_REGISTRATION_FULFILLED , ADMIN_SCANNING_FULFILLED } = adminSlice.actions
 
 export const ADMIN_REGISTER = (object) => (dispatch) => {
   return dispatch(
@@ -38,10 +36,12 @@ export const ADMIN_REGISTER = (object) => (dispatch) => {
   )
 }
 
-export const ADMIN_SCANNING = createAsyncThunk(
-  'admin/fetch-exist-admin',
-  async () => {
-    const response = await FormService.ADMINISTRATOR_checkadmin()
-    return response.data
-  }
-)
+export const ADMIN_SCANNING = () => (dispatch) => {
+  return dispatch(
+    apiCallBegan({
+      url: 'check-admin',
+      method: 'GET',
+      onSuccess: ADMIN_SCANNING_FULFILLED.type
+    })
+  )
+}

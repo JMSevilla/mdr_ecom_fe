@@ -93,7 +93,7 @@ const AdminNavbar = (props) => {
                   'aria-labelledby': 'basic-button',
                 }}
               >
-                <MenuItem onClick={handleSignoutDialog}>Log out</MenuItem>
+                <MenuItem data-testid={'btnsignouttest'} onClick={handleSignoutDialog}>Log out</MenuItem>
               </Menu>
             </Box>
           </Box>
@@ -106,7 +106,7 @@ const AdminNavbar = (props) => {
       fullWidth={true}
       buttonCancelText={'CANCEL'}
       buttonAgreeText={'SIGNOUT'}
-      handleClose={handleSignout}         
+      handleClose={handleSignout}  
       />
       <SystemBackdrop 
       open={backdrop}
