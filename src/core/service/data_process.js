@@ -71,6 +71,11 @@ class Process {
         data.append('sec_answer', obj.sec_answer)
         return data
     }
+    ADMIN_SIGNOUT(obj) {
+        data.append('userID', obj.userID)
+        data.append('token', obj.token)
+        return data
+    }
 }
 
 export default new Process()

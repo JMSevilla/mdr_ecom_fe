@@ -21,7 +21,7 @@ import { adminSidebarData } from "../../../../core/utils/helper";
 
 const AdminSidebar = (props) => {
     const {open, handleDrawerClose, theme, handleClick, dropDown, Drawer, DrawerHeader} = props;
-
+  
   return (
     <>
       {/* SIDEBAR STARTS HERE*/}

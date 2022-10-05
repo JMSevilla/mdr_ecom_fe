@@ -2,7 +2,7 @@ import React from 'react'
 import {Button} from '@mui/material'
 
 const AppButton = (props) => {
-    const { buttonName, buttonColor, handleClick, variant, size, style, color, testid, sx, disabled, key } = props
+    const { buttonName, buttonColor, handleClick, variant, size, style, color, testid, sx, disabled, key, autoFocus } = props
     return (
         <div className={buttonColor}>
             <Button
@@ -15,7 +15,7 @@ const AppButton = (props) => {
             data-testid={testid}
             disabled={disabled}
             sx={sx}
-            >{buttonName}</Button>
+            autoFocus={autoFocus}>{buttonName}</Button>
         </div>
     )
 }

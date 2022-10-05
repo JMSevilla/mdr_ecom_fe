@@ -1,7 +1,7 @@
 // services helper //
-import web from '../../assets/images/services/web_development.jpg';
-import mobile from '../../assets/images/services/mobile_app.jpg';
-import desktop from '../../assets/images/services/desktop_app.jpg';
+import web from '../../assets/images/services/webApp.svg';
+import mobile from '../../assets/images/services/mobileApp.svg';
+import desktop from '../../assets/images/services/desktopApp.svg';
 import { SSP_Feature1 } from '../../components/__dump__/__field_dump';
 
 // social media icons
@@ -142,14 +142,14 @@ export const ServicesData = [
         description: 'description about our website app development'
     },
     {
-        img: desktop,
-        title: 'Desktop App Development',
-        description: 'description about our desktop app development'
-    },
-    {
         img: mobile,
         title: 'Mobile App Development',
         description: 'description about our mobile app development'
+    },
+    {
+        img: desktop,
+        title: 'Desktop App Development',
+        description: 'description about our desktop app development'
     },
 
 ];
@@ -294,7 +294,7 @@ export const loginIcon = [
     },
     {
         icon: <FiLinkedin className='social-icons'/>,
-        color: 'skyblue',
+        color: 'darkblue',
         link: 'https://linkedin.com',
     },
     {

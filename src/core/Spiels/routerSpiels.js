@@ -1,11 +1,12 @@
 import React from 'react'
-import {appRouter} from '../../routes/router'
+import {appRouter, appAdminRouter} from '../../routes/router'
 class routerSpiels {
     router = [
         {
             router_id : 1,
             router_obj : {
-                home : appRouter.Homepage.path
+                home : appRouter.Homepage.path,
+                admin_dashboard : appAdminRouter.Home.path
             }
         }
     ]

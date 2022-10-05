@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -7,6 +7,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 import AdminSidebar from "../SideBar/Sidebar";
 import AdminNavbar from "../Navbar/Navbar";
+
+import { GlobalContext } from "../../../../core/context/GlobalContext";
+
+import { useHistory } from "react-router-dom";
 
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
@@ -75,15 +79,29 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function HomeFieldDDashboard() {
+  const globalcontextValues = useContext(GlobalContext)
+  const { token, tokenScanned, settings } = globalcontextValues
   const theme = useTheme();
   const [open, setOpen] = useState(true);
   const [dropDown, setDropDown] = useState(false);
+
+  const history = useHistory()
 
   useEffect(() => {
     window.addEventListener('resize' , () => {
       return window.innerWidth < 1024 ? setOpen(false) : setOpen(true)
   })
   },[])
+
+  useEffect(() => {
+    tokenScanned(0)
+  }, [])
+
+  const signoutRouteDestroy = () => {
+    const tempAllFieldSelected = [...settings];
+    const tempFieldSelected = { ...tempAllFieldSelected[0] };
+    history.push(tempFieldSelected.router_obj.home)
+  }
   
   const handleClick = () => {
     setDropDown(!dropDown);
@@ -99,7 +117,7 @@ export default function HomeFieldDDashboard() {
   return (
     <Box className='flex'>
       <CssBaseline />
-     <AdminNavbar open={open} handleDrawerOpen={handleDrawerOpen} AppBar={AppBar} />
+     <AdminNavbar signoutRouteDestroy={signoutRouteDestroy} token={token} open={open} handleDrawerOpen={handleDrawerOpen} AppBar={AppBar} />
       <AdminSidebar open={open} handleDrawerClose={handleDrawerClose} theme={theme} handleClick={handleClick} dropDown={dropDown} Drawer={Drawer} DrawerHeader={DrawerHeader}/>
       {/* CONTENT */}
       <Box component="main" sx={{ flexGrow: 1, p: 3 }} className='flex items-center justify-center h-[100vh]'>

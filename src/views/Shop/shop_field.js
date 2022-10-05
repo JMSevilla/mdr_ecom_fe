@@ -16,6 +16,10 @@ const ShopField = () => {
             <h1 className='text-md font-body italic'>Feel free to view our products</h1>
             </Box>
             <Box className='w-full lg:w-3/4'>
+            <AppSwiper
+            swiperData={shopBannerData}
+            style={{width:'100%', height: '220px'}}
+            />
             </Box>
         </Box>
         {/* SHOP HEADER END*/}

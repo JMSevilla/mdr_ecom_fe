@@ -1,6 +1,6 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { TOKENREDUCER, LOGINREDUCER, ADMINREDUCER } from ".";
-
+import serverMiddleware from "../middleware/server";
 const customizedMiddleware = getDefaultMiddleware({
   serializableCheck: false,
 });
@@ -12,6 +12,6 @@ export default function store() {
       login: LOGINREDUCER,
       admin: ADMINREDUCER,
     },
-    middleware: [...customizedMiddleware],
+    middleware: [...customizedMiddleware, serverMiddleware]
   });
 }

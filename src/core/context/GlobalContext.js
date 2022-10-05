@@ -26,16 +26,20 @@ import { Tokenscanning } from "../redux/reducers/Token/tokenization";
 import { LOGIN_ONPROCESS } from "../redux/reducers/Login/login";
 import { ADMIN_SCANNING } from "../redux/reducers/Admin/admin";
 
+import configureStore from '../redux/reducers/store'
+
 const GlobalContext = createContext();
-const getSelectors = (state) => ({ token_message: state.token });
+const getSelectors = (state) => ({ token_message: state.token, logon_message: state.login, admin_message: state.admin });
 const Global = ({ children }) => {
+  const store = configureStore()
   const [settings, setSettings] = useState(routerSpiels.router);
   const [userData, setUserData] = useState([]);
   const dispatch = useDispatch();
-  const { token_message } = useSelector(getSelectors);
+  const { token_message, logon_message, admin_message } = useSelector(getSelectors);
   const baseRef = {
-    tokenRef: useRef(token_message),
+    tokenRef: useRef(token_message), loginRef : useRef(logon_message), adminRef : useRef(admin_message)
   };
+  const [token, setToken] = useState('')
   // Timer for resend button
   const [timer, setTimer] = useState(15);
   const [startTimer, setStartTimer] = useState(false);
@@ -51,8 +55,9 @@ const Global = ({ children }) => {
 
   useEffect(() => {
     baseRef.tokenRef.current = token_message;
-  }, [token_message]);
-
+    baseRef.loginRef.current = logon_message
+    baseRef.adminRef.current = admin_message
+  }, [token_message, logon_message, admin_message]);
   const resetTimer = () => {
     setStartTimer(true);
     setTimer(15);
@@ -759,7 +764,11 @@ const Global = ({ children }) => {
       }));
     } else {
       setOpen(true);
-      dispatch(LOGIN_ONPROCESS(tempField.userLoginObj));
+      dispatch(LOGIN_ONPROCESS(tempField.userLoginObj))
+      console.log(baseRef.loginRef.current)
+      // store.dispatch(LOGIN_ONPROCESS(tempField.userLoginObj))
+      // console.log(store.getState().login.logon_message)
+      // dispatch(LOGIN_ONPROCESS(tempField.userLoginObj));
       //   const reps = baseRef.loginRef.current.logon_message
       //     if(reps.message === 'success_login') {
       //         const fetchedTokenId = reps.response_data[5];
@@ -2051,32 +2060,32 @@ const Global = ({ children }) => {
     const tempAllFieldSelected = [...settings];
     const tempFieldSelected = { ...tempAllFieldSelected[index] };
     const __key__ = localstoragehelper.load("key_identifier");
-    if (__key__ == "unknown") {
+    if (__key__ == "unknown1") {
     } else {
       dispatch(Tokenscanning(__key__));
-      console.log(token_message);
-      // dispatch(ScannedToken(__key__))
-      // setTimeout(() => {
-      //     const res = baseRef.tokenRef.current.token_message
-      //     if(__key__ == 'unknown'){
-      //         history.push(tempFieldSelected.router_obj.home)
-      //     } else if(res.message[5] === 'business_platform'){
-      //         alert('redirect to bo-dashboard')
-      //     } else {
-      //         history.push(tempFieldSelected.router_obj.home)
-      //     }
-      // }, 1000)
+        setTimeout(() => {
+          const res = baseRef.tokenRef.current.token_message
+          setToken(res)
+          if(__key__ == 'unknown1'){} else if(res == undefined){}
+          else if(res.data[0].lastRoute === 'business_platform'){
+            alert('redirect to bo-dashboard')
+          } else if(res.data[0].lastRoute === 'admin_platform'){
+            history.push(tempFieldSelected.router_obj.admin_dashboard)
+          }
+          else {
+            history.push(tempFieldSelected.router_obj.home)
+          }
+        }, 2000)
     }
   };
-  const adminScanned = (index) => {
-    dispatch(ADMIN_SCANNING());
-    // setTimeout(() => {
-    //     const res = baseRef.adminScanRef.current.check_admin_message.message
-    //     console.log(res)
-    //     if(res === 'not_exist') {
-    //         history.push(appRouter.AdminRegistration.path)
-    //     } else{}
-    // }, 1000)
+  const adminScanned = () => {
+     dispatch(ADMIN_SCANNING());
+     setTimeout(() => {
+      const res = baseRef.adminRef.current
+      if(res.admin_message.message === 'not_exist') {
+          history.push(appRouter.AdminRegistration.path)
+      } else{}
+     },2000)
   };
   return (
     <GlobalContext.Provider
@@ -2128,6 +2137,8 @@ const Global = ({ children }) => {
         handleChangeMessage,
         tokenScanned,
         adminScanned,
+        token,
+        settings
       }}
     >
       {children}
