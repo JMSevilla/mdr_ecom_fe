@@ -11,9 +11,7 @@ const tokenizationSlice = createSlice({
   initialState,
   reducers: {
     TOKENIZATION_FULFILLED: (state, action) => {
-      if(action.payload.data.length > 0) {
-        state.token_message = action.payload.data[0]
-      }
+      state.token_message = action.payload
     }
   },
 });

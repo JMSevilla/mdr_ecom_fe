@@ -5,7 +5,7 @@ import '@testing-library/jest-dom'
 import { Global } from '../../../core/context/GlobalContext'
 import ContactUs from '../../FrontPage/contactus/ContactUs'
 import { Provider } from 'react-redux'
-import configureStore from '../../../core/redux/store'
+import configureStore from '../../../core/redux/reducers/store'
 const store = configureStore()
 import { AppTextField, AppButton } from '../../../components'
 jest.mock('../../../core/service/apiservice')

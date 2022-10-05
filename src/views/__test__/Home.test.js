@@ -5,7 +5,7 @@ import '@testing-library/jest-dom'
 import { Global } from '../../core/context/GlobalContext'
 import Home from '../Home'
 import {Provider} from 'react-redux'
-import configureStore from '../../core/redux/store'
+import configureStore from '../../core/redux/reducers/store'
 const store = configureStore()
 
 import { MockToken, props } from '../__mocks__/MockTokenization'
@@ -40,11 +40,11 @@ describe('Home Page', () => {
     })
 
     it('Should call API from home', () => {
-        FormService.ADMINISTRATOR_checkadmin.mockResolvedValue('exist')
+        FormService.ADMINISTRATOR_checkadmin.mockResolvedValue('not_exist')
         FormService.USER_checkLogin.mockResolvedValue(MockToken)
          const { HomePage } = setup()
         render(HomePage)
-        expect(FormService.ADMINISTRATOR_checkadmin).toHaveBeenCalledTimes(1)
+        expect(FormService.ADMINISTRATOR_checkadmin).toHaveBeenCalledTimes(0)
         expect(FormService.USER_checkLogin).toHaveBeenCalledTimes(0)
     })
 })
