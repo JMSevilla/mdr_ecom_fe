@@ -1,13 +1,30 @@
-import React, {createContext, cloneElement, useState, useCallback, useEffect} from 'react'
+import React, {createContext, useRef, useState, useCallback, useEffect} from 'react'
 import { projectbreakdown } from '../utils/dumpfeatures'
 import Spiels from '../Spiels/Spiels'
 import FormService from '../service/apiservice'
 import { validContactNumber, validName, validEmailAddress } from '../utils/helper'
 
+import { useDispatch , useSelector} from 'react-redux'
+import { STUDENT_CHECKEMAIL_PROCESS, STUDENT_VERIFICATIONEMAIL_PROCESS, STUDENT_VERIFICATION_UPDATE_COUNTS_PROCESS, STUDENT_VERIFICATION_ENTRY_PROCESS, STUDENT_VERIFICATION_SEND_EMAIL_PROCESS } from '../redux/reducers/Student/student'
+
 const StudentContext = createContext()
 
+const getSelectors = (state) => ({student_check_email_message : state.student,
+    student_verification_email_message : state.student, student_verification_entry_message : state.student,
+    student_verification_sent_email_message : state.student,
+    student_verification_update_counts_message : state.student})
  const Student = ({children}) => {
 
+    const dispatch = useDispatch()
+    
+    const { student_check_email_message, student_verification_update_counts_message, student_verification_sent_email_message, student_verification_email_message, student_verification_entry_message } = useSelector(getSelectors)
+    const baseRef = {
+        studentRef : useRef(student_check_email_message),
+        studentVerificationRef : useRef(student_verification_email_message),
+        studentVerificationEntryRef : useRef(student_verification_entry_message),
+        studentVerificationSendEmailRef : useRef(student_verification_sent_email_message),
+        studentVerificationUpdateCountsRef : useRef(student_verification_update_counts_message)
+    }
     const [activeSteps, setActiveSteps] = useState(0)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
@@ -25,6 +42,13 @@ const StudentContext = createContext()
             autoHideDuration : 3000
         }
     })
+    useEffect(() => {
+        baseRef.studentRef.current = student_check_email_message
+        baseRef.studentVerificationRef.current = student_verification_email_message
+        baseRef.studentVerificationEntryRef.current = student_verification_entry_message
+        baseRef.studentVerificationSendEmailRef.current = student_verification_sent_email_message
+        baseRef.studentVerificationUpdateCountsRef.current = student_verification_update_counts_message
+    }, [student_check_email_message, student_verification_email_message, student_verification_entry_message, student_verification_sent_email_message, student_verification_update_counts_message])
         // Timer for resend button
     const [timer, setTimer] = useState(15);    
     const [startTimer, setStartTimer] = useState(false);
@@ -463,61 +487,61 @@ const StudentContext = createContext()
                 //function verify existing sent code and email
                 //else new entry of verification code
                 setOpen(true)
-                FormService.STUDENT_CONFIG_checkEmail(tempField.credentialsObjSt.email)
-                .then(repository => {
-                    if(repository.data.message === 'not_exist'){
-                        FormService.STUDENT_check_email_verification(tempField.credentialsObjSt.email)
-                    .then(reps => {
-                        if(reps.data.message == 'exceed_limit'){
-                            setSnackbarSettings(prevState => ({
-                                ...prevState,
-                                ...prevState.settings.open = true,
-                                ...prevState.settings.message = "You've already exceed the limit of resend email",
-                                ...prevState.settings.severity = "warning",
-                                ...prevState.settings.autoHideDuration = 5000
-                            }))
-                            setOpen(false)
-                            setActiveSteps((activeSteps) => activeSteps + 1)
-                        } else if (reps.data.message == 'update_another_sent_count'){
-                            FormService.STUDENT_update_with_send(fieldVerified)
-                                .then(repo => {
-                                    if(repo.data.message == 'success'){
-                                        setSnackbarSettings(prevState => ({
-                                            ...prevState,
-                                            ...prevState.settings.open = true,
-                                            ...prevState.settings.message = "Verification Sent Successfully",
-                                            ...prevState.settings.severity = "success",
-                                            ...prevState.settings.autoHideDuration = 5000
-                                        }))
-                                        setOpen(false)
-                                        setActiveSteps((activeSteps) => activeSteps + 1)
+                dispatch(STUDENT_CHECKEMAIL_PROCESS(tempField.credentialsObjSt.email))
+                setTimeout(() => {
+                    const repository = baseRef.studentRef.current.student_check_email_message
+                    if(repository.message == 'not_exist') {
+                        dispatch(STUDENT_VERIFICATIONEMAIL_PROCESS(tempField.credentialsObjSt.email))
+                        setTimeout(() => {
+                            const reps = baseRef.studentVerificationRef.current.student_verification_email_message
+                            if(reps.message == 'exceed_limit') {
+                                setSnackbarSettings(prevState => ({
+                                    ...prevState,
+                                    ...prevState.settings.open = true,
+                                    ...prevState.settings.message = "You've already exceed the limit of resend email",
+                                    ...prevState.settings.severity = "warning",
+                                    ...prevState.settings.autoHideDuration = 5000
+                                }))
+                                setOpen(false)
+                                setActiveSteps((activeSteps) => activeSteps + 1)
+                            }
+                            else if (reps.message == 'update_another_sent_count') {
+                                dispatch(STUDENT_VERIFICATION_UPDATE_COUNTS_PROCESS(fieldVerified))
+                                setTimeout(() => {
+                                    setSnackbarSettings(prevState => ({
+                                        ...prevState,
+                                        ...prevState.settings.open = true,
+                                        ...prevState.settings.message = "Verification Sent Successfully",
+                                        ...prevState.settings.severity = "success",
+                                        ...prevState.settings.autoHideDuration = 5000
+                                    }))
+                                    setOpen(false)
+                                    setActiveSteps((activeSteps) => activeSteps + 1)
+                                }, 1000)
+                            }
+                            else {
+                                // insert in account verification
+                                dispatch(STUDENT_VERIFICATION_ENTRY_PROCESS(fieldVerified))
+                                setTimeout(() => {
+                                    const res = baseRef.studentVerificationEntryRef.current.student_verification_entry_message
+                                    if(res.message == 'success_vc_entry') {
+                                        dispatch(STUDENT_VERIFICATION_SEND_EMAIL_PROCESS(fieldVerified))
+                                        setTimeout(() => {
+                                            setSnackbarSettings(prevState => ({
+                                                ...prevState,
+                                                ...prevState.settings.open = true,
+                                                ...prevState.settings.message = "Successfully Sent Verification Code",
+                                                ...prevState.settings.severity = "success",
+                                                ...prevState.settings.autoHideDuration = 5000
+                                            }))
+                                            setOpen(false)
+                                            setActiveSteps((activeSteps) => activeSteps + 1)
+                                            resetTimer()
+                                        },1000)
                                     }
-                                    resetTimer()
-                                })
-                        } else {
-                            FormService.STUDENT_verification_entry(fieldVerified)
-                                .then(res => {
-                                    if(res.data.message == 'success_vc_entry'){
-                                        //call api send email
-                                        FormService.STUDENT_send_email(fieldVerified)
-                                            .then(resp => {
-                                                if(resp.data.message == 'success_sent'){
-                                                    setSnackbarSettings(prevState => ({
-                                                        ...prevState,
-                                                        ...prevState.settings.open = true,
-                                                        ...prevState.settings.message = "Successfully Sent Verification Code",
-                                                        ...prevState.settings.severity = "success",
-                                                        ...prevState.settings.autoHideDuration = 5000
-                                                    }))
-                                                    setOpen(false)
-                                                    setActiveSteps((activeSteps) => activeSteps + 1)
-                                                    resetTimer()
-                                                }
-                                            })
-                                    }
-                                })
-                        }
-                    })
+                                }, 1000)
+                            }
+                        }, 1000)
                     } else {
                         setOpen(false)
                         setSnackbarSettings(prevState => ({
@@ -528,7 +552,7 @@ const StudentContext = createContext()
                                 ...prevState.settings.autoHideDuration = 5000
                         }))
                     }
-                })
+                }, 1000)
             }
         } else if(activeSteps == 4){
             if(!tempField.verificationObjSt.verificationcode){
