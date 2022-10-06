@@ -15,6 +15,7 @@ const getSelectors = (state) => ({student_check_email_message : state.student,
     student_verification_update_counts_message : state.student})
  const Student = ({children}) => {
 
+
     const dispatch = useDispatch()
     
     const { student_check_email_message, student_verification_update_counts_message, student_verification_sent_email_message, student_verification_email_message, student_verification_entry_message } = useSelector(getSelectors)
@@ -565,7 +566,7 @@ const getSelectors = (state) => ({student_check_email_message : state.student,
                 }))
             } else {
                 setOpen(true)
-                FormService.BUSINESS_compare_verification(filteredcompare)
+                FormService.STUDENT_compare_verification(filteredcompare)
                 .then((repository) => {
                     if(repository.data.message == 'verified_success'){
                         //insertion
@@ -603,8 +604,8 @@ const getSelectors = (state) => ({student_check_email_message : state.student,
                                         FormService.STUDENT_findAllAccountsByEmail(
                                             tempFieldSelected.fieldSettings.credentialsObjSt.email
                                         ).then((res) => {
-                                            allFieldSelected[selectedIndex].businessFieldArray = res.data
-                                            if (allFieldSelected[selectedIndex].businessFieldArray.length > 0) {
+                                            allFieldSelected[selectedIndex].studentFieldArray = res.data
+                                            if (allFieldSelected[selectedIndex].studentFieldArray.length > 0) {
                                                 FormService.STUDENT_findAllProjectByEmail(
                                                     tempFieldSelected.fieldSettings.credentialsObjSt.email
                                                 ).then(resp => {
@@ -1146,7 +1147,7 @@ const getSelectors = (state) => ({student_check_email_message : state.student,
         const tempAllFieldSelected = [...allFieldSelected]
         const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
         setOpen(true)
-        FormService.BUSINESS_resend_email(
+        FormService.STUDENT_resend_email(
             tempFieldSelected.fieldSettings.credentialsObjSt.email,
             create_uuid()
         ).then(res => {
