@@ -38,6 +38,11 @@ import webApp4 from '../../assets/images/shop/products/webApp/p4.webp';
 import webApp5 from '../../assets/images/shop/products/webApp/p5.webp';
 import webApp6 from '../../assets/images/shop/products/webApp/p6.webp';
 
+// mission vision and core values image
+import mission from '../../assets/images/aboutus/mission.svg';
+import vision from '../../assets/images/aboutus/vision.svg';
+import values from '../../assets/images/aboutus/values.svg';
+
 export const heroBannerData = [
     {
         img: herobanner
@@ -61,6 +66,27 @@ export const missionAndVisionData = [
         title: 'Our Vision',
         description: 'To become a prime performer, in providing quality Web, Print and Software solutions in the competitive Local market place.',
         icon: <MdOutlineInsights style={{fontSize: '30px', color: 'white'}}/>
+    },
+];
+
+export const missionVisionCoreValuesData = [
+    {
+        title: 'Our Mission',
+        description: 'To enhance the business growth of our customers with creative Design and Development to deliver market-defining high-quality solutions that create value and consistent competitive advantage for our clients around the Country.',
+        img: mission,
+        position: 'left'
+    },
+    {
+        title: 'Our Vision',
+        description: 'To become a prime performer, in providing quality Web, Print and Software solutions in the competitive Local market place.',
+        img: vision,
+        position: 'right',
+    },
+    {
+        title: 'Core Values',
+        description: 'To become a prime performer, in providing quality Web, Print and Software solutions in the competitive Local market place.',
+        img: values,
+        position: 'left'
     },
 ];
 
@@ -473,13 +499,13 @@ export const studentRequirements = [
 // hero banner button //
 export const herobannerButton = [
     {
-        to: "/#services",
+        to: "navigateToKnowMore",
         name: "Get to know us",
         color: "button-white",
         dropdown: false
     },
     {
-        to: "/#services",
+        to: "navigateToKnowMore",
         name: "Pricing",
         color: "button-black",
         dropdown: false
@@ -847,5 +873,48 @@ export const boSidebarData = [
     {
         title: 'Projects',
         dropDown: false,
+    },
+]
+
+export const mdrTeamData = [
+    {
+        name: 'Jose Miguel Sevilla',
+        img: 'https://media-exp1.licdn.com/dms/image/C4E03AQH67tAH5uO_yw/profile-displayphoto-shrink_800_800/0/1619600525688?e=2147483647&v=beta&t=3u7yPmlJP_5REPpBlx3SZE7C4IbxKY55fxuSGDTqO8g',
+        title: 'Founder | CEO | Software Engineer Lead'
+    },
+    {
+        name: 'Bryan Palad',
+        img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-6/225686070_2353328224801573_7008311860898386965_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=TrMFf8gKptkAX92QuRn&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT-bPETmSsmX3n8AMj_xQAf--aSzfIxRDI81m6vCFybCfA&oe=63432C4A',
+        title: 'Front End Developer'
+    },
+    {
+        name: 'Cid Villanueva',
+        img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+        title: 'Front End Developer'
+    },
+    {
+        name: 'Ben Isais',
+        img: 'https://i0.wp.com/www.digitaltrends.com/wp-content/uploads/2016/11/Pixelated-unrecognizable-faceless-hooded-cyber-criminal-man-using-digital-tablet-in-cyberspace.jpg?ssl=1',
+        title: 'Front End Developer'
+    },
+    {
+        name: 'Unknown Dev',
+        img: 'https://i0.wp.com/www.digitaltrends.com/wp-content/uploads/2016/11/Pixelated-unrecognizable-faceless-hooded-cyber-criminal-man-using-digital-tablet-in-cyberspace.jpg?ssl=1',
+        title: 'Coming Soon'
+    },
+    {
+        name: 'Unknown Dev',
+        img: 'https://i0.wp.com/www.digitaltrends.com/wp-content/uploads/2016/11/Pixelated-unrecognizable-faceless-hooded-cyber-criminal-man-using-digital-tablet-in-cyberspace.jpg?ssl=1',
+        title: 'Coming Soon'
+    },
+    {
+        name: 'Unknown Dev',
+        img: 'https://i0.wp.com/www.digitaltrends.com/wp-content/uploads/2016/11/Pixelated-unrecognizable-faceless-hooded-cyber-criminal-man-using-digital-tablet-in-cyberspace.jpg?ssl=1',
+        title: 'Coming Soon'
+    },
+    {
+        name: 'Unknown Dev',
+        img: 'https://i0.wp.com/www.digitaltrends.com/wp-content/uploads/2016/11/Pixelated-unrecognizable-faceless-hooded-cyber-criminal-man-using-digital-tablet-in-cyberspace.jpg?ssl=1',
+        title: 'Coming Soon'
     },
 ]

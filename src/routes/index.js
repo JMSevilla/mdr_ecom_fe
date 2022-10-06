@@ -1,14 +1,7 @@
 import React from 'react'
 import {Switch, Route, BrowserRouter} from 'react-router-dom'
-import Home from '../views/Home'
-import Signup from '../views/signup/Signup'
-import ForgetPassword from '../views/ForgetPassword/ForgetPassword'
-import TermsAndConditions from '../views/BusinessPolicy/TermsAndConditions/TermsAndConditions'
-import PrivacyPolicy from '../views/BusinessPolicy/PrivacyPolicy/PrivacyPolicy'
-import Shop from '../views/Shop/Shop'
-import HomeDashboard from '../views/Administrator/Dashboard/Home/Home'
-import BOHomeDashboard from '../views/BusinessOwner/Dashboard/Home/Home'
-import AdminRegistration from '../views/Administrator/Registration/Registration'
+import { Home, Signup , ForgetPassword, TermsAndConditions, PrivacyPolicy,  
+Shop, HomeDashboard, BOHomeDashboard, AdminRegistration, Login, KnowMore} from '../views'
 import { appRouter, appAdminRouter, appBORouter } from './router'
 import { Global } from '../core/context/GlobalContext'
 import { ProjectDetailsContext } from '../core/context/ProjectDetailsContext';
@@ -17,7 +10,7 @@ import { AdministratorContext } from '../core/context/AdminContext';
 import { Student } from '../core/context/StudentContext';
 import { Provider } from 'react-redux'
 import { RouteWithAdminSidebar, RouteWithBusinessOwnerSidebar } from './base/route_sd'
-import Login from '../views/Login/Login'
+
 
 
 import configureStore from '../core/redux/reducers/store';
@@ -54,14 +47,13 @@ export default () => (
                                     <RouteWithLoad exact path={appRouter.PrivacyPolicy.path} component={PrivacyPolicy} />
                                     <RouteWithLoad exact path={appRouter.Shop.path} component={Shop} />
                                     <RouteWithLoad exact path={appRouter.SignIn.path} component={Login} />
-                                    
+                                    <RouteWithLoad exact path={appRouter.KnowUs.path} component={KnowMore}/>
                                     {/* admin registration */}
                                     <RouteWithLoad exact path={appRouter.AdminRegistration.path} component={AdminRegistration} />
                                     {/* admin dashboard */}
                                     <RouteWithAdminSidebar exact path={appAdminRouter.Home.path} component={HomeDashboard} /> 
                                     {/* business owner dashboard */}
                                     <RouteWithBusinessOwnerSidebar exact path={appBORouter.Home.path} component={BOHomeDashboard}/>
-
                             </AdministratorContext>
                         </StudentProjectContext>
                         </ProjectDetailsContext>

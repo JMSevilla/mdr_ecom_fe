@@ -3,9 +3,15 @@ import React from "react";
 import { herobannerButton, socialAccounts, heroBannerData } from "../../../core/utils/helper";
 import {AppButton} from "../../../components";
 import { Box, Stack} from "@mui/material";
-import { NavHashLink as Link } from 'react-router-hash-link';
+import Link from "@mui/material/Link";
+import { useHistory } from "react-router-dom";
+import { appRouter } from "../../../routes/router";
 
 const HeroBannerField = () => {
+  const history = useHistory();
+  const navigateToKnowMore = () => {
+    history.push(appRouter.KnowUs.path)
+  };
   return (
     <>
     <Box id="home" className='flex items-center h-[100vh] bg-primary'>
@@ -29,11 +35,12 @@ const HeroBannerField = () => {
                 {herobannerButton.map((item, index) => {
                   return (
                     <Link 
+                    className='link'
+                    onClick={eval(item.to)}
                     key={index}
-                    to={item.to}
-                    activeClassName="selected"
-                    activeStyle={{ color: '#bd321c' }}
-                    smooth
+                    color={"inherit"}
+                    underline={"none"}
+                    style={{cursor: 'pointer'}}
                     >
 
                     <AppButton
@@ -68,7 +75,7 @@ const HeroBannerField = () => {
                 {socialAccounts.map((item, index) => {
                   return (
                     <Link
-                      to={item.link}
+                      href={item.link}
                       target="_blank"
                       key={index}
                       color={"inherit"}
