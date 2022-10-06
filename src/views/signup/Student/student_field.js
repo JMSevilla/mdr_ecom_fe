@@ -1,4 +1,6 @@
-import React, { useState, cloneElement } from "react";
+import React, { useState, cloneElement, useRef } from "react";
+import {storage} from '../../../firebase'
+import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage'
 import {
   SystemContainer,
   ApplicationCard,
@@ -13,6 +15,7 @@ import {
   SystemUserGuide,
   ProjectTable,
   SystemDialog,
+  LinearProgress
 } from "../../../components";
 
 import {
@@ -75,7 +78,9 @@ const Student_field = (props) => {
 
   const { fieldSettings, priceSettings } = allFieldSelected[4];
   const [dialogOpen, setDialogOpen] = useState(false);
-
+  const fileUpload = useRef(null)
+  const [progress, setProgress] = useState(0)
+  const [uploadedURL , setUploadedURL] = useState('')
   const columns = [
     {
       field: FeatureSpiels.propertyNames.featureName,
@@ -119,6 +124,33 @@ const Student_field = (props) => {
       setDialogOpen(false);
     }
   };
+
+
+  const handleUpload = () => {
+    fileUpload.current.click()
+  }
+
+  const uploadRequirements = (e) => {
+    e.preventDefault()
+    const file = e.target.files[0]
+    if(!file) return;
+
+    const storageRef = ref(storage, `files/${file.name}`)
+    const uploadTask = uploadBytesResumable(storageRef, file)
+
+    uploadTask.on('state_changed', 
+    (snapshot) => {
+      const inprogress = 
+      Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
+      setProgress(inprogress)
+    }, (error) => {
+      console.log(error)
+    }, () => {
+      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        setUploadedURL(downloadURL)
+      })
+    })
+  }
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -740,15 +772,16 @@ const Student_field = (props) => {
             </ul>
             <Stack direction="row" alignItems="center" spacing={2}>
             <label for="consultation">Select a file:</label>
-              <Button variant="contained" component="label">
+            <input ref={fileUpload} onChange={uploadRequirements} style={{ opacity : "0"}} accept="image/*" multiple type="file" />
+              <Button onClick={handleUpload} variant="contained" component="label">
                 Upload
-                <input hidden accept="image/*" multiple type="file" />
               </Button>
               <span>or</span>
               <IconButton color="primary" aria-label="upload picture" component="label">
-              <input type="file" class="hidden" accept="image/*;capture=camera"/>
+              <input type="file" className="hidden" accept="image/*;capture=camera"/>
                 <PhotoCamera />
               </IconButton>
+              <LinearProgress progressHelper={progress} />A
             </Stack>
             <NextPrevious
               disabled={timer === 0 ? false : true}

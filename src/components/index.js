@@ -19,3 +19,4 @@ export {default as SystemUserGuide} from './UserGuide/UserGuide';
 export {default as ProjectTable} from './table/ProjectTable'
 export {default as AppbarAdministrator} from './Appbar/Appbaradmin'
 export {default as SystemDialog} from './Dialog/Dialog'
+export {default as LinearProgress} from './Progress/LinearProgress'
