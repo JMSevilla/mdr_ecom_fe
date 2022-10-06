@@ -133,10 +133,10 @@ animation: bounce 5s infinite;
 }
 /* arrow color */
 .flickity-prev-next-button .arrow {
-  fill: white;
+  fill: black;
 }
 .flickity-prev-next-button.no-svg {
-  color: white;
+  color: black;
 }
 
 @layer base {

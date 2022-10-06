@@ -856,10 +856,10 @@ const Student_field = (props) => {
                             style={{ textAlign: "center" }}
                           />
                           <hr />
-                          {allFieldSelected[selectedIndex].businessFieldArray &&
+                          {allFieldSelected[selectedIndex].studentFieldArray &&
                             allFieldSelected[
                               selectedIndex
-                            ].businessFieldArray.map((item) => {
+                            ].studentFieldArray.map((item) => {
                               return (
                                 <Box
                                   style={{
@@ -939,10 +939,10 @@ const Student_field = (props) => {
                             style={{ textAlign: "center" }}
                           />
                           <hr />
-                          {allFieldSelected[selectedIndex].businessFieldArray &&
+                          {allFieldSelected[selectedIndex].studentFieldArray &&
                             allFieldSelected[
                               selectedIndex
-                            ].businessFieldArray.map((item) => {
+                            ].studentFieldArray.map((item) => {
                               return (
                                 <Box
                                   style={{

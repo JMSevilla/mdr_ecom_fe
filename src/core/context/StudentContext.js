@@ -541,7 +541,7 @@ const StudentContext = createContext()
                 }))
             } else {
                 setOpen(true)
-                FormService.BUSINESS_compare_verification(filteredcompare)
+                FormService.STUDENT_compare_verification(filteredcompare)
                 .then((repository) => {
                     if(repository.data.message == 'verified_success'){
                         //insertion
@@ -579,8 +579,8 @@ const StudentContext = createContext()
                                         FormService.STUDENT_findAllAccountsByEmail(
                                             tempFieldSelected.fieldSettings.credentialsObjSt.email
                                         ).then((res) => {
-                                            allFieldSelected[selectedIndex].businessFieldArray = res.data
-                                            if (allFieldSelected[selectedIndex].businessFieldArray.length > 0) {
+                                            allFieldSelected[selectedIndex].studentFieldArray = res.data
+                                            if (allFieldSelected[selectedIndex].studentFieldArray.length > 0) {
                                                 FormService.STUDENT_findAllProjectByEmail(
                                                     tempFieldSelected.fieldSettings.credentialsObjSt.email
                                                 ).then(resp => {
@@ -1122,7 +1122,7 @@ const StudentContext = createContext()
         const tempAllFieldSelected = [...allFieldSelected]
         const tempFieldSelected = {...tempAllFieldSelected[selectedIndex]}
         setOpen(true)
-        FormService.BUSINESS_resend_email(
+        FormService.STUDENT_resend_email(
             tempFieldSelected.fieldSettings.credentialsObjSt.email,
             create_uuid()
         ).then(res => {

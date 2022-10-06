@@ -153,7 +153,7 @@ class Spiels {
                 max : 250000,
                 min : 25000
             },
-            businessFieldArray : [],
+            studentFieldArray : [],
             projectFieldArray : [],
             fieldSettings : {
                 personalInfoObjSt : {
