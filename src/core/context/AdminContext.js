@@ -250,12 +250,12 @@ const AdministratorContext = ({children}) => {
             setOpen(!open)
             dispatch(ADMIN_REGISTER(tempField.adminreg))
             setTimeout(() => {
-                const res = baseRef.adminregRef.current.admin_registration_onsuccess.message
-                if(res === 'success_registration_admin'){
+                const res = baseRef.adminregRef.current.admin_registration_onsuccess
+                if(res.message === 'success_registration_admin'){
                     setOpen(false)
                     history.push(appRouter.Homepage.path)
                 }
-            },1000)
+            },2000)
         }
     }
     const handleClose = (event, reason) => {

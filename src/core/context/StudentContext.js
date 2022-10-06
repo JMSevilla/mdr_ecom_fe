@@ -8,7 +8,7 @@ const StudentContext = createContext()
 
  const Student = ({children}) => {
 
-    const [activeSteps, setActiveSteps] = useState(0)
+    const [activeSteps, setActiveSteps] = useState(4)
     const [allFieldSelected, setAllFieldSelected] = useState(Spiels.fields)
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [features, setFeatures] = useState([])
