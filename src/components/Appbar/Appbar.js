@@ -33,7 +33,7 @@ const ApplicationBar = (props) => {
   const { title, simplified } = props;
   return (
     <>
-    <AppBar color={'inherit'} style={{minHeight: bg ? '75px' : '80px', display: "flex", justifyContent: "center", backgroundColor: bg ? 'rgb(255,255,255)' : 'transparent'}}>
+    <AppBar elevation={0} color={'inherit'} style={{minHeight: bg ? '75px' : '80px', display: "flex", justifyContent: "center", backgroundColor: bg ? 'rgb(255,255,255)' : 'transparent'}}>
       <Toolbar>
         <Box className='container mx-auto h-full flex items-center justify-between'>
            {/* LOGO */}
