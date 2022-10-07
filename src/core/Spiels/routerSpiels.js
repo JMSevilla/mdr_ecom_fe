@@ -1,12 +1,13 @@
 import React from 'react'
-import {appRouter, appAdminRouter} from '../../routes/router'
+import {appRouter, appAdminRouter, appBORouter} from '../../routes/router'
 class routerSpiels {
     router = [
         {
             router_id : 1,
             router_obj : {
                 home : appRouter.Homepage.path,
-                admin_dashboard : appAdminRouter.Home.path
+                admin_dashboard : appAdminRouter.Home.path,
+                business_owner_dashboard : appBORouter.Home.path
             }
         }
     ]
