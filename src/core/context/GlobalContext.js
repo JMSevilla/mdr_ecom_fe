@@ -745,6 +745,8 @@ const Global = ({ children }) => {
   const handleSignIn = () => {
     const tempAllFieldSelected = [...allFieldSelected];
     const tempFieldSelected = { ...tempAllFieldSelected[selectedIndex] };
+    const tempAllFieldSelectedRouter = [...settings];
+    const tempFieldSelectedRouter = { ...tempAllFieldSelectedRouter[0] };
     const tempField = { ...tempFieldSelected.fieldSettings };
     if (!tempField.userLoginObj.email || !tempField.userLoginObj.password) {
       setSnacbarSettings((prevState) => ({
@@ -765,65 +767,65 @@ const Global = ({ children }) => {
     } else {
       setOpen(true);
       dispatch(LOGIN_ONPROCESS(tempField.userLoginObj))
-      console.log(baseRef.loginRef.current)
-      // store.dispatch(LOGIN_ONPROCESS(tempField.userLoginObj))
-      // console.log(store.getState().login.logon_message)
-      // dispatch(LOGIN_ONPROCESS(tempField.userLoginObj));
-      //   const reps = baseRef.loginRef.current.logon_message
-      //     if(reps.message === 'success_login') {
-      //         const fetchedTokenId = reps.response_data[5];
-      //             const finalData = reps.response_data.map((item) => {
-      //                 return {
-      //                     data: item
-      //                 }
-      //         })
-      //         if(reps.response_data[3] === 'success_admin_platform') { // new code to identify the user type
-      //             setSnacbarSettings(prevState => ({
-      //                 ...prevState,
-      //                 ...prevState.settings.open.homepage = true,
-      //                 ...prevState.settings.message = "Login as Administrator Success",
-      //                 ...prevState.settings.severity = "success",
-      //                 ...prevState.settings.autoHideDuration = 5000
-      //             }))
-      //                 setTimeout(() => {
-      //                     setOpen(false);
-      //                     //history push to admin dashboard
-      //                     alert("Navigate to admin dashboard") // change this to history push
-      //                 }, 2000)
-      //         } else if(reps.response_data[3] === 'success_business_platform') {
-      //             setSnacbarSettings(prevState => ({
-      //                 ...prevState,
-      //                 ...prevState.settings.open.homepage = true,
-      //                 ...prevState.settings.message = "Login Success",
-      //                 ...prevState.settings.severity = "success",
-      //                 ...prevState.settings.autoHideDuration = 5000
-      //             }))
-      //             setTimeout(() => {
-      //                     setOpen(false);
-      //                     navigateBusinessPlatform()
-      //                 }, 2000)
-      //         }
-      //         setUserData(finalData)
-      //         localstoragehelper.store('key_identifier', fetchedTokenId)
-      //     } else if (reps.message === 'invalid') {
-      //              setOpen(false);
-      //             setSnacbarSettings(prevState => ({
-      //                 ...prevState,
-      //                 ...prevState.settings.open.homepage = true,
-      //                 ...prevState.settings.message = "Invalid",
-      //                 ...prevState.settings.severity = "error",
-      //                 ...prevState.settings.autoHideDuration = 5000
-      //             }))
-      //     } else {
-      //           setOpen(false);
-      //             setSnacbarSettings(prevState => ({
-      //                 ...prevState,
-      //                 ...prevState.settings.open.homepage = true,
-      //                 ...prevState.settings.message = "Email or Password does not exist",
-      //                 ...prevState.settings.severity = "error",
-      //                 ...prevState.settings.autoHideDuration = 5000
-      //             }))
-      //     }
+      setTimeout(() => {
+        const repository = baseRef.loginRef.current.logon_message
+        if(repository.message == 'success_login'){
+          const fetchTokenId = repository.response_data[5]
+          let finalData = repository.response_data.map((item) => {
+            return {
+              data : item
+            }
+          })
+          setToken(repository.response_data)
+          if(repository.response_data[3] == 'success_admin_platform'){
+                  setSnacbarSettings(prevState => ({
+                    ...prevState,
+                    ...prevState.settings.open.homepage = true,
+                    ...prevState.settings.message = "Login as Administrator Success",
+                    ...prevState.settings.severity = "success",
+                    ...prevState.settings.autoHideDuration = 5000
+                  }))
+                      setTimeout(() => {
+                          setOpen(false);
+                          //history push to admin dashboard
+                          history.push(tempFieldSelectedRouter.router_obj.admin_dashboard) // change this to history push
+                      }, 2000)
+          } else if (repository.response_data[3] == 'success_business_platform'){
+            setSnacbarSettings(prevState => ({
+              ...prevState,
+              ...prevState.settings.open.homepage = true,
+              ...prevState.settings.message = "Login as Business Owner",
+              ...prevState.settings.severity = "success",
+              ...prevState.settings.autoHideDuration = 5000
+            }))
+                setTimeout(() => {
+                    setOpen(false);
+                    //history push to admin dashboard
+                    history.push(tempFieldSelectedRouter.router_obj.business_owner_dashboard) // change this to history push
+                }, 2000)
+          } 
+              setUserData(finalData)
+              localstoragehelper.store('key_identifier', fetchTokenId)
+        }else if(repository.message == 'invalid'){
+          setOpen(false);
+          setSnacbarSettings(prevState => ({
+              ...prevState,
+              ...prevState.settings.open.homepage = true,
+              ...prevState.settings.message = "Invalid",
+              ...prevState.settings.severity = "error",
+              ...prevState.settings.autoHideDuration = 5000
+          }))
+  } else{
+          setOpen(false);
+          setSnacbarSettings(prevState => ({
+              ...prevState,
+              ...prevState.settings.open.homepage = true,
+              ...prevState.settings.message = "Email or Password does not exist",
+              ...prevState.settings.severity = "error",
+              ...prevState.settings.autoHideDuration = 5000
+          }))
+  }
+      }, 1000)
     }
   };
 

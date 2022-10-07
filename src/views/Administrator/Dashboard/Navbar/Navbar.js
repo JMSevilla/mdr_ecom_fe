@@ -38,8 +38,8 @@ const AdminNavbar = (props) => {
       setDialogOpen(false)
       setBackdrop(!backdrop)
       let obj = {
-        userID : token.userID,
-        token: token.token
+        userID : token.userID == null || undefined ? token.data[0].userID : token.userID,
+        token: token.token == null || undefined ? token.data[0].token : token.token
       }
       dispatch(SIGNOUT_PROCESS(obj))
       setTimeout(() => {
