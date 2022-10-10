@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { GlobalContext } from "../../core/context/GlobalContext";
 import LoginField from "./login_field";
 import { ReplicateOnInit } from "../../core/context/CloneElement";
@@ -18,7 +18,13 @@ const Login = (props) => {
     snackbarSettings,
     open
   } = useContext(GlobalContext);
+  
+  const [snackBarWidth, setSnackBarWidth] = useState(true);
+
   useEffect(() => {
+    window.addEventListener('resize', () => {
+      return window.innerWidth < 1024 ? setSnackBarWidth(false) : setSnackBarWidth(true);
+    })
     setSelectedIndex(1)
   }, [HandleChangeEmailLogin, HandleChangePasswordLogin])
   return (
@@ -38,7 +44,7 @@ const Login = (props) => {
       open={open}
     />
            <CustomizedSnackbars 
-            style={{width: '100%'}}
+            style={{width: snackBarWidth ? '30%' : '100%'}}
             open={snackbarSettings.settings.open.homepage}
             message={snackbarSettings.settings.message}
             handleClose={handleClose}
