@@ -45,7 +45,7 @@ const AdminNavbar = (props) => {
       setTimeout(() => {
         const res = baseRef.logoutRef.current.signout_message
         if(res.message == 'signout_success'){
-          localStorage.setItem('key_identifier', JSON.stringify('unknown1'))
+          localStorage.removeItem('key_identifier')
           signoutRouteDestroy()
         }
       },3000)

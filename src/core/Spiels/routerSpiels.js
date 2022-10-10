@@ -7,7 +7,8 @@ class routerSpiels {
             router_obj : {
                 home : appRouter.Homepage.path,
                 admin_dashboard : appAdminRouter.Home.path,
-                business_owner_dashboard : appBORouter.Home.path
+                business_owner_dashboard : appBORouter.Home.path,
+                login : appRouter.SignIn.path
             }
         }
     ]
