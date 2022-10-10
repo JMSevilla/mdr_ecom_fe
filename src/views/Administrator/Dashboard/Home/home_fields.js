@@ -11,6 +11,9 @@ import AdminNavbar from "../Navbar/Navbar";
 import { GlobalContext } from "../../../../core/context/GlobalContext";
 
 import { useHistory } from "react-router-dom";
+import { SystemContainer, SystemGrid, ApplicationCard } from "../../../../components";
+import { CardContent } from "@mui/material";
+import { localstoragehelper } from "../../../../core/utils/storage";
 
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
@@ -84,6 +87,7 @@ export default function HomeFieldDDashboard() {
   const theme = useTheme();
   const [open, setOpen] = useState(true);
   const [dropDown, setDropDown] = useState(false);
+  const key = localstoragehelper.load('key_identifier')
 
   const history = useHistory()
 
@@ -93,9 +97,15 @@ export default function HomeFieldDDashboard() {
   })
   },[])
 
-  useEffect(() => {
-    tokenScanned(0)
-  }, [])
+  // useEffect(() => {
+  //   const tempAllFieldSelected = [...settings];
+  //   const tempFieldSelected = { ...tempAllFieldSelected[0] };
+  //   if(key == 'unknown1'){
+  //     history.push(tempFieldSelected.router_obj.login)
+  //   }else{
+  //     tokenScanned(0)
+  //   }
+  // }, [key])
 
   const signoutRouteDestroy = () => {
     const tempAllFieldSelected = [...settings];
@@ -122,8 +132,63 @@ export default function HomeFieldDDashboard() {
       {/* CONTENT */}
       <Box component="main" sx={{ flexGrow: 1, p: 3 }} className='flex items-center justify-center h-[100vh]'>
         <DrawerHeader />
-          <img className='w-[60%]' src="https://images01.nicepagecdn.com/page/30/75/website-template-preview-307500.jpg" alt='content'/>
+       
       </Box>
+       <SystemContainer
+       style={{marginTop: '100px'}}
+        max={'xl'}
+        >
+          <SystemGrid 
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            xs={0}
+            md={3}
+            GridItems = {
+              [
+                {
+                  childrenId: 1,
+                  children : <ApplicationCard 
+                    children={
+                      <CardContent>
+                        <h3>Users</h3>
+                      </CardContent>
+                    }
+                  />
+                },
+                {
+                  childrenId: 2,
+                  children : <ApplicationCard 
+                    children={
+                      <CardContent>
+                        <h3>Users</h3>
+                      </CardContent>
+                    }
+                  />
+                },
+                {
+                  childrenId: 3,
+                  children : <ApplicationCard 
+                    children={
+                      <CardContent>
+                        <h3>Users</h3>
+                      </CardContent>
+                    }
+                  />
+                },
+                {
+                  childrenId: 4,
+                  children : <ApplicationCard 
+                    children={
+                      <CardContent>
+                        <h3>Users</h3>
+                      </CardContent>
+                    }
+                  />
+                }
+              ]
+            }
+          />
+        </SystemContainer>
     </Box>
   );
 }

@@ -2,7 +2,7 @@ import React, {cloneElement} from 'react'
 import { Grid, Typography } from '@mui/material'
 
 const SystemGrid = (props) => {
-    const { rowSpacing, columnSpacing, GridItems, style, spacing } = props
+    const { rowSpacing, columnSpacing, GridItems, style, spacing, xs = 6, md = 0, lg = 0 } = props
     return (
         <Grid container 
         rowSpacing={rowSpacing}
@@ -13,7 +13,7 @@ const SystemGrid = (props) => {
             {
                 GridItems.map((item, index) => {
                     return (
-                        <Grid item xs={6} key={index}>
+                        <Grid item xs={xs} md={md} lg={lg} key={index}>
                             {cloneElement(item.children)}
                         </Grid>
                     )

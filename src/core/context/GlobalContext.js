@@ -769,62 +769,64 @@ const Global = ({ children }) => {
       dispatch(LOGIN_ONPROCESS(tempField.userLoginObj))
       setTimeout(() => {
         const repository = baseRef.loginRef.current.logon_message
-        if(repository.message == 'success_login'){
-          const fetchTokenId = repository.response_data[5]
-          let finalData = repository.response_data.map((item) => {
-            return {
-              data : item
-            }
-          })
-          setToken(repository.response_data)
-          if(repository.response_data[3] == 'success_admin_platform'){
-                  setSnacbarSettings(prevState => ({
-                    ...prevState,
-                    ...prevState.settings.open.homepage = true,
-                    ...prevState.settings.message = "Login as Administrator Success",
-                    ...prevState.settings.severity = "success",
-                    ...prevState.settings.autoHideDuration = 5000
-                  }))
-                      setTimeout(() => {
-                          setOpen(false);
-                          //history push to admin dashboard
-                          history.push(tempFieldSelectedRouter.router_obj.admin_dashboard) // change this to history push
-                      }, 2000)
-          } else if (repository.response_data[3] == 'success_business_platform'){
+       
+          if(repository.message == 'success_login'){
+            const fetchTokenId = repository.response_data[5]
+            
+            let finalData = repository.response_data.map((item) => {
+              return {
+                data : item
+              }
+            })
+            setToken(repository.response_data)
+            setUserData(finalData)
+            localstoragehelper.store('key_identifier', fetchTokenId)
+            if(repository.response_data[3] == 'success_admin_platform'){
+                    setSnacbarSettings(prevState => ({
+                      ...prevState,
+                      ...prevState.settings.open.homepage = true,
+                      ...prevState.settings.message = "Login as Administrator Success",
+                      ...prevState.settings.severity = "success",
+                      ...prevState.settings.autoHideDuration = 5000
+                    }))
+                        setTimeout(() => {
+                            setOpen(false);
+                            //history push to admin dashboard
+                            history.push(tempFieldSelectedRouter.router_obj.admin_dashboard) // change this to history push
+                        }, 2000)
+            } else if (repository.response_data[3] == 'success_business_platform'){
+              setSnacbarSettings(prevState => ({
+                ...prevState,
+                ...prevState.settings.open.homepage = true,
+                ...prevState.settings.message = "Login as Business Owner",
+                ...prevState.settings.severity = "success",
+                ...prevState.settings.autoHideDuration = 5000
+              }))
+                  setTimeout(() => {
+                      setOpen(false);
+                      //history push to admin dashboard
+                      history.push(tempFieldSelectedRouter.router_obj.business_owner_dashboard) // change this to history push
+                  }, 2000)
+            } 
+          }else if(repository.message == 'invalid'){
+            setOpen(false);
             setSnacbarSettings(prevState => ({
-              ...prevState,
-              ...prevState.settings.open.homepage = true,
-              ...prevState.settings.message = "Login as Business Owner",
-              ...prevState.settings.severity = "success",
-              ...prevState.settings.autoHideDuration = 5000
+                ...prevState,
+                ...prevState.settings.open.homepage = true,
+                ...prevState.settings.message = "Invalid",
+                ...prevState.settings.severity = "error",
+                ...prevState.settings.autoHideDuration = 5000
             }))
-                setTimeout(() => {
-                    setOpen(false);
-                    //history push to admin dashboard
-                    history.push(tempFieldSelectedRouter.router_obj.business_owner_dashboard) // change this to history push
-                }, 2000)
-          } 
-              setUserData(finalData)
-              localstoragehelper.store('key_identifier', fetchTokenId)
-        }else if(repository.message == 'invalid'){
-          setOpen(false);
-          setSnacbarSettings(prevState => ({
-              ...prevState,
-              ...prevState.settings.open.homepage = true,
-              ...prevState.settings.message = "Invalid",
-              ...prevState.settings.severity = "error",
-              ...prevState.settings.autoHideDuration = 5000
-          }))
-  } else{
-          setOpen(false);
-          setSnacbarSettings(prevState => ({
-              ...prevState,
-              ...prevState.settings.open.homepage = true,
-              ...prevState.settings.message = "Email or Password does not exist",
-              ...prevState.settings.severity = "error",
-              ...prevState.settings.autoHideDuration = 5000
-          }))
-  }
+    } else{
+            setOpen(false);
+            setSnacbarSettings(prevState => ({
+                ...prevState,
+                ...prevState.settings.open.homepage = true,
+                ...prevState.settings.message = "Email or Password does not exist",
+                ...prevState.settings.severity = "error",
+                ...prevState.settings.autoHideDuration = 5000
+            }))
+    }
       }, 1000)
     }
   };
@@ -2062,13 +2064,13 @@ const Global = ({ children }) => {
     const tempAllFieldSelected = [...settings];
     const tempFieldSelected = { ...tempAllFieldSelected[index] };
     const __key__ = localstoragehelper.load("key_identifier");
-    if (__key__ == "unknown1") {
+    if (!__key__) {
     } else {
       dispatch(Tokenscanning(__key__));
         setTimeout(() => {
           const res = baseRef.tokenRef.current.token_message
           setToken(res)
-          if(__key__ == 'unknown1'){} else if(res == undefined){}
+          if(!__key__){} else if(res == undefined){}
           else if(res.data[0].lastRoute === 'business_platform'){
             alert('redirect to bo-dashboard')
           } else if(res.data[0].lastRoute === 'admin_platform'){
