@@ -26,20 +26,24 @@ import { Tokenscanning } from "../redux/reducers/Token/tokenization";
 import { LOGIN_ONPROCESS } from "../redux/reducers/Login/login";
 import { ADMIN_SCANNING } from "../redux/reducers/Admin/admin";
 
-import configureStore from '../redux/reducers/store'
+import configureStore from "../redux/reducers/store";
 
 const GlobalContext = createContext();
-const getSelectors = (state) => ({ token_message: state.token, logon_message: state.login, admin_message: state.admin });
+const getSelectors = (state) => ({
+  token_message: state.token,
+  admin_message: state.admin,
+});
 const Global = ({ children }) => {
-  const store = configureStore()
+  const store = configureStore();
   const [settings, setSettings] = useState(routerSpiels.router);
   const [userData, setUserData] = useState([]);
   const dispatch = useDispatch();
-  const { token_message, logon_message, admin_message } = useSelector(getSelectors);
+  const { token_message, admin_message } = useSelector(getSelectors);
   const baseRef = {
-    tokenRef: useRef(token_message), loginRef : useRef(logon_message), adminRef : useRef(admin_message)
+    tokenRef: useRef(token_message),
+    adminRef: useRef(admin_message),
   };
-  const [token, setToken] = useState('')
+  const [token, setToken] = useState("");
   // Timer for resend button
   const [timer, setTimer] = useState(15);
   const [startTimer, setStartTimer] = useState(false);
@@ -55,9 +59,8 @@ const Global = ({ children }) => {
 
   useEffect(() => {
     baseRef.tokenRef.current = token_message;
-    baseRef.loginRef.current = logon_message
-    baseRef.adminRef.current = admin_message
-  }, [token_message, logon_message, admin_message]);
+    baseRef.adminRef.current = admin_message;
+  }, [token_message, admin_message]);
   const resetTimer = () => {
     setStartTimer(true);
     setTimer(15);
@@ -766,68 +769,77 @@ const Global = ({ children }) => {
       }));
     } else {
       setOpen(true);
-      dispatch(LOGIN_ONPROCESS(tempField.userLoginObj))
-      setTimeout(() => {
-        const repository = baseRef.loginRef.current.logon_message
-       
-          if(repository.message == 'success_login'){
-            const fetchTokenId = repository.response_data[5]
-            
+      FormService.CLIENT_CONFIG_checkLogin(tempField.userLoginObj)
+        .then((resp) => {
+          const repository = resp.data;
+          if (repository.message === "success_login") {
+            const fetchTokenId = repository.response_data[5];
+            const token = repository.response_data[7];
             let finalData = repository.response_data.map((item) => {
               return {
-                data : item
-              }
-            })
-            setToken(repository.response_data)
-            setUserData(finalData)
-            localstoragehelper.store('key_identifier', fetchTokenId)
-            if(repository.response_data[3] == 'success_admin_platform'){
-                    setSnacbarSettings(prevState => ({
-                      ...prevState,
-                      ...prevState.settings.open.homepage = true,
-                      ...prevState.settings.message = "Login as Administrator Success",
-                      ...prevState.settings.severity = "success",
-                      ...prevState.settings.autoHideDuration = 5000
-                    }))
-                        setTimeout(() => {
-                            setOpen(false);
-                            //history push to admin dashboard
-                            history.push(tempFieldSelectedRouter.router_obj.admin_dashboard) // change this to history push
-                        }, 2000)
-            } else if (repository.response_data[3] == 'success_business_platform'){
-              setSnacbarSettings(prevState => ({
+                data: item,
+              };
+            });
+            setToken(repository.response_data);
+            setUserData(finalData);
+            localstoragehelper.store("key_identifier", fetchTokenId);
+            localstoragehelper.store("appid", token);
+            if (repository.response_data[3] == "success_admin_platform") {
+              setSnacbarSettings((prevState) => ({
                 ...prevState,
-                ...prevState.settings.open.homepage = true,
-                ...prevState.settings.message = "Login as Business Owner",
-                ...prevState.settings.severity = "success",
-                ...prevState.settings.autoHideDuration = 5000
-              }))
-                  setTimeout(() => {
-                      setOpen(false);
-                      //history push to admin dashboard
-                      history.push(tempFieldSelectedRouter.router_obj.business_owner_dashboard) // change this to history push
-                  }, 2000)
-            } 
-          }else if(repository.message == 'invalid'){
+                ...(prevState.settings.open.homepage = true),
+                ...(prevState.settings.message =
+                  "Login as Administrator Success"),
+                ...(prevState.settings.severity = "success"),
+                ...(prevState.settings.autoHideDuration = 5000),
+              }));
+              setTimeout(() => {
+                setOpen(false);
+                //history push to admin dashboard
+                history.push(
+                  tempFieldSelectedRouter.router_obj.admin_dashboard
+                ); // change this to history push
+              }, 2000);
+            } else if (
+              repository.response_data[3] == "success_business_platform"
+            ) {
+              setSnacbarSettings((prevState) => ({
+                ...prevState,
+                ...(prevState.settings.open.homepage = true),
+                ...(prevState.settings.message = "Login as Business Owner"),
+                ...(prevState.settings.severity = "success"),
+                ...(prevState.settings.autoHideDuration = 5000),
+              }));
+              setTimeout(() => {
+                setOpen(false);
+                //history push to admin dashboard
+                history.push(
+                  tempFieldSelectedRouter.router_obj.business_owner_dashboard
+                ); // change this to history push
+              }, 2000);
+            }
+          } else if (repository.message == "invalid") {
             setOpen(false);
-            setSnacbarSettings(prevState => ({
-                ...prevState,
-                ...prevState.settings.open.homepage = true,
-                ...prevState.settings.message = "Invalid",
-                ...prevState.settings.severity = "error",
-                ...prevState.settings.autoHideDuration = 5000
-            }))
-    } else{
+            setSnacbarSettings((prevState) => ({
+              ...prevState,
+              ...(prevState.settings.open.homepage = true),
+              ...(prevState.settings.message = "Invalid"),
+              ...(prevState.settings.severity = "error"),
+              ...(prevState.settings.autoHideDuration = 5000),
+            }));
+          } else {
             setOpen(false);
-            setSnacbarSettings(prevState => ({
-                ...prevState,
-                ...prevState.settings.open.homepage = true,
-                ...prevState.settings.message = "Email or Password does not exist",
-                ...prevState.settings.severity = "error",
-                ...prevState.settings.autoHideDuration = 5000
-            }))
-    }
-      }, 1000)
+            setSnacbarSettings((prevState) => ({
+              ...prevState,
+              ...(prevState.settings.open.homepage = true),
+              ...(prevState.settings.message =
+                "Email or Password does not exist"),
+              ...(prevState.settings.severity = "error"),
+              ...(prevState.settings.autoHideDuration = 5000),
+            }));
+          }
+        })
+        .catch((err) => {});
     }
   };
 
@@ -2064,32 +2076,34 @@ const Global = ({ children }) => {
     const tempAllFieldSelected = [...settings];
     const tempFieldSelected = { ...tempAllFieldSelected[index] };
     const __key__ = localstoragehelper.load("key_identifier");
-    if (!__key__) {
+    const token = localstoragehelper.load("appid");
+    if (!__key__ || !token) {
     } else {
-      dispatch(Tokenscanning(__key__));
-        setTimeout(() => {
-          const res = baseRef.tokenRef.current.token_message
-          setToken(res)
-          if(!__key__){} else if(res == undefined){}
-          else if(res.data[0].lastRoute === 'business_platform'){
-            alert('redirect to bo-dashboard')
-          } else if(res.data[0].lastRoute === 'admin_platform'){
-            history.push(tempFieldSelected.router_obj.admin_dashboard)
-          }
-          else {
-            history.push(tempFieldSelected.router_obj.home)
-          }
-        }, 2000)
+      FormService.USER_checkLogin(__key__, token).then((response) => {
+        const res = response.data.data;
+        setToken(res);
+        if (!__key__ || !token) {
+        } else if (res == undefined) {
+        } else if (res[0].lastRoute === "business_platform") {
+          alert("redirect to bo-dashboard");
+        } else if (res[0].lastRoute === "admin_platform") {
+          history.push(tempFieldSelected.router_obj.admin_dashboard);
+        } else {
+          history.push(tempFieldSelected.router_obj.home);
+        }
+      });
+      // setTimeout(() => {
+
+      // }, 2000);
     }
   };
   const adminScanned = () => {
-     dispatch(ADMIN_SCANNING());
-     setTimeout(() => {
-      const res = baseRef.adminRef.current
-      if(res.admin_message.message === 'not_exist') {
-          history.push(appRouter.AdminRegistration.path)
-      } else{}
-     },2000)
+    FormService.ADMINISTRATOR_checkadmin().then((res) => {
+      if (res.data.message === "not_exist") {
+        history.push(appRouter.AdminRegistration.path);
+      } else {
+      }
+    });
   };
   return (
     <GlobalContext.Provider
@@ -2142,7 +2156,7 @@ const Global = ({ children }) => {
         tokenScanned,
         adminScanned,
         token,
-        settings
+        settings,
       }}
     >
       {children}
