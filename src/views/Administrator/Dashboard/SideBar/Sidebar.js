@@ -16,12 +16,22 @@ import Collapse from '@mui/material/Collapse';
 import StarBorder from '@mui/icons-material/StarBorder';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-
 import { adminSidebarData } from "../../../../core/utils/helper";
+import { useHistory } from "react-router-dom";
+import { appAdminRouter } from "../../../../routes/router";
 
 const AdminSidebar = (props) => {
     const {open, handleDrawerClose, theme, handleClick, dropDown, Drawer, DrawerHeader} = props;
-  
+    const history = useHistory();
+
+    const navigateToAdminDashboard = () => {
+      history.push(appAdminRouter.Home.path)
+    }
+
+    const navigateToProductMgmt = () => {
+      history.push(appAdminRouter.ProductMgmt.path)
+    }
+
   return (
     <>
       {/* SIDEBAR STARTS HERE*/}
@@ -96,16 +106,17 @@ const AdminSidebar = (props) => {
                     ) : (
                       <>
                         <ListItemButton
+                          onClick={eval(text.link)}
                           sx={{
                             minHeight: 48,
                             justifyContent: open ? "initial" : "center",
-                            px: 2.5,
+                            px: 1.5,
                           }}
                         >
                           <ListItemIcon
                             sx={{
                               minWidth: 0,
-                              mr: open ? 3 : "auto",
+                              mr: open ? 1.5 : "auto",
                               justifyContent: "center",
                               color: "white",
                             }}

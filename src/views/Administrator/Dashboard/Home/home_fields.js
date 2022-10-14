@@ -1,8 +1,6 @@
 import React, {useState, useEffect, useContext} from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import MuiDrawer from "@mui/material/Drawer";
-import MuiAppBar from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import AdminSidebar from "../SideBar/Sidebar";
@@ -11,75 +9,11 @@ import AdminNavbar from "../Navbar/Navbar";
 import { GlobalContext } from "../../../../core/context/GlobalContext";
 
 import { useHistory } from "react-router-dom";
-import { SystemContainer, SystemGrid, ApplicationCard } from "../../../../components";
-import { CardContent } from "@mui/material";
+import { SystemContainer } from "../../../../components";
 import { localstoragehelper } from "../../../../core/utils/storage";
+import { Dashboard } from "../Contents";
+import { DrawerHeader, AppBar, Drawer } from "../../../../components/Drawer/Drawer";
 
-const drawerWidth = 240;
-const openedMixin = (theme) => ({
-  width: drawerWidth,
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: "hidden",
-});
-
-const closedMixin = (theme) => ({
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: "hidden",
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
-  },
-});
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  width: drawerWidth,
-  flexShrink: 0,
-  whiteSpace: "nowrap",
-  boxSizing: "border-box",
-  ...(open && {
-    ...openedMixin(theme),
-    "& .MuiDrawer-paper": openedMixin(theme),
-  }),
-  ...(!open && {
-    ...closedMixin(theme),
-    "& .MuiDrawer-paper": closedMixin(theme),
-  }),
-}));
 
 export default function HomeFieldDDashboard() {
   const globalcontextValues = useContext(GlobalContext)
@@ -129,66 +63,16 @@ export default function HomeFieldDDashboard() {
       <CssBaseline />
      <AdminNavbar signoutRouteDestroy={signoutRouteDestroy} token={token} open={open} handleDrawerOpen={handleDrawerOpen} AppBar={AppBar} />
       <AdminSidebar open={open} handleDrawerClose={handleDrawerClose} theme={theme} handleClick={handleClick} dropDown={dropDown} Drawer={Drawer} DrawerHeader={DrawerHeader}/>
-      {/* CONTENT */}
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }} className='flex items-center justify-center h-[100vh]'>
+      {/* CONTENTS */}
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }} className='flex justify-center h-[100vh] bg-secondary'>
         <DrawerHeader />
-       
-      </Box>
-       <SystemContainer
-       style={{marginTop: '100px'}}
-        max={'xl'}
-        >
-          <SystemGrid 
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-            xs={0}
-            md={3}
-            GridItems = {
-              [
-                {
-                  childrenId: 1,
-                  children : <ApplicationCard 
-                    children={
-                      <CardContent>
-                        <h3>Users</h3>
-                      </CardContent>
-                    }
-                  />
-                },
-                {
-                  childrenId: 2,
-                  children : <ApplicationCard 
-                    children={
-                      <CardContent>
-                        <h3>Users</h3>
-                      </CardContent>
-                    }
-                  />
-                },
-                {
-                  childrenId: 3,
-                  children : <ApplicationCard 
-                    children={
-                      <CardContent>
-                        <h3>Users</h3>
-                      </CardContent>
-                    }
-                  />
-                },
-                {
-                  childrenId: 4,
-                  children : <ApplicationCard 
-                    children={
-                      <CardContent>
-                        <h3>Users</h3>
-                      </CardContent>
-                    }
-                  />
-                }
-              ]
-            }
-          />
+        <SystemContainer
+        className='mt-20'
+        maxWidth={'xl'}
+        > 
+          <Dashboard/>
         </SystemContainer>
+      </Box>
     </Box>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Switch, Route, BrowserRouter, Redirect} from 'react-router-dom'
 import { Home, Signup , ForgetPassword, TermsAndConditions, PrivacyPolicy,  
-Shop, HomeDashboard, BOHomeDashboard, AdminRegistration, Login, KnowMore} from '../views'
+Shop, HomeDashboard, BOHomeDashboard, AdminRegistration, Login, KnowMore, ProductMgmt , AddProductMgmt} from '../views'
 import { appRouter, appAdminRouter, appBORouter } from './router'
 import { Global } from '../core/context/GlobalContext'
 import { ProjectDetailsContext } from '../core/context/ProjectDetailsContext';
@@ -11,7 +11,6 @@ import { Student } from '../core/context/StudentContext';
 import { Provider } from 'react-redux'
 import { RouteWithAdminSidebar, RouteWithBusinessOwnerSidebar } from './base/route_sd'
 import { localstoragehelper } from '../core/utils/storage'
-
 
 
 import configureStore from '../core/redux/reducers/store';
@@ -70,6 +69,9 @@ export default () => (
                                         path={appRouter.AdminRegistration.path} 
                                         component={AdminRegistration} />
                                     <ProtectedRoute exact path={appAdminRouter.Home.path} component={HomeDashboard} /> 
+                                    <ProtectedRoute exact path={appAdminRouter.ProductMgmt.path} component={ProductMgmt}/>
+                                    <ProtectedRoute exact path={appAdminRouter.AddProductMgmt.path} component={AddProductMgmt}/>
+
                                     <RouteWithBusinessOwnerSidebar exact path={appBORouter.Home.path} component={BOHomeDashboard}/>
                             </AdministratorContext>
                         </StudentProjectContext>

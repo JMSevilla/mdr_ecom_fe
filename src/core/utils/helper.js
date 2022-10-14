@@ -842,22 +842,32 @@ export const adminSidebarData = [
     {
         title: 'Admin Overview',
         dropDown: false,
+        link: 'navigateToAdminDashboard'
+    },
+    {
+        title: 'Product Management',
+        dropDown: false,
+        link: 'navigateToProductMgmt'
     },
     {
         title: 'User Management',
         dropDown: false,
+        link: 'navigateToProductMgmt'
     },
     {
         title: 'Ecommerce',
         dropDown: true,
+        link: 'navigateToProductMgmt'
     },
     {
         title: 'Client Profiles',
         dropDown: false,
+        link: 'navigateToProductMgmt'
     },
     {
         title: 'Transactions',
         dropDown: false,
+        link: 'navigateToProductMgmt'
     }
 ]
 
@@ -917,4 +927,267 @@ export const mdrTeamData = [
         img: 'https://i0.wp.com/www.digitaltrends.com/wp-content/uploads/2016/11/Pixelated-unrecognizable-faceless-hooded-cyber-criminal-man-using-digital-tablet-in-cyberspace.jpg?ssl=1',
         title: 'Coming Soon'
     },
-]
+];
+
+export const ProductManagementData = [
+    {
+        id: 1,
+        projectType: 'React Project',
+        status: 'success',
+        title: 'Point Of Sales and Inventory System',
+        description: [
+            {
+                features: "Design UI for master page"
+            },
+            {
+                features: "Develop Api for users list"
+            },
+            {
+                features: "Fixing bug"
+            }
+        ],
+        developers: [
+            {
+                img: 'https://media-exp1.licdn.com/dms/image/C4E03AQH67tAH5uO_yw/profile-displayphoto-shrink_800_800/0/1619600525688?e=2147483647&v=beta&t=3u7yPmlJP_5REPpBlx3SZE7C4IbxKY55fxuSGDTqO8g',
+                alt: 'JM Sevilla',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-6/225686070_2353328224801573_7008311860898386965_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=TrMFf8gKptkAX92QuRn&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT-bPETmSsmX3n8AMj_xQAf--aSzfIxRDI81m6vCFybCfA&oe=63432C4A',
+                alt: 'Bryan Palad',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+                alt: 'Cid John Villanueva',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+                alt: 'Cid John Villanueva',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+                alt: 'Cid John Villanueva',
+            },
+        ]
+    },
+    {
+        id: 2,
+        projectType: 'React Project',
+        status: 'warning',
+        title: 'Point Of Sales and Inventory System',
+        description: [
+            {
+                features: "Design UI for master page"
+            },
+            {
+                features: "Develop Api for users list"
+            },
+            {
+                features: "Fixing bug"
+            }
+        ],
+        developers: [
+            {
+                img: 'https://media-exp1.licdn.com/dms/image/C4E03AQH67tAH5uO_yw/profile-displayphoto-shrink_800_800/0/1619600525688?e=2147483647&v=beta&t=3u7yPmlJP_5REPpBlx3SZE7C4IbxKY55fxuSGDTqO8g',
+                alt: 'JM Sevilla',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-6/225686070_2353328224801573_7008311860898386965_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=TrMFf8gKptkAX92QuRn&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT-bPETmSsmX3n8AMj_xQAf--aSzfIxRDI81m6vCFybCfA&oe=63432C4A',
+                alt: 'Bryan Palad',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+                alt: 'Cid John Villanueva',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+                alt: 'Cid John Villanueva',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+                alt: 'Cid John Villanueva',
+            },
+
+        ]
+    },
+    {
+        id: 3,
+        projectType: 'React Project',
+        status: 'error',
+        title: 'Point Of Sales and Inventory System',
+        description: [
+            {
+                features: "Design UI for master page"
+            },
+            {
+                features: "Develop Api for users list"
+            },
+            {
+                features: "Fixing bug"
+            }
+        ],
+        developers: [
+            {
+                img: 'https://media-exp1.licdn.com/dms/image/C4E03AQH67tAH5uO_yw/profile-displayphoto-shrink_800_800/0/1619600525688?e=2147483647&v=beta&t=3u7yPmlJP_5REPpBlx3SZE7C4IbxKY55fxuSGDTqO8g',
+                alt: 'JM Sevilla',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-6/225686070_2353328224801573_7008311860898386965_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=TrMFf8gKptkAX92QuRn&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT-bPETmSsmX3n8AMj_xQAf--aSzfIxRDI81m6vCFybCfA&oe=63432C4A',
+                alt: 'Bryan Palad',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+                alt: 'Cid John Villanueva',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+                alt: 'Cid John Villanueva',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+                alt: 'Cid John Villanueva',
+            },
+        ]
+    },
+    {
+        id: 4,
+        projectType: 'React Project',
+        status: 'error',
+        title: 'Point Of Sales and Inventory System',
+        description: [
+            {
+                features: "Design UI for master page"
+            },
+            {
+                features: "Develop Api for users list"
+            },
+            {
+                features: "Fixing bug"
+            }
+        ],
+        developers: [
+            {
+                img: 'https://media-exp1.licdn.com/dms/image/C4E03AQH67tAH5uO_yw/profile-displayphoto-shrink_800_800/0/1619600525688?e=2147483647&v=beta&t=3u7yPmlJP_5REPpBlx3SZE7C4IbxKY55fxuSGDTqO8g',
+                alt: 'JM Sevilla',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-6/225686070_2353328224801573_7008311860898386965_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=TrMFf8gKptkAX92QuRn&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT-bPETmSsmX3n8AMj_xQAf--aSzfIxRDI81m6vCFybCfA&oe=63432C4A',
+                alt: 'Bryan Palad',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+                alt: 'Cid John Villanueva',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+                alt: 'Cid John Villanueva',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+                alt: 'Cid John Villanueva',
+            },
+        ]
+    },
+    {
+        id: 5,
+        projectType: 'React Project',
+        status: 'warning',
+        title: 'Point Of Sales and Inventory System',
+        description: [
+            {
+                features: "Design UI for master page"
+            },
+            {
+                features: "Develop Api for users list"
+            },
+            {
+                features: "Fixing bug"
+            }
+        ],
+        developers: [
+            {
+                img: 'https://media-exp1.licdn.com/dms/image/C4E03AQH67tAH5uO_yw/profile-displayphoto-shrink_800_800/0/1619600525688?e=2147483647&v=beta&t=3u7yPmlJP_5REPpBlx3SZE7C4IbxKY55fxuSGDTqO8g',
+                alt: 'JM Sevilla',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-6/225686070_2353328224801573_7008311860898386965_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=TrMFf8gKptkAX92QuRn&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT-bPETmSsmX3n8AMj_xQAf--aSzfIxRDI81m6vCFybCfA&oe=63432C4A',
+                alt: 'Bryan Palad',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+                alt: 'Cid John Villanueva',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+                alt: 'Cid John Villanueva',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+                alt: 'Cid John Villanueva',
+            },
+        ]
+    },
+    {
+        id: 6,
+        projectType: 'React Project',
+        status: 'success',
+        title: 'Point Of Sales and Inventory System',
+        description: [
+            {
+                features: "Design UI for master page"
+            },
+            {
+                features: "Develop Api for users list"
+            },
+            {
+                features: "Fixing bug"
+            }
+        ],
+        developers: [
+            {
+                img: 'https://media-exp1.licdn.com/dms/image/C4E03AQH67tAH5uO_yw/profile-displayphoto-shrink_800_800/0/1619600525688?e=2147483647&v=beta&t=3u7yPmlJP_5REPpBlx3SZE7C4IbxKY55fxuSGDTqO8g',
+                alt: 'JM Sevilla',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-6/225686070_2353328224801573_7008311860898386965_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=TrMFf8gKptkAX92QuRn&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT-bPETmSsmX3n8AMj_xQAf--aSzfIxRDI81m6vCFybCfA&oe=63432C4A',
+                alt: 'Bryan Palad',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+                alt: 'Cid John Villanueva',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+                alt: 'Cid John Villanueva',
+            },
+            {
+                img: 'https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB',
+                alt: 'Cid John Villanueva',
+            },
+        ]
+    },
+];
+
+// for adding product
+export const techStack = [
+    'React Js',
+    'Vue Js',
+    'Angular',
+    'Python',
+    'Django',
+    'Php',
+    'Laravel',
+    'MySQL',
+    'PostgreSQL',
+    'MongoDB',
+];
+
+export const featuresList = [
+    'Login',
+    'User Management',
+    'Product Management',
+    'Settings',
+    'Microservices',
+    'Profile Management',
+    'Transactions',
+    'Reports',
+];
