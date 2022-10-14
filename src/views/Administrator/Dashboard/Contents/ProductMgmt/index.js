@@ -87,8 +87,8 @@ const ProductMgmt = () => {
               </h1>
             </Box>
             {/* Contents */}
-            <Box className="flex flex-col gap-4">
-              <Box className='flex gap-2 flex-col items-center lg:flex-row '>
+            <Box className="flex flex-col gap-6">
+              <Box className='flex gap-6 flex-col items-center lg:flex-row '>
                 {/* search bar */}
                 <Box>
                   <Paper
