@@ -11,25 +11,13 @@ const tokenizationSlice = createSlice({
   initialState,
   reducers: {
     TOKENIZATION_FULFILLED: (state, action) => {
-      state.token_message = action.payload
-      console.log(state.token_message)
-    }
+      state.token_message = action.payload;
+    },
   },
 });
 
-const { TOKENIZATION_FULFILLED } = tokenizationSlice.actions
+const { TOKENIZATION_FULFILLED } = tokenizationSlice.actions;
 
 export default tokenizationSlice.reducer;
 
-export const Tokenscanning = (id) => (dispatch) => {
-  var data = new FormData()
-  data.append('userid', id)
-  return dispatch(
-    apiCallBegan({
-      url: 'get-token',
-      method: 'POST',
-      data : data,
-      onSuccess : TOKENIZATION_FULFILLED.type
-    })
-  )
-}
+export const Tokenscanning = (id, token) => (dispatch) => {};

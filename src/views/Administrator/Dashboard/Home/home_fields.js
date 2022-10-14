@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -11,7 +11,11 @@ import AdminNavbar from "../Navbar/Navbar";
 import { GlobalContext } from "../../../../core/context/GlobalContext";
 
 import { useHistory } from "react-router-dom";
-import { SystemContainer, SystemGrid, ApplicationCard } from "../../../../components";
+import {
+  SystemContainer,
+  SystemGrid,
+  ApplicationCard,
+} from "../../../../components";
 import { CardContent } from "@mui/material";
 import { localstoragehelper } from "../../../../core/utils/storage";
 
@@ -82,40 +86,41 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function HomeFieldDDashboard() {
-  const globalcontextValues = useContext(GlobalContext)
-  const { token, tokenScanned, settings } = globalcontextValues
+  const globalcontextValues = useContext(GlobalContext);
+  const { token, tokenScanned, settings } = globalcontextValues;
   const theme = useTheme();
   const [open, setOpen] = useState(true);
   const [dropDown, setDropDown] = useState(false);
-  const key = localstoragehelper.load('key_identifier')
+  const key = localstoragehelper.load("key_identifier");
+  const authtoken = localstoragehelper.load("appid");
 
-  const history = useHistory()
+  const history = useHistory();
 
   useEffect(() => {
-    window.addEventListener('resize' , () => {
-      return window.innerWidth < 1024 ? setOpen(false) : setOpen(true)
-  })
-  },[])
+    window.addEventListener("resize", () => {
+      return window.innerWidth < 1024 ? setOpen(false) : setOpen(true);
+    });
+  }, []);
 
-  // useEffect(() => {
-  //   const tempAllFieldSelected = [...settings];
-  //   const tempFieldSelected = { ...tempAllFieldSelected[0] };
-  //   if(key == 'unknown1'){
-  //     history.push(tempFieldSelected.router_obj.login)
-  //   }else{
-  //     tokenScanned(0)
-  //   }
-  // }, [key])
+  useEffect(() => {
+    const tempAllFieldSelected = [...settings];
+    const tempFieldSelected = { ...tempAllFieldSelected[0] };
+    if (!key || !authtoken) {
+      history.push(tempFieldSelected.router_obj.login);
+    } else {
+      tokenScanned(0);
+    }
+  }, [key]);
 
   const signoutRouteDestroy = () => {
     const tempAllFieldSelected = [...settings];
     const tempFieldSelected = { ...tempAllFieldSelected[0] };
-    history.push(tempFieldSelected.router_obj.home)
-  }
-  
+    history.push(tempFieldSelected.router_obj.home);
+  };
+
   const handleClick = () => {
     setDropDown(!dropDown);
-  }
+  };
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -125,70 +130,90 @@ export default function HomeFieldDDashboard() {
   };
 
   return (
-    <Box className='flex'>
+    <Box className="flex">
       <CssBaseline />
-     <AdminNavbar signoutRouteDestroy={signoutRouteDestroy} token={token} open={open} handleDrawerOpen={handleDrawerOpen} AppBar={AppBar} />
-      <AdminSidebar open={open} handleDrawerClose={handleDrawerClose} theme={theme} handleClick={handleClick} dropDown={dropDown} Drawer={Drawer} DrawerHeader={DrawerHeader}/>
+      <AdminNavbar
+        signoutRouteDestroy={signoutRouteDestroy}
+        token={token}
+        open={open}
+        handleDrawerOpen={handleDrawerOpen}
+        AppBar={AppBar}
+      />
+      <AdminSidebar
+        open={open}
+        handleDrawerClose={handleDrawerClose}
+        theme={theme}
+        handleClick={handleClick}
+        dropDown={dropDown}
+        Drawer={Drawer}
+        DrawerHeader={DrawerHeader}
+      />
       {/* CONTENT */}
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }} className='flex items-center justify-center h-[100vh]'>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3 }}
+        className="flex items-center justify-center h-[100vh]"
+      >
         <DrawerHeader />
-       
       </Box>
-       <SystemContainer
-       style={{marginTop: '100px'}}
-        max={'xl'}
-        >
-          <SystemGrid 
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-            xs={0}
-            md={3}
-            GridItems = {
-              [
-                {
-                  childrenId: 1,
-                  children : <ApplicationCard 
-                    children={
-                      <CardContent>
-                        <h3>Users</h3>
-                      </CardContent>
-                    }
-                  />
-                },
-                {
-                  childrenId: 2,
-                  children : <ApplicationCard 
-                    children={
-                      <CardContent>
-                        <h3>Users</h3>
-                      </CardContent>
-                    }
-                  />
-                },
-                {
-                  childrenId: 3,
-                  children : <ApplicationCard 
-                    children={
-                      <CardContent>
-                        <h3>Users</h3>
-                      </CardContent>
-                    }
-                  />
-                },
-                {
-                  childrenId: 4,
-                  children : <ApplicationCard 
-                    children={
-                      <CardContent>
-                        <h3>Users</h3>
-                      </CardContent>
-                    }
-                  />
-                }
-              ]
-            }
-          />
-        </SystemContainer>
+      <SystemContainer style={{ marginTop: "100px" }} max={"xl"}>
+        <SystemGrid
+          rowSpacing={1}
+          columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          xs={0}
+          lg={2}
+          GridItems={[
+            {
+              childrenId: 1,
+              children: (
+                <ApplicationCard
+                  children={
+                    <CardContent>
+                      <h3>Users</h3>
+                    </CardContent>
+                  }
+                />
+              ),
+            },
+            {
+              childrenId: 2,
+              children: (
+                <ApplicationCard
+                  children={
+                    <CardContent>
+                      <h3>Users</h3>
+                    </CardContent>
+                  }
+                />
+              ),
+            },
+            {
+              childrenId: 3,
+              children: (
+                <ApplicationCard
+                  children={
+                    <CardContent>
+                      <h3>Users</h3>
+                    </CardContent>
+                  }
+                />
+              ),
+            },
+            {
+              childrenId: 4,
+              children: (
+                <ApplicationCard
+                  children={
+                    <CardContent>
+                      <h3>Users</h3>
+                    </CardContent>
+                  }
+                />
+              ),
+            },
+          ]}
+        />
+      </SystemContainer>
     </Box>
   );
 }
