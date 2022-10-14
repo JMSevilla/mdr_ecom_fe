@@ -4,7 +4,6 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Avatar from "@mui/material/Avatar";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Menu, MenuItem } from "@mui/material";
 import { SystemDialog, SystemBackdrop } from "../../../../components";
 import { useDispatch, useSelector } from "react-redux";
@@ -69,21 +68,20 @@ const AdminNavbar = (props) => {
             <MenuIcon />
           </IconButton>
           <Box className="flex items-center justify-between w-full">
-            <h3 className="text-2xl font-medium font-body text-white">
+            <h3 className="text-xl font-medium font-body text-white">
               Hi, Administrator
             </h3>
             <Box className="flex item-center gap-3 ">
-              <Avatar
-                alt="Remy Sharp"
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_cj9fuTsqPCwvnG-IqN3HAVb9jMa0BD5uxQ&usqp=CAU"
-              />
               <IconButton
                 aria-controls={logout ? "basic-menu" : undefined}
                 aria-haspopup="true"
                 aria-expanded={logout ? "true" : undefined}
                 onClick={handleClick}
               >
-                <ArrowDropDownIcon />
+              <Avatar
+              alt="Remy Sharp"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_cj9fuTsqPCwvnG-IqN3HAVb9jMa0BD5uxQ&usqp=CAU"
+            />
               </IconButton>
               <Menu
                 id="basic-menu"

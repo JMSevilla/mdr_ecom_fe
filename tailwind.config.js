@@ -41,6 +41,9 @@ module.exports = {
         sideBarTab : '#122c44', // light gray
         sideBarTabHover: '#253d53', // white gray
         blue: '#1a73e8', // blue
+        success: '#2e7d32',
+        ongoing: '#ed6c02',
+        error: '#d32f2f',
         accent: {
           DEFAULT: '#bd321c', //red,
           hoverToRed: '#bd321c', // red,

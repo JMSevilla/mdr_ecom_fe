@@ -12,6 +12,8 @@ import {
   AdminRegistration,
   Login,
   KnowMore,
+  ProductMgmt,
+  AddProductMgmt
 } from "../views";
 import { appRouter, appAdminRouter, appBORouter } from "./router";
 import { Global } from "../core/context/GlobalContext";
@@ -144,6 +146,16 @@ export default () => (
                     exact
                     path={appAdminRouter.Home.path}
                     component={HomeDashboard}
+                  />
+                  <ProtectedRoute
+                    exact
+                    path={appAdminRouter.ProductMgmt.path}
+                    component={ProductMgmt}
+                  />
+                  <ProtectedRoute
+                    exact
+                    path={appAdminRouter.AddProductMgmt.path}
+                    component={AddProductMgmt}
                   />
                   <RouteWithBusinessOwnerSidebar
                     exact
