@@ -9,6 +9,7 @@ import Pagination from "@mui/material/Pagination";
 import { ProductManagementData } from "../../../../../core/utils/helper";
 import { useHistory } from "react-router-dom";
 import { appAdminRouter } from "../../../../../routes/router";
+import {motion} from 'framer-motion';
 
 const ProductList = () => {
   const history = useHistory();
@@ -16,6 +17,7 @@ const ProductList = () => {
     history.push(appAdminRouter.AddProductMgmt.path);
   }
   return (
+    <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
     <Box className="flex flex-col gap-4 mb-12">
       <Box className='grid gap-y-4 gap-x-4 grid-cols-1 md:gap-y-4 md:gap-x-4 md:grid-cols-2 lg:gap-y-4 lg:gap-x-4 lg:grid-cols-3'>
         {ProductManagementData.map((item, index) => {
@@ -97,6 +99,7 @@ const ProductList = () => {
         size="large"/>
       </Box>
     </Box>
+    </motion.div>
   );
 };
 

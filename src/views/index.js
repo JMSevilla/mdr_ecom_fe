@@ -8,6 +8,7 @@ export {default as HomeDashboard} from './Administrator/Dashboard/Home/Home';
 export {default as BOHomeDashboard} from './BusinessOwner/Dashboard/Home/Home';
 export {default as AdminRegistration} from './Administrator/Registration/Registration';
 export {default as Login} from './Login/Login';
-export  {default as KnowMore} from './KnowMore/KnowMore';
+export {default as KnowMore} from './KnowMore/KnowMore';
 export {default as ProductMgmt} from './Administrator/Dashboard/Contents/ProductMgmt/index'
 export {default as AddProductMgmt} from './Administrator/Dashboard/Contents/ProductMgmt/AddProduct'
+export {default as UserMgmt} from './Administrator/Dashboard/Contents/UserMgmt'

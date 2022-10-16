@@ -12,11 +12,13 @@ import { projectCategory, projectType, techStack, featuresList } from "../../../
 import AdminNavbar from "../../Navbar/Navbar";
 import AdminSidebar from "../../SideBar/Sidebar";
 import { useHistory } from "react-router-dom";
+import { appAdminRouter } from "../../../../../routes/router";
 import { GlobalContext } from "../../../../../core/context/GlobalContext";
 import { localstoragehelper } from "../../../../../core/utils/storage";
 import { useTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { DrawerHeader, Drawer, AppBar } from "../../../../../components/Drawer/Drawer";
+import {motion} from 'framer-motion';
 
 // use for features
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -107,6 +109,11 @@ const AddProduct = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const navigateToProductList = () => {
+    history.push(appAdminRouter.ProductMgmt.path);
+  }
+
   return (
 
     <Box className='flex'>
@@ -114,12 +121,13 @@ const AddProduct = () => {
    <AdminNavbar signoutRouteDestroy={signoutRouteDestroy} token={token} open={open} handleDrawerOpen={handleDrawerOpen} AppBar={AppBar} />
     <AdminSidebar open={open} handleDrawerClose={handleDrawerClose} theme={theme} handleClick={handleClick} dropDown={dropDown} Drawer={Drawer} DrawerHeader={DrawerHeader}/>
     {/* CONTENTS */}
-    <Box component="main" sx={{ flexGrow: 1, p: 3 }} className='flex justify-center h-[100vh] bg-secondary'>
+    <Box component="main" sx={{ flexGrow: 1, p: 3 }} className='flex justify-center h-[100vh]'>
       <DrawerHeader />
       <SystemContainer
       className='mt-20'
       maxWidth={'xl'}
       > 
+       <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
        <Box className="bg-white p-6">
       <Box className="flex flex-col gap-4">
         <h1 className="text-2xl font-bold font-main text-black uppercase">
@@ -292,7 +300,13 @@ const AddProduct = () => {
             }
           />
         </Box>
-        <Box className='flex items-end justify-end'>
+        <Box className='flex items-center justify-between'>
+        <AppButton
+          handleClick={navigateToProductList}
+          variant="contained"
+          buttonName="Back"
+          size="medium"
+        />
         <AppButton
           variant="contained"
           buttonName="Publish Product"
@@ -301,6 +315,7 @@ const AddProduct = () => {
         </Box>
       </Box>
     </Box>
+    </motion.div>
       </SystemContainer>
     </Box>
   </Box>

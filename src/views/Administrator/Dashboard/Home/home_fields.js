@@ -78,7 +78,7 @@ export default function HomeFieldDDashboard() {
         DrawerHeader={DrawerHeader}
       />
      {/* CONTENTS */}
-     <Box component="main" sx={{ flexGrow: 1, p: 3 }} className='flex justify-center h-[100vh] bg-secondary'>
+     <Box component="main" sx={{ flexGrow: 1, p: 3 }} className='flex justify-center h-[100vh]'>
         <DrawerHeader />
         <SystemContainer
         className='mt-20'

@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom';
 const RouteWithAdminSidebar = (
     {component: Component, ...rest}
 ) => {
-    const history = useHistory();
     return (
         <Route {...rest} render={props => (
           <Component {...props} />)}
