@@ -852,7 +852,7 @@ export const adminSidebarData = [
     {
         title: 'User Management',
         dropDown: false,
-        link: 'navigateToProductMgmt'
+        link: 'navigateToUserMgmt'
     },
     {
         title: 'Ecommerce',
@@ -1191,3 +1191,28 @@ export const featuresList = [
     'Transactions',
     'Reports',
 ];
+
+
+// add user
+export const userRole = [
+    {
+        label : 'Super Admin',
+        value : 'sa'
+    },
+    {
+        label : 'Admin',
+        value : 'a'
+    },
+    {
+        label : 'Developer',
+        value : 'dev'
+    },
+    {
+        label : 'Business Owner',
+        value : 'bo'
+    },
+    {
+        label : 'Student',
+        value : 'st'
+    },
+]

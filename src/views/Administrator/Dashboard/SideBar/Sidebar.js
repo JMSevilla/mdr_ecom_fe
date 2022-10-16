@@ -32,6 +32,11 @@ const AdminSidebar = (props) => {
       history.push(appAdminRouter.ProductMgmt.path)
     }
 
+    const navigateToUserMgmt = () => {
+      history.push(appAdminRouter.UserMgmt.path)
+      window.location.reload();
+    }
+
   return (
     <>
       {/* SIDEBAR STARTS HERE*/}

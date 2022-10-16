@@ -2,9 +2,11 @@ import React from 'react'
 import { Box } from '@mui/material'
 import { CardContent } from "@mui/material";
 import { SystemGrid, ApplicationCard } from '../../../../components';
+import {motion} from 'framer-motion';
+
 const Dashboard = () => {
   return (
-    <>
+    <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
        <Box className="flex flex-col gap-4">
           <h1 className='text-black text-4xl font-main'>Dashboard</h1>
           <SystemGrid 
@@ -59,7 +61,7 @@ const Dashboard = () => {
             }
           />
           </Box>
-    </>
+    </motion.div>
   )
 }
 

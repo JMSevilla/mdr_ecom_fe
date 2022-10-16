@@ -11,6 +11,7 @@ import AdminSidebar from "../../SideBar/Sidebar";
 import { useHistory } from "react-router-dom";
 import { GlobalContext } from "../../../../../core/context/GlobalContext";
 import { localstoragehelper } from "../../../../../core/utils/storage";
+import {motion} from 'framer-motion';
 
 // for search bar
 import Paper from "@mui/material/Paper";
@@ -75,10 +76,11 @@ const ProductMgmt = () => {
       <Box
         component="main"
         sx={{ flexGrow: 1, p: 3 }}
-        className="flex justify-center h-[100vh] bg-secondary"
+        className="flex justify-center h-[100vh]"
       >
         <DrawerHeader />
         <SystemContainer className="mt-20" maxWidth={"xl"}>
+        <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
           <Box className="flex flex-col h-full gap-4">
             {/* title */}
             <Box className="flex justify-between items-center">
@@ -132,6 +134,7 @@ const ProductMgmt = () => {
               <ProductList />
             </Box>
           </Box>
+          </motion.div>
         </SystemContainer>
       </Box>
     </Box>
