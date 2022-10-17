@@ -6,10 +6,11 @@ export { default as PrivacyPolicy } from "./BusinessPolicy/PrivacyPolicy/Privacy
 export { default as Shop } from "./Shop/Shop";
 export { default as HomeDashboard } from "./Administrator/Dashboard/Home/Home";
 export { default as BOHomeDashboard } from "./BusinessOwner/Dashboard/Home/Home";
+export { default as STHomeDashboard } from './Student/Dashboard/Home/Home';
 export { default as AdminRegistration } from "./Administrator/Registration/Registration";
 export { default as Login } from "./Login/Login";
 export { default as KnowMore } from "./KnowMore/KnowMore";
-export { default as ProductMgmt } from "./Administrator/Dashboard/Contents/ProductMgmt/index";
-export { default as AddProductMgmt } from "./Administrator/Dashboard/Contents/ProductMgmt/AddProduct";
-export { default as UserMgmt } from "./Administrator/Dashboard/Contents/UserMgmt";
+export { default as ProductMgmt } from "./Administrator/Dashboard/Contents/ProductMgmt/ProductMgmt";
+export { default as AddProductMgmt } from "./Administrator/Dashboard/Contents/ProductMgmt/ProductMgmtContent/AddProduct";
+export { default as UserMgmt } from "./Administrator/Dashboard/Contents/UserMgmt/UserMgmt";
 export { default as Settings } from "./Administrator/Dashboard/Contents/Settings/Settings";

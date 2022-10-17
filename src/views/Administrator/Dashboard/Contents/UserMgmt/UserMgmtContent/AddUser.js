@@ -6,9 +6,9 @@ import {
   AppTextField,
   SystemGrid,
   SystemSelect
-} from "../../../../../components";
+} from "../../../../../../components";
 import { CardContent } from "@mui/material";
-import { userRole } from "../../../../../core/utils/helper";
+import { userRole } from "../../../../../../core/utils/helper";
 
 const AddUser = () => {
   return (

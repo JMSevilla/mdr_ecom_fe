@@ -9,6 +9,7 @@ import {
   Shop,
   HomeDashboard,
   BOHomeDashboard,
+  STHomeDashboard,
   AdminRegistration,
   Login,
   KnowMore,
@@ -17,7 +18,7 @@ import {
   UserMgmt,
   Settings,
 } from "../views";
-import { appRouter, appAdminRouter, appBORouter } from "./router";
+import { appRouter, appAdminRouter, appBORouter, appSTRouter} from "./router";
 import { Global } from "../core/context/GlobalContext";
 import { ProjectDetailsContext } from "../core/context/ProjectDetailsContext";
 import { StudentProjectContext } from "../core/context/StudentProjectContext";
@@ -27,6 +28,7 @@ import { Provider } from "react-redux";
 import {
   RouteWithAdminSidebar,
   RouteWithBusinessOwnerSidebar,
+  RouteWithStudentSidebar,
 } from "./base/route_sd";
 import { localstoragehelper } from "../core/utils/storage";
 
@@ -173,6 +175,11 @@ export default () => (
                     exact
                     path={appBORouter.Home.path}
                     component={BOHomeDashboard}
+                  />
+                  <RouteWithStudentSidebar
+                    exact
+                    path={appSTRouter.Home.path}
+                    component={STHomeDashboard}
                   />
                 </AdministratorContext>
               </StudentProjectContext>

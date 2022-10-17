@@ -17,12 +17,11 @@ import StarBorder from "@mui/icons-material/StarBorder";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import {
-  adminSidebarData,
-  adminSidebarDataSettingsArea,
+   studentSidebarData,
 } from "../../../../core/utils/helper";
 import { useHistory } from "react-router-dom";
 
-const AdminSidebar = (props) => {
+const StudentSidebar = (props) => {
   const {
     open,
     handleDrawerClose,
@@ -68,7 +67,7 @@ const AdminSidebar = (props) => {
             </DrawerHeader>
             <Divider className="bg-sideBarTabHover" />
             <List style={{ marginTop: "5px" }}>
-              {adminSidebarData.map((text, index) => (
+              {studentSidebarData.map((text, index) => (
                 <Box className="flex flex-col items-center">
                   <ListItem
                     key={text}
@@ -136,51 +135,6 @@ const AdminSidebar = (props) => {
                 </Box>
               ))}
             </List>
-            <Divider className="bg-sideBarTabHover" />
-            <List>
-              {adminSidebarDataSettingsArea.map((text, index) => (
-                <Box className="flex flex-col items-center">
-                  <ListItem
-                    key={text.title}
-                    disablePadding
-                    sx={{
-                      display: "block",
-                      background: "#122c44",
-                      margin: "4px 0px",
-                      borderRadius: "10px",
-                      width: "90%",
-                      "&:hover": {
-                        backgroundColor: "#253d53",
-                      },
-                    }}
-                  >
-                    <ListItemButton
-                      onClick={() => history.push(text.link)}
-                      sx={{
-                        minHeight: 48,
-                        justifyContent: open ? "initial" : "center",
-                        px: 2.5,
-                      }}
-                    >
-                      <ListItemIcon
-                        sx={{
-                          minWidth: 0,
-                          mr: open ? 3 : "auto",
-                          justifyContent: "center",
-                          color: "white",
-                        }}
-                      >
-                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={text.title}
-                        sx={{ opacity: open ? 1 : 0 }}
-                      />
-                    </ListItemButton>
-                  </ListItem>
-                </Box>
-              ))}
-            </List>
           </Box>
           {/* SIDEBAR HEADER AND CONTENT END */}
           {/* SIDEBAR FOOTER */}
@@ -202,4 +156,4 @@ const AdminSidebar = (props) => {
   );
 };
 
-export default AdminSidebar;
+export default StudentSidebar;

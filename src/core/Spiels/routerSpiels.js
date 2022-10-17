@@ -11,6 +11,7 @@ class routerSpiels {
         login: appRouter.SignIn.path,
         admin_settings: appAdminRouter.Settings.path,
         admin_product_mgmt: appAdminRouter.ProductMgmt.path,
+        admin_user_mgmt: appAdminRouter.UserMgmt.path,
       },
     },
   ];

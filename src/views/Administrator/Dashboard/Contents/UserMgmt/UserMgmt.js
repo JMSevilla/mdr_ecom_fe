@@ -1,9 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import { Box } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import { useHistory } from "react-router-dom";
-import { GlobalContext } from "../../../../../core/context/GlobalContext";
-import { localstoragehelper } from "../../../../../core/utils/storage";
 import { motion } from "framer-motion";
 
 // for tabs
@@ -11,8 +7,8 @@ import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
-import UsersList from "./UsersList";
-import AddUser from "./AddUser";
+import AddUser from "./UserMgmtContent/AddUser";
+import UsersList from './UserMgmtContent/UsersList';
 
 // for tabs
 function TabPanel(props) {
@@ -49,11 +45,6 @@ function a11yProps(index) {
 }
 
 const UserMgmt = () => {
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      return window.innerWidth < 1024 ? setOpen(false) : setOpen(true);
-    });
-  }, []);
   // for tabs
   const [value, setValue] = React.useState(0);
 
