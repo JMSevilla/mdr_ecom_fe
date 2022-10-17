@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import { Box } from "@mui/material";
-import ProductList from "./ProductList";
+import ProductList from "./ProductMgmtContent/ProductList";
 import { motion } from "framer-motion";
 
 // for search bar
@@ -10,13 +10,6 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
 const ProductMgmt = () => {
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      return window.innerWidth < 1024 ? setOpen(false) : setOpen(true);
-    });
-  }, []);
-
   return (
     <motion.div
       initial={{ opacity: 0 }}

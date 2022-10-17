@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import { AppButton, ApplicationCard } from "../../../../../components";
+import { AppButton, ApplicationCard } from "../../../../../../components";
 import Avatar from "@mui/material/Avatar";
 import { CardContent } from "@mui/material";
 
@@ -117,27 +117,6 @@ const rows = [
   ),
 ];
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   function counter(id, start, end, duration) {
-//    let obj = document.getElementById(id),
-//     current = start,
-//     range = end - start,
-//     increment = end > start ? 1 : -1,
-//     step = Math.abs(Math.floor(duration / range)),
-//     timer = setInterval(() => {
-//      current += increment;
-//      obj.textContent = current;
-//      if (current == end) {
-//       clearInterval(timer);
-//      }
-//     }, step);
-//   }
-//   counter("count1", 0, 200, 2000);
-//   counter("count2", 0, 350, 2500);
-//   counter("count3", 0, 100, 2500);
-//   counter("count4", 0, 650, 3000);
-//  });
-
 const UsersList = () => {
   return (
     <>
@@ -154,7 +133,6 @@ const UsersList = () => {
                     </Box>
                   </h3>
                   <span
-                    id="count1"
                     className="text-white font-subtitle font-bold text-5xl text-right"
                   >
                     200
@@ -173,7 +151,6 @@ const UsersList = () => {
                     </Box>
                   </h3>
                   <span
-                    id="count2"
                     className="text-black font-subtitle font-bold text-5xl text-right"
                   >
                     350
@@ -192,7 +169,6 @@ const UsersList = () => {
                     </Box>
                   </h3>
                   <span
-                    id="count3"
                     className="text-black font-subtitle font-bold text-5xl text-right"
                   >
                     150
@@ -211,7 +187,6 @@ const UsersList = () => {
                     </Box>
                   </h3>
                   <span
-                    id="count4"
                     className="text-black font-subtitle font-bold text-5xl text-right"
                   >
                     600

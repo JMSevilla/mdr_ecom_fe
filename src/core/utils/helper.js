@@ -1121,7 +1121,7 @@ export const adminSidebarData = [
   {
     title: "User Management",
     dropDown: false,
-    link: "navigateToUserMgmt",
+    link: routerSpiels.router[0].router_obj.admin_user_mgmt,
   },
   {
     title: "Ecommerce",
@@ -1165,6 +1165,24 @@ export const boSidebarData = [
   {
     title: "Projects",
     dropDown: false,
+  },
+];
+
+export const studentSidebarData = [
+  {
+    title: "Student Overview",
+    dropDown: false,
+    link: "",
+  },
+  {
+    title: "My Project",
+    dropDown: false,
+    link: "",
+  },
+  {
+    title: "Settings",
+    dropDown: false,
+    link: "",
   },
 ];
 
