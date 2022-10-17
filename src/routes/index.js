@@ -15,6 +15,7 @@ import {
   ProductMgmt,
   AddProductMgmt,
   UserMgmt,
+  Settings,
 } from "../views";
 import { appRouter, appAdminRouter, appBORouter } from "./router";
 import { Global } from "../core/context/GlobalContext";
@@ -143,25 +144,30 @@ export default () => (
                     path={appRouter.AdminRegistration.path}
                     component={AdminRegistration}
                   />
-                  <ProtectedRoute
+                  <RouteWithAdminSidebar
                     exact
                     path={appAdminRouter.Home.path}
                     component={HomeDashboard}
                   />
-                  <ProtectedRoute
+                  <RouteWithAdminSidebar
                     exact
                     path={appAdminRouter.ProductMgmt.path}
                     component={ProductMgmt}
                   />
-                  <ProtectedRoute
+                  <RouteWithAdminSidebar
                     exact
                     path={appAdminRouter.AddProductMgmt.path}
                     component={AddProductMgmt}
                   />
-                  <ProtectedRoute
+                  <RouteWithAdminSidebar
                     exact
                     path={appAdminRouter.UserMgmt.path}
                     component={UserMgmt}
+                  />
+                  <RouteWithAdminSidebar
+                    exact
+                    path={appAdminRouter.Settings.path}
+                    component={Settings}
                   />
                   <RouteWithBusinessOwnerSidebar
                     exact
