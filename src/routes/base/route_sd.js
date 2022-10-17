@@ -14,17 +14,8 @@ import { appRouter } from "../router";
 import { Redirect } from "react-router-dom";
 import { localstoragehelper } from "../../core/utils/storage";
 
-// for admin dashboard content
-import AdminNavbar from "../../views/Administrator/Dashboard/Navbar/Navbar";
-import AdminSidebar from "../../views/Administrator/Dashboard/SideBar/Sidebar";
-
-// for business owner dashboard content
-import BONavbar from '../../views/BusinessOwner/Dashboard/Navbar/Navbar';
-import BOSidebar from '../../views/BusinessOwner/Dashboard/SideBar/Sidebar';
-
-// for student dashboard content
-import StudentNavbar from "../../views/Student/Dashboard/Navbar/Navbar";
-import StudentSidebar from "../../views/Student/Dashboard/Sidebar/Sidebar";
+// NAVBAR AND SIDEBARS
+import { AdminNavbar, AdminSidebar, BONavbar, BOSidebar, StudentNavbar, StudentSidebar } from "../../views";
 
 const key = localstoragehelper.load("key_identifier");
 const auth = localstoragehelper.load("appid");

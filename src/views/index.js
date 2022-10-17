@@ -14,3 +14,10 @@ export { default as ProductMgmt } from "./Administrator/Dashboard/Contents/Produ
 export { default as AddProductMgmt } from "./Administrator/Dashboard/Contents/ProductMgmt/ProductMgmtContent/AddProduct";
 export { default as UserMgmt } from "./Administrator/Dashboard/Contents/UserMgmt/UserMgmt";
 export { default as Settings } from "./Administrator/Dashboard/Contents/Settings/Settings";
+// NAVBAR AND SIDEBARS
+export { default as AdminNavbar } from './Administrator/Dashboard/Navbar/Navbar';
+export { default as AdminSidebar } from './Administrator/Dashboard/SideBar/Sidebar';
+export { default as BONavbar } from './BusinessOwner/Dashboard/Navbar/Navbar';
+export { default as BOSidebar } from './BusinessOwner/Dashboard/SideBar/Sidebar';
+export { default as StudentNavbar } from './Student/Dashboard/Navbar/Navbar';
+export { default as StudentSidebar } from './Student/Dashboard/Sidebar/Sidebar';
