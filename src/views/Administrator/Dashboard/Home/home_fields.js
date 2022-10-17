@@ -11,8 +11,11 @@ import { useHistory } from "react-router-dom";
 import { SystemContainer } from "../../../../components";
 import { localstoragehelper } from "../../../../core/utils/storage";
 import { Dashboard } from "../Contents";
-import { DrawerHeader, AppBar, Drawer } from "../../../../components/Drawer/Drawer";
-
+import {
+  DrawerHeader,
+  AppBar,
+  Drawer,
+} from "../../../../components/Drawer/Drawer";
 
 export default function HomeFieldDDashboard() {
   const globalcontextValues = useContext(GlobalContext);
@@ -40,53 +43,16 @@ export default function HomeFieldDDashboard() {
       tokenScanned(0);
     }
   }, [key]);
-
-  const signoutRouteDestroy = () => {
-    const tempAllFieldSelected = [...settings];
-    const tempFieldSelected = { ...tempAllFieldSelected[0] };
-    history.push(tempFieldSelected.router_obj.home);
-  };
-
-  const handleClick = () => {
-    setDropDown(!dropDown);
-  };
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
   return (
-    <Box className="flex">
-      <CssBaseline />
-      <AdminNavbar
-        signoutRouteDestroy={signoutRouteDestroy}
-        token={token}
-        open={open}
-        handleDrawerOpen={handleDrawerOpen}
-        AppBar={AppBar}
-      />
-      <AdminSidebar
-        open={open}
-        handleDrawerClose={handleDrawerClose}
-        theme={theme}
-        handleClick={handleClick}
-        dropDown={dropDown}
-        Drawer={Drawer}
-        DrawerHeader={DrawerHeader}
-      />
-     {/* CONTENTS */}
-     <Box component="main" sx={{ flexGrow: 1, p: 3 }} className='flex justify-center h-[100vh]'>
-        <DrawerHeader />
-        <SystemContainer
-        className='mt-20'
-        maxWidth={'xl'}
-        > 
-          <Dashboard/>
-        </SystemContainer>
-      </Box>
+    <Box
+      component="main"
+      sx={{ flexGrow: 1, p: 3 }}
+      className="flex justify-center h-[100vh]"
+    >
+      <DrawerHeader />
+      <SystemContainer className="mt-20" maxWidth={"xl"}>
+        <Dashboard />
+      </SystemContainer>
     </Box>
   );
 }

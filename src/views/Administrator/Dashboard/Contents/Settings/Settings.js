@@ -1,20 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import { Box } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import { useHistory } from "react-router-dom";
-import { GlobalContext } from "../../../../../core/context/GlobalContext";
-import { localstoragehelper } from "../../../../../core/utils/storage";
 import { motion } from "framer-motion";
-
-// for tabs
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
-import UsersList from "./UsersList";
-import AddUser from "./AddUser";
 
-// for tabs
+import ProjectCategorySettings from "./SettingsContent/ProjectCategorySettings";
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -48,19 +41,11 @@ function a11yProps(index) {
   };
 }
 
-const UserMgmt = () => {
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      return window.innerWidth < 1024 ? setOpen(false) : setOpen(true);
-    });
-  }, []);
-  // for tabs
+const Settings = () => {
   const [value, setValue] = React.useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -68,13 +53,11 @@ const UserMgmt = () => {
       exit={{ opacity: 0 }}
     >
       <Box className="flex flex-col h-full gap-4">
-        {/* title */}
         <Box className="flex justify-between items-center">
           <h1 className="text-2xl font-bold font-main text-black uppercase">
-            User Management
+            Settings
           </h1>
         </Box>
-        {/* TAB CONTENT */}
         <Box className="w-auto lg:w-full">
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <Tabs
@@ -82,15 +65,15 @@ const UserMgmt = () => {
               onChange={handleChange}
               aria-label="basic tabs example"
             >
-              <Tab label="Users List" {...a11yProps(0)} />
-              <Tab label="Add New User" {...a11yProps(1)} />
+              <Tab label="Settings Overview" {...a11yProps(0)} />
+              <Tab label="Project Category" {...a11yProps(1)} />
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
-            <UsersList />
+            {/* <UsersList /> */}
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <AddUser />
+            <ProjectCategorySettings />
           </TabPanel>
         </Box>
       </Box>
@@ -98,4 +81,4 @@ const UserMgmt = () => {
   );
 };
 
-export default UserMgmt;
+export default Settings;

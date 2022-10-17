@@ -11,31 +11,42 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import Logo from '../../../../assets/images/logo/modernresolve.png';
-import Collapse from '@mui/material/Collapse';
-import StarBorder from '@mui/icons-material/StarBorder';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import { adminSidebarData } from "../../../../core/utils/helper";
+import Logo from "../../../../assets/images/logo/modernresolve.png";
+import Collapse from "@mui/material/Collapse";
+import StarBorder from "@mui/icons-material/StarBorder";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import {
+  adminSidebarData,
+  adminSidebarDataSettingsArea,
+} from "../../../../core/utils/helper";
 import { useHistory } from "react-router-dom";
 import { appAdminRouter } from "../../../../routes/router";
 
 const AdminSidebar = (props) => {
-    const {open, handleDrawerClose, theme, handleClick, dropDown, Drawer, DrawerHeader} = props;
-    const history = useHistory();
+  const {
+    open,
+    handleDrawerClose,
+    theme,
+    handleClick,
+    dropDown,
+    Drawer,
+    DrawerHeader,
+  } = props;
+  const history = useHistory();
 
-    const navigateToAdminDashboard = () => {
-      history.push(appAdminRouter.Home.path)
-    }
+  const navigateToAdminDashboard = () => {
+    history.push(appAdminRouter.Home.path);
+  };
 
-    const navigateToProductMgmt = () => {
-      history.push(appAdminRouter.ProductMgmt.path)
-    }
+  const navigateToProductMgmt = () => {
+    history.push(appAdminRouter.ProductMgmt.path);
+  };
 
-    const navigateToUserMgmt = () => {
-      history.push(appAdminRouter.UserMgmt.path)
-      window.location.reload();
-    }
+  const navigateToUserMgmt = () => {
+    history.push(appAdminRouter.UserMgmt.path);
+    window.location.reload();
+  };
 
   return (
     <>
@@ -111,7 +122,7 @@ const AdminSidebar = (props) => {
                     ) : (
                       <>
                         <ListItemButton
-                          onClick={eval(text.link)}
+                          onClick={() => history.push(text.link)}
                           sx={{
                             minHeight: 48,
                             justifyContent: open ? "initial" : "center",
@@ -141,10 +152,10 @@ const AdminSidebar = (props) => {
             </List>
             <Divider className="bg-sideBarTabHover" />
             <List>
-              {["Our Products", "Settings"].map((text, index) => (
+              {adminSidebarDataSettingsArea.map((text, index) => (
                 <Box className="flex flex-col items-center">
                   <ListItem
-                    key={text}
+                    key={text.title}
                     disablePadding
                     sx={{
                       display: "block",
@@ -158,6 +169,7 @@ const AdminSidebar = (props) => {
                     }}
                   >
                     <ListItemButton
+                      onClick={() => history.push(text.link)}
                       sx={{
                         minHeight: 48,
                         justifyContent: open ? "initial" : "center",
@@ -175,7 +187,7 @@ const AdminSidebar = (props) => {
                         {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                       </ListItemIcon>
                       <ListItemText
-                        primary={text}
+                        primary={text.title}
                         sx={{ opacity: open ? 1 : 0 }}
                       />
                     </ListItemButton>
