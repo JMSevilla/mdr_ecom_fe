@@ -1,121 +1,78 @@
 import React from "react";
 import { Box } from "@mui/material";
-import { AppButton, ApplicationCard } from "../../../../../../components";
+import { AppButton, ApplicationCard, ProjectTable } from "../../../../../../components";
 import Avatar from "@mui/material/Avatar";
 import { CardContent } from "@mui/material";
 
-// for table
-import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-
+//icons
 import { RiAdminLine } from "react-icons/ri";
 import { BsPeople } from "react-icons/bs";
 import { AiOutlineCodeSandbox } from "react-icons/ai";
 import { VscVmActive } from "react-icons/vsc";
 
-// for table
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#1a73e8",
-    color: theme.palette.common.white,
+const columns = [
+  { field: 'id', headerName: 'ID', width: 60 },
+  {
+    field: 'fullName',
+    headerName: 'FullName',
+    width: 180,
+    renderCell: (params) => (
+      <Box className='flex gap-2 items-center'>
+      <Avatar src={params.row.image} alt=''/>
+      {params.row.fullName}
+      </Box>
+  ) 
   },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+  {
+    field: 'role',
+    headerName: 'Role',
+    width: 150,
   },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
+  {
+    field: 'profession',
+    headerName: 'Profession',
+    width: 200,
   },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    border: 0,
+  {
+    field: 'status',
+    headerName: 'Status',
+    width: 110,
   },
-}));
-
-function createData(id, img, fullname, role, profession, status, view, modify) {
-  return { id, img, fullname, role, profession, status, view, modify };
+  {
+    headerName: 'Actions',
+    flex: 1,
+    minWidth: 210,
+    renderCell: (params) => (
+        <Box className='flex gap-1'>
+            <AppButton 
+                buttonName={'view info'}
+                style={{
+                    width: '100%',
+                }}
+                variant={'contained'}
+                color={'primary'}
+                size={'small'}
+            />
+             <AppButton 
+                buttonName={'inactive'}
+                style={{
+                    width: '100%',
+                }}
+                variant={'contained'}
+                color={'error'}
+                size={'small'}
+            />
+        </Box>
+    )
 }
+];
 
 const rows = [
-  createData(
-    1,
-    "https://media-exp1.licdn.com/dms/image/C4E03AQH67tAH5uO_yw/profile-displayphoto-shrink_800_800/0/1619600525688?e=2147483647&v=beta&t=3u7yPmlJP_5REPpBlx3SZE7C4IbxKY55fxuSGDTqO8g",
-    "JM Sevilla",
-    "Super Admin",
-    "Software Engineer Lead",
-    "Active",
-    <AppButton buttonName="View Info" size="small" variant="contained" />,
-    <AppButton
-      buttonName="inactive"
-      size="small"
-      style={{ backgroundColor: "red", color: "white" }}
-    />
-  ),
-  createData(
-    2,
-    "https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-6/225686070_2353328224801573_7008311860898386965_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=TrMFf8gKptkAX92QuRn&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT-bPETmSsmX3n8AMj_xQAf--aSzfIxRDI81m6vCFybCfA&oe=63432C4A",
-    "Bryan Palad",
-    "Admin",
-    "Front End Developer",
-    "Active",
-    <AppButton buttonName="View Info" size="small" variant="contained" />,
-    <AppButton
-      buttonName="inactive"
-      size="small"
-      style={{ backgroundColor: "red", color: "white" }}
-    />
-  ),
-  createData(
-    3,
-    "https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB",
-    "Cid John Villanueva",
-    "Admin",
-    "Front End Developer",
-    "Active",
-    <AppButton buttonName="View Info" size="small" variant="contained" />,
-    <AppButton
-      buttonName="inactive"
-      size="small"
-      style={{ backgroundColor: "red", color: "white" }}
-    />
-  ),
-  createData(
-    4,
-    "",
-    "Cid John Villanueva",
-    "Admin",
-    "Front End Developer",
-    "Active",
-    <AppButton buttonName="View Info" size="small" variant="contained" />,
-    <AppButton
-      buttonName="inactive"
-      size="small"
-      style={{ backgroundColor: "red", color: "white" }}
-    />
-  ),
-  createData(
-    5,
-    "",
-    "Cid John Villanueva",
-    "Admin",
-    "Front End Developer",
-    "Active",
-    <AppButton buttonName="View Info" size="small" variant="contained" />,
-    <AppButton
-      buttonName="inactive"
-      size="small"
-      style={{ backgroundColor: "red", color: "white" }}
-    />
-  ),
+  { id: 1, image: "https://media-exp1.licdn.com/dms/image/C4E03AQH67tAH5uO_yw/profile-displayphoto-shrink_800_800/0/1619600525688?e=2147483647&v=beta&t=3u7yPmlJP_5REPpBlx3SZE7C4IbxKY55fxuSGDTqO8g", fullName: "JM Sevilla", role: 'Super Admin', profession: 'Software Engineer Lead', status: 'Active'},
+  { id: 2, image: "https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-6/225686070_2353328224801573_7008311860898386965_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=TrMFf8gKptkAX92QuRn&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT-bPETmSsmX3n8AMj_xQAf--aSzfIxRDI81m6vCFybCfA&oe=63432C4A", fullName: "Bryan Palad", role: 'Admin', profession: 'Front End Developer', status: 'Active'},
+  { id: 3, image: "https://scontent.fmnl16-1.fna.fbcdn.net/v/t39.30808-1/263330594_5350444301649337_4848763255940540503_n.jpg?stp=dst-jpg_p200x200&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=aISKt6dTSvAAX-xCl2y&_nc_ht=scontent.fmnl16-1.fna&oh=00_AT8WGcxg1Bt7dwBYBmfMhqws8631h92K5LHuJZrj3r7NmQ&oe=63443CAB", fullName: "Cid John Villanueva", role: 'Admin', profession: 'Front End Developer', status: 'Active'},
 ];
+
 
 const UsersList = () => {
   return (
@@ -196,41 +153,7 @@ const UsersList = () => {
             }
           />
         </Box>
-        <TableContainer component={Paper} className="w-full lg:w-1/2">
-          <Table className="w-auto lg:w-full" aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell align="left">Full Name</StyledTableCell>
-                <StyledTableCell align="left">Role</StyledTableCell>
-                <StyledTableCell align="left">Profession</StyledTableCell>
-                <StyledTableCell align="left">Status</StyledTableCell>
-                <StyledTableCell align="center">Actions</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <StyledTableRow key={row.id}>
-                  <StyledTableCell align="left">
-                    <Box className="flex flex-col gap-1.5 items-center lg:flex-row">
-                      <Avatar src={row.img} alt="" />
-                      {row.fullname}
-                    </Box>
-                  </StyledTableCell>
-                  <StyledTableCell align="left">{row.role}</StyledTableCell>
-                  <StyledTableCell align="left">
-                    {row.profession}
-                  </StyledTableCell>
-                  <StyledTableCell align="left">{row.status}</StyledTableCell>
-                  <StyledTableCell align="center">
-                    <Box className="flex flex-col gap-1 justify-center lg:flex-row">
-                      {row.view} {row.modify}
-                    </Box>
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <ProjectTable dataRow={rows} dataColumns={columns}/>
       </Box>
     </>
   );
