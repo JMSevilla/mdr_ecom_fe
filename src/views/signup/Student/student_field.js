@@ -1,6 +1,6 @@
 import React, { useState, cloneElement, useRef } from "react";
-import {storage} from '../../../firebase'
-import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage'
+import { storage } from "../../../firebase";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import {
   SystemContainer,
   ApplicationCard,
@@ -15,7 +15,7 @@ import {
   SystemUserGuide,
   ProjectTable,
   SystemDialog,
-  LinearProgress
+  LinearProgress,
 } from "../../../components";
 
 import {
@@ -24,20 +24,20 @@ import {
   projectType,
   security_questions,
   customerStepper,
-  studentRequirements
+  studentRequirements,
 } from "../../../core/utils/helper";
 
 import { Peso } from "../../../core/utils/Intl";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { styled } from '@mui/material/styles'
-import { projectbreakdown } from '../../../core/utils/dumpfeatures'
+import { styled } from "@mui/material/styles";
+import { projectbreakdown } from "../../../core/utils/dumpfeatures";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { CardContent, CardMedia, Box, Grid, Card, Paper } from "@mui/material";
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import IconButton from '@mui/material/IconButton';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import IconButton from "@mui/material/IconButton";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import FeatureSpiels from "../../../core/Spiels/FeatureSpiels";
 
 const Student_field = (props) => {
@@ -73,14 +73,16 @@ const Student_field = (props) => {
     timer,
     handlePrevious,
     HandleResentEmail,
-    setAllFieldSelected, selectedIndex, setSelectedIndex,
+    setAllFieldSelected,
+    selectedIndex,
+    setSelectedIndex,
   } = props;
 
   const { fieldSettings, priceSettings } = allFieldSelected[4];
   const [dialogOpen, setDialogOpen] = useState(false);
-  const fileUpload = useRef(null)
-  const [progress, setProgress] = useState(0)
-  const [uploadedURL , setUploadedURL] = useState('')
+  const fileUpload = useRef(null);
+  const [progress, setProgress] = useState(0);
+  const [uploadedURL, setUploadedURL] = useState("");
   const columns = [
     {
       field: FeatureSpiels.propertyNames.featureName,
@@ -125,38 +127,42 @@ const Student_field = (props) => {
     }
   };
 
-
   const handleUpload = () => {
-    fileUpload.current.click()
-  }
+    fileUpload.current.click();
+  };
 
   const uploadRequirements = (e) => {
-    e.preventDefault()
-    const file = e.target.files[0]
-    if(!file) return;
+    e.preventDefault();
+    const file = e.target.files[0];
+    if (!file) return;
 
-    const storageRef = ref(storage, `files/${file.name}`)
-    const uploadTask = uploadBytesResumable(storageRef, file)
+    const storageRef = ref(storage, `files/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
 
-    uploadTask.on('state_changed', 
-    (snapshot) => {
-      const inprogress = 
-      Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
-      setProgress(inprogress)
-    }, (error) => {
-      console.log(error)
-    }, () => {
-      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        setUploadedURL(downloadURL)
-      })
-    })
-  }
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const inprogress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgress(inprogress);
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setUploadedURL(downloadURL);
+        });
+      }
+    );
+  };
 
   const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
     padding: theme.spacing(1),
-    textAlign: 'center',
+    textAlign: "center",
     color: theme.palette.text.secondary,
   }));
 
@@ -457,7 +463,7 @@ const Student_field = (props) => {
                           ref={provided.innerRef}
                         >
                           <CardContent>
-                            <div className='flex justify-between mb-2 ml-12'>
+                            <div className="flex justify-between mb-2 ml-12">
                               <SystemTypography
                                 isgutter={true}
                                 text={"Your Project Features Here"}
@@ -471,7 +477,7 @@ const Student_field = (props) => {
                                   variant={"contained"}
                                   color={"error"}
                                   size={"small"}
-                                  style={{marginLeft: '20px'}}
+                                  style={{ marginLeft: "20px" }}
                                   handleClick={() => setDialogOpen(!dialogOpen)}
                                 />
                               )}
@@ -495,7 +501,8 @@ const Student_field = (props) => {
                                               text={"Project features list"}
                                               style={{
                                                 fontFamily: "Georgia",
-                                                textAlign: 'center', fontSize: '20px'
+                                                textAlign: "center",
+                                                fontSize: "20px",
                                               }}
                                             />
                                             <ProjectTable
@@ -743,10 +750,10 @@ const Student_field = (props) => {
               text={"Account Verification"}
               variant={"h5"}
             />
-            <hr className='mb-8'/>
+            <hr className="mb-8" />
             <AppTextField
               value={fieldSettings.verificationObjSt.verificationcode}
-              style={{ marginTop: "10px", marginBottom: "30px", width: "100%"}}
+              style={{ marginTop: "10px", marginBottom: "30px", width: "100%" }}
               placeholder="Enter verification code"
               handleChange={(e) => HandleVerification(e)}
               variant={"outlined"}
@@ -754,34 +761,53 @@ const Student_field = (props) => {
               texthelper={fieldSettings.verificationObjSt.epm_verify}
               iserror={fieldSettings.verificationObjSt.error_verify}
             />
-            <Box className='flex gap-1'>
-            <span style={{color: 'red'}}>*</span>
-            <SystemTypography
-              isgutter={true}
-              text={"Kindly submit atleast 1(one) requirement of the following:"}
-              variant={"h6"}
-              style={{fontSize: '16px'}}
-            />
+            <Box className="flex gap-1">
+              <span style={{ color: "red" }}>*</span>
+              <SystemTypography
+                isgutter={true}
+                text={
+                  "Kindly submit atleast 1(one) requirement of the following:"
+                }
+                variant={"h6"}
+                style={{ fontSize: "16px" }}
+              />
             </Box>
-            <ul className='mb-4'>
+            <ul className="mb-4">
               {studentRequirements.map((item, index) => {
-                return (
-                  <li key={index}>{item}</li>
-                )
+                return <li key={index}>{item}</li>;
               })}
             </ul>
             <Stack direction="row" alignItems="center" spacing={2}>
-            <label for="consultation">Select a file:</label>
-            <input ref={fileUpload} onChange={uploadRequirements} style={{ opacity : "0"}} accept="image/*" multiple type="file" />
-              <Button onClick={handleUpload} variant="contained" component="label">
+              <label for="consultation">Select a file:</label>
+              <input
+                ref={fileUpload}
+                onChange={uploadRequirements}
+                style={{ opacity: "0" }}
+                accept="image/*"
+                multiple
+                type="file"
+              />
+              <Button
+                onClick={handleUpload}
+                variant="contained"
+                component="label"
+              >
                 Upload
               </Button>
               <span>or</span>
-              <IconButton color="primary" aria-label="upload picture" component="label">
-              <input type="file" className="hidden" accept="image/*;capture=camera"/>
+              <IconButton
+                color="primary"
+                aria-label="upload picture"
+                component="label"
+              >
+                <input
+                  type="file"
+                  className="hidden"
+                  accept="image/*;capture=camera"
+                />
                 <PhotoCamera />
               </IconButton>
-              <LinearProgress progressHelper={progress} />A
+              <LinearProgress progressHelper={progress} />
             </Stack>
             <NextPrevious
               disabled={timer === 0 ? false : true}
@@ -807,52 +833,79 @@ const Student_field = (props) => {
               text={"Consultation Area"}
               variant={"h5"}
             />
-            <hr className='mb-4'/>
-            <Box className='flex flex-col gap-4'>
+            <hr className="mb-4" />
+            <Box className="flex flex-col gap-4">
+              <SystemTypography
+                isgutter={true}
+                text={
+                  "Select available date and time for your project consultation."
+                }
+                variant={"h6"}
+                style={{ fontSize: "16px" }}
+              />
 
-            <SystemTypography
-              isgutter={true}
-              text={"Select available date and time for your project consultation."}
-              variant={"h6"}
-              style={{fontSize: '16px'}}
-            />
-        
-            <Box className="flex gap-1">
-            <span style={{color: 'red'}}>*</span>
-            <label for="consultation">Choose Available Date:</label>
-            </Box>
-            <Box className='flex gap-2'>
-            <Box className='flex gap-1 items-center'>
-            <label for="consultation">From:</label>
-            <input type="date" id="consultation" className='border-solid border-2 border-black-500 px-1 rounded' name="consultation"/>
-            </Box>
-            <Box className='flex gap-1 items-center'>
-            <label for="consultation">To:</label>
-            <input type="date" id="consultation" className='border-solid border-2 border-black-500 px-1 rounded' name="consultation"/>
-            </Box>
-            </Box>
+              <Box className="flex gap-1">
+                <span style={{ color: "red" }}>*</span>
+                <label for="consultation">Choose Available Date:</label>
+              </Box>
+              <Box className="flex gap-2">
+                <Box className="flex gap-1 items-center">
+                  <label for="consultation">From:</label>
+                  <input
+                    type="date"
+                    id="consultation"
+                    className="border-solid border-2 border-black-500 px-1 rounded"
+                    name="consultation"
+                  />
+                </Box>
+                <Box className="flex gap-1 items-center">
+                  <label for="consultation">To:</label>
+                  <input
+                    type="date"
+                    id="consultation"
+                    className="border-solid border-2 border-black-500 px-1 rounded"
+                    name="consultation"
+                  />
+                </Box>
+              </Box>
 
-            <Box className="flex gap-1">
-            <span style={{color: 'red'}}>*</span>
-            <label for="consultation">Choose Available Time:</label>
-            </Box>
-            <Box className='flex gap-2'>
-            <Box className='flex gap-1 items-center'>
-            <label for="appt">From:</label>
-            <input type="time" id="appt" className='border-solid border-2 border-black-500 px-1 rounded' name="appt"/>
-            </Box>
-            <Box className='flex gap-1 items-center'>
-            <label for="appt">To:</label>
-            <input type="time" id="appt" className='border-solid border-2 border-black-500 px-1 rounded' name="appt"/>
-            </Box>
-            </Box>
+              <Box className="flex gap-1">
+                <span style={{ color: "red" }}>*</span>
+                <label for="consultation">Choose Available Time:</label>
+              </Box>
+              <Box className="flex gap-2">
+                <Box className="flex gap-1 items-center">
+                  <label for="appt">From:</label>
+                  <input
+                    type="time"
+                    id="appt"
+                    className="border-solid border-2 border-black-500 px-1 rounded"
+                    name="appt"
+                  />
+                </Box>
+                <Box className="flex gap-1 items-center">
+                  <label for="appt">To:</label>
+                  <input
+                    type="time"
+                    id="appt"
+                    className="border-solid border-2 border-black-500 px-1 rounded"
+                    name="appt"
+                  />
+                </Box>
+              </Box>
 
-            <SystemTypography
-              isgutter={true}
-              text={"Note: Selected date and time will be subject for approval of the team."}
-              variant={"h6"}
-              style={{fontSize: '14px', fontStyle: 'italic', marginTop: '20px'}}
-            />
+              <SystemTypography
+                isgutter={true}
+                text={
+                  "Note: Selected date and time will be subject for approval of the team."
+                }
+                variant={"h6"}
+                style={{
+                  fontSize: "14px",
+                  fontStyle: "italic",
+                  marginTop: "20px",
+                }}
+              />
             </Box>
             <NextPrevious
               activeSteps={activeSteps}
@@ -860,7 +913,7 @@ const Student_field = (props) => {
               handleBack={() => handlePrevious()}
               handleNext={() => handleNext()}
             />
-            </SystemContainer>
+          </SystemContainer>
         </>
       ) : activeSteps == 6 ? (
         <>

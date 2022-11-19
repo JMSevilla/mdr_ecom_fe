@@ -1,4 +1,6 @@
 import React from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Switch, Route, BrowserRouter, Redirect } from "react-router-dom";
 import {
   Home,
@@ -17,8 +19,9 @@ import {
   AddProductMgmt,
   UserMgmt,
   Settings,
+  TrainingManagement,
 } from "../views";
-import { appRouter, appAdminRouter, appBORouter, appSTRouter} from "./router";
+import { appRouter, appAdminRouter, appBORouter, appSTRouter } from "./router";
 import { Global } from "../core/context/GlobalContext";
 import { ProjectDetailsContext } from "../core/context/ProjectDetailsContext";
 import { StudentProjectContext } from "../core/context/StudentProjectContext";
@@ -101,6 +104,18 @@ export default () => (
             <ProjectDetailsContext>
               <StudentProjectContext>
                 <AdministratorContext>
+                  <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                  />
                   <RouteWithLoad
                     exact
                     path={appRouter.Homepage.path}
@@ -170,6 +185,11 @@ export default () => (
                     exact
                     path={appAdminRouter.Settings.path}
                     component={Settings}
+                  />
+                  <RouteWithAdminSidebar
+                    exact
+                    path={appAdminRouter.TrainingMgmt.path}
+                    component={TrainingManagement}
                   />
                   <RouteWithBusinessOwnerSidebar
                     exact

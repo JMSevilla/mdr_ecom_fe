@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
@@ -7,7 +7,13 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 
 import ProjectCategorySettings from "./SettingsContent/ProjectCategorySettings";
-
+import FormService from "../../../../../core/service/apiservice";
+import {
+  SystemBackdrop,
+  CustomizedSnackbars,
+  SystemDialog,
+  AppTextField,
+} from "../../../../../components";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -42,9 +48,96 @@ function a11yProps(index) {
 }
 
 const Settings = () => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [projectCategory, setProjectCategory] = useState(null);
+  const [backdrop, setBackdrop] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [editCategory, setEditCategory] = useState({
+    id: null,
+    categoryName: null,
+  });
+  const [snackbar, setSnackbar] = useState({
+    isOpen: false,
+    message: "",
+    severity: "success",
+    autoHideDuration: 3000,
+  });
+  useEffect(() => {
+    getAllProjectCategories();
+  }, []);
+  const getAllProjectCategories = () => {
+    FormService.SETTINGS_PRODUCT_GETALL_CATEGORIES().then((response) => {
+      const { data } = response;
+      setCategories(data);
+    });
+  };
+  const handleSnackbarClose = () => {
+    setSnackbar({ ...snackbar, ["isOpen"]: false });
+  };
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+  const handleProjectCategory = (event) => {
+    const value = event.currentTarget.value;
+    setProjectCategory(value);
+  };
+  const handleDelete = (id) => {
+    const isdelete = window.confirm(
+      "Are you sure you want to delete this record ?"
+    );
+    if (isdelete) {
+      setBackdrop(!backdrop);
+      FormService.SETTINGS_PRODUCT_DELETE_CATEGORY(id).then((response) => {
+        const { data } = response;
+        if (data.message == "success_delete") {
+          setSnackbar((prev) => ({
+            ...prev,
+            isOpen: true,
+            message: "Successfully Deleted",
+            severity: "success",
+          }));
+          getAllProjectCategories();
+          setBackdrop(false);
+        }
+      });
+    }
+  };
+  const handleSave = () => {
+    if (!projectCategory) {
+      setSnackbar((prev) => ({
+        ...prev,
+        isOpen: true,
+        message: "Kindly provide project category name",
+        severity: "error",
+      }));
+    } else {
+      setBackdrop(!backdrop);
+      FormService.SETTINGS_PRODUCT_ADD_CATEGORY(projectCategory).then(
+        (response) => {
+          const { data } = response;
+          if (data.message == "success_product_category") {
+            setBackdrop(false);
+            setProjectCategory("");
+            setSnackbar((prev) => ({
+              ...prev,
+              isOpen: true,
+              message: "Successfully Saved",
+              severity: "success",
+            }));
+            getAllProjectCategories();
+          }
+        }
+      );
+    }
+  };
+  const handleEditCategory = (id, categname) => {
+    setOpen(!open);
+    setEditCategory({
+      ...editCategory,
+      ["id"]: id,
+      ["categoryName"]: categname,
+    });
   };
   return (
     <motion.div
@@ -73,10 +166,49 @@ const Settings = () => {
             {/* <UsersList /> */}
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <ProjectCategorySettings />
+            <ProjectCategorySettings
+              handleProjectCategory={handleProjectCategory}
+              projectCategory={projectCategory}
+              handleSave={handleSave}
+              categories={categories}
+              handleDelete={handleDelete}
+              handleEditCategory={handleEditCategory}
+            />
           </TabPanel>
         </Box>
       </Box>
+      <SystemBackdrop open={backdrop} />
+      <CustomizedSnackbars
+        open={snackbar.isOpen}
+        message={snackbar.message}
+        handleClose={handleSnackbarClose}
+        severity={snackbar.severity}
+        autoHideDuration={snackbar.autoHideDuration}
+      />
+      <SystemDialog
+        open={open}
+        fullWidth={true}
+        handleClose={() => setOpen(false)}
+        title={"Edit project category"}
+        children={
+          <>
+            <AppTextField
+              style={{
+                marginTop: "10px",
+                marginBottom: "20px",
+                width: "100%",
+              }}
+              placeholder="Edit category name"
+              variant={"outlined"}
+              label={"Project Category"}
+              // handleChange={handleProjectCategory}
+              value={editCategory.categoryName}
+            />
+          </>
+        }
+        buttonCancelText={"CANCEL"}
+        buttonAgreeText={"SAVE"}
+      />
     </motion.div>
   );
 };

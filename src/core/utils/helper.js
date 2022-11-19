@@ -251,6 +251,66 @@ export const projectCategory = [
   },
 ];
 
+export const trainingCategory = [
+  {
+    label: "Full Stack Web Development",
+    value: "WebFS",
+  },
+];
+
+export const trainingStatus = [
+  {
+    label: "Live",
+    value: "live",
+  },
+  {
+    label: "Closed",
+    value: "closed",
+  },
+  {
+    label: "Open",
+    value: "open",
+  },
+  {
+    label: "Done",
+    value: "done",
+  },
+];
+
+export const trainingCareerLevel = [
+  {
+    label: "Code Dummy",
+    value: "code_dummy",
+  },
+  {
+    label: "Code Ghost",
+    value: "code_ghost",
+  },
+  {
+    label: "Code Assassins",
+    value: "code_assassins",
+  },
+  {
+    label: "Code Black Ops",
+    value: "code_blackops",
+  },
+  {
+    label: "Code Veterans",
+    value: "code_veterans",
+  },
+  {
+    label: "Free For All",
+    value: "freeforall",
+  },
+];
+
+export const trainingProctor = [
+  {
+    label: "JM",
+    value: "jm",
+  },
+];
+
 export const projectType = [
   {
     label: "Small Scale Project",
@@ -1122,6 +1182,11 @@ export const adminSidebarData = [
     title: "User Management",
     dropDown: false,
     link: routerSpiels.router[0].router_obj.admin_user_mgmt,
+  },
+  {
+    title: "Training Management",
+    dropDown: false,
+    link: routerSpiels.router[0].router_obj.admin_training_mgmt,
   },
   {
     title: "Ecommerce",
