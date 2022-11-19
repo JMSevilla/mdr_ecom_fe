@@ -42,6 +42,7 @@ const AdminNavbar = (props) => {
         token.userID == null || undefined ? token[0].userID : token.userID,
       token: token.token == null || undefined ? token[0].token : token.token,
     };
+    console.log(obj);
     FormService.ACCOUNT_signout(obj).then((response) => {
       if (response.data.message == "signout_success") {
         localStorage.removeItem("key_identifier");
@@ -78,10 +79,10 @@ const AdminNavbar = (props) => {
                 aria-expanded={logout ? "true" : undefined}
                 onClick={handleClick}
               >
-              <Avatar
-              alt="Remy Sharp"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_cj9fuTsqPCwvnG-IqN3HAVb9jMa0BD5uxQ&usqp=CAU"
-            />
+                <Avatar
+                  alt="Remy Sharp"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_cj9fuTsqPCwvnG-IqN3HAVb9jMa0BD5uxQ&usqp=CAU"
+                />
               </IconButton>
               <Menu
                 id="basic-menu"
@@ -110,7 +111,8 @@ const AdminNavbar = (props) => {
         fullWidth={true}
         buttonCancelText={"CANCEL"}
         buttonAgreeText={"SIGNOUT"}
-        handleClose={handleSignout}
+        handleAgree={handleSignout}
+        handleClose={() => setDialogOpen(!Dialogopen)}
       />
       <SystemBackdrop open={backdrop} />
       {/* NAVBAR END */}

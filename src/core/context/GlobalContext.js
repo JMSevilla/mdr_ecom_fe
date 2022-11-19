@@ -15,7 +15,7 @@ import {
 import FormService from "../service/apiservice";
 import { MdOutlineAutoFixNormal } from "react-icons/md";
 import { useHistory } from "react-router-dom";
-import { appRouter } from "../../routes/router";
+import { appRouter, appAdminRouter } from "../../routes/router";
 import routerSpiels from "../Spiels/routerSpiels";
 import { localstoragehelper } from "../utils/storage";
 
@@ -772,6 +772,7 @@ const Global = ({ children }) => {
       FormService.CLIENT_CONFIG_checkLogin(tempField.userLoginObj)
         .then((resp) => {
           const repository = resp.data;
+          console.log(repository);
           if (repository.message === "success_login") {
             const fetchTokenId = repository.response_data[5];
             const token = repository.response_data[7];
@@ -782,27 +783,28 @@ const Global = ({ children }) => {
             });
             setToken(repository.response_data);
             setUserData(finalData);
-            localstoragehelper.store("key_identifier", fetchTokenId);
-            localstoragehelper.store("appid", token);
+            localStorage.setItem(
+              "key_identifier",
+              JSON.stringify(fetchTokenId)
+            );
+            localStorage.setItem("appid", JSON.stringify(token));
             if (repository.response_data[3] == "success_admin_platform") {
-              setSnacbarSettings((prevState) => ({
-                ...prevState,
-                ...(prevState.settings.open.homepage = true),
-                ...(prevState.settings.message =
-                  "Login as Administrator Success"),
-                ...(prevState.settings.severity = "success"),
-                ...(prevState.settings.autoHideDuration = 5000),
-              }));
+              setOpen(false);
               setTimeout(() => {
-                setOpen(false);
-                //history push to admin dashboard
-                history.push(
-                  tempFieldSelectedRouter.router_obj.admin_dashboard
-                ); // change this to history push
+                setSnacbarSettings((prevState) => ({
+                  ...prevState,
+                  ...(prevState.settings.open.homepage = true),
+                  ...(prevState.settings.message =
+                    "Login as Administrator Success"),
+                  ...(prevState.settings.severity = "success"),
+                  ...(prevState.settings.autoHideDuration = 5000),
+                }));
+                history.push(appAdminRouter.Home.path);
               }, 2000);
             } else if (
               repository.response_data[3] == "success_business_platform"
             ) {
+              setOpen(false);
               setSnacbarSettings((prevState) => ({
                 ...prevState,
                 ...(prevState.settings.open.homepage = true),
@@ -810,13 +812,9 @@ const Global = ({ children }) => {
                 ...(prevState.settings.severity = "success"),
                 ...(prevState.settings.autoHideDuration = 5000),
               }));
-              setTimeout(() => {
-                setOpen(false);
-                //history push to admin dashboard
-                history.push(
-                  tempFieldSelectedRouter.router_obj.business_owner_dashboard
-                ); // change this to history push
-              }, 2000);
+              // history.push(
+              //   appAdminRouter.
+              // );
             }
           } else if (repository.message == "invalid") {
             setOpen(false);

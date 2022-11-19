@@ -194,6 +194,22 @@ class FormService {
     const response = ApiConfig.connect().post("protection-route", data);
     return response;
   }
+  SETTINGS_PRODUCT_ADD_CATEGORY(prodname) {
+    var data = new FormData();
+    data.append("categoryName", prodname);
+    const response = ApiConfig.connect().post("product-category/add", data);
+    return response;
+  }
+  SETTINGS_PRODUCT_GETALL_CATEGORIES() {
+    const response = ApiConfig.connect().get("product-category/all");
+    return response;
+  }
+  SETTINGS_PRODUCT_DELETE_CATEGORY(id) {
+    const response = ApiConfig.connect().delete(
+      `product-category/delete-category/${id}/`
+    );
+    return response;
+  }
 }
 
 export default new FormService();

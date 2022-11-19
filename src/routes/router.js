@@ -16,6 +16,7 @@ export const appAdminRouter = {
   AddProductMgmt: { path: "/admin/dashboard/addproduct" },
   UserMgmt: { path: "/admin/dashboard/usermgmt" },
   Settings: { path: "/admin/settings" },
+  TrainingMgmt: { path: "/admin/training-management" },
 };
 
 export const appBORouter = {
@@ -23,5 +24,5 @@ export const appBORouter = {
 };
 
 export const appSTRouter = {
-  Home: { path: "/st/dashboard"}
-}
+  Home: { path: "/st/dashboard" },
+};

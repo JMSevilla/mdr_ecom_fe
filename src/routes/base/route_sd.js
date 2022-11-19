@@ -15,7 +15,14 @@ import { Redirect } from "react-router-dom";
 import { localstoragehelper } from "../../core/utils/storage";
 
 // NAVBAR AND SIDEBARS
-import { AdminNavbar, AdminSidebar, BONavbar, BOSidebar, StudentNavbar, StudentSidebar } from "../../views";
+import {
+  AdminNavbar,
+  AdminSidebar,
+  BONavbar,
+  BOSidebar,
+  StudentNavbar,
+  StudentSidebar,
+} from "../../views";
 
 const key = localstoragehelper.load("key_identifier");
 const auth = localstoragehelper.load("appid");
@@ -26,14 +33,33 @@ const RouteWithAdminSidebar = ({ component: Component, ...rest }) => {
   const history = useHistory();
   const [open, setOpen] = useState(true);
   const [dropDown, setDropDown] = useState(false);
+  const [tokenSecure, setTokenSecure] = useState(false);
   const theme = useTheme();
 
   useEffect(() => {
     window.addEventListener("resize", () => {
       return window.innerWidth < 1024 ? setOpen(false) : setOpen(true);
     });
-  }, []);
-  
+  }, [tokenSecure]);
+  const storageChecker = () => {
+    const stored = localStorage.getItem("key_identifier");
+    const storeduid = localStorage.getItem("appid");
+    if (
+      stored == null ||
+      stored == undefined ||
+      stored == "unknown" ||
+      storeduid == null ||
+      storeduid == undefined ||
+      storeduid == "unknown"
+    ) {
+      return true;
+    } else {
+      return {
+        ...JSON.parse(localStorage.getItem("key_identifier")),
+        ...JSON.parse(localStorage.getItem("appid")),
+      };
+    }
+  };
   const signoutRouteDestroy = () => {
     const tempAllFieldSelected = [...settings];
     const tempFieldSelected = { ...tempAllFieldSelected[0] };
@@ -49,69 +75,43 @@ const RouteWithAdminSidebar = ({ component: Component, ...rest }) => {
   const handleClick = () => {
     setDropDown(!dropDown);
   };
-  const secure_route = () => {
-    let obj = {
-      key: key,
-      token: auth,
-    };
-    var data = new FormData();
-    data.append("key", obj.key);
-    data.append("token", obj.token);
-    axios
-      .post(
-        process.env.REACT_APP_API_DEV_URL + "tokenization/check-secure-route",
-        data
-      )
-      .then((response) => {
-        if (response.data.message == "unprotected") {
-          return true;
-        } else {
-          return false;
-        }
-      });
-  };
+
   return (
     <Route
       {...rest}
-      render={(props) => {
-        if (!key || !auth || secure_route()) {
-          return <Redirect to={appRouter.SignIn.path} />;
-        } else {
-          return (
-            <>
-              <Box className="flex">
-                <CssBaseline />
-                <AdminNavbar
-                  signoutRouteDestroy={signoutRouteDestroy}
-                  token={token}
-                  open={open}
-                  handleDrawerOpen={handleDrawerOpen}
-                  AppBar={AppBar}
-                />
-                <AdminSidebar
-                  open={open}
-                  handleDrawerClose={handleDrawerClose}
-                  theme={theme}
-                  handleClick={handleClick}
-                  dropDown={dropDown}
-                  Drawer={Drawer}
-                  DrawerHeader={DrawerHeader}
-                />
-                <Box
-                  component="main"
-                  sx={{ flexGrow: 1, p: 3 }}
-                  className="flex justify-center h-[100vh]"
-                >
-                  <DrawerHeader />
-                  <SystemContainer className="mt-20" maxWidth={"xl"}>
-                    <Component {...props} />
-                  </SystemContainer>
-                </Box>
-              </Box>
-            </>
-          );
-        }
-      }}
+      render={(props) => (
+        <>
+          <Box className="flex">
+            <CssBaseline />
+            <AdminNavbar
+              signoutRouteDestroy={signoutRouteDestroy}
+              token={token}
+              open={open}
+              handleDrawerOpen={handleDrawerOpen}
+              AppBar={AppBar}
+            />
+            <AdminSidebar
+              open={open}
+              handleDrawerClose={handleDrawerClose}
+              theme={theme}
+              handleClick={handleClick}
+              dropDown={dropDown}
+              Drawer={Drawer}
+              DrawerHeader={DrawerHeader}
+            />
+            <Box
+              component="main"
+              sx={{ flexGrow: 1, p: 3 }}
+              className="flex justify-center h-[100vh]"
+            >
+              <DrawerHeader />
+              <SystemContainer className="mt-20" maxWidth={"xl"}>
+                <Component {...props} />
+              </SystemContainer>
+            </Box>
+          </Box>
+        </>
+      )}
     />
   );
 };
@@ -129,7 +129,25 @@ const RouteWithBusinessOwnerSidebar = ({ component: Component, ...rest }) => {
       return window.innerWidth < 1024 ? setOpen(false) : setOpen(true);
     });
   }, []);
-  
+  const storageChecker = () => {
+    const stored = localStorage.getItem("key_identifier");
+    const storeduid = localStorage.getItem("appid");
+    if (
+      stored == null ||
+      stored == undefined ||
+      stored == "unknown" ||
+      storeduid == null ||
+      storeduid == undefined ||
+      storeduid == "unknown"
+    ) {
+      return true;
+    } else {
+      return {
+        ...JSON.parse(localStorage.getItem("key_identifier")),
+        ...JSON.parse(localStorage.getItem("appid")),
+      };
+    }
+  };
   const signoutRouteDestroy = () => {
     const tempAllFieldSelected = [...settings];
     const tempFieldSelected = { ...tempAllFieldSelected[0] };
@@ -145,32 +163,32 @@ const RouteWithBusinessOwnerSidebar = ({ component: Component, ...rest }) => {
   const handleClick = () => {
     setDropDown(!dropDown);
   };
-  const secure_route = () => {
-    let obj = {
-      key: key,
-      token: auth,
-    };
-    var data = new FormData();
-    data.append("key", obj.key);
-    data.append("token", obj.token);
-    axios
-      .post(
-        process.env.REACT_APP_API_DEV_URL + "tokenization/check-secure-route",
-        data
-      )
-      .then((response) => {
-        if (response.data.message == "unprotected") {
-          return true;
-        } else {
-          return false;
-        }
-      });
-  };
+  // const secure_route = () => {
+  //   let obj = {
+  //     key: key,
+  //     token: auth,
+  //   };
+  //   var data = new FormData();
+  //   data.append("key", obj.key);
+  //   data.append("token", obj.token);
+  //   axios
+  //     .post(
+  //       process.env.REACT_APP_API_DEV_URL + "tokenization/check-secure-route",
+  //       data
+  //     )
+  //     .then((response) => {
+  //       if (response.data.message == "unprotected") {
+  //         return true;
+  //       } else {
+  //         return false;
+  //       }
+  //     });
+  // };
   return (
     <Route
       {...rest}
       render={(props) => {
-        if (!key || !auth || secure_route()) {
+        if (storageChecker()) {
           return <Redirect to={appRouter.SignIn.path} />;
         } else {
           return (
@@ -225,7 +243,25 @@ const RouteWithStudentSidebar = ({ component: Component, ...rest }) => {
       return window.innerWidth < 1024 ? setOpen(false) : setOpen(true);
     });
   }, []);
-  
+  const storageChecker = () => {
+    const stored = localStorage.getItem("key_identifier");
+    const storeduid = localStorage.getItem("appid");
+    if (
+      stored == null ||
+      stored == undefined ||
+      stored == "unknown" ||
+      storeduid == null ||
+      storeduid == undefined ||
+      storeduid == "unknown"
+    ) {
+      return true;
+    } else {
+      return {
+        ...JSON.parse(localStorage.getItem("key_identifier")),
+        ...JSON.parse(localStorage.getItem("appid")),
+      };
+    }
+  };
   const signoutRouteDestroy = () => {
     const tempAllFieldSelected = [...settings];
     const tempFieldSelected = { ...tempAllFieldSelected[0] };
@@ -241,71 +277,75 @@ const RouteWithStudentSidebar = ({ component: Component, ...rest }) => {
   const handleClick = () => {
     setDropDown(!dropDown);
   };
-  const secure_route = () => {
-    let obj = {
-      key: key,
-      token: auth,
-    };
-    var data = new FormData();
-    data.append("key", obj.key);
-    data.append("token", obj.token);
-    axios
-      .post(
-        process.env.REACT_APP_API_DEV_URL + "tokenization/check-secure-route",
-        data
-      )
-      .then((response) => {
-        if (response.data.message == "unprotected") {
-          return true;
-        } else {
-          return false;
-        }
-      });
-  };
+  // const secure_route = () => {
+  //   let obj = {
+  //     key: key,
+  //     token: auth,
+  //   };
+  //   var data = new FormData();
+  //   data.append("key", obj.key);
+  //   data.append("token", obj.token);
+  //   axios
+  //     .post(
+  //       process.env.REACT_APP_API_DEV_URL + "tokenization/check-secure-route",
+  //       data
+  //     )
+  //     .then((response) => {
+  //       if (response.data.message == "unprotected") {
+  //         return true;
+  //       } else {
+  //         return false;
+  //       }
+  //     });
+  // };
   return (
     <Route
-    {...rest}
-    render={(props) => {
-      if (!key || !auth || secure_route()) {
-        return <Redirect to={appRouter.SignIn.path} />;
-      } else {
-        return (
-          <>
-            <Box className="flex">
-              <CssBaseline />
-              <StudentNavbar
-                signoutRouteDestroy={signoutRouteDestroy}
-                token={token}
-                open={open}
-                handleDrawerOpen={handleDrawerOpen}
-                AppBar={AppBar}
-              />
-              <StudentSidebar
-                open={open}
-                handleDrawerClose={handleDrawerClose}
-                theme={theme}
-                handleClick={handleClick}
-                dropDown={dropDown}
-                Drawer={Drawer}
-                DrawerHeader={DrawerHeader}
-              />
-              <Box
-                component="main"
-                sx={{ flexGrow: 1, p: 3 }}
-                className="flex justify-center h-[100vh]"
-              >
-                <DrawerHeader />
-                <SystemContainer className="mt-20" maxWidth={"xl"}>
-                  <Component {...props} />
-                </SystemContainer>
+      {...rest}
+      render={(props) => {
+        if (storageChecker()) {
+          return <Redirect to={appRouter.SignIn.path} />;
+        } else {
+          return (
+            <>
+              <Box className="flex">
+                <CssBaseline />
+                <StudentNavbar
+                  signoutRouteDestroy={signoutRouteDestroy}
+                  token={token}
+                  open={open}
+                  handleDrawerOpen={handleDrawerOpen}
+                  AppBar={AppBar}
+                />
+                <StudentSidebar
+                  open={open}
+                  handleDrawerClose={handleDrawerClose}
+                  theme={theme}
+                  handleClick={handleClick}
+                  dropDown={dropDown}
+                  Drawer={Drawer}
+                  DrawerHeader={DrawerHeader}
+                />
+                <Box
+                  component="main"
+                  sx={{ flexGrow: 1, p: 3 }}
+                  className="flex justify-center h-[100vh]"
+                >
+                  <DrawerHeader />
+                  <SystemContainer className="mt-20" maxWidth={"xl"}>
+                    <Component {...props} />
+                  </SystemContainer>
+                </Box>
               </Box>
-            </Box>
-          </>
-        );
-      }
-    }}
-  />
-)
+            </>
+          );
+        }
+      }}
+    />
+  );
 };
 
-export { RouteWithAdminSidebar, RouteWithBusinessOwnerSidebar, RouteWithStudentSidebar};
+export {
+  RouteWithAdminSidebar,
+  RouteWithBusinessOwnerSidebar,
+  RouteWithStudentSidebar,
+};
