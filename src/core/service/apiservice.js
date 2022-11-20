@@ -187,6 +187,12 @@ class FormService {
     );
     return account_signout;
   }
+  BO_ACCOUNT_signout(object) {
+    const account_signout = ApiConfig.connect().post(
+      "signout_bo/", Process.BO_SIGNOUT(object)
+    );
+    return account_signout;
+  }
   ACCOUNT_route_protection(object) {
     var data = new FormData();
     data.append("key", object.key);
