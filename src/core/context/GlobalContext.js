@@ -15,7 +15,7 @@ import {
 import FormService from "../service/apiservice";
 import { MdOutlineAutoFixNormal } from "react-icons/md";
 import { useHistory } from "react-router-dom";
-import { appRouter, appAdminRouter } from "../../routes/router";
+import { appRouter, appAdminRouter, appBORouter } from "../../routes/router";
 import routerSpiels from "../Spiels/routerSpiels";
 import { localstoragehelper } from "../utils/storage";
 
@@ -812,9 +812,7 @@ const Global = ({ children }) => {
                 ...(prevState.settings.severity = "success"),
                 ...(prevState.settings.autoHideDuration = 5000),
               }));
-              // history.push(
-              //   appAdminRouter.
-              // );
+              history.push(appBORouter.Home.path);
             }
           } else if (repository.message == "invalid") {
             setOpen(false);
@@ -2083,7 +2081,7 @@ const Global = ({ children }) => {
         if (!__key__ || !token) {
         } else if (res == undefined) {
         } else if (res[0].lastRoute === "business_platform") {
-          alert("redirect to bo-dashboard");
+          history.push(tempFieldSelected.router_obj.business_owner_dashboard);
         } else if (res[0].lastRoute === "admin_platform") {
           history.push(tempFieldSelected.router_obj.admin_dashboard);
         } else {

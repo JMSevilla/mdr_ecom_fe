@@ -76,6 +76,11 @@ class Process {
         data.append('token', obj.token)
         return data
     }
+    BO_SIGNOUT(obj) {
+        data.append('userID', obj.userID)
+        data.append('token', obj.token)
+        return data
+    }
 }
 
 export default new Process()
