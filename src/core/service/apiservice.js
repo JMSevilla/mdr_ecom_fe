@@ -189,7 +189,8 @@ class FormService {
   }
   BO_ACCOUNT_signout(object) {
     const account_signout = ApiConfig.connect().post(
-      "signout_bo/", Process.BO_SIGNOUT(object)
+      "signout_bo/",
+      Process.BO_SIGNOUT(object)
     );
     return account_signout;
   }

@@ -41,9 +41,11 @@ const AdminNavbar = (props) => {
       userID:
         token.userID == null || undefined ? token[0].userID : token.userID,
       token: token.token == null || undefined ? token[0].token : token.token,
+      signout_platform: "admin",
     };
     console.log(obj);
     FormService.ACCOUNT_signout(obj).then((response) => {
+      console.log(response);
       if (response.data.message == "signout_success") {
         localStorage.removeItem("key_identifier");
         localStorage.removeItem("appid");
